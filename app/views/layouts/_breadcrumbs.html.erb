@@ -15,5 +15,13 @@
         <%= collection_select select_resource, :id, select_options, :id, :name, {}, { onchange: 'this.form.submit()' } %>
       <% end %>
     </li>
-  <% end %>  
+  <% end %>
+  
+  <% if !(defined?(select_for)).nil? then %>
+    <li>
+      <%= form_tag "#{select_for.name.downcase.pluralize}_select".to_sym, class: "onchange-submit-form" do %>
+        <%= collection_select select_for.name.downcase.to_sym, :id, select_for.all, :id, :name, {}, { onchange: 'this.form.submit()' } %>
+      <% end %>
+    </li>
+  <% end %>
 </ol>

@@ -28,6 +28,11 @@ class ApplicationController < ActionController::Base
     self.instance_variable_set "@#{controller_name.classify.downcase}", resource
   end
 
+  def select
+    resource = controller_name.classify.constantize.find(select_params[:id])
+    redirect_to resource
+  end
+
   def administrator_signed_in?
     current_user.try(:administrator?)
   end

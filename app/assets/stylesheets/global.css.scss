@@ -11,6 +11,10 @@ body {
         
         ol.breadcrumb {
             @extend .hidden-xs;
+            
+            form.onchange-submit-form {
+                display: inline;    
+            }            
         }        
     }
     
