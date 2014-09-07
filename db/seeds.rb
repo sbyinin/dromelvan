@@ -10,3 +10,5 @@ require File.expand_path('../seed/users', __FILE__)
 require File.expand_path('../seed/countries', __FILE__)
 require File.expand_path('../seed/players', __FILE__)
 
+require File.expand_path('../seed/seasons', __FILE__)
+

@@ -24,4 +24,16 @@ FactoryGirl.define do
     whoscored_id 1
   end
 
+  factory :season do
+    sequence(:name) do |n|
+      start = "#{n}"
+      start = "0" * (4 - start.length) + start
+      stop = "#{n + 1}"
+      stop = "0" * (4 - stop.length) + stop
+      "#{start}-#{stop}"
+    end
+    
+    date Date.today
+  end
+
 end

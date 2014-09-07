@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140830224248) do
+ActiveRecord::Schema.define(version: 20140907135718) do
 
   create_table "countries", force: true do |t|
     t.string   "name"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 20140830224248) do
     t.string   "player_photo_content_type"
     t.integer  "player_photo_file_size"
     t.datetime "player_photo_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "seasons", force: true do |t|
+    t.string   "name"
+    t.integer  "status"
+    t.date     "date"
+    t.boolean  "legacy"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

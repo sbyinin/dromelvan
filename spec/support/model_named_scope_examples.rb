@@ -22,7 +22,7 @@ shared_examples_for "named scope" do
   context "with multiple matches" do
     let(:found_models) { subject.class.named("#{model1.name[0,3]}") }
     
-    specify { expect(found_models).to eq [ model2, model1] }      
+    specify { expect(found_models.sort).to eq [ model1, model2].sort }      
   end
 
   context "with invalid search term" do
