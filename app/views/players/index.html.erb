@@ -1,0 +1,8 @@
+<% provide :title, "Players"
+   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ "Players" ]) %> 
+ 
+<h1>Players</h1>
+
+<p>List of all registered players.</p>
+
+<%= render 'datatable' %>

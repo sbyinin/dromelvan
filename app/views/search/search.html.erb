@@ -1,0 +1,36 @@
+<% provide :title, "Search results"
+   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ "Search results "]) %>
+
+<h1>Search Results</h1>
+
+<% if @players.size > 0 %>
+  
+<p>Players, teams and D11 teams with names matching "<%= @q %>".</p>
+  
+<% if @players.any? %>
+<div class="search-results" id="#players-search-results">
+  
+  <h2>Players</h2>
+  
+  <div class="section">
+    <% @players.each do |player| %>
+      <div class="player-result">
+        <%= render 'players/player_photo', style: :small, player: player %>
+        <div class="player-info name"><%= render player %></div>
+        <div class="player-info position">Midfielder, age <%= player.age %></div>
+        <div class="player-info team-name"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> West Bromwich Albion</div>
+        <div class="player-info team-code"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> WBA</div>
+        <div class="player-info d11-team-name"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> Eleven Robbie Savages</div>
+        <div class="player-info d11-team-code"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> ERS</div>
+      </div>
+    <% end %>
+  </div>
+  <% if @additional_player_count > 0 %>
+  <p class="additional-count">The search found an additional <%= @additional_player_count %> players. Please refine your search term for more relevant results.</p>
+  <% end %>
+</div>
+
+<% end %>
+<% else %>
+<p>No players, teams or D11 teams with names matching "<%= @q %> were found. Sorry :(</p>
+<% end %>

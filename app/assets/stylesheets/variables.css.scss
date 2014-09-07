@@ -1,0 +1,13 @@
+
+$default-border: 1px solid $panel-default-border;
+$header-input-border-radius: $border-radius-base;
+
+$screen-desktop-min: $screen-lg-min;
+$screen-tablet-landscape-max: $screen-desktop-min - 1;
+$screen-tablet-landscape-min: $screen-md-min;
+$screen-tablet-portrait-max: $screen-tablet-landscape-min - 1;
+$screen-tablet-portrait-min: 481px;
+$screen-phone-landscape-max: $screen-tablet-portrait-min - 1;
+$screen-phone-landscape-min: 321px;
+$screen-phone-portrait-max: $screen-phone-landscape-min - 1;
+

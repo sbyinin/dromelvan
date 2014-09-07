@@ -1,0 +1,58 @@
+ul.ui-autocomplete {
+    @extend .dropdown-menu;
+    border-radius: 0px;
+
+    li.ui-autocomplete-category {
+	@extend .dropdown-header;
+    }
+
+    // Unfortunately there's no class to extend for this so we're copy pasting from
+    // Bootstrap _dropdown.scss
+    > li > a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: $line-height-base;
+        color: $dropdown-link-color;
+        white-space: nowrap; // prevent links from randomly breaking onto new lines
+    }
+
+    a.ui-state-focus {
+	@include gradient-vertical($start-color: $dropdown-link-hover-bg, $end-color: darken($dropdown-link-hover-bg, 5%));
+	background-color: darken($dropdown-link-hover-bg, 5%);    
+    }        
+}
+
+main {
+    div.search-results {
+        div.player-result {
+            @include make-sm-column(4);
+            @include make-lg-column(3);
+            padding-top: $padding-large-vertical;
+            
+            img.player-photo {
+                float: left;             
+            }
+            
+            div.player-info {  
+                margin-left: 70px;
+            }
+            
+            div.team-name,
+            div.d11-team-name {
+               @extend .hidden-sm; 
+            }
+            
+            div.team-code,
+            div.d11-team-code {
+               @extend .visible-sm; 
+            }            
+        }
+        
+        p.additional-count {
+            margin-top: 20px;
+            margin-bottom: 0px;            
+        }
+    }    
+}

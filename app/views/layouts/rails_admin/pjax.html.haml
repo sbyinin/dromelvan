@@ -1,0 +1,16 @@
+:javascript
+  $('.nav.nav-list li.active').removeClass('active');
+  $('.nav.nav-list li[data-model="#{@abstract_model.to_param}"]').addClass('active');
+
+%title= "Drömelvan | Admin | #{@abstract_model.try(:pretty_name) || @page_name}"
+= breadcrumb
+- flash && flash.each do |key, value|
+  .alert{class: "alert-#{key}"}
+    %a.close{href: '#', :'data-dismiss' => "alert"}×
+    = value
+.page-header
+  %h1= @page_name
+%ul.nav.nav-tabs
+  = menu_for((@abstract_model ? (@object.try(:persisted?) ? :member : :collection) : :root), @abstract_model, @object)
+  = content_for :contextual_tabs
+= yield

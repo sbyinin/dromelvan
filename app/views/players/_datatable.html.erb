@@ -1,0 +1,13 @@
+<% url ||= players_path %>
+<%= render layout: 'layouts/datatable_ajax', locals: { url: url, objects: 'players' } do %>
+  <thead>
+    <tr>        
+      <th class="main-column name-column" data-class="expand">Name</th>
+      <th class="country-column" data-hide="phone">Country</th>
+      <th class="whoscored-id-column number-column" data-hide="phone, phone_landscape, tablet">WhoScored Id</th>
+      <th class="date-column" data-hide="phone, phone_landscape">DoB</th>
+      <th class="height-column number-column" data-hide="phone, phone_landscape, tablet">Height</th>
+      <th class="weight-column number-column" data-hide="phone, phone_landscape, tablet">Weight</th>
+    </tr>
+  </thead>  
+<% end %>

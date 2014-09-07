@@ -1,0 +1,16 @@
+<% provide :title, "Countries"
+   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ "Countries" ]) %> 
+   
+<h1>Countries</h1>
+
+<p>List of all registered countries.</p>
+
+<%= render layout: 'layouts/datatable_ajax' do %>
+  <thead>
+    <tr>        
+      <th class="main-column name-column" data-class="expand">Name</th>
+      <th class="flag-column" data-hide="phone">Flag</th>
+      <th class="iso-column" data-hide="phone">ISO</th>
+    </tr>
+  </thead>        
+<% end %>

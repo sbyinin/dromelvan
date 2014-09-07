@@ -1,0 +1,17 @@
+<header class="application-header">
+  <div class="header-container">
+    <div class="section">
+      <div class="header-logo-container">
+        <%= link_to image_tag("D11Logo.png", alt: "D11", id: "logo"), main_app.root_path %>
+      </div>
+      <div class="header-search-form-container">
+         <%= form_tag main_app.search_path, method: "get", role: "form", id: "live-search" do %>
+          <div class="form-group">
+            <%= label :search, :q, "Search", class: "accessibility" %>
+            <%= search_field :search, :q, results: 0, placeholder: 'Search...', class: "form-control" %>
+          </div>
+        <% end %>          
+      </div>
+    </div>
+  </div>
+</header>

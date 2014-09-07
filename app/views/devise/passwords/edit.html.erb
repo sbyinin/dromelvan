@@ -1,0 +1,45 @@
+<% provide :title, "Change password"
+   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ "Change password" ]) %>
+
+<h1>Change your password</h1>  
+
+<div class="section">
+  
+  <div class="form-context">
+    <p>Enter a new password to change the password for your email.</p>
+    <ul class="form-context-links">
+      <%= render "devise/shared/links" %>
+    </ul>
+  </div>
+
+  <div class="form-container">
+    <h2>Password Information</h2>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.hidden_field :reset_password_token %>
+      <fieldset>
+        <legend><span>Password information</span></legend>
+    
+        <%= devise_error_messages! %>
+
+        <div class="form-group">
+          <%= f.label :password, "New password" %>
+          <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+        </div>
+      
+        <div class="form-group">
+          <%= f.label :password_confirmation, "Confirm new password" %>
+          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        </div>        
+      </fieldset>
+      
+      <div class="button-panel">          
+        <%= f.button "Change password", class: "form-button", name: "submit-button" %>
+      </div>        
+    <% end %>
+  </div>
+  
+  <div class="form-context-image">
+    <%= image_tag "context/change_password.png", alt: "Context images." %>
+  </div>
+
+</div>

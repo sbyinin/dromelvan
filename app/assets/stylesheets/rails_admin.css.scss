@@ -1,0 +1,50 @@
+body.rails_admin {
+    background-color: whitesmoke;
+    padding-top: 0px !important;
+    
+    header {
+        form,
+        div.form-group {
+            margin-bottom: 0px;            
+            input {
+                padding: 6px 12px 6px 12px;
+                max-width: 236.500px;
+            }
+        }
+    }
+
+    main {    
+        ul.breadcrumb {
+            margin-top: 20px;
+            span.divider {
+                display: none;
+            }
+            li {
+                margin-right: 6px;
+            }
+        }
+                    
+        div.rails_admin_content {
+            @extend .container;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        div.row {
+            margin-left: -15px;
+        }
+        
+        div.page-header {
+            border: none;
+            margin-bottom: 5px;
+        }
+        
+        input[type=text],
+        input[type=number],
+        input[type=password],
+        input[type=email],
+        textarea {
+            @extend .form-control;
+        }
+    }    
+}

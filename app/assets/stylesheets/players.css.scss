@@ -1,0 +1,99 @@
+main {
+    div.player-profile-container {
+        @include make-lg-column(9);
+    }
+    
+    div.player-profile {
+        @extend .panel;
+        @extend .panel-default;
+        
+        dl {
+            @include make-sm-column(3);
+        }
+        
+        div.image-container {
+            @include make-sm-column(3);
+            @include make-lg-column(3);
+            
+            text-align: center;
+        }
+        
+        div.player-photo {
+            img.club-crest {
+                @extend .hidden-sm;
+                @extend .hidden-md;
+                @extend .hidden-lg;
+            }
+        }
+        div.club-crest {
+            @extend .hidden-xs;
+        }
+        
+        span.points {
+            span.value {
+                font-size: 46px;
+            }
+        }
+        
+        span.ranking {
+            span.value {
+                font-size: 32px;
+            }        
+        }
+    }
+}
+    
+@media only screen and (max-width: $screen-phone-landscape-max)  {
+    main {
+        div.player-profile {        
+            span.points,
+            span.rankings {
+                padding-left: $padding-large-vertical;
+                padding-right: $padding-large-vertical;
+            }
+            
+            dt {
+                width: 100px;
+                display: block;
+                float: left;
+            }
+            
+            dd {
+                margin-left: 105px;
+            }    
+        
+            div.player-photo {
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: $screen-tablet-portrait-max) {
+    main {
+        div.player-profile {    
+            span.points {
+                display: block;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: $screen-tablet-landscape-min) {
+    main {
+        div.player-profile {    
+            dl.data {
+                dt {
+                    width: 100px;
+                    display: block;
+                    float: left;
+                }
+                
+                dd {
+                    margin-left: 105px;
+                }            
+            }            
+        }
+    }
+}

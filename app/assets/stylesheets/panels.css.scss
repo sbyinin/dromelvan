@@ -1,0 +1,14 @@
+main {
+    div.panel-heading {
+        h2 {
+            margin: 0px;
+        }       
+        background-image: none !important;    
+    }
+    
+    div.panel-body {
+        dd {
+            margin-bottom: $padding-small-vertical;
+        }
+    }
+}

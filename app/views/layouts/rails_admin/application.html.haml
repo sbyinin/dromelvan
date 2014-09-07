@@ -1,0 +1,23 @@
+!!! 5
+%html
+  %head
+    %meta{content: "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+    %meta{content: "NONE,NOARCHIVE", name: "robots"}
+    = csrf_meta_tag
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    = stylesheet_link_tag "rails_admin/rails_admin.css", media: :all
+    
+    = javascript_include_tag "rails_admin/rails_admin.js"
+    -# Initialize JS simple i18n
+    :javascript
+      RailsAdmin.I18n.init(JSON.parse("#{j I18n.t("admin.js").to_json}"))
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  %body.rails_admin
+    = render 'layouts/header'
+    = render 'layouts/navbar' 
+    #loading.label.label-warning{style: 'display:none; position:fixed; right:20px; bottom:20px; z-index:100000'}= t('admin.loading')
+    %main
+      .container-fluid.rails_admin_content
+        .row-fluid
+          .content{:'data-pjax-container' => true}= render template: 'layouts/rails_admin/pjax'
+    = render 'layouts/footer'

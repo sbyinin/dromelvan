@@ -1,0 +1,5 @@
+<% if !player.whoscored_id.nil? %>
+<%= link_to player.whoscored_id, "http://www.whoscored.com/Players/#{player.whoscored_id}", target: "blank" %>
+<% else %>
+  None
+<% end %>

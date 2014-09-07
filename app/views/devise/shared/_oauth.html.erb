@@ -1,0 +1,7 @@
+<div class="omniauth">
+  <p>Or sign in with</p>
+  <%=link_to image_tag("oauth/facebook_64.png", alt: "Facebook."), user_omniauth_authorize_path(:facebook) %>
+  <%=link_to image_tag("oauth/twitter_64.png", alt: "Twitter."), user_omniauth_authorize_path(:twitter) %>
+  <%=link_to image_tag("oauth/google_64.png", alt: "Twitter."), user_omniauth_authorize_path(:google_oauth2) %>  
+  <!-- <%= image_tag "oauth/linkedin_64.png", alt: "LinkedIn." %> -->
+</div>

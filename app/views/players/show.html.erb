@@ -1,0 +1,64 @@
+<% provide :title, @player.name
+   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ link_to("Players", players_path), @player.name, '<select><option value="11">2013-2014</option><option value="10">2012-2013</option><option value="9">2011-2012</option><option value="8">2010-2011</option></select>'.html_safe ]) %> 
+  
+<h1><%= @player.name %></h1>
+<%= render 'shared/administration_links', resource: @player %>
+  
+<div class="section">
+  <div class="player-profile-container">  
+    <div class="player-profile">
+      
+      <div class="panel-heading">
+        <h2>Player profile</h2>
+      </div>
+              
+      <div class="row panel-body">
+        <div class="image-container player-photo">
+          <%= render 'player_photo', player: @player %>
+          <%= image_tag '/assets/missing/club-crest-large.png', class: "club-crest" %>
+          <p>
+            <span class="points"><span class="value">123</span> points</span>
+            <span class="ranking"><span class="value">32</span>nd ranking</span>
+          </p>
+        </div>
+    
+        <dl class="information">
+          <dt>Full name:</dt>
+          <dd>
+            <% if !@player.full_name.nil? %>
+              <%= @player.full_name %>
+            <% else %>
+              <%= @player.name %>
+            <% end %>
+          </dd>
+          <dt>Nationality:</dt>
+          <dd><%= render @player.country %></dd>
+          <dt>Team:</dt>
+          <dd>West Bromwich Albion Poo Poo</dd>
+          <dt>D11 team:</dt>
+          <dd>Eleven Robbie Savages</dd>        
+        </dl>
+    
+        <dl class="data">
+          <dt>Date of birth:</dt>
+          <dd><%= @player.date_of_birth %> (age <%= @player.age %>)</dd>
+          <dt>Height:</dt>
+          <dd><%= @player.height %> cm</dd>
+          <dt>Weight:</dt>
+          <dd><%= @player.weight%> kg</dd>                  
+          <dt>WhoScored Id:</dt>
+          <dd><%= render 'players/whoscored_link', player: @player %></dd>
+          <dt>Position:</dt>
+          <dd>Midfielder</dd>
+          <dt>Played pos:</dt>
+          <dd>DMC, AMR, AMC</dd>                
+        </dl>
+    
+        <div class="image-container club-crest">
+          <%= image_tag '/assets/missing/club-crest-large.png' %>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

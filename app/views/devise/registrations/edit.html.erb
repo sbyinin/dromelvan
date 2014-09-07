@@ -1,0 +1,66 @@
+<% provide :title, "Edit profile"
+   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ "Edit profile" ]) %>
+
+<h1>Edit Profile</h1>
+
+<div class="section">
+  
+  <% if current_user.provider.nil? %>
+  <div class="form-context">
+    <p>Enter your new email, name and/or a new password to change your user information.
+       Leave the password field empty to leave your password unchanged.</p>
+  </div>
+  <% else %>
+  <div class="form-context">
+    <p>This is a <%= current_user.provider.humanize %> account profile and cannot be edited.
+       If you would like to convert it to a Drömelvan account you must contact an administrator.</p>
+  </div>
+  <% end %>
+  
+  <div class="form-container">
+    <% if current_user.provider.nil? %>
+    <h2>User Information</h2>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <fieldset>
+        <legend><span>User information</span></legend>      
+        <%= devise_error_messages! %>
+      
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, required: true, autofocus: true %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, required: true %>
+        </div>
+              
+        <div class="form-group">
+          <%= f.label :password %>
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+      
+        <div class="form-group">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        </div>
+      
+        <div class="form-group">
+          <%= f.label :current_password %>
+          <%= f.password_field :current_password, autocomplete: "off" %>
+        </div>
+      </fieldset>
+      <div class="button-panel">
+        <%= f.button "Save changes", class: "form-button", name: "submit-button" %>
+      </div>                  
+    <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-context-image">
+    <div>
+      <%= image_tag "context/edit_profile.png", alt: "Context images." %>
+    </div>
+  </div>
+  
+</div>

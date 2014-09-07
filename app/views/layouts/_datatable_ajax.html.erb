@@ -1,0 +1,7 @@
+<% url ||= controller_name
+   objects ||= controller_name %>
+<table class="data data-table data-table-ajax <%= objects %>" id="data-table" data-url="<%= url %>" data-objects="<%= objects %>">
+  <%= yield %>
+  <tbody>
+  </tbody>
+</table>

@@ -1,0 +1,9 @@
+<% provide :title, @country.name
+   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ link_to("Countries", countries_path), @country.name ]) %> 
+
+<h1><%= render 'flag_image_tag', country: @country, size: 64 %><%= @country.name %> (<%= @country.iso %>)</h1>   
+<p class="administration-links"><%= render 'shared/edit_link', resource: @country %></p>
+
+<h2>Players from <%= @country.name %></h2>
+
+<%= render 'players/datatable', url: country_players_path(country_id: @country.id) %>

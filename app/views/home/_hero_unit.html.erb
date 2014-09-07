@@ -1,0 +1,16 @@
+<div class="hero-unit">
+  <div class="hero-unit-container">
+    <div class="section">
+      <div class="hero-unit-text">
+        <h1>This is Drömelvan</h1>
+        <p>The competition for those whose knowledge of football is vastly greater than that of the average person.</p>
+        <% if !user_signed_in? %>
+        <%= link_to "Sign up &raquo;".html_safe, new_user_registration_path, class: "", role: "button" %>
+        <% end %>
+        <%= link_to "Learn more &raquo;".html_safe, rules_path, class: "", role: "button" %>                
+      </div>
+    </div>    
+  </div>
+</div>
+  
+  

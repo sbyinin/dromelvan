@@ -1,0 +1,109 @@
+@import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
+@import "dataTables/extras/dataTables.responsive";
+
+main {
+    
+    table {
+	td {
+	    vertical-align: middle !important;    
+	}
+    }
+    
+    table.data {
+	@extend .table;
+//	@extend .table-condensed;    
+	@extend .table-striped;
+	@extend .table-hover;
+	@extend .table-bordered;
+  		
+        // Remove this if we remove .table-bordered.
+	th, td  {
+	    border-bottom: 0 !important;
+	    border-left: 0 !important;
+	}
+			
+	width: 100%;
+
+	// Default column widths
+	.main-column {
+	    width: 95%;	
+	}
+	
+	.country-column {
+	    min-width: 200px;    
+	}
+	
+	.date-column,
+	.height-column,
+	.weight-column,
+	.whoscored-id-column {
+	    min-width: 100px;
+	}
+    }
+    
+
+}
+
+/* Bootstrap overrides ------------------------------------------------------ */
+main {
+    div.panel > div.dataTables_wrapper > table.data {
+	// Bootstrap only removes borders from tables directly under the panel div.
+	// This removes extra borders from datatables in the wrapper div.
+	border: 0;    
+    }
+    
+    div.dataTables_length {
+	// The jquery-datatables-rails bootstrap3 integration won't style this for some reason.
+	select {
+	    @extend .form-control;
+	}
+    }
+    
+    table.dataTable thead > tr > th {
+	// One of the imports sets this to 18px.
+	padding-left: 5px;
+    }
+    
+    div.dataTables_info {
+	padding-bottom: 8px;
+    }
+    
+    div.dataTables_paginate {
+	li#data-table_ellipsis {
+	    // Get rid of the annoying ... buttons in the pagination
+	    display: none;
+	}
+    }
+}
+
+/* Phone screen overrides --------------------------------------------------- */
+@media only screen and (max-width: 767px) {
+    main {    
+	div.dataTables_wrapper {
+	    div.col-xs-6 {
+		// Stack the extra controls added to the page by datatables on top of each
+		// other on xs screens.
+		@include make-xs-column(12);
+	    
+		// Some things (like Safari on iOS) display these as block elements as default for some reason.
+		select,
+		input {
+		    display: inline;
+		}
+		
+		// Label is the filter, the div is the pagination controls. No idea why
+		// datatables wraps the filter in a label instead of a div but that's how it is.
+		label,
+		div.dataTables_paginate {
+		    float: none;
+		}
+		
+		div.dataTables_paginate {
+		    ul {
+			margin-left: 0px;
+		    }                
+		}	    
+	    }
+	}
+    }
+}

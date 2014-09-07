@@ -1,0 +1,62 @@
+header.application-header {
+    background: $brand-primary;
+    
+    div.header-container {
+        @extend .container;
+    }
+    
+    div.header-logo-container {
+        @include make-sm-column(7);
+        @include make-md-column(8);
+        @include make-lg-column(9);
+        
+        img#logo {
+            padding-top: $padding-large-vertical;
+            padding-bottom: $padding-large-vertical;
+        }        
+    }
+
+    div.header-search-form-container {
+        @include make-sm-column(5);
+        @include make-md-column(4);
+        @include make-lg-column(3);
+        
+        form#live-search {
+            input {
+                border-radius: $header-input-border-radius;
+            }
+            span.ui-helper-hidden-accessible {
+                display: none;            
+            }
+        }
+    }  
+    
+}
+
+@media only screen and (max-width: $screen-phone-portrait-max) {
+    header.application-header {
+        background-image: url('/assets/header-background-small.png');
+        div.header-logo-container {
+            img#logo {
+                margin-left: -10px;
+            }        
+        }
+    }    
+}
+
+@media only screen and (max-width: $screen-phone-landscape-max) {
+    header.application-header {
+        background-image: url('/assets/header-background-small.png');
+    }    
+}
+
+@media only screen and (min-width: $screen-tablet-portrait-min) {
+    header.application-header {
+        background-image: url('/assets/header-background.png');
+    
+        input {
+            margin-top: 20px;
+        }    
+    }
+}
+

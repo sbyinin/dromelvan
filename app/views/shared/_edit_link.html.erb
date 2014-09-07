@@ -1,0 +1,3 @@
+<% if administrator_signed_in? %>
+<%= link_to "Edit", rails_admin.edit_path(model_name: resource.class.name.downcase, id: resource.id) %>
+<% end %>

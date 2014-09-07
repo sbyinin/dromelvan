@@ -1,0 +1,23 @@
+footer.application-footer {
+    border-top: $default-border;    
+    padding-top: $padding-small-vertical;
+    text-align: center;
+
+    div.footer-container {
+        @extend .container;
+    }    
+}
+
+@media only screen and (min-width: $screen-tablet-portrait-min) {
+    footer.application-footer {    
+	div.version-information {
+	    text-align: left;
+	    @include make-xs-column(6);
+	}
+	
+	div.contact-information {
+	    text-align: right;
+	    @include make-xs-column(6);
+	}
+    }
+}

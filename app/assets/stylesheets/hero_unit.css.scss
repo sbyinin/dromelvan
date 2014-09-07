@@ -1,0 +1,70 @@
+div.hero-unit {
+    @extend .jumbotron;
+    color: white;
+    text-shadow: 2px 2px black;
+    margin-bottom: 0px;
+  
+    div.hero-unit-container {
+        @extend .container;
+        
+        div.hero-unit-text {
+            
+            a {
+                @extend .btn;
+                @extend .btn-primary;
+                @extend .btn-lg;	    
+                @include make-sm-column(3);
+                @include make-lg-column(2);
+                margin-bottom: $padding-base-vertical;
+                margin-right: $padding-base-horizontal;
+                
+            }	
+        }
+    }
+}
+
+@media only screen and (max-width: $screen-phone-portrait-max) {
+    div.hero-unit {
+        div.hero-unit-container {
+            div.hero-unit-text {
+                a {
+                    @include make-xs-column(12);
+                }                
+            }
+        }
+    }    
+}
+
+@media only screen and (min-width: $screen-phone-landscape-min) and (max-width: $screen-phone-landscape-max) {
+    div.hero-unit {
+        div.hero-unit-container {
+            div.hero-unit-text {
+                a {
+                    @include make-xs-column(5);
+                }                
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: $screen-phone-landscape-max) {
+    div.hero-unit {
+        background-image: url('/assets/hero-unit-background-small.jpg');
+        
+        div.hero-unit-container {
+            div.hero-unit-text {
+                a {
+                    padding-right: 0px; 
+                    padding-left: 0px;
+                }                
+            }
+        }        
+    }
+}
+
+@media only screen and (min-width: $screen-tablet-portrait-min) {
+    div.hero-unit {
+        background-image: url('/assets/hero-unit-background.jpg');
+    }        
+}
+

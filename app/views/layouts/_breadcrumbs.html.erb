@@ -1,0 +1,19 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Home", root_path %></li>
+  
+  <% breadcrumbs.each do |breadcrumb| %>
+    <% if breadcrumb.is_a?(ActiveRecord::Base) then %>
+      <li><%= render breadcrumb %></li>
+    <% else %>
+      <li><%= breadcrumb %></li>
+    <% end %>
+  <% end %>
+  
+  <% if !(defined?(select_path)).nil? then %>
+    <li>
+      <%= form_tag select_path, class: "onchange-submit-form" do %>
+        <%= collection_select select_resource, :id, select_options, :id, :name, {}, { onchange: 'this.form.submit()' } %>
+      <% end %>
+    </li>
+  <% end %>  
+</ol>
