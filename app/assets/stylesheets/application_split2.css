@@ -1,0 +1,6 @@
+/*
+ * For this to work, config.assets.debug must be set to false in the config/environments/<environment>.rb file
+ * for the current environment.
+ * 
+ *= require 'application'
+ */

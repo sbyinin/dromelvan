@@ -88,3 +88,7 @@ gem 'dotenv-rails'
 
 # Needed to run on Windows
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
+# This gem splits the big application.css file into smaller pieces to get around
+# the stupid IE selector limit
+gem 'css_splitter'
