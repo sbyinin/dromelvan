@@ -1,5 +1,5 @@
 <% provide :title, @player.name
-   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ link_to("Players", players_path), @player.name ], select_path: season_player_path, select_resource: :season, select_options: Season.all) %> 
+   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ link_to("Players", players_path), @player.name ], select_path: select_season_player_path, select_resource: :season, select_options: Season.all) %> 
   
 <h1><%= @player.name %></h1>
 <%= render 'shared/administration_links', resource: @player %>

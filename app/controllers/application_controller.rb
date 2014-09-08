@@ -30,8 +30,8 @@ class ApplicationController < ActionController::Base
     self.instance_variable_set "@#{controller_name.classify.downcase}", resource
   end
   
-  def season
-    redirect_to cable_player_path(id: params[:id], season_id: params[:season][:id])  
+  def select_season
+    redirect_to show_season_player_path(id: params[:id], season_id: params[:season][:id])  
   end
   
   def select
