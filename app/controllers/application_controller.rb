@@ -24,10 +24,16 @@ class ApplicationController < ActionController::Base
   end
 
   def show
+    #@season = Season.current
+    @season = Season.find(params[:season_id])
     resource = controller_name.classify.constantize.find(params[:id])
     self.instance_variable_set "@#{controller_name.classify.downcase}", resource
   end
-
+  
+  def season
+    redirect_to cable_player_path(id: params[:id], season_id: params[:season][:id])  
+  end
+  
   def select
     resource = controller_name.classify.constantize.find(select_params[:id])
     redirect_to resource
@@ -46,5 +52,10 @@ class ApplicationController < ActionController::Base
        devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :password_confirmation, :remember_me) }
        devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :password_confirmation, :current_password) }
     end       
+  
+  private
+    def select_params
+      params.require(controller_name.singularize.downcase.to_sym).permit(:id)
+    end
   
 end
