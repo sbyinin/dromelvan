@@ -87,4 +87,4 @@ gem "adroit-age"
 gem 'dotenv-rails'
 
 # Needed to run on Windows
-gem 'tzinfo-data'
+#gem 'tzinfo-data'
