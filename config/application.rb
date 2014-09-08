@@ -22,5 +22,14 @@ module Dromelvan
     
     # Precompile with css_splitter
     config.assets.precompile += %w( application_split2.css )
+    
+    # Update version file automagically when starting in development
+    if Rails.env.development?
+      File.open('.version', 'w') do |file|
+        file.write `git describe --tags --always`
+      end
+    end
+     
+    config.version = File.read('.version')    
   end
 end
