@@ -28,12 +28,6 @@ class ApplicationController < ActionController::Base
     self.instance_variable_set "@#{controller_name.classify.downcase}", resource
   end
     
-  def selecttt
-    # Refactor select to module
-    resource = controller_name.classify.constantize.find(select_params[:id])
-    redirect_to resource
-  end
-
   def administrator_signed_in?
     current_user.try(:administrator?)
   end
@@ -47,10 +41,5 @@ class ApplicationController < ActionController::Base
        devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :password_confirmation, :remember_me) }
        devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :password_confirmation, :current_password) }
     end       
-  
-  private
-    def select_params
-      params.require(controller_name.singularize.downcase.to_sym).permit(:id)
-    end
-  
+    
 end

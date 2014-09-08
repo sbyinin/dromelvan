@@ -7,4 +7,10 @@ module Select
       redirect_to resource
     end    
   end
+  
+  private
+    def select_params
+      params.require(controller_name.singularize.downcase.to_sym).permit(:id)
+    end
+  
 end

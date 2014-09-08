@@ -13,8 +13,14 @@ module SelectSeason
     end
     
     def select_season
-      show_season_url = url_for(controller: controller_name, action: 'show', season_id: params[:season][:id])
+      show_season_url = url_for(controller: controller_name, action: 'show', season_id: select_season_params[:id])
       redirect_to show_season_url
     end
   end
+  
+  private
+    def select_season_params
+      params.require(:season).permit(:id)
+    end
+  
 end
