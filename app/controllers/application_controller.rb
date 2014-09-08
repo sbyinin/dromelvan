@@ -24,17 +24,25 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    #@season = Season.current
-    @season = Season.find(params[:season_id])
+    # Refactor season select to module
+    season_id = params[:season_id]
+    if season_id.blank?
+      @season = Season.current
+    else
+      @season = Season.find(season_id)
+    end
     resource = controller_name.classify.constantize.find(params[:id])
     self.instance_variable_set "@#{controller_name.classify.downcase}", resource
   end
   
   def select_season
-    redirect_to show_season_player_path(id: params[:id], season_id: params[:season][:id])  
+    # Refactor season select to module
+    show_season_url = url_for(controller: controller_name, action: 'show', season_id: params[:season][:id])
+    redirect_to show_season_url
   end
   
   def select
+    # Refactor select to module
     resource = controller_name.classify.constantize.find(select_params[:id])
     redirect_to resource
   end

@@ -28,13 +28,16 @@ Rails.application.routes.draw do
   resources :players, only: [:index, :show]
   resources :seasons, only: [:show]
   
-  post '/seasons/select' => 'seasons#select'  
-#  get '/players/:id/:season_id' => 'players#show', as: 'bar'
-  
+  resources :seasons do
+    collection do
+      post :select, action: :select
+    end
+  end
+
   resources :players, :countries do
     member do
-      post 'select_season'
-      get '/:season_id', action: 'show', as: 'show_season'
+      post :select_season
+      get '/:season_id', action: :show, as: 'show_season'
     end
   end
   

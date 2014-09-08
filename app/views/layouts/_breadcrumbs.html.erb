@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
   <li><%= link_to "Home", root_path %></li>
-  
+  <% # Refactor some of the selects %>
   <% breadcrumbs.each do |breadcrumb| %>
     <% if breadcrumb.is_a?(ActiveRecord::Base) then %>
       <li><%= render breadcrumb %></li>
@@ -19,7 +19,7 @@
   
   <% if !(defined?(select_for)).nil? then %>
     <li>
-      <%= form_tag "#{select_for.name.downcase.pluralize}_select".to_sym, class: "onchange-submit-form" do %>
+      <%= form_tag "select_#{select_for.name.downcase.pluralize}".to_sym, class: "onchange-submit-form" do %>
         <%= collection_select select_for.name.downcase.to_sym, :id, select_for.all, :id, :name, {}, { onchange: 'this.form.submit()' } %>
       <% end %>
     </li>

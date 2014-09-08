@@ -85,3 +85,6 @@ gem "adroit-age"
 
 # Environment variables in .env
 gem 'dotenv-rails'
+
+# Needed to run on Windows
+gem 'tzinfo-data'
