@@ -21,21 +21,21 @@ ActiveRecord::Schema.define(version: 20140907135718) do
   end
 
   create_table "players", force: true do |t|
+    t.integer  "country_id"
+    t.integer  "whoscored_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "parameterized_name"
-    t.string   "full_name"    
-    t.integer  "country_id"    
-    t.integer  "whoscored_id"
+    t.string   "full_name"
     t.date     "date_of_birth"
     t.integer  "height"
     t.integer  "weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "player_photo_file_name"
     t.string   "player_photo_content_type"
     t.integer  "player_photo_file_size"
     t.datetime "player_photo_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"    
+    t.string   "parameterized_name"
   end
 
   create_table "seasons", force: true do |t|
@@ -49,10 +49,6 @@ ActiveRecord::Schema.define(version: 20140907135718) do
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
-    t.boolean  "administrator",          default: false
-    t.string   "name"
-    t.string   "provider"
-    t.string   "uid"    
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -64,6 +60,10 @@ ActiveRecord::Schema.define(version: 20140907135718) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "administrator",          default: false
+    t.string   "name"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
