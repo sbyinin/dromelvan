@@ -1,5 +1,5 @@
 <% provide :title, "Season #{@season.name}"
-   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ "Seasons" ], select_for: Season ) %> 
+   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ Season, :select ] ) %> 
 
 
 <h1>Season <%= @season.name %></h1>
