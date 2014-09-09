@@ -16,9 +16,9 @@
 <%= render 'layouts/navbar' %>
 
 <main role="main">
-  <%= content_for?(:hero_unit) ? yield(:hero_unit) : '' %>
+  <%= yield(:hero_unit) %>
   <div class="content <%= controller_name %> <%= action_name %>">
-    <%= content_for?(:breadcrumbs) ? yield(:breadcrumbs) : '' %>
+    <%= yield(:breadcrumbs) %>    
     <%= render 'devise/shared/notice' %>
     <%= yield %>
   </div>
