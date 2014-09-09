@@ -16,6 +16,14 @@
       <% end %>
     </li>
   <% end %>
+
+  <% if !(defined?(select_season_path)).nil? then %>
+    <li>
+      <%= form_tag select_season_path, class: "onchange-submit-form" do %>
+        <%= collection_select :season, :id, Season.all, :id, :name, {}, { onchange: 'this.form.submit()' } %>
+      <% end %>
+    </li>
+  <% end %>
   
   <% if !(defined?(select_for)).nil? then %>
     <li>
