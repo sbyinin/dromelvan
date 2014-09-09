@@ -1,0 +1,9 @@
+button,
+a[role=button] {
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#082070', endColorstr='#041037') !important;
+}
+
+div.hero-unit h1,
+div.hero-unit p {
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000,direction=135,strength=2);
+}
