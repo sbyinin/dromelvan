@@ -15,6 +15,28 @@ body {
             form.onchange-submit-form {
                 display: inline;    
             }            
+        }
+        
+        div.image-container {
+            @include make-sm-column(3);
+            
+            text-align: center;
+            
+            h3 {
+                margin-top: 0px;
+            }
+        }
+        
+        span.points {
+            span.value {
+                font-size: 46px;
+            }
+        }
+        
+        span.ranking {
+            span.value {
+                font-size: 32px;
+            }        
         }        
     }
     

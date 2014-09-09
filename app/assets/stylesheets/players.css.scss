@@ -10,14 +10,7 @@ main {
         dl {
             @include make-sm-column(3);
         }
-        
-        div.image-container {
-            @include make-sm-column(3);
-            @include make-lg-column(3);
-            
-            text-align: center;
-        }
-        
+                
         div.player-photo {
             img.club-crest {
                 @extend .hidden-sm;
@@ -27,19 +20,7 @@ main {
         }
         div.club-crest {
             @extend .hidden-xs;
-        }
-        
-        span.points {
-            span.value {
-                font-size: 46px;
-            }
-        }
-        
-        span.ranking {
-            span.value {
-                font-size: 32px;
-            }        
-        }
+        }        
     }
 }
     

@@ -1,0 +1,26 @@
+main {
+    div.season-summary-container {
+        @include make-xs-column(12);    
+    }
+    
+    div.season-summary {
+        @extend .panel;
+        @extend .panel-default;
+        
+        div.image-container {
+            @include make-sm-column(6);
+            @include make-md-column(3);
+        }
+        
+        div.runners-up {
+            @include make-sm-column(6);
+            @include make-md-column(3);
+            
+            text-align: center;
+            
+            h3 {
+                margin-top: 0px;
+            }            
+        }        
+    }    
+}

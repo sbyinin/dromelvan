@@ -1,0 +1,66 @@
+<% provide :title, "Seasons"
+   provide :breadcrumbs, render('layouts/breadcrumbs', breadcrumbs: [ "Seasons" ]) %> 
+ 
+<h1>Seasons</h1>
+
+<% Season.all.each do |season| %>
+<div class="section">
+  <div class="season-summary-container">
+    <div class="season-summary">
+
+      <div class="panel-heading">
+        <h2><%= render season %></h2>
+      </div>
+      
+      <div class="panel-body">
+        <div class="image-container club-crest">
+          <h3>Eleven Robbie Savages</h3>
+          <p>Drömelvan Champions <%= render season %></p>
+          <%= image_tag '/assets/missing/club-crest-large.png', class: "club-crest" %>
+          <p>
+            <span class="points"><span class="value">123</span> points</span>
+            <span class="goals"><span class="value">32</span> goals</span>
+          </p>          
+        </div>
+        
+        <div class="image-container club-crest">
+          <h3>West Bromwich Albion</h3>
+          <p>Premier League Champions <%= render season %></p>
+          <%= image_tag '/assets/missing/club-crest-large.png', class: "club-crest" %>
+          <p>
+            <span class="points"><span class="value">123</span> points</span>
+            <span class="goals"><span class="value">+32</span> gd</span>
+          </p>                    
+        </div>
+
+        <div class="image-container club-crest">
+          <h3>Robbie Savage (LEI)</h3>
+          <p>Most Valuable Player <%= render season %></p>
+          <%= image_tag '/assets/missing/player-photo-large.png', class: "player-photo" %>
+          <p>
+            <span class="points"><span class="value">123</span> points</span>
+            <span class="goals"><span class="value">32</span> goals</span>
+          </p>                              
+        </div>
+
+        <div class="runners-up">
+          <h3>Runners Up</h3>
+          <p style="margin-bottom: 0px;"><b>Drömelvan</b></p>
+          <p style="margin-bottom: 0px;"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> Ten Robbie Savages 123p</p>
+          <p><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> Nine Robbie Savages 123p</p>
+          
+          <p style="margin-bottom: 0px;"><b>Premier League</b></p>
+          <p style="margin-bottom: 0px;"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> East Bromwich Albion 123p</p>
+          <p><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> North Bromwich Albion 123p</p>
+
+          <p style="margin-bottom: 0px;"><b>Most Valuable Players</b></p>
+          <p style="margin-bottom: 0px;"><%= image_tag '/assets/missing/player-photo-icon.png', class: "player-photo" %>King Savage (LEI) 123p</p>
+          <p><%= image_tag '/assets/missing/player-photo-icon.png', class: "player-photo" %>Prince Savage (LEI) 123p</p>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
