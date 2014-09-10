@@ -6,7 +6,7 @@ shared_examples_for "select season controller" do
         resource = FactoryGirl.create(subject.controller_name.classify.downcase.to_sym)
         season = FactoryGirl.create(:season)
         post :select_season, id: resource.id, season: {id: season.id}
-        expect(response).to be_redirect
+        expect(response).to redirect_to action: :show, id: resource.id, season_id: season.id
       end
     end
     
@@ -14,8 +14,8 @@ shared_examples_for "select season controller" do
       specify do
         resource = FactoryGirl.create(subject.controller_name.classify.downcase.to_sym)
         post :select_season, id: resource.id, season: {id: -1}
-        # The Season.find(-1) is done after the redirect.
-        expect(response).to be_redirect
+        # The Season.find(-1) is done after the redirect so no not_found here.
+        expect(response).to redirect_to action: :show, id: resource.id, season_id: -1
       end
     end    
   end

@@ -5,7 +5,7 @@ shared_examples_for "select controller" do
       specify do
         resource = FactoryGirl.create(subject.controller_name.classify.downcase.to_sym)
         get :select, subject.controller_name.classify.downcase.to_sym => {id: resource.id}
-        expect(response).to be_redirect
+        expect(response).to redirect_to action: :show, id: resource.id
       end
     end
     
