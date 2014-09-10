@@ -31,6 +31,16 @@ FactoryGirl.define do
     whoscored_id 1
   end
 
+  factory :team do    
+    sequence(:name) { |n| "Test Team #{n}" }
+    sequence(:code) { |n| "#{('AAA'..'ZZZ').to_a[n]}" }
+    sequence(:nickname) { |n| "Nickname #{n}" }
+    established 1900  
+    motto "Motto"
+    stadium
+    whoscored_id 1
+  end
+
   factory :season do
     sequence(:name) do |n|
       start = "#{n}"

@@ -1,5 +1,4 @@
 class Player < ActiveRecord::Base
-  include ActionView::Helpers::DateHelper
   
   belongs_to :country
 

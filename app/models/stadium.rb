@@ -1,6 +1,8 @@
 class Stadium < ActiveRecord::Base
   include NameScope
 
+  has_many :teams, dependent: :restrict_with_exception
+
   default_scope -> { order('name ASC') }
   
   has_attached_file :photo, styles: { icon: [ "32x100>", :png], thumbnail: [ "100x100>", :png], original: ["960x610#", :png] },                                      

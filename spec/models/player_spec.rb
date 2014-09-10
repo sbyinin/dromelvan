@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Player, :type => :model do
-  
+describe Player, type: :model do
+
   let(:country) { FactoryGirl.create(:country) }
   
   before { @player = FactoryGirl.create(:player, first_name: "First",
@@ -60,8 +60,7 @@ RSpec.describe Player, :type => :model do
     subject { @player.age }
     it { is_expected.to eq 30 }
   end
-    
-    
+        
   context "when full_name is blank" do
     before { @player.full_name = "" }
     it { is_expected.to be_valid }
