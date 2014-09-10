@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   
   concern :select do
     collection do
-      post :select, action: :select
+      post :select
     end
   end
 
