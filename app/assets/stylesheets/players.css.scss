@@ -3,10 +3,10 @@ main {
         @include make-lg-column(9);
     }
     
-    div.player-profile {
-        @extend .panel;
-        @extend .panel-default;
-        
+    div.player-profile {        
+        div.image-container {
+            @include make-sm-column(3);
+        }
         dl {
             @include make-sm-column(3);
         }
@@ -26,13 +26,7 @@ main {
     
 @media only screen and (max-width: $screen-phone-landscape-max)  {
     main {
-        div.player-profile {        
-            span.points,
-            span.rankings {
-                padding-left: $padding-large-vertical;
-                padding-right: $padding-large-vertical;
-            }
-            
+        div.player-profile {                    
             dt {
                 width: 100px;
                 display: block;
