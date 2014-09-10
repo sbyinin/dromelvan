@@ -16,6 +16,13 @@ FactoryGirl.define do
     sequence(:iso) { |n| "#{('AAA'..'ZZZ').to_a[n]}" }    
   end
 
+  factory :stadium do
+    sequence(:name) { |n| "Test Stadium #{n}" }
+    city "Test City"
+    capacity 12345
+    opened 1901
+  end
+
   factory :player do
     sequence(:first_name)  { |n| "First #{n}" }
     sequence(:last_name)  { |n| "Last #{n}" }

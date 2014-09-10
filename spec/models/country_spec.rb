@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe Country, type: :model do
+
   before { @country = FactoryGirl.create(:country, name: "Country", iso: "CO") }
   
   subject { @country }

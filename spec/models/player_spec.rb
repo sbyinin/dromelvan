@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Player, :type => :model do
+  
   let(:country) { FactoryGirl.create(:country) }
   
   before { @player = FactoryGirl.create(:player, first_name: "First",
@@ -26,6 +27,7 @@ RSpec.describe Player, :type => :model do
   it { is_expected.to respond_to(:age) }
   it { is_expected.to respond_to(:height) }
   it { is_expected.to respond_to(:weight) }
+  it { is_expected.to respond_to(:player_photo) }
 
   it { is_expected.to be_valid }
   
