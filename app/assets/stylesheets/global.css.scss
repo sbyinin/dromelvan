@@ -9,12 +9,46 @@ body {
     main {
         background-color: white;
         
+        h1 {
+            margin-bottom: 20px;
+        }
+        
+        p.administration-links {
+            margin-top: -15px;    
+        }
+        
         ol.breadcrumb {
             @extend .hidden-xs;
             
             form.onchange-submit-form {
                 display: inline;    
             }            
+        }
+        
+        div.brief-info {
+            @include make-sm-column(6);
+            @include make-md-column(3);
+                        
+            h3 {
+                margin-top: 0px;
+            }            
+        }
+        
+        div.image-container {
+            text-align: center;
+        }
+        
+        span.points {
+            span.value {
+                font-size: 46px;
+            }
+        }
+        
+        span.ranking,
+        span.goals {
+            span.value {
+                font-size: 32px;
+            }        
         }        
     }
     
@@ -32,6 +66,11 @@ body {
     
     div.section {
         @extend .row;
+    }
+    
+    ul {
+        list-style: none;
+        padding-left: 0px;
     }
     
     ul.related {

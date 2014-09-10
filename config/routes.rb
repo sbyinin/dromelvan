@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   resources :countries, only: [:index, :show], concerns: [:players]
   resources :players, only: [:index, :show]
-  resources :seasons, only: [:show]
+  resources :seasons, only: [:index, :show]
   
   resources :seasons do
     collection do

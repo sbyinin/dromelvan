@@ -3,21 +3,14 @@ main {
         @include make-lg-column(9);
     }
     
-    div.player-profile {
-        @extend .panel;
-        @extend .panel-default;
-        
+    div.player-profile {        
+        div.image-container {
+            @include make-sm-column(3);
+        }
         dl {
             @include make-sm-column(3);
         }
-        
-        div.image-container {
-            @include make-sm-column(3);
-            @include make-lg-column(3);
-            
-            text-align: center;
-        }
-        
+                
         div.player-photo {
             img.club-crest {
                 @extend .hidden-sm;
@@ -27,31 +20,13 @@ main {
         }
         div.club-crest {
             @extend .hidden-xs;
-        }
-        
-        span.points {
-            span.value {
-                font-size: 46px;
-            }
-        }
-        
-        span.ranking {
-            span.value {
-                font-size: 32px;
-            }        
-        }
+        }        
     }
 }
     
 @media only screen and (max-width: $screen-phone-landscape-max)  {
     main {
-        div.player-profile {        
-            span.points,
-            span.rankings {
-                padding-left: $padding-large-vertical;
-                padding-right: $padding-large-vertical;
-            }
-            
+        div.player-profile {                    
             dt {
                 width: 100px;
                 display: block;

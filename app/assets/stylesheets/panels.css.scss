@@ -11,4 +11,9 @@ main {
             margin-bottom: $padding-small-vertical;
         }
     }
+    
+    div.standard-panel {
+        @extend .panel;
+        @extend .panel-default;                
+    }
 }

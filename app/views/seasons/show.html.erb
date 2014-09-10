@@ -1,6 +1,5 @@
 <% provide :title, "Season #{@season.name}"
    provide :breadcrumbs, breadcrumbs([Season , :select]) %> 
 
-
 <h1>Season <%= @season.name %></h1>
 <%= render 'shared/administration_links', resource: @season %>
