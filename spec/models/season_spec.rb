@@ -43,27 +43,27 @@ describe Season, type: :model do
 
   it_should_behave_like "named scope"
   
-  context "when name is nil." do
+  context "when name is nil" do
     before { @season.name = nil }
     it { is_expected.not_to be_valid }
   end
   
-  context "when name is blank." do
+  context "when name is blank" do
     before { @season.name = "" }
     it { is_expected.not_to be_valid }
   end
     
-  context "when status is nil." do
+  context "when status is nil" do
     before { @season.status = nil }
     it { is_expected.not_to be_valid }
   end
 
-  context "when status is invalid." do
+  context "when status is invalid" do
     before { @season.status = 3 }
     it { is_expected.not_to be_valid }
   end
   
-  context "when legacy is nil." do
+  context "when legacy is nil" do
     before { @season.legacy = nil }
     it { is_expected.not_to be_valid }
   end

@@ -5,6 +5,8 @@ class Team < ActiveRecord::Base
 
   default_scope -> { order('name') }
 
+  after_initialize :init
+
   has_attached_file :club_crest, styles: { icon: [ "16x16^", :png], tiny: ["32x32^", :png], small: ["64x64^", :png], large: ["128x128^", :png] },
                                  convert_options: {
                                     icon: "-gravity Center -crop 16x16+0+0 +repage",
@@ -22,8 +24,14 @@ class Team < ActiveRecord::Base
   validates :code, presence: true, uniqueness: { case_sensitive: false }
   validates_length_of :code, :is => 3
   validates :established, presence: true, inclusion: 1800..2020
+  validates :colour, format: { with: /\A#[A-Z0-9]{6}\z/ }
   
   validates_attachment_size :club_crest, less_than: 5.megabytes
   validates_attachment_content_type :club_crest, content_type: [ "image/jpeg", "image/jpg", "image/gif", "image/png" ]
+
+  private  
+    def init
+      self.colour ||= "#000000"
+    end
 
 end

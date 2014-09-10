@@ -4,7 +4,7 @@ describe Team, type: :model do
   
   let(:stadium) { FactoryGirl.create(:stadium) }
   
-  before { @team = FactoryGirl.create(:team, name: "Test Team", code: "TTM", nickname: "Test Nickname", established: 1900, motto: "Test Motto", stadium: stadium, whoscored_id: 1) }
+  before { @team = FactoryGirl.create(:team, stadium: stadium, whoscored_id: 1, name: "Test Team", code: "TTM", nickname: "Test Nickname", established: 1900, motto: "Test Motto", colour: "#FFFFFF") }
   
   subject { @team }
 
@@ -15,6 +15,7 @@ describe Team, type: :model do
   it { is_expected.to respond_to(:nickname) }
   it { is_expected.to respond_to(:established) }
   it { is_expected.to respond_to(:motto) }
+  it { is_expected.to respond_to(:colour) }
   it { is_expected.to respond_to(:club_crest) }
 
   it { is_expected.to be_valid }
@@ -54,6 +55,11 @@ describe Team, type: :model do
     it { is_expected.to eq "Test Motto" }
   end
 
+  describe '#colour' do
+    subject { @team.colour }
+    it { is_expected.to eq "#FFFFFF" }
+  end
+
   it_should_behave_like "named scope"
   it_should_behave_like "name ordered"
   
@@ -62,12 +68,12 @@ describe Team, type: :model do
     it { is_expected.to be_valid }
   end
 
-  context "when stadium is nil " do
+  context "when stadium is nil" do
     before { @team.stadium = nil }
     it { is_expected.not_to be_valid }
   end
 
-  context "when whoscored_id is nil " do
+  context "when whoscored_id is nil" do
     before { @team.whoscored_id = nil }
     it { is_expected.not_to be_valid }
   end
@@ -82,13 +88,23 @@ describe Team, type: :model do
     it { is_expected.not_to be_valid }
   end
   
-  context "when established is nil " do
+  context "when established is nil" do
     before { @team.established = nil }
     it { is_expected.not_to be_valid }
   end
   
-  context "when motto is nil " do
+  context "when motto is nil" do
     before { @team.whoscored_id = nil }
+    it { is_expected.not_to be_valid }
+  end
+
+  context "when colour is nil" do
+    before { @team.colour = nil }
+    it { is_expected.not_to be_valid }
+  end
+  
+  context "when colour is invalid" do
+    before { @team.colour = "123123" }
     it { is_expected.not_to be_valid }
   end
   

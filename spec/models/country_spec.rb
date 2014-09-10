@@ -31,22 +31,22 @@ describe Country, type: :model do
     end
   end
 
-  context "when name is blank." do
+  context "when name is blank" do
     before { @country.name = "" }
     it { is_expected.not_to be_valid }
   end
   
-  context "when iso is blank." do
+  context "when iso is blank" do
     before { @country.iso = "" }
     it { is_expected.not_to be_valid }
   end
   
-  context "when iso is too short." do
+  context "when iso is too short" do
     before { @country.iso = "A" }
     it { is_expected.not_to be_valid }
   end
   
-  context "when iso is too long." do
+  context "when iso is too long" do
     before { @country.iso = "AAAA" }
     it { is_expected.not_to be_valid }
   end    

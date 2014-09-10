@@ -44,32 +44,32 @@ describe Stadium, type: :model do
     end
   end
   
-  context "when name is blank." do
+  context "when name is blank" do
     before { @stadium.name = "" }
     it { is_expected.not_to be_valid }
   end
 
-  context "when city is blank." do
+  context "when city is blank" do
     before { @stadium.city = "" }
     it { is_expected.not_to be_valid }
   end
   
-  context "when capacity is nil." do
+  context "when capacity is nil" do
     before { @stadium.capacity = nil }
     it { is_expected.not_to be_valid }
   end
 
-  context "when capacity is invalid." do
+  context "when capacity is invalid" do
     before { @stadium.capacity = -1 }
     it { is_expected.not_to be_valid }
   end
 
-  context "when opened is nil." do
+  context "when opened is nil" do
     before { @stadium.opened = nil }
     it { is_expected.not_to be_valid }
   end
 
-  context "when opened is invalid." do
+  context "when opened is invalid" do
     before { @stadium.opened = -1 }
     it { is_expected.not_to be_valid }
   end
