@@ -19,28 +19,28 @@ Rails.application.routes.draw do
         get :cancel
       end  
   end
-
-  concern :players do
-    resources :players, only: [:index]
-  end
-
-  resources :countries, only: [:index, :show], concerns: [:players]
-  resources :players, only: [:index, :show]
-  resources :seasons, only: [:index, :show]
   
-  resources :seasons do
+  concern :select do
     collection do
       post :select, action: :select
     end
   end
 
-  resources :players, :countries do
+  concern :select_season do
     member do
       post :select_season
       get '/:season_id', action: :show, as: 'show_season'
-    end
+    end    
   end
   
+  concern :players do
+    resources :players, only: [:index]
+  end
+
+  resources :countries, only: [:index, :show], concerns: [:players]
+  resources :players, only: [:index, :show], concerns: [:select_season]
+  resources :seasons, only: [:index, :show], concerns: [:select]
+    
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   
 end
