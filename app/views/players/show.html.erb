@@ -2,7 +2,7 @@
    provide :breadcrumbs, breadcrumbs([ :index , :name, :select_season ]) %> 
   
 <h1><%= @player.name %></h1>
-<%= render 'shared/administration_links', resource: @player %>
+<%= render 'layouts/administration_links', resource: @player %>
   
 <div class="section">
   <div class="player-profile-container">  

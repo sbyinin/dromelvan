@@ -1,8 +1,8 @@
 <% provide :title, @country.name
    provide :breadcrumbs, breadcrumbs([ :index, :name ]) %> 
 
-<h1><%= render 'flag_image_tag', country: @country, size: 64 %><%= @country.name %> (<%= @country.iso %>)</h1>   
-<p class="administration-links"><%= render 'shared/edit_link', resource: @country %></p>
+<h1><%= render 'flag_image_tag', country: @country, size: 64 %><%= @country.name %> (<%= @country.iso %>)</h1>
+<%= render 'layouts/administration_links', resource: @country %>
 
 <h2>Players from <%= @country.name %></h2>
 
