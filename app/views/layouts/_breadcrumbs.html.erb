@@ -3,7 +3,7 @@
 
   <% breadcrumbs.each do |breadcrumb| %>
     <% if breadcrumb.is_a?(Class) then %>
-      <li><%= link_to controller_name.capitalize, url_for(action: 'index') %></li>  
+      <li><%= link_to breadcrumb.name.pluralize, url_for(controller: breadcrumb.name.downcase.pluralize, action: 'index') %></li>  
     <% elsif breadcrumb.is_a?(ActiveRecord::Base) then %>
       <li><%= render breadcrumb %></li>      
     <% elsif breadcrumb == :select_season then %>
