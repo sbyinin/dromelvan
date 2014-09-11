@@ -35,44 +35,43 @@ describe Stadium, type: :model do
   end
 
   it_should_behave_like "named scope"
+  it_should_behave_like "name ordered"
   
-  context "when name is blank." do
+  context "with team dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:stadium) }
+      let!(:dependent) { FactoryGirl.create(:team, stadium: owner) }      
+    end
+  end
+  
+  context "when name is blank" do
     before { @stadium.name = "" }
     it { is_expected.not_to be_valid }
   end
 
-  context "when city is blank." do
+  context "when city is blank" do
     before { @stadium.city = "" }
     it { is_expected.not_to be_valid }
   end
   
-  context "when capacity is nil." do
+  context "when capacity is nil" do
     before { @stadium.capacity = nil }
     it { is_expected.not_to be_valid }
   end
 
-  context "when capacity is invalid." do
+  context "when capacity is invalid" do
     before { @stadium.capacity = -1 }
     it { is_expected.not_to be_valid }
   end
 
-  context "when opened is nil." do
+  context "when opened is nil" do
     before { @stadium.opened = nil }
     it { is_expected.not_to be_valid }
   end
 
-  context "when opened is invalid." do
+  context "when opened is invalid" do
     before { @stadium.opened = -1 }
     it { is_expected.not_to be_valid }
-  end
-  
-  describe "default scope order" do
-    before { Stadium.destroy_all }
-    
-    let!(:stadium1) { FactoryGirl.create(:stadium, name: "CountryB") }
-    let!(:stadium2) { FactoryGirl.create(:stadium, name: "CountryA") }
-    
-    specify { expect(Stadium.all).to eq [ stadium2, stadium1 ] }
   end
   
 end

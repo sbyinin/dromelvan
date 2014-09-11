@@ -26,16 +26,16 @@ ul.ui-autocomplete {
 
 main {
     div.search-results {
-        div.player-result {
+        div.search-result {
             @include make-sm-column(4);
             @include make-lg-column(3);
             padding-top: $padding-large-vertical;
             
-            img.player-photo {
+            img {
                 float: left;             
             }
             
-            div.player-info {  
+            div.search-info {  
                 margin-left: 70px;
             }
             

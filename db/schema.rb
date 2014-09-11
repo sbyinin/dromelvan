@@ -69,6 +69,23 @@ ActiveRecord::Schema.define(version: 20140911072351) do
     t.datetime "updated_at"
   end
 
+  create_table "teams", force: true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.string   "nickname"
+    t.integer  "established"
+    t.string   "motto"
+    t.integer  "stadium_id"
+    t.integer  "whoscored_id"
+    t.string   "club_crest_file_name"
+    t.string   "club_crest_content_type"
+    t.integer  "club_crest_file_size"
+    t.datetime "club_crest_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "colour"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
