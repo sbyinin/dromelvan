@@ -43,4 +43,15 @@ FactoryGirl.define do
     date Date.today
   end
 
+  factory :position do
+    sequence(:name) { |n| "Position#{n}" }
+    defender false
+    sequence(:code) do |n|
+      "C#{n}"
+    end    
+    sequence(:sort_order) do |n|
+      n
+    end    
+  end
+  
 end
