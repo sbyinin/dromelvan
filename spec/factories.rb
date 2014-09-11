@@ -16,6 +16,12 @@ FactoryGirl.define do
     sequence(:iso) { |n| "#{('AAA'..'ZZZ').to_a[n]}" }    
   end
 
+  factory :d11_team do    
+    sequence(:name) { |n| "Test D11 Team #{n}" }
+    sequence(:code) { |n| "#{('AAA'..'ZZZ').to_a[n]}" }    
+    association :owner, factory: :user
+  end
+
   factory :stadium do
     sequence(:name) { |n| "Test Stadium #{n}" }
     city "Test City"

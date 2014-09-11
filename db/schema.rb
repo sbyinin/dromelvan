@@ -11,11 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911072351) do
+ActiveRecord::Schema.define(version: 20140911200733) do
 
   create_table "countries", force: true do |t|
     t.string   "name"
     t.string   "iso"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "d11_teams", force: true do |t|
+    t.integer  "owner_id"
+    t.integer  "co_owner_id"
+    t.string   "name"
+    t.string   "code"
+    t.string   "club_crest_file_name"
+    t.string   "club_crest_content_type"
+    t.integer  "club_crest_file_size"
+    t.datetime "club_crest_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
