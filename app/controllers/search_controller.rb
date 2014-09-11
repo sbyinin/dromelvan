@@ -3,20 +3,20 @@ class SearchController < ApplicationController
   def search    
     @q = search_params[:q]
     
-    @players, @additional_player_count = execute_search(@q)
+    @players, @additional_player_count, @teams = execute_search(@q)
   end
 
   def live_search    
     q = search_params[:q]
 
-    players, additional_player_count = execute_search(q)
+    players, additional_player_count, teams = execute_search(q)
 
     if additional_player_count > 0
       # Add a dummy player for the additional player count.
       players.push(Player.new(last_name: "... and #{additional_player_count} additional players"))
     end
 
-    result = players # + teams + stadia + users + seasons
+    result = players + teams #+ stadia + users + seasons
     
     result_json = Jbuilder.encode do | json |    
       json.array! result do | object |
@@ -46,7 +46,9 @@ private
     if additional_player_count > 0
       players = players[0..19]      
     end
-    return players, additional_player_count
+    
+    teams = Team.named(q)    
+    return players, additional_player_count, teams
   end
   
   def icon_url(object)

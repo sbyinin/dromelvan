@@ -14,7 +14,7 @@ class Team < ActiveRecord::Base
                                     small: "-gravity Center -crop 64x64+0+0 +repage",
                                     large: "-gravity Center -crop 128x128+0+0 +repage"
                                   },
-                                  default_url: "/assets/missing/club_crest-:style.png",
+                                  default_url: "/assets/missing/club-crest-:style.png",
                                   url: "/images/club_crest/:style/:id.:extension",
                                   path: ":rails_root/public/images/club_crest/:style/:id.:extension"
 

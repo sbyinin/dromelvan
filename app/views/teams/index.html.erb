@@ -1,0 +1,20 @@
+<% provide :title, "Teams"
+   provide :breadcrumbs, breadcrumbs([ :index ]) %> 
+
+<h1>Teams</h1>
+
+<p>List of all registered teams.</p>
+
+<%= render layout: 'layouts/datatable_ajax' do %>
+  <thead>
+    <tr>        
+      <th class="main-column name-column" data-class="expand">Name</th>
+      <th class="icon-column">Crest</th>
+      <th class="code-column" data-hide="phone">Code</th>
+      <th class="nickname-column" data-hide="phone, tablet">Nickname</th>
+      <th class="number-column" data-hide="phone">Established</th>
+      <th class="motto-column" data-hide="phone, tablet">Motto</th>
+      <th class="whoscored-id-column" data-hide="phone">WhoScored ID</th>
+    </tr>
+  </thead>        
+<% end %>

@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
   resources :countries, only: [:index, :show], concerns: [:players]
   resources :players, only: [:index, :show], concerns: [:select_season]
+  resources :teams, only: [:index, :show], concerns: [:select_season, :select]
   resources :seasons, only: [:index, :show], concerns: [:select]
     
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

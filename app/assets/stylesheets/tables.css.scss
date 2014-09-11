@@ -29,19 +29,22 @@ main {
 	    width: 95%;	
 	}
 	
-	.country-column {
-	    min-width: 200px;    
-	}
-	
 	.date-column,
 	.height-column,
 	.weight-column,
 	.whoscored-id-column {
 	    min-width: 100px;
 	}
+	
+	.nickname-column {
+	    min-width: 150px;    
+	}
+	
+	.country-column,
+	.motto-column {
+	    min-width: 200px;    
+	}	
     }
-    
-
 }
 
 /* Bootstrap overrides ------------------------------------------------------ */
