@@ -3,7 +3,7 @@ shared_examples_for "show controller" do
   describe "GET 'show'" do
     context "with existing resource" do
       specify do
-        resource = FactoryGirl.create(subject.controller_name.classify.downcase.to_sym)
+        resource = FactoryGirl.create(subject.controller_name.tableize.singularize.to_sym)
         get :show, id: resource.id
         expect(response).to be_success
       end

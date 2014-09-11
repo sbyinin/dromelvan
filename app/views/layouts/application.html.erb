@@ -17,7 +17,7 @@
 
 <main role="main">
   <%= yield(:hero_unit) %>
-  <div class="content <%= controller_name %> <%= action_name %>">
+  <div class="content <%= controller_name.dasherize %> <%= action_name %>">
     <%= yield(:breadcrumbs) %>    
     <%= render 'devise/shared/notice' %>
     <%= yield %>

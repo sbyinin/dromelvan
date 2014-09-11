@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html do
         resources = controller_name.classify.constantize.all
-        self.instance_variable_set "@#{controller_name.classify.pluralize.downcase}", resources
+        self.instance_variable_set "@#{controller_name.tableize}", resources
       end
       format.json do
         datatable_class_name = controller_name.classify.pluralize + "Datatable"
@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   def show
     resource = controller_name.classify.constantize.find(params[:id])
-    self.instance_variable_set "@#{controller_name.classify.downcase}", resource
+    self.instance_variable_set "@#{controller_name.tableize.singularize}", resource
   end
     
   def administrator_signed_in?

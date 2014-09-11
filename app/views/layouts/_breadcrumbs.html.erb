@@ -5,13 +5,13 @@
   
     <% if breadcrumb == :index then %>      
       <% if action_name == 'index' then %>
-      <li><%= controller_name.capitalize %></li>
+      <li><%= controller_name.titleize %></li>
       <% else %>
-      <li><%= link_to controller_name.capitalize, url_for(action: 'index') %></li>
+      <li><%= link_to controller_name.titleize, url_for(action: 'index') %></li>
       <% end %>
       
     <% elsif breadcrumb == :name then %>
-      <li><%= instance_variable_get("@#{controller_name.classify.downcase}").name %></li>
+      <li><%= instance_variable_get("@#{controller_name.singularize}").name %></li>
 
     <% elsif breadcrumb == :title then %>
       <li><%= yield :title %></li>
@@ -27,7 +27,7 @@
       <li>
         <%= form_tag url_for(action: breadcrumb), class: "onchange-submit-form" do %>        
           <%= collection_select controller_name.singularize, :id,
-              controller_name.singularize.capitalize.constantize.where(select_where), :id, :name, {}, { onchange: 'this.form.submit()' } %>
+              controller_name.singularize.classify.constantize.where(select_where), :id, :name, {}, { onchange: 'this.form.submit()' } %>
         <% end %>              
       </li>
       

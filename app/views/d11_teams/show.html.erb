@@ -1,0 +1,5 @@
+<% provide :title, @d11_team.name
+   provide :breadcrumbs, breadcrumbs([ :index , :select, :select_season ]) %> 
+
+<h1><%= @d11_team.name %></h1>
+<%= render 'layouts/administration_links', resource: @d11_team %>

@@ -4,7 +4,7 @@ shared_examples_for "show view" do |resource_class|
 
   before { visit polymorphic_path(resource) }
 
-  it { is_expected.to have_selector("div.#{resource.class.table_name.gsub('_','-')}") }
+  it { is_expected.to have_selector("div.#{resource.class.table_name.dasherize}") }
   it { is_expected.to have_selector("div.show") }
   it { is_expected.to have_selector('h1', text: "#{h1_text}") }
   it { is_expected.not_to have_link('Edit', href: rails_admin.edit_path(model_name: resource.class.name.downcase, id: resource.id) ) }
