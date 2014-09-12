@@ -3,7 +3,7 @@
 
 <h1>Search Results</h1>
 
-<% if @players.size + @teams.size > 0 %>
+<% if @players.size + @teams.size + @d11_teams.size > 0 %>
   
 <p>Players, teams and D11 teams with names matching "<%= @q %>".</p>
   
@@ -35,7 +35,7 @@
 <% if @teams.any? %>
 <div class="search-results" id="#teams-search-results">
   
-  <h2>Teams</h2>
+  <h2>Premier League Teams</h2>
   
   <div class="section">
     <% @teams.each do |team| %>
@@ -45,6 +45,27 @@
         <div class="search-info year">Established <%= team.established %></div>
         <div class="search-info name"><%= team.stadium.name %></div>
         <div class="search-info name"><%= team.stadium.city %></div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% end %>
+
+<% if @d11_teams.any? %>
+<div class="search-results" id="#d11-teams-search-results">
+  
+  <h2>D11 Teams</h2>
+  
+  <div class="section">
+    <% @d11_teams.each do |d11_team| %>
+      <div class="search-result">
+        <%= image_tag '/assets/missing/club-crest-small.png', class: "club-crest" %>
+        <div class="search-info name"><%= render d11_team %></div>
+        <div class="search-info name">Owner: <%= d11_team.owner.name %></div>
+        <% if !d11_team.co_owner.nil? %>
+        <div class="search-info name">Co owner: <%= d11_team.co_owner.name %></div>
+        <% end %>
       </div>
     <% end %>
   </div>
