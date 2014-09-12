@@ -3,7 +3,7 @@ class Country < ActiveRecord::Base
 
   has_many :players, dependent: :restrict_with_exception
 
-  default_scope -> { order :name }
+  default_scope -> { order(name: :asc) }
   
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :iso, presence: true, uniqueness: { case_sensitive: false }

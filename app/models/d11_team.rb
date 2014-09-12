@@ -1,10 +1,10 @@
 class D11Team < ActiveRecord::Base
   include NameScope
   
-  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
-  belongs_to :co_owner, class_name: 'User', foreign_key: 'co_owner_id'
+  belongs_to :owner, class_name: :User, foreign_key: :owner_id
+  belongs_to :co_owner, class_name: :User, foreign_key: :co_owner_id
 
-  default_scope -> { order('name') }
+  default_scope -> { order(name: :asc) }
   
   has_attached_file :club_crest, styles: { icon: [ "16x16^", :png], tiny: ["32x32^", :png], small: ["64x64^", :png], large: ["128x128^", :png] },
                                  convert_options: {

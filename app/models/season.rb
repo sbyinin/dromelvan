@@ -1,7 +1,7 @@
 class Season < ActiveRecord::Base
   include NameScope
 
-  default_scope -> { order date: :desc }
+  default_scope -> { order(date: :desc) }
 
   after_initialize :init
   

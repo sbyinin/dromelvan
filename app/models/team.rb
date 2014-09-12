@@ -3,7 +3,7 @@ class Team < ActiveRecord::Base
     
   belongs_to :stadium
 
-  default_scope -> { order('name') }
+  default_scope -> { order(name: :asc) }
 
   after_initialize :init
 

@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook, :twitter, :google_oauth2]
 
+  has_many :owned_d11_teams, class_name: :D11Team, foreign_key: :owner_id, dependent: :restrict_with_exception
+  has_many :co_owned_d11_teams, class_name: :D11Team, foreign_key: :co_owner_id, dependent: :restrict_with_exception
+
   def self.new_with_session(params, session)
     # This adds the email to the email field in the signup page if a user tries to sign up with an
     # account with an email that is already in use.
