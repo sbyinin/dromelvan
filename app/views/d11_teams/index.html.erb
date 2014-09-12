@@ -3,4 +3,16 @@
 
 <h1>D11 Teams</h1>
 
-<p>List of all registered teams.</p>
+<p>List of all registered D11 teams.</p>
+
+<%= render layout: 'layouts/datatable_ajax' do %>
+  <thead>
+    <tr>        
+      <th class="main-column name-column" data-class="expand">Name</th>
+      <th class="icon-column">Crest</th>
+      <th class="code-column" data-hide="phone">Code</th>
+      <th class="name-column" data-hide="phone, tablet">Owner</th>
+      <th class="name-column" data-hide="phone">Co-owner</th>
+    </tr>
+  </thead>        
+<% end %>

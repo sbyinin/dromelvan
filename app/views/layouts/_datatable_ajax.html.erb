@@ -1,5 +1,5 @@
 <% url ||= controller_name
-   objects ||= controller_name %>
+   objects ||= controller_name.gsub('_',' ') %>
 <table class="data data-table data-table-ajax <%= objects %>" id="data-table" data-url="<%= url %>" data-objects="<%= objects %>">
   <%= yield %>
   <tbody>

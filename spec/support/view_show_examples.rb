@@ -7,7 +7,7 @@ shared_examples_for "show view" do |resource_class|
   it { is_expected.to have_selector("div.#{resource.class.table_name.dasherize}") }
   it { is_expected.to have_selector("div.show") }
   it { is_expected.to have_selector('h1', text: "#{h1_text}") }
-  it { is_expected.not_to have_link('Edit', href: rails_admin.edit_path(model_name: resource.class.name.downcase, id: resource.id) ) }
+  it { is_expected.not_to have_link('Edit', href: rails_admin.edit_path(model_name: resource.class.name, id: resource.id) ) }
 
   context "as user" do
     let!(:user) { FactoryGirl.create(:user) }
@@ -17,7 +17,7 @@ shared_examples_for "show view" do |resource_class|
       visit polymorphic_path(resource)
     end
     
-    it { is_expected.not_to have_link('Edit', href: rails_admin.edit_path(model_name: resource.class.name.downcase, id: resource.id) ) }
+    it { is_expected.not_to have_link('Edit', href: rails_admin.edit_path(model_name: resource.class.name, id: resource.id) ) }
   end
 
   context "as administrator" do
@@ -28,6 +28,6 @@ shared_examples_for "show view" do |resource_class|
       visit polymorphic_path(resource)
     end
     
-    it { is_expected.to have_link('Edit', href: rails_admin.edit_path(model_name: resource.class.name.downcase, id: resource.id) ) }
+    it { is_expected.to have_link('Edit', href: rails_admin.edit_path(model_name: resource.class.name, id: resource.id) ) }
   end
 end
