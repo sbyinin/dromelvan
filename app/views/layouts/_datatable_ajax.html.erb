@@ -1,6 +1,15 @@
 <% url ||= controller_name
    objects ||= controller_name.gsub('_',' ') %>
-<table class="data data-table data-table-ajax <%= objects %>" id="data-table" data-url="<%= url %>" data-objects="<%= objects %>">
+<table class="data data-table data-table-ajax <%= objects %>"
+       id="data-table"
+       <% if defined?(icon_columns) then %>
+       data-icon-columns="<%= icon_columns %>" 
+       <% end %>
+       <% if defined?(number_columns) then %>
+       data-number-columns="<%= number_columns %>" 
+       <% end %>        
+       data-url="<%= url %>"
+       data-objects="<%= objects %>">
   <%= yield %>
   <tbody>
   </tbody>

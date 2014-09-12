@@ -44,7 +44,16 @@ main {
 	.country-column,
 	.motto-column {
 	    min-width: 200px;    
-	}	
+	}
+	
+	.icon-column {
+	    text-align: center;
+	}
+	
+	.nickname-column,
+	.number-column {
+	    text-align: right;
+	}
     }
 }
 

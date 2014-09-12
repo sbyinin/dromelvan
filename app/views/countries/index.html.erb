@@ -5,7 +5,7 @@
 
 <p>List of all registered countries.</p>
 
-<%= render layout: 'layouts/datatable_ajax' do %>
+<%= render layout: 'layouts/datatable_ajax', locals: { icon_columns: [1] } do %>
   <thead>
     <tr>        
       <th class="main-column name-column" data-class="expand">Name</th>

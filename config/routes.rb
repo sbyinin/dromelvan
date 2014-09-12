@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   end
 
   resources :countries, only: [:index, :show], concerns: [:players]
-  resources :d11_teams, only: [:index, :show], concerns: [:select_season, :select]
+  resources :d11_teams, only: [:index, :show], concerns: [:select_season, :select] #, path: 'd11-teams'
   resources :players, only: [:index, :show], concerns: [:select_season]
   resources :teams, only: [:index, :show], concerns: [:select_season, :select]
   resources :seasons, only: [:index, :show], concerns: [:select]

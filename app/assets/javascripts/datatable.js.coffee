@@ -50,6 +50,17 @@ jQuery ->
         rowCallback: (nRow) ->
           responsiveHelper.createExpandIcon nRow
           return
+
+        aoColumnDefs: [
+          {
+            aTargets: tableElement.data("number-columns")
+            sClass: "number-column"
+          },
+          {
+            aTargets: tableElement.data("icon-columns")
+            sClass: "icon-column"
+          }          
+        ]
         
         #aoColumnDefs: [{
         #  bSortable: false,
@@ -100,7 +111,7 @@ jQuery ->
         rowCallback: (nRow) ->
           responsiveHelper.createExpandIcon nRow
           return
-        
+
         #aoColumnDefs: [{
         #  bSortable: false,
         #  aTargets: if $(this).data("unsortable-columns") is `undefined`
