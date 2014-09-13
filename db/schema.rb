@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911200733) do
+ActiveRecord::Schema.define(version: 20140913074933) do
 
   create_table "countries", force: true do |t|
     t.string   "name"
@@ -29,6 +29,17 @@ ActiveRecord::Schema.define(version: 20140911200733) do
     t.string   "club_crest_content_type"
     t.integer  "club_crest_file_size"
     t.datetime "club_crest_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "player_season_infos", force: true do |t|
+    t.integer  "player_id"
+    t.integer  "season_id"
+    t.integer  "team_id"
+    t.integer  "d11_team_id"
+    t.integer  "position_id"
+    t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
