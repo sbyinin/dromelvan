@@ -39,7 +39,7 @@
           <dt>D11 team:</dt>
           <dd><%= render player_season_info.d11_team %></dd>        
         </dl>
-    
+
         <dl class="data">
           <dt>Date of birth:</dt>
           <dd><%= @player.date_of_birth %> (age <%= @player.age %>)</dd>
@@ -49,6 +49,8 @@
           <dd><%= @player.weight%> kg</dd>                  
           <dt>WhoScored Id:</dt>
           <dd><%= render 'players/whoscored_link', player: @player %></dd>
+          <dt>Value:</dt>
+          <dd><%= player_value player_season_info.value %></dd>          
           <dt>Position:</dt>
           <dd><%= player_season_info.position.name %></dd>
           <dt>Played pos:</dt>
