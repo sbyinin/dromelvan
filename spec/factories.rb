@@ -78,5 +78,10 @@ FactoryGirl.define do
       n
     end    
   end
+
+  factory :premier_league do
+    name "Barclays Premier League"
+    season
+  end
   
 end

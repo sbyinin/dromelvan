@@ -36,7 +36,7 @@ describe Season, type: :model do
     before { Season.destroy_all }
     
     let!(:season1) { FactoryGirl.create(:season, date: Date.today - 1.day) }
-    let!(:season2) { FactoryGirl.create(:season, name: Date.today) }
+    let!(:season2) { FactoryGirl.create(:season, date: Date.today) }
     
     specify { expect(Season.current).to eq season2 }
   end
@@ -66,6 +66,13 @@ describe Season, type: :model do
   context "when legacy is nil" do
     before { @season.legacy = nil }
     it { is_expected.not_to be_valid }
+  end
+
+  context "with premier_league dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:season) }
+      let!(:dependent) { FactoryGirl.create(:premier_league, season: owner) }      
+    end
   end
 
   context "with player_season_info dependents" do    

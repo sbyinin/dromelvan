@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140913074933) do
+ActiveRecord::Schema.define(version: 20140913193751) do
 
   create_table "countries", force: true do |t|
     t.string   "name"
@@ -67,6 +67,13 @@ ActiveRecord::Schema.define(version: 20140913074933) do
     t.string   "code"
     t.boolean  "defender"
     t.integer  "sort_order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "premier_leagues", force: true do |t|
+    t.integer  "season_id"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
