@@ -2,6 +2,7 @@ class Team < ActiveRecord::Base
   include NameScope
     
   belongs_to :stadium
+  has_many :player_season_infos, dependent: :restrict_with_exception
 
   default_scope -> { order(name: :asc) }
 

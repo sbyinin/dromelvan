@@ -14,4 +14,4 @@ require File.expand_path('../seed/players', __FILE__)
 require File.expand_path('../seed/positions', __FILE__)
 require File.expand_path('../seed/teams', __FILE__)
 require File.expand_path('../seed/seasons', __FILE__)
-
+require File.expand_path('../seed/player_season_infos', __FILE__)

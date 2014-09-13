@@ -67,6 +67,13 @@ describe Position, type: :model do
     it { should_not be_valid }
   end
 
+  context "with player_season_info dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:position) }
+      let!(:dependent) { FactoryGirl.create(:player_season_info, position: owner) }      
+    end
+  end
+
   describe "default scope order" do
     before { Position.destroy_all }
     

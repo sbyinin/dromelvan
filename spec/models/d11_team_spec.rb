@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 describe D11Team, type: :model do
-  let(:owner) { FactoryGirl.create(:user) }
+  # This has to be 'team_owner' since 'owner' is used by the shared dependency owner examples
+  let(:team_owner) { FactoryGirl.create(:user) }
   let(:co_owner) { FactoryGirl.create(:user) }
   
-  before { @d11_team = FactoryGirl.create(:d11_team, owner: owner, co_owner: co_owner, name: "Test D11 Team", code: "TDT") }
+  before { @d11_team = FactoryGirl.create(:d11_team, owner: team_owner, co_owner: co_owner, name: "Test D11 Team", code: "TDT") }
   
   subject { @d11_team }
 
@@ -18,7 +19,7 @@ describe D11Team, type: :model do
 
   describe '#owner' do
     subject { @d11_team.owner }
-    it { is_expected.to eq owner }
+    it { is_expected.to eq team_owner }
   end
 
   describe '#co_owner' do
@@ -67,6 +68,13 @@ describe D11Team, type: :model do
   context "when code is invalid" do
     before { @d11_team.code = "1234" }
     it { is_expected.not_to be_valid }
+  end
+
+  context "with player_season_info dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:d11_team) }
+      let!(:dependent) { FactoryGirl.create(:player_season_info, d11_team: owner) }      
+    end
   end
     
 end

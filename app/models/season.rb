@@ -1,6 +1,8 @@
 class Season < ActiveRecord::Base
   include NameScope
 
+  has_many :player_season_infos, dependent: :restrict_with_exception
+  
   default_scope -> { order(date: :desc) }
 
   after_initialize :init
