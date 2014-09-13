@@ -1,1 +1,5 @@
+<% if team.id > 1 %>
 <%= link_to team.name, team, class: "model-link" %>
+<% else %>
+None
+<% end %>

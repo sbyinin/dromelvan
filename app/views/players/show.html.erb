@@ -1,5 +1,6 @@
 <% provide :title, @player.name
-   provide :breadcrumbs, breadcrumbs([ :index , :name, :select_season ]) %> 
+   provide :breadcrumbs, breadcrumbs([ :index , :name, :select_season ])
+   player_season_info = @player.season_info(@season) %> 
   
 <h1><%= @player.name %></h1>
 <%= render 'layouts/administration_links', resource: @player %>
@@ -9,13 +10,13 @@
     <div class="player-profile standard-panel">
       
       <div class="panel-heading">
-        <h2>Player profile</h2>
+        <h2>Player profile <%= @season.name %></h2>
       </div>
               
       <div class="section panel-body">
         <div class="image-container player-photo">
           <%= render 'player_photo', player: @player %>
-          <%= image_tag '/assets/missing/club-crest-large.png', class: "club-crest" %>
+          <%= render 'teams/club_crest', team: player_season_info.team %>
           <p>
             <span class="points"><span class="value">123</span> points</span>
             <span class="ranking"><span class="value">32</span>nd ranking</span>
@@ -34,9 +35,9 @@
           <dt>Nationality:</dt>
           <dd><%= render @player.country %></dd>
           <dt>Team:</dt>
-          <dd>West Bromwich Albion Poo Poo</dd>
+          <dd><%= render player_season_info.team %></dd>
           <dt>D11 team:</dt>
-          <dd>Eleven Robbie Savages</dd>        
+          <dd><%= render player_season_info.d11_team %></dd>        
         </dl>
     
         <dl class="data">
@@ -49,13 +50,13 @@
           <dt>WhoScored Id:</dt>
           <dd><%= render 'players/whoscored_link', player: @player %></dd>
           <dt>Position:</dt>
-          <dd>Midfielder</dd>
+          <dd><%= player_season_info.position.name %></dd>
           <dt>Played pos:</dt>
           <dd>DMC, AMR, AMC</dd>                
         </dl>
     
         <div class="image-container club-crest">
-          <%= image_tag '/assets/missing/club-crest-large.png' %>
+          <%= render 'teams/club_crest', team: player_season_info.team %>
         </div>
         
       </div>

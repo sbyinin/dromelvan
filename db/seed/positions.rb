@@ -3,7 +3,8 @@ positions = [
   [ "Full Back", "FB", true, 2 ],
   [ "Defender", "D", true, 3 ],
   [ "Midfielder", "MF", false, 4 ],
-  [ "Forward", "F", false, 5 ]
+  [ "Forward", "F", false, 5 ],
+  [ "Unknown", "?", false, 6 ]
 ]
 
 puts("Seeding positions...")

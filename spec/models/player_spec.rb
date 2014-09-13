@@ -28,6 +28,7 @@ describe Player, type: :model do
   it { is_expected.to respond_to(:height) }
   it { is_expected.to respond_to(:weight) }
   it { is_expected.to respond_to(:player_photo) }
+  it { is_expected.to respond_to(:season_info) }
 
   it { is_expected.to be_valid }
   
@@ -54,6 +55,16 @@ describe Player, type: :model do
   describe '#parameterized_name' do
     subject { @player.parameterized_name }
     it { is_expected.to eq @player.name.parameterize }
+  end
+
+  describe '#season_info' do
+    # Check that this method returns an object even if there isn't one in the database.
+    let(:season) { FactoryGirl.create(:season) }
+    let(:player_season_info) { @player.season_info(season) }
+    
+    specify { expect(player_season_info).not_to be_nil }
+    specify { expect(player_season_info.player).to eq @player }
+    specify { expect(player_season_info.season).to eq season }
   end
 
   describe '#age' do

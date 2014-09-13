@@ -42,7 +42,15 @@ class Player < ActiveRecord::Base
   def short_name
     "#{last_name} #{first_name[0]}".strip    
   end
-
+  
+  def season_info(season)
+    player_season_info = player_season_infos.where(season: season).first
+    if player_season_info.nil?
+      player_season_info = PlayerSeasonInfo.new(player: self, season: season)
+    end
+    player_season_info
+  end
+  
   def Player.named(name)
     if !name.blank? then
       if name.match('\"(.*)\"') then

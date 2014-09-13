@@ -20,6 +20,7 @@ class PlayerSeasonInfo < ActiveRecord::Base
     def init
       self.team ||= Team.where(name: "None").first
       self.d11_team ||= D11Team.where(name: "None").first
+      self.position ||= Position.where(name: "Unknown").first
       self.value ||= 0
     end
   

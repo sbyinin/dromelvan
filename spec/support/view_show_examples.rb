@@ -1,6 +1,8 @@
 shared_examples_for "show view" do |resource_class|  
 
   let(:resource) { FactoryGirl.create(resource_class.table_name.singularize.to_sym) }
+  # The season select show views need a season
+  let!(:season) { FactoryGirl.create(:season) }
 
   before { visit polymorphic_path(resource) }
 
