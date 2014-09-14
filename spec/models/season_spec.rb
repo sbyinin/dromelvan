@@ -93,7 +93,7 @@ describe Season, type: :model do
     before { Season.destroy_all }
     
     let!(:season1) { FactoryGirl.create(:season, date: Date.today - 1.day) }
-    let!(:season2) { FactoryGirl.create(:season, name: Date.today) }
+    let!(:season2) { FactoryGirl.create(:season, date: Date.today) }
     
     specify { expect(Season.all).to eq [ season2, season1 ] }
   end
