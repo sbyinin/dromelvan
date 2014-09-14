@@ -75,6 +75,13 @@ describe Season, type: :model do
     end
   end
 
+  context "with d11_league dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:season) }
+      let!(:dependent) { FactoryGirl.create(:d11_league, season: owner) }      
+    end
+  end
+
   context "with player_season_info dependents" do    
     it_should_behave_like "all dependency owners" do
       let!(:owner) { FactoryGirl.create(:season) }
