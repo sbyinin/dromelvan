@@ -39,8 +39,8 @@
         <% end %>              
       </li>
       
-    <% elsif breadcrumb.is_a?(Class) then %>
-      <li><%= link_to breadcrumb.name.pluralize, url_for(controller: breadcrumb.name.downcase.pluralize, action: 'index') %></li>
+    <% elsif :class then %>
+      <li><%= controller_name.classify.titleize %></li>
       
     <% elsif breadcrumb.is_a?(ActiveRecord::Base) then %>
       <li><%= render breadcrumb %></li>

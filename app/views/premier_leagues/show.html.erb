@@ -1,5 +1,5 @@
 <% provide :title, @premier_league.name
-   provide :breadcrumbs, breadcrumbs([ "Premier League" , :select_unique_name ]) %> 
+   provide :breadcrumbs, breadcrumbs([ :class , :select_unique_name ]) %> 
   
-<h1><%= @premier_league.name %></h1>
+<h1><%= @premier_league.name %> <%= @premier_league.season.name %></h1>
 <%= render 'layouts/administration_links', resource: @premier_league %>
