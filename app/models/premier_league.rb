@@ -11,7 +11,7 @@ class PremierLeague < ActiveRecord::Base
   validates :season, presence: true
  
   def PremierLeague.current
-    Season.current.premier_league
+    Season.current.premier_league unless Season.current.nil?
   end
   
 end
