@@ -30,8 +30,11 @@ nav.application-navbar {
             ul.user-menubar {
                 @extend .navbar-right;
             }
-        }
-        
+        }        
     }
     
+    // Fixes bug that prevents clicking menuitems on phone menu (https://github.com/twbs/bootstrap/issues/7968)
+    .dropdown-backdrop {
+        position: static;
+    }    
 }
