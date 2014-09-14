@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   resources :players, only: [:index, :show], concerns: [:select_season]
   resources :teams, only: [:index, :show], concerns: [:select_season, :select]
   resources :seasons, only: [:index, :show], concerns: [:select]
+  resources :premier_leagues, only: [:show], concerns: [:select]
     
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   

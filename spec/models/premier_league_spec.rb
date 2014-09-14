@@ -2,15 +2,15 @@ require 'rails_helper'
 
 describe PremierLeague, type: :model do
   
-  let(:season) { FactoryGirl.create(:season) }
+  let(:season) { FactoryGirl.create(:season, name: "2000-2001") }
   
   before { @premier_league = FactoryGirl.create(:premier_league, season: season, name: "Barclays Premier League") }
   
   subject { @premier_league }
   
   it { is_expected.to respond_to(:season) }
-  it { is_expected.to respond_to(:name) }
-    
+  it { is_expected.to respond_to(:name) }  
+  
   it { is_expected.to be_valid }
   
   describe '#season' do
@@ -22,7 +22,9 @@ describe PremierLeague, type: :model do
     subject { @premier_league.name }
     it { is_expected.to eq "Barclays Premier League" }
   end
-
+  
+  it_should_behave_like "season unique named"
+  
   context "when season is nil" do
     before { @premier_league.season = nil }
     it { is_expected.not_to be_valid }
