@@ -46,5 +46,12 @@ describe PremierLeague, type: :model do
     before { @premier_league.name = "" }
     it { is_expected.not_to be_valid }
   end
+
+  context "with match_day dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:premier_league) }
+      let!(:dependent) { FactoryGirl.create(:match_day, premier_league: owner) }      
+    end
+  end
     
 end

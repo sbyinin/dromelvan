@@ -94,5 +94,11 @@ FactoryGirl.define do
     name "Drömelvan"
     season
   end
+
+  factory :d11_match_day do
+    d11_league
+    date Date.today
+    match_day_number 1
+  end
   
 end

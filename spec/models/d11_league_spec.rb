@@ -46,5 +46,12 @@ describe D11League, type: :model do
     before { @d11_league.name = "" }
     it { is_expected.not_to be_valid }
   end
+
+  context "with d11_match_day dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:d11_league) }
+      let!(:dependent) { FactoryGirl.create(:d11_match_day, d11_league: owner) }      
+    end
+  end
   
 end
