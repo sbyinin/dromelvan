@@ -1,0 +1,5 @@
+<% provide :title, "D11 Match Day #{@d11_match_day.match_day_number}"
+   provide :breadcrumbs, breadcrumbs([ @d11_match_day.d11_league.season, @d11_match_day.d11_league, :class ]) %> 
+  
+<h1>D11 Match Day <%= @d11_match_day.match_day_number %></h1>
+<%= render 'layouts/administration_links', resource: @d11_match_day %>
