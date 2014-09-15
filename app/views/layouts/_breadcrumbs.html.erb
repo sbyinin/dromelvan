@@ -39,7 +39,7 @@
         <% end %>              
       </li>
       
-    <% elsif :class then %>
+    <% elsif breadcrumb == :class then %>
       <li><%= controller_name.classify.titleize %></li>
       
     <% elsif breadcrumb.is_a?(ActiveRecord::Base) then %>
