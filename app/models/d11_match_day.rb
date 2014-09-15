@@ -8,6 +8,10 @@ class D11MatchDay < ActiveRecord::Base
   validates :date, presence: true
   validates :match_day_number, presence: true, inclusion: 1..38   
 
+  def name
+    "D11 Match Day #{match_day_number}"
+  end
+
   def previous
     d11_league.d11_match_days.where(match_day_number: match_day_number - 1).first
   end

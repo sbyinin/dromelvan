@@ -11,6 +11,7 @@ describe D11MatchDay, type: :model do
   it { is_expected.to respond_to(:d11_league) }
   it { is_expected.to respond_to(:date) }
   it { is_expected.to respond_to(:match_day_number) }
+  it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:match_day) }
   
   it { is_expected.to be_valid }
@@ -28,6 +29,11 @@ describe D11MatchDay, type: :model do
   describe '#match_day_number' do
     subject { @d11_match_day.match_day_number }
     it { is_expected.to eq 1 }
+  end
+  
+  describe '#name' do
+    subject { @d11_match_day.name }
+    it { is_expected.to eq "D11 Match Day #{@d11_match_day.match_day_number}" }
   end
 
   describe '#match_day' do

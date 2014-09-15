@@ -11,6 +11,7 @@ describe MatchDay, type: :model do
   it { is_expected.to respond_to(:premier_league) }
   it { is_expected.to respond_to(:date) }
   it { is_expected.to respond_to(:match_day_number) }
+  it { is_expected.to respond_to(:name) }
   
   it { is_expected.to be_valid }
     
@@ -27,6 +28,11 @@ describe MatchDay, type: :model do
   describe '#match_day_number' do
     subject { @match_day.match_day_number }
     it { is_expected.to eq 1 }
+  end
+
+  describe '#name' do
+    subject { @match_day.name }
+    it { is_expected.to eq "Match Day #{@match_day.match_day_number}" }
   end
 
   describe '#previous' do

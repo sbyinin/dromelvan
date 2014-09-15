@@ -7,6 +7,10 @@ class MatchDay < ActiveRecord::Base
   validates :premier_league, presence: true
   validates :date, presence: true
   validates :match_day_number, presence: true, inclusion: 1..38   
+
+  def name
+    "Match Day #{match_day_number}"
+  end
   
   def previous
     premier_league.match_days.where(match_day_number: match_day_number - 1).first
