@@ -90,6 +90,18 @@ FactoryGirl.define do
     match_day_number 1
   end
 
+  factory :match do
+    match_day
+    association :home_team, factory: :team
+    association :away_team, factory: :team
+    home_team_goals 0
+    away_team_goals 0
+    status 0
+    datetime Time.now
+    stadium { home_team.stadium }
+    whoscored_id 1
+  end
+
   factory :d11_league do
     name "Drömelvan"
     season

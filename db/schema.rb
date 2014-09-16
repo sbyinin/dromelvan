@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915150216) do
+ActiveRecord::Schema.define(version: 20140915204109) do
 
   create_table "countries", force: true do |t|
     t.string   "name"
@@ -52,6 +52,21 @@ ActiveRecord::Schema.define(version: 20140915150216) do
     t.integer  "premier_league_id"
     t.date     "date"
     t.integer  "match_day_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "matches", force: true do |t|
+    t.integer  "home_team_id"
+    t.integer  "away_team_id"
+    t.integer  "match_day_id"
+    t.integer  "stadium_id"
+    t.integer  "home_team_goals"
+    t.integer  "away_team_goals"
+    t.datetime "datetime"
+    t.string   "elapsed"
+    t.integer  "status"
+    t.integer  "whoscored_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

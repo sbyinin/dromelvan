@@ -95,5 +95,12 @@ describe MatchDay, type: :model do
     
     specify { expect(MatchDay.all).to eq [ match_day2, match_day1 ] }
   end
+
+  context "with match dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:match_day) }
+      let!(:dependent) { FactoryGirl.create(:match, match_day: owner) }      
+    end
+  end
     
 end
