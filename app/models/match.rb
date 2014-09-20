@@ -30,7 +30,7 @@ class Match < ActiveRecord::Base
   validates :whoscored_id, numericality: { greater_than: 0 }
   
   def name
-    "#{home_team.code} vs #{away_team.code}"
+    "#{home_team.name} vs #{away_team.name}"
   end
   
   def points(team)

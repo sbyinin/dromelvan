@@ -81,7 +81,7 @@ describe Match, type: :model do
 
   describe '#name' do
     subject { @match.name }
-    it { is_expected.to eq "#{ @match.home_team.code } vs #{ @match.away_team.code }" }
+    it { is_expected.to eq "#{ @match.home_team.name } vs #{ @match.away_team.name }" }
   end
 
   describe '#points' do

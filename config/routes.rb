@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   resources :seasons, only: [:index, :show], concerns: [:select]
   resources :premier_leagues, only: [:show], concerns: [:select]
   resources :match_days, only: [:show], concerns: [:select]
+  resources :matches, only: [:show], concerns: [:select]
   resources :d11_leagues, only: [:show], concerns: [:select]
   resources :d11_match_days, only: [:show], concerns: [:select]
     

@@ -1,0 +1,5 @@
+<% provide :title, @match.name
+   provide :breadcrumbs, breadcrumbs([ @match.match_day.premier_league.season, @match.match_day.premier_league, @match.match_day, :select_name ],  match_day: @match.match_day ) %> 
+  
+<h1><%= "#{@match.home_team.name} vs #{@match.away_team.name}" %></h1>
+<%= render 'layouts/administration_links', resource: @match %>
