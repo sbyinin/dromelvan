@@ -2,6 +2,7 @@ class Stadium < ActiveRecord::Base
   include NameScope
 
   has_many :teams, dependent: :restrict_with_exception
+  has_many :matches, dependent: :restrict_with_exception
 
   default_scope -> { order(name: :asc) }
   

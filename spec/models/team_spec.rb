@@ -108,6 +108,20 @@ describe Team, type: :model do
     it { is_expected.not_to be_valid }
   end
 
+  context "with home_match dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:team) }
+      let!(:dependent) { FactoryGirl.create(:match, home_team: owner) }      
+    end
+  end
+
+  context "with away_match dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:team) }
+      let!(:dependent) { FactoryGirl.create(:match, away_team: owner) }      
+    end
+  end
+
   context "with player_season_info dependents" do    
     it_should_behave_like "all dependency owners" do
       let!(:owner) { FactoryGirl.create(:team) }

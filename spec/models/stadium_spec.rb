@@ -43,6 +43,13 @@ describe Stadium, type: :model do
       let!(:dependent) { FactoryGirl.create(:team, stadium: owner) }      
     end
   end
+
+  context "with match dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:stadium) }
+      let!(:dependent) { FactoryGirl.create(:match, stadium: owner) }      
+    end
+  end
   
   context "when name is blank" do
     before { @stadium.name = "" }
