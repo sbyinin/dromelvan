@@ -106,5 +106,12 @@ describe D11MatchDay, type: :model do
     
     specify { expect(D11MatchDay.all).to eq [ d11_match_day2, d11_match_day1 ] }
   end
+
+  context "with d11_match dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:d11_match_day) }
+      let!(:dependent) { FactoryGirl.create(:d11_match, d11_match_day: owner) }      
+    end
+  end
   
 end

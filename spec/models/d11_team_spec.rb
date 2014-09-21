@@ -70,6 +70,20 @@ describe D11Team, type: :model do
     it { is_expected.not_to be_valid }
   end
 
+  context "with home_d11_match dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:d11_team) }
+      let!(:dependent) { FactoryGirl.create(:d11_match, home_d11_team: owner) }      
+    end
+  end
+
+  context "with away_d11_match dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:d11_team) }
+      let!(:dependent) { FactoryGirl.create(:d11_match, away_d11_team: owner) }      
+    end
+  end
+
   context "with player_season_info dependents" do    
     it_should_behave_like "all dependency owners" do
       let!(:owner) { FactoryGirl.create(:d11_team) }

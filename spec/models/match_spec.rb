@@ -8,7 +8,7 @@ describe Match, type: :model do
   let(:stadium) { FactoryGirl.create(:stadium) }
   let(:datetime) { DateTime.now }
   
-  before { @match = FactoryGirl.create(:match, home_team: home_team, away_team: away_team, match_day: match_day, stadium: stadium, home_team_goals: 1, away_team_goals: 2, datetime: datetime, elapsed: "FT", status: 2, whoscored_id: 1) }
+  before { @match = FactoryGirl.create(:match, home_team: home_team, away_team: away_team, match_day: match_day, stadium: stadium, home_team_goals: 1, away_team_goals: 2, datetime: datetime, status: 2, whoscored_id: 1) }
   
   subject { @match }
   
@@ -84,15 +84,35 @@ describe Match, type: :model do
     it { is_expected.to eq "#{ @match.home_team.name } vs #{ @match.away_team.name }" }
   end
 
-  describe '#points' do
-    describe "home_team" do
-      subject { @match.points(home_team) }
-      it { is_expected.to eq 0 }
+  describe "#points" do
+    context "when home_team wins" do
+      before do
+          @match.home_team_goals = 2
+          @match.away_team_goals = 1      
+      end
+      
+      specify { expect(@match.points(@match.home_team)).to eq 3 }
+      specify { expect(@match.points(@match.away_team)).to eq 0 }
     end
     
-    describe '#away_team' do  
-      subject { @match.points(away_team) }
-      it { is_expected.to eq 3 }    
+    context "when away_team wins" do
+      before do
+        @match.home_team_goals = 1
+        @match.away_team_goals = 2
+      end
+      
+      specify { expect(@match.points(@match.home_team)).to eq 0 }
+      specify { expect(@match.points(@match.away_team)).to eq 3 }
+    end
+    
+    context "for a draw" do
+      before do
+        @match.home_team_goals = 2
+        @match.away_team_goals = 2
+      end
+      
+      specify { expect(@match.points(@match.home_team)).to eq 1 }
+      specify { expect(@match.points(@match.away_team)).to eq 1 }
     end    
   end
 
@@ -208,6 +228,16 @@ describe Match, type: :model do
     it { is_expected.to be_valid }
   end
 
+  context "when elapsed is nil and status is 1" do
+    # Elapsed is set before validation if status is pending or finished.
+    before do
+      @match.status = 1
+      @match.elapsed = nil
+    end
+    
+    it { is_expected.not_to be_valid }
+  end
+
   context "when status is nil" do
     before { @match.status = nil }
     it { is_expected.not_to be_valid }
@@ -231,17 +261,18 @@ describe Match, type: :model do
   describe "default scope order" do
     before { Match.destroy_all }
     
-    let!(:match1) { FactoryGirl.create(:match, datetime: DateTime.now) }
-    let!(:match2) { FactoryGirl.create(:match, datetime: DateTime.now - 1.day) }
+    let(:match1) { FactoryGirl.create(:match, datetime: DateTime.now) }
+    let(:match2) { FactoryGirl.create(:match, datetime: DateTime.now - 1.day) }
    
     specify { expect(Match.all).to eq [ match2, match1 ] }
   end
 
   describe "season scope" do
-    let!(:match1) { FactoryGirl.create(:match) }
-    let!(:match2) { FactoryGirl.create(:match) }
+    let(:match1) { FactoryGirl.create(:match) }
+    let(:match2) { FactoryGirl.create(:match) }
     
     specify { expect(Match.by_seasons.where(seasons: {id: match1.match_day.premier_league.season.id})).to eq [ match1 ] }
     specify { expect(Match.by_seasons.where(seasons: {id: match2.match_day.premier_league.season.id})).to eq [ match2 ] }
   end
+  
 end

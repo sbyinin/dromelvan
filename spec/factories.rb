@@ -113,5 +113,16 @@ FactoryGirl.define do
     date Date.today
     match_day_number 1
   end
+
+  factory :d11_match do
+    d11_match_day
+    association :home_d11_team, factory: :d11_team
+    association :away_d11_team, factory: :d11_team    
+    home_team_goals 0
+    away_team_goals 0
+    home_team_points 0
+    away_team_points 0    
+    status 0    
+  end
   
 end

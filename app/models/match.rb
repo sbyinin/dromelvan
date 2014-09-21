@@ -15,8 +15,8 @@ class Match < ActiveRecord::Base
   scope :by_seasons, -> { joins(match_day: [premier_league: :season]) }
 
   after_initialize :init
-  before_validation :set_default_properties, on: :create
-  before_validation :set_elapsed
+  before_validation :update_default_properties, on: :create
+  before_validation :update_elapsed
     
   validates :home_team, presence: true
   validates :away_team, presence: true
@@ -93,7 +93,7 @@ class Match < ActiveRecord::Base
       self.away_team_goals ||= 0
     end
     
-    def set_default_properties
+    def update_default_properties
       if self.home_team.present? then
         self.stadium ||= home_team.stadium
       end
@@ -103,7 +103,7 @@ class Match < ActiveRecord::Base
       end      
     end
     
-    def set_elapsed
+    def update_elapsed
       if self.status == 0
         self.elapsed = "N/A"
       elsif self.status == 2

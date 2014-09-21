@@ -1,6 +1,7 @@
 class D11MatchDay < ActiveRecord::Base
 
   belongs_to :d11_league
+  has_many :d11_matches, dependent: :restrict_with_exception
 
   default_scope -> { order(:date) }
   
