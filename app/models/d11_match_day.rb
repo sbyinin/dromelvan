@@ -10,7 +10,7 @@ class D11MatchDay < ActiveRecord::Base
   validates :match_day_number, presence: true, inclusion: 1..38   
 
   def name
-    "D11 Match Day #{match_day_number}"
+    "Match Day #{match_day_number}"
   end
 
   def previous

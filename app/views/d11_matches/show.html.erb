@@ -1,0 +1,5 @@
+<% provide :title, @d11_match.name
+   provide :breadcrumbs, breadcrumbs([ @d11_match.d11_match_day.d11_league.season, @d11_match.d11_match_day.d11_league, @d11_match.d11_match_day, :select_name ],  d11_match_day: @d11_match.d11_match_day ) %> 
+  
+<h1><%= @d11_match.name %></h1>
+<%= render 'layouts/administration_links', resource: @d11_match %>

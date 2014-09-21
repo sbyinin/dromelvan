@@ -33,7 +33,7 @@ describe D11MatchDay, type: :model do
   
   describe '#name' do
     subject { @d11_match_day.name }
-    it { is_expected.to eq "D11 Match Day #{@d11_match_day.match_day_number}" }
+    it { is_expected.to eq "Match Day #{@d11_match_day.match_day_number}" }
   end
 
   describe '#match_day' do
