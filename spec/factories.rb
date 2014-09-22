@@ -125,4 +125,14 @@ FactoryGirl.define do
     status 0    
   end
   
+  factory :goal do
+    match
+    player
+    team
+    time 30
+    added_time 0
+    penalty false
+    own_goal false
+  end
+
 end
