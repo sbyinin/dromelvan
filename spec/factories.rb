@@ -135,4 +135,13 @@ FactoryGirl.define do
     own_goal false
   end
 
+  factory :card do
+    match
+    player
+    team
+    time 30
+    added_time 0
+    card_type 0
+  end
+
 end
