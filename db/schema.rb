@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922084543) do
+ActiveRecord::Schema.define(version: 20140922110043) do
 
   create_table "cards", force: true do |t|
     t.integer  "match_id"
@@ -170,6 +170,17 @@ ActiveRecord::Schema.define(version: 20140922084543) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "substitutions", force: true do |t|
+    t.integer  "match_id"
+    t.integer  "team_id"
+    t.integer  "player_id"
+    t.integer  "player_in_id"
+    t.integer  "time"
+    t.integer  "added_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

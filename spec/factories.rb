@@ -144,4 +144,13 @@ FactoryGirl.define do
     card_type 0
   end
 
+  factory :substitution do
+    match
+    player
+    association :player_in, factory: :player
+    team
+    time 30
+    added_time 0
+  end
+
 end

@@ -1,0 +1,10 @@
+<li>
+  <%= image_tag('/assets/match-events/substitution_off.png', alt: "Substitution off", title: "Substitution off") %>
+  <%= render substitution.player %> (<%= substitution.time %><% if substitution.added_time > 0 then %>+<%= substitution.added_time %><% end %>)
+</li>  
+<li>
+  <%= image_tag('/assets/match-events/substitution_on.png', alt: "Substitution", title: "Substitution") %>
+  <%= render substitution.player_in %> (<%= substitution.time %><% if substitution.added_time > 0 then %>+<%= substitution.added_time %><% end %>)
+</li>
+
+
