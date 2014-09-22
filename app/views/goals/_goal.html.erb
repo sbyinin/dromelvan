@@ -1,0 +1,9 @@
+<% if goal.penalty? then %>
+  <%= image_tag('/assets/match-events/penalty_goal.png', alt: "Penalty goal", title: "Penalty goal") %>
+<% elsif goal.own_goal? then %>
+  <%= image_tag('/assets/match-events/own_goal.png', alt: "Own goal", title: "Own goal") %>
+<% else %>
+  <%= image_tag('/assets/match-events/goal.png', alt: "Goal", title: "Goal") %>    
+<% end %>
+
+<%= render goal.player %> (<%= goal.time %><% if goal.added_time > 0 then %>+<%= goal.added_time %><% end %>)
