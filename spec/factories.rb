@@ -103,6 +103,15 @@ FactoryGirl.define do
     whoscored_id 1
   end
 
+  factory :player_match_stat do
+    player
+    match
+    team
+    d11_team
+    position
+    played_position "POS"
+  end
+
   factory :d11_league do
     name "Drömelvan"
     season

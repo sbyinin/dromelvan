@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922110043) do
+ActiveRecord::Schema.define(version: 20140922215448) do
 
   create_table "cards", force: true do |t|
     t.integer  "match_id"
@@ -103,6 +103,30 @@ ActiveRecord::Schema.define(version: 20140922110043) do
     t.string   "elapsed"
     t.integer  "status"
     t.integer  "whoscored_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "player_match_stats", force: true do |t|
+    t.integer  "player_id"
+    t.integer  "match_id"
+    t.integer  "team_id"
+    t.integer  "d11_team_id"
+    t.integer  "position_id"
+    t.string   "played_position"
+    t.integer  "lineup"
+    t.integer  "substitution_on_time"
+    t.integer  "substitution_off_time"
+    t.integer  "goals"
+    t.integer  "goal_assists"
+    t.integer  "own_goals"
+    t.integer  "goals_conceded"
+    t.integer  "yellow_card_time"
+    t.integer  "red_card_time"
+    t.boolean  "man_of_the_match"
+    t.boolean  "shared_man_of_the_match"
+    t.integer  "rating"
+    t.integer  "points"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
