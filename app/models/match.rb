@@ -4,6 +4,9 @@ class Match < ActiveRecord::Base
   belongs_to :away_team, class_name: Team, foreign_key: :away_team_id
   belongs_to :match_day
   belongs_to :stadium
+  has_many :goals, dependent: :restrict_with_exception
+  has_many :cards, dependent: :restrict_with_exception
+  has_many :substitutions, dependent: :restrict_with_exception
 
   # This would let us enter times in UTC and save them in that time in UTC.
   # I.e 15:00 would be save as 15:00 UTC instead of 13:00 UTC. But I'm not

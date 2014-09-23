@@ -258,6 +258,27 @@ describe Match, type: :model do
     it { is_expected.not_to be_valid }
   end
 
+  context "with goal dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:match) }
+      let!(:dependent) { FactoryGirl.create(:goal, match: owner) }      
+    end
+  end
+
+  context "with card dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:match) }
+      let!(:dependent) { FactoryGirl.create(:card, match: owner) }      
+    end
+  end
+
+  context "with substitution dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:match) }
+      let!(:dependent) { FactoryGirl.create(:substitution, match: owner) }      
+    end
+  end
+
   describe "default scope order" do
     before { Match.destroy_all }
     
