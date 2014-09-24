@@ -118,6 +118,34 @@ describe Player, type: :model do
       let!(:dependent) { FactoryGirl.create(:player_match_stat, player: owner) }      
     end
   end
+  
+  context "with goal dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:player) }
+      let!(:dependent) { FactoryGirl.create(:goal, player: owner) }      
+    end
+  end
+
+  context "with card dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:player) }
+      let!(:dependent) { FactoryGirl.create(:card, player: owner) }      
+    end
+  end
+
+  context "with substitution dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:player) }
+      let!(:dependent) { FactoryGirl.create(:substitution, player: owner) }      
+    end
+  end
+
+  context "with in_substitution dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:player) }
+      let!(:dependent) { FactoryGirl.create(:substitution, player_in: owner) }      
+    end
+  end
 
   context "with player_season_info dependents" do    
     it_should_behave_like "all dependency owners" do
