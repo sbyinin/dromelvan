@@ -7,6 +7,8 @@ class PlayerMatchStat < ActiveRecord::Base
   belongs_to :d11_team
   belongs_to :position
   
+  enum lineup: [ :did_not_participate, :substitute, :starting_lineup ]
+  
   default_scope -> { joins(:match).order('matches.datetime').readonly(false) }
   
   after_initialize :init
@@ -18,7 +20,7 @@ class PlayerMatchStat < ActiveRecord::Base
   validates :d11_team, presence: true
   validates :position, presence: true      
   validates :played_position, length: {minimum: 1, maximum: 5}
-  validates :lineup, inclusion: 0..2
+  validates :lineup, presence: true
   validates :substitution_on_time, presence: true, inclusion: 0..90
   validates :substitution_off_time, presence: true, inclusion: 0..90    
   validates :yellow_card_time, presence: true, inclusion: 0..90
@@ -30,7 +32,7 @@ class PlayerMatchStat < ActiveRecord::Base
     # Caluclates points for season 2014-2015 rules
     self.points = 0
     
-    if self.lineup == 2 || self.substitution_on_time > 0
+    if self.starting_lineup? || self.substitution_on_time > 0
       if self.red_card_time > 0
         self.points -= 4
       elsif self.yellow_card_time > 0
@@ -89,7 +91,7 @@ class PlayerMatchStat < ActiveRecord::Base
   
     def init
       self.played_position ||= ""
-      self.lineup ||= 0
+      self.lineup ||= :did_not_participate
       self.substitution_on_time ||= 0
       self.substitution_off_time ||= 0
       self.yellow_card_time ||= 0
