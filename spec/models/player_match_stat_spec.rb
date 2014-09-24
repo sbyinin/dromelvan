@@ -19,6 +19,9 @@ describe PlayerMatchStat, type: :model do
   it { is_expected.to respond_to(:position_id) }
   it { is_expected.to respond_to(:played_position) }
   it { is_expected.to respond_to(:lineup) }
+  it { is_expected.to respond_to(:did_not_participate?) }
+  it { is_expected.to respond_to(:substitute?) }
+  it { is_expected.to respond_to(:starting_lineup?) }
   it { is_expected.to respond_to(:substitution_on_time) }
   it { is_expected.to respond_to(:substitution_off_time) }
   it { is_expected.to respond_to(:goals) }
@@ -67,6 +70,21 @@ describe PlayerMatchStat, type: :model do
   describe '#lineup' do
     subject { @player_match_stat.lineup }
     it { is_expected.to eq :did_not_participate.to_s }
+  end
+
+  describe '#did_not_participate?' do
+    subject { @player_match_stat.did_not_participate? }
+    it { is_expected.to eq true }
+  end
+
+  describe '#substitute?' do
+    subject { @player_match_stat.substitute? }
+    it { is_expected.to eq false }
+  end
+  
+  describe '#starting_lineup?' do
+    subject { @player_match_stat.starting_lineup? }
+    it { is_expected.to eq false }
   end
   
   describe '#substitution_on_time' do
