@@ -1,4 +1,5 @@
 class PlayerMatchStat < ActiveRecord::Base
+  include PlayerStats
   
   belongs_to :player
   belongs_to :match  
@@ -20,16 +21,10 @@ class PlayerMatchStat < ActiveRecord::Base
   validates :lineup, inclusion: 0..2
   validates :substitution_on_time, presence: true, inclusion: 0..90
   validates :substitution_off_time, presence: true, inclusion: 0..90    
-  validates :goals, numericality: { greater_than_or_equal_to: 0 }
-  validates :goal_assists, numericality: { greater_than_or_equal_to: 0 }
-  validates :own_goals, numericality: { greater_than_or_equal_to: 0 }
-  validates :goals_conceded, numericality: { greater_than_or_equal_to: 0 }
   validates :yellow_card_time, presence: true, inclusion: 0..90
   validates :red_card_time, presence: true, inclusion: 0..90    
   validates :man_of_the_match, inclusion: [true, false]
   validates :shared_man_of_the_match, inclusion: [true, false]
-  validates :rating, inclusion: 0..1000
-  validates :points, presence: true, numericality: { only_integer: true }
   
   def PlayerMatchStat.by_match_day(match_day)
     joins(:match).where(matches: {match_day_id: (!match_day.nil? ? match_day.id : -1)}).readonly(false)
@@ -46,16 +41,10 @@ class PlayerMatchStat < ActiveRecord::Base
       self.lineup ||= 0
       self.substitution_on_time ||= 0
       self.substitution_off_time ||= 0
-      self.goals ||= 0
-      self.goal_assists ||= 0
-      self.own_goals ||= 0
-      self.goals_conceded ||= 0
       self.yellow_card_time ||= 0
       self.red_card_time ||= 0
       self.man_of_the_match ||= false
       self.shared_man_of_the_match ||= false
-      self.rating ||= 0
-      self.points ||= 0      
     end
     
     def update_played_position
