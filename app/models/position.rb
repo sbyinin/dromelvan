@@ -1,5 +1,6 @@
 class Position < ActiveRecord::Base
 
+  has_many :player_match_stats, dependent: :restrict_with_exception
   has_many :player_season_infos, dependent: :restrict_with_exception
 
   default_scope -> { order(sort_order: :asc) }

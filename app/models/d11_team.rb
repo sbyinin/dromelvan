@@ -5,6 +5,7 @@ class D11Team < ActiveRecord::Base
   belongs_to :co_owner, class_name: :User, foreign_key: :co_owner_id
   has_many :home_d11_matches, class_name: D11Match, foreign_key: :home_d11_team_id, dependent: :restrict_with_exception
   has_many :away_d11_matches, class_name: D11Match, foreign_key: :away_d11_team_id, dependent: :restrict_with_exception    
+  has_many :player_match_stats, dependent: :restrict_with_exception
   has_many :player_season_infos, dependent: :restrict_with_exception
 
   default_scope -> { order(name: :asc) }

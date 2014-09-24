@@ -1,6 +1,7 @@
 class Player < ActiveRecord::Base
   
   belongs_to :country
+  has_many :player_match_stats, dependent: :restrict_with_exception
   has_many :player_season_infos, dependent: :restrict_with_exception
 
   has_attached_file :player_photo, styles: { icon: [ "16x16^", :png], tiny: ["32x32^", :png], small: ["64x64^", :png], large: ["128x128^", :png] },

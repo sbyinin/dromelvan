@@ -84,6 +84,13 @@ describe D11Team, type: :model do
     end
   end
 
+  context "with player_match_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:d11_team) }
+      let!(:dependent) { FactoryGirl.create(:player_match_stat, d11_team: owner) }      
+    end
+  end
+
   context "with player_season_info dependents" do    
     it_should_behave_like "all dependency owners" do
       let!(:owner) { FactoryGirl.create(:d11_team) }

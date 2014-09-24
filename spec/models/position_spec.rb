@@ -67,6 +67,13 @@ describe Position, type: :model do
     it { should_not be_valid }
   end
 
+  context "with player_match_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:position) }
+      let!(:dependent) { FactoryGirl.create(:player_match_stat, position: owner) }      
+    end
+  end
+
   context "with player_season_info dependents" do    
     it_should_behave_like "all dependency owners" do
       let!(:owner) { FactoryGirl.create(:position) }

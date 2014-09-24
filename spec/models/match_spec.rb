@@ -258,6 +258,13 @@ describe Match, type: :model do
     it { is_expected.not_to be_valid }
   end
 
+  context "with player_match_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:match) }
+      let!(:dependent) { FactoryGirl.create(:player_match_stat, match: owner) }      
+    end
+  end
+
   describe "default scope order" do
     before { Match.destroy_all }
     

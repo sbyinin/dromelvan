@@ -112,6 +112,13 @@ describe Player, type: :model do
     it { is_expected.not_to be_valid }
   end
 
+  context "with player_match_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:player) }
+      let!(:dependent) { FactoryGirl.create(:player_match_stat, player: owner) }      
+    end
+  end
+
   context "with player_season_info dependents" do    
     it_should_behave_like "all dependency owners" do
       let!(:owner) { FactoryGirl.create(:player) }
