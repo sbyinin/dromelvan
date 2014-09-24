@@ -129,6 +129,212 @@ describe PlayerMatchStat, type: :model do
     it { is_expected.to eq 0 }
   end
 
+  describe '.update_points' do
+    context 'with goals_conceded' do
+      let(:defender) { FactoryGirl.create(:position, defender: true) }
+      let(:non_defender) { FactoryGirl.create(:position, defender: false) }
+      let(:player_match_stat_defender) { FactoryGirl.create(:player_match_stat, lineup: 2, position: defender) }
+      let(:player_match_stat_non_defender) { FactoryGirl.create(:player_match_stat, lineup: 2, position: non_defender) }
+      let(:player_match_stat_substitute) { FactoryGirl.create(:player_match_stat, lineup: 1, substitution_on_time: 1, position: defender) }
+      let(:player_match_stat_unused_substitute) { FactoryGirl.create(:player_match_stat, lineup: 1, substitution_on_time: 0, position: defender) }
+      let(:player_match_stat_dnp_non_defender) { FactoryGirl.create(:player_match_stat, lineup: 0, position: non_defender) }
+      let(:player_match_stat_dnp_defender) { FactoryGirl.create(:player_match_stat, lineup: 0, position: defender) }
+      
+      context 'with clean sheet' do
+        before do
+          player_match_stat_defender.update_points
+          player_match_stat_non_defender.update_points
+          player_match_stat_substitute.update_points
+          player_match_stat_unused_substitute.update_points
+          player_match_stat_dnp_non_defender.update_points
+          player_match_stat_dnp_defender.update_points
+        end
+        
+        specify { expect(player_match_stat_defender.points).to eq 4 }
+        specify { expect(player_match_stat_non_defender.points).to eq 0 }
+        specify { expect(player_match_stat_substitute.points).to eq 4 }
+        specify { expect(player_match_stat_unused_substitute.points).to eq (-1) }
+        specify { expect(player_match_stat_dnp_non_defender.points).to eq 0 }
+        specify { expect(player_match_stat_dnp_defender.points).to eq (-1) }
+      end
+  
+      context 'with one goals_conceded' do
+        before do
+          player_match_stat_defender.goals_conceded = 1
+          player_match_stat_non_defender.goals_conceded = 1
+          player_match_stat_substitute.goals_conceded = 1
+          player_match_stat_unused_substitute.goals_conceded = 1
+          player_match_stat_dnp_non_defender.goals_conceded = 1
+          player_match_stat_dnp_defender.goals_conceded = 1        
+          player_match_stat_defender.update_points
+          player_match_stat_non_defender.update_points
+          player_match_stat_substitute.update_points
+          player_match_stat_unused_substitute.update_points
+          player_match_stat_dnp_non_defender.update_points
+          player_match_stat_dnp_defender.update_points
+        end
+        
+        specify { expect(player_match_stat_defender.points).to eq 0 }
+        specify { expect(player_match_stat_non_defender.points).to eq 0 }
+        specify { expect(player_match_stat_substitute.points).to eq 0 }
+        specify { expect(player_match_stat_unused_substitute.points).to eq (-1) }
+        specify { expect(player_match_stat_dnp_non_defender.points).to eq 0 }
+        specify { expect(player_match_stat_dnp_defender.points).to eq (-1) }
+      end
+      
+      context 'with two goals_conceded' do
+        before do
+          player_match_stat_defender.goals_conceded = 2
+          player_match_stat_non_defender.goals_conceded = 2
+          player_match_stat_substitute.goals_conceded = 2
+          player_match_stat_unused_substitute.goals_conceded = 2
+          player_match_stat_dnp_non_defender.goals_conceded = 2
+          player_match_stat_dnp_defender.goals_conceded = 2        
+          player_match_stat_defender.update_points
+          player_match_stat_non_defender.update_points
+          player_match_stat_substitute.update_points
+          player_match_stat_unused_substitute.update_points
+          player_match_stat_dnp_non_defender.update_points
+          player_match_stat_dnp_defender.update_points
+        end
+        
+        specify { expect(player_match_stat_defender.points).to eq (-1) }
+        specify { expect(player_match_stat_non_defender.points).to eq 0 }
+        specify { expect(player_match_stat_substitute.points).to eq (-1) }
+        specify { expect(player_match_stat_unused_substitute.points).to eq (-1) }
+        specify { expect(player_match_stat_dnp_non_defender.points).to eq 0 }
+        specify { expect(player_match_stat_dnp_defender.points).to eq (-1) }
+      end
+    end 
+      
+    context 'with yellow_card_time' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, yellow_card_time: 1)}      
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq (-1) }
+    end
+    
+    context 'with red_card_time' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, red_card_time: 1)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq (-4) }
+    end
+
+    context 'with shared_man_of_the_match' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, shared_man_of_the_match: true)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq (2) }
+    end
+    
+    context 'with man_of_the_match' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, man_of_the_match: true)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq 4 }
+    end
+
+    context 'with goals' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, goals: 1)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq 4 }
+    end
+
+    context 'with own_goals' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, own_goals: 1)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq (-4) }
+    end
+    
+    context 'with goal_assists' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, goal_assists: 1)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq 2 }
+    end
+    
+    context 'with rating 0.01' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, rating: 1)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq (-6) }
+    end
+    
+    context 'with rating 1' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, rating: 100)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq (-5) }
+    end
+
+    context 'with rating 2' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, rating: 200)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq (-4) }
+    end
+    
+    context 'with rating 3' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, rating: 300)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq (-3) }
+    end
+    
+    context 'with rating 4' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, rating: 400)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq (-2) }
+    end
+    
+    context 'with rating 5' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, rating: 500)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq (-1) }
+    end
+    
+    context 'with rating 6' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, rating: 600)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq 0 }
+    end
+    
+    context 'with rating 7' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, rating: 700)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq 1 }
+    end
+    
+    context 'with rating 8' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, rating: 800)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq 2 }
+    end
+    
+    context 'with rating 9' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, rating: 900)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq 3 }
+    end
+    
+    context 'with rating 10' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: 2, rating: 1000)}
+      before { player_match_stat.update_points }
+      
+      specify { expect(player_match_stat.points).to eq 5 }
+    end
+    
+  end
+  
   describe ".by_match_day" do    
     before { PlayerMatchStat.destroy_all }
     
