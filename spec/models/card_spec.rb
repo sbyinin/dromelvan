@@ -12,13 +12,25 @@ describe Card, type: :model do
   subject { @card }
   
   it { is_expected.to respond_to(:card_type) }
+  it { is_expected.to respond_to(:yellow?) }
+  it { is_expected.to respond_to(:red?) }
   
   it { is_expected.to be_valid }
 
   describe '#card_type' do
     subject { @card.card_type }
-    it { is_expected.to eq 0 }
+    it { is_expected.to eq :yellow.to_s }
   end    
+  
+  describe '#yellow?' do
+    subject { @card.yellow? }
+    it { is_expected.to eq true }
+  end
+
+  describe '#red?' do
+    subject { @card.red? }
+    it { is_expected.to eq false }
+  end
   
   it_should_behave_like "match event" do
     let(:match_event) { @card }
@@ -26,11 +38,6 @@ describe Card, type: :model do
   
   context "when card_type is nil" do
     before { @card.card_type = nil }
-    it { is_expected.not_to be_valid }
-  end
-
-  context "when card_type is invalid" do
-    before { @card.card_type = 2 }
     it { is_expected.not_to be_valid }
   end
   

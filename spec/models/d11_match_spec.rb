@@ -17,6 +17,9 @@ describe D11Match, type: :model do
   it { is_expected.to respond_to(:home_team_points) }
   it { is_expected.to respond_to(:away_team_points) }
   it { is_expected.to respond_to(:status) }
+  it { is_expected.to respond_to(:pending?) }
+  it { is_expected.to respond_to(:active?) }
+  it { is_expected.to respond_to(:finished?) }
   
   it { is_expected.to be_valid }
     
@@ -57,8 +60,23 @@ describe D11Match, type: :model do
 
   describe '#status' do
     subject { @d11_match.status }
-    it { is_expected.to eq 2 }
+    it { is_expected.to eq :finished.to_s }
   end    
+    
+  describe '#pending?' do
+    subject { @d11_match.pending? }
+    it { is_expected.to eq false }
+  end
+
+  describe '#active?' do
+    subject { @d11_match.active? }
+    it { is_expected.to eq false }
+  end
+    
+  describe '#finished?' do
+    subject { @d11_match.finished? }
+    it { is_expected.to eq true }
+  end
     
   describe '#name' do
     subject { @d11_match.name }
@@ -197,13 +215,7 @@ describe D11Match, type: :model do
   context "when status is nil" do
     before { @d11_match.status = nil }
     it { is_expected.not_to be_valid }
-  end
-
-  context "when status is invalid" do
-    before { @d11_match.status = 3 }
-    it { is_expected.not_to be_valid }
-  end
-  
+  end  
     
     
   describe "default scope order" do

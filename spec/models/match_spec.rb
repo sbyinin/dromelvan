@@ -21,6 +21,9 @@ describe Match, type: :model do
   it { is_expected.to respond_to(:datetime) }
   it { is_expected.to respond_to(:elapsed) }
   it { is_expected.to respond_to(:status) }
+  it { is_expected.to respond_to(:pending?) }
+  it { is_expected.to respond_to(:active?) }
+  it { is_expected.to respond_to(:finished?) }  
   it { is_expected.to respond_to(:whoscored_id) }
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:points) }
@@ -71,7 +74,22 @@ describe Match, type: :model do
 
   describe '#status' do
     subject { @match.status }
-    it { is_expected.to eq 2 }
+    it { is_expected.to eq :finished.to_s }
+  end
+
+  describe '#pending?' do
+    subject { @match.pending? }
+    it { is_expected.to eq false }
+  end
+
+  describe '#active?' do
+    subject { @match.active? }
+    it { is_expected.to eq false }
+  end
+    
+  describe '#finished?' do
+    subject { @match.finished? }
+    it { is_expected.to eq true }
   end
 
   describe '#whoscored_id' do
@@ -240,11 +258,6 @@ describe Match, type: :model do
 
   context "when status is nil" do
     before { @match.status = nil }
-    it { is_expected.not_to be_valid }
-  end
-
-  context "when status is invalid" do
-    before { @match.status = 3 }
     it { is_expected.not_to be_valid }
   end
 

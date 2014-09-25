@@ -3,6 +3,8 @@ class D11Match < ActiveRecord::Base
   belongs_to :home_d11_team, class_name: D11Team, foreign_key: :home_d11_team_id
   belongs_to :away_d11_team, class_name: D11Team, foreign_key: :away_d11_team_id
   belongs_to :d11_match_day
+
+  enum status: [ :pending, :active, :finished ]
   
   default_scope -> { joins(:d11_match_day).order('d11_match_days.date').readonly(false) }
   scope :by_seasons, -> { joins(d11_match_day: [d11_league: :season]) }
@@ -17,7 +19,7 @@ class D11Match < ActiveRecord::Base
   validates :away_team_goals, numericality: { greater_than_or_equal_to: 0 }
   validates :home_team_points, presence: true
   validates :away_team_points, presence: true
-  validates :status, presence: true, inclusion: 0..2
+  validates :status, presence: true
 
   def name
     "#{home_d11_team.name} vs #{away_d11_team.name}"

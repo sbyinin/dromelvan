@@ -7,6 +7,9 @@ describe Season, type: :model do
   
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:status) }
+  it { is_expected.to respond_to(:pending?) }
+  it { is_expected.to respond_to(:active?) }
+  it { is_expected.to respond_to(:finished?) }    
   it { is_expected.to respond_to(:date) }
   it { is_expected.to respond_to(:legacy) }
 
@@ -19,7 +22,7 @@ describe Season, type: :model do
 
   describe '#status' do
     subject { @season.status }
-    it { is_expected.to eq 2 }
+    it { is_expected.to eq :finished.to_s }
   end
 
   describe '#date' do
@@ -58,9 +61,19 @@ describe Season, type: :model do
     it { is_expected.not_to be_valid }
   end
 
-  context "when status is invalid" do
-    before { @season.status = 3 }
-    it { is_expected.not_to be_valid }
+  describe '#pending?' do
+    subject { @season.pending? }
+    it { is_expected.to eq false }
+  end
+
+  describe '#active?' do
+    subject { @season.active? }
+    it { is_expected.to eq false }
+  end
+    
+  describe '#finished?' do
+    subject { @season.finished? }
+    it { is_expected.to eq true }
   end
   
   context "when legacy is nil" do

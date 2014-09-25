@@ -9,6 +9,8 @@ class Match < ActiveRecord::Base
   has_many :cards, dependent: :restrict_with_exception
   has_many :substitutions, dependent: :restrict_with_exception
 
+  enum status: [ :pending, :active, :finished ]
+
   # This would let us enter times in UTC and save them in that time in UTC.
   # I.e 15:00 would be save as 15:00 UTC instead of 13:00 UTC. But I'm not
   # sure we actually want that after all so we'll leave it here so we'll
@@ -30,7 +32,7 @@ class Match < ActiveRecord::Base
   validates :away_team_goals, numericality: { greater_than_or_equal_to: 0 }
   validates :datetime, presence: true
   validates :elapsed, presence: true
-  validates :status, presence: true, inclusion: 0..2
+  validates :status, presence: true
   validates :whoscored_id, numericality: { greater_than: 0 }
   
   def name
@@ -91,7 +93,7 @@ class Match < ActiveRecord::Base
   
   private  
     def init
-      self.status ||= 0
+      self.status ||= :pending
       self.elapsed ||= "N/A"
       self.home_team_goals ||= 0
       self.away_team_goals ||= 0
@@ -108,9 +110,9 @@ class Match < ActiveRecord::Base
     end
     
     def update_elapsed
-      if self.status == 0
+      if pending?
         self.elapsed = "N/A"
-      elsif self.status == 2
+      elsif finished?
         self.elapsed = "FT"
       end
     end
