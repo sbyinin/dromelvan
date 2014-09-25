@@ -79,6 +79,16 @@ class PlayerMatchStat < ActiveRecord::Base
     self.points
   end
   
+  def minutes_played
+    if starting_lineup? || substitution_on_time > 0
+      start_time = substitution_on_time # This is 0 if the player started.
+      end_time = (substitution_off_time > 0 ? substitution_off_time : 90)
+      end_time - start_time
+    else
+      0
+    end
+  end
+  
   def PlayerMatchStat.by_match_day(match_day)
     joins(:match).where(matches: {match_day_id: (!match_day.nil? ? match_day.id : -1)}).readonly(false)
   end

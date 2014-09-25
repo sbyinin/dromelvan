@@ -147,7 +147,33 @@ describe PlayerMatchStat, type: :model do
     it { is_expected.to eq 0 }
   end
 
-  describe '.update_points' do
+  describe '#minutes_played' do
+    context 'when did not participate' do
+      let(:player_match_stat) { FactoryGirl.create(:player_match_stat, lineup: :did_not_participate) }
+      
+      specify { expect(player_match_stat.minutes_played).to eq 0 }
+    end
+    
+    context 'when substitute' do
+      let(:player_match_stat1) { FactoryGirl.create(:player_match_stat, lineup: :substitute) }
+      let(:player_match_stat2) { FactoryGirl.create(:player_match_stat, lineup: :substitute, substitution_on_time: 30) }
+      let(:player_match_stat3) { FactoryGirl.create(:player_match_stat, lineup: :substitute, substitution_on_time: 30, substitution_off_time: 60) }
+      
+      specify { expect(player_match_stat1.minutes_played).to eq 0 }      
+      specify { expect(player_match_stat2.minutes_played).to eq 60 }
+      specify { expect(player_match_stat3.minutes_played).to eq 30 }      
+    end
+    
+    context 'when starting_lineup' do
+      let(:player_match_stat1) { FactoryGirl.create(:player_match_stat, lineup: :starting_lineup) }
+      let(:player_match_stat2) { FactoryGirl.create(:player_match_stat, lineup: :starting_lineup, substitution_off_time: 30) }
+
+      specify { expect(player_match_stat1.minutes_played).to eq 90 }      
+      specify { expect(player_match_stat2.minutes_played).to eq 30 }      
+    end
+  end
+  
+  describe '#update_points' do
     context 'with goals_conceded' do
       let(:defender) { FactoryGirl.create(:position, defender: true) }
       let(:non_defender) { FactoryGirl.create(:position, defender: false) }
