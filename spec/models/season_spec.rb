@@ -102,6 +102,13 @@ describe Season, type: :model do
     end
   end
 
+  context "with player_season_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:season) }
+      let!(:dependent) { FactoryGirl.create(:player_season_stat, season: owner) }      
+    end
+  end
+
   describe "default scope order" do
     before { Season.destroy_all }
     

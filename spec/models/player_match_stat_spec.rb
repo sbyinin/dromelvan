@@ -24,16 +24,10 @@ describe PlayerMatchStat, type: :model do
   it { is_expected.to respond_to(:starting_lineup?) }
   it { is_expected.to respond_to(:substitution_on_time) }
   it { is_expected.to respond_to(:substitution_off_time) }
-  it { is_expected.to respond_to(:goals) }
-  it { is_expected.to respond_to(:goal_assists) }
-  it { is_expected.to respond_to(:own_goals) }
-  it { is_expected.to respond_to(:goals_conceded) }
   it { is_expected.to respond_to(:yellow_card_time) }
   it { is_expected.to respond_to(:red_card_time) }
   it { is_expected.to respond_to(:man_of_the_match) }
   it { is_expected.to respond_to(:shared_man_of_the_match) }
-  it { is_expected.to respond_to(:rating) }
-  it { is_expected.to respond_to(:points) }
 
   it { is_expected.to be_valid }
   
@@ -96,27 +90,7 @@ describe PlayerMatchStat, type: :model do
     subject { @player_match_stat.substitution_off_time }
     it { is_expected.to eq 0 }
   end
-  
-  describe '#goals' do
-    subject { @player_match_stat.goals }
-    it { is_expected.to eq 0 }
-  end
-  
-  describe '#goal_assists' do
-    subject { @player_match_stat.goal_assists }
-    it { is_expected.to eq 0 }
-  end
-  
-  describe '#own_goals' do
-    subject { @player_match_stat.own_goals }
-    it { is_expected.to eq 0 }
-  end
-  
-  describe '#goals_conceded' do
-    subject { @player_match_stat.goals_conceded }
-    it { is_expected.to eq 0 }
-  end
-  
+      
   describe '#yellow_card_time' do
     subject { @player_match_stat.yellow_card_time }
     it { is_expected.to eq 0 }
@@ -135,16 +109,6 @@ describe PlayerMatchStat, type: :model do
   describe '#shared_man_of_the_match' do
     subject { @player_match_stat.shared_man_of_the_match }
     it { is_expected.to eq false }
-  end
-
-  describe '#rating' do
-    subject { @player_match_stat.rating }
-    it { is_expected.to eq 0 }
-  end
-
-  describe '#points' do
-    subject { @player_match_stat.points }
-    it { is_expected.to eq 0 }
   end
 
   describe '#minutes_played' do
@@ -403,7 +367,7 @@ describe PlayerMatchStat, type: :model do
     specify { expect(PlayerMatchStat.by_d11_match_day(d11_match_day).to_a).to eq [ player_match_stat ] }           
   end
 
-
+  it_should_behave_like "player stats"
 
   context "when player is nil" do
     before { @player_match_stat.player = nil }
@@ -466,46 +430,6 @@ describe PlayerMatchStat, type: :model do
     it { is_expected.not_to be_valid }
   end
 
-  context "when goals is nil" do
-    before { @player_match_stat.goals = nil }
-    it { is_expected.not_to be_valid }
-  end
-
-  context "when goals is invalid" do
-    before { @player_match_stat.goals = -1 }
-    it { is_expected.not_to be_valid }
-  end
-  
-  context "when goal_assists is nil" do
-    before { @player_match_stat.goal_assists = nil }
-    it { is_expected.not_to be_valid }
-  end
-
-  context "when goal_assists is invalid" do
-    before { @player_match_stat.goal_assists = -1 }
-    it { is_expected.not_to be_valid }
-  end
-  
-  context "when own_goals is nil" do
-    before { @player_match_stat.own_goals = nil }
-    it { is_expected.not_to be_valid }
-  end
-
-  context "when own_goals is invalid" do
-    before { @player_match_stat.own_goals = -1 }
-    it { is_expected.not_to be_valid }
-  end
-  
-  context "when goals_conceded is nil" do
-    before { @player_match_stat.goals_conceded = nil }
-    it { is_expected.not_to be_valid }
-  end
-
-  context "when goals_conceded is invalid" do
-    before { @player_match_stat.goals_conceded = -1 }
-    it { is_expected.not_to be_valid }
-  end
-
   context "when yellow_card_time is nil" do
     before { @player_match_stat.yellow_card_time = nil }
     it { is_expected.not_to be_valid }
@@ -534,23 +458,7 @@ describe PlayerMatchStat, type: :model do
   context "when shared_man_of_the_match is nil" do
     before { @player_match_stat.shared_man_of_the_match = nil }
     it { is_expected.not_to be_valid }
-  end
-
-  context "when rating is nil" do
-    before { @player_match_stat.rating = nil }
-    it { is_expected.not_to be_valid }
-  end
-
-  context "when rating is invalid" do
-    before { @player_match_stat.rating = -1 }
-    it { is_expected.not_to be_valid }
-  end
-
-  context "when points is nil" do
-    before { @player_match_stat.points = nil }
-    it { is_expected.not_to be_valid }
-  end
-  
+  end  
 
   describe "default scope order" do
     before { PlayerMatchStat.destroy_all }

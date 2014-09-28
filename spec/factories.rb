@@ -112,6 +112,11 @@ FactoryGirl.define do
     played_position "POS"
   end
 
+  factory :player_season_stat do
+    player
+    season
+  end
+
   factory :d11_league do
     name "Drömelvan"
     season
