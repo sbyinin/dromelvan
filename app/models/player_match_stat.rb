@@ -97,6 +97,14 @@ class PlayerMatchStat < ActiveRecord::Base
     by_match_day(d11_match_day.match_day)
   end
   
+  def PlayerMatchStat.by_player_and_season(player, season)
+    if !player.nil? && !season.nil? then
+      joins(match: [match_day: [premier_league: :season]]).where(player: player, seasons: {id: season.id})
+    else
+      []
+    end
+  end
+  
   private
   
     def init

@@ -29,6 +29,56 @@ describe PlayerSeasonStat, type: :model do
     it { is_expected.to eq 0 }
   end
   
+  describe "#player_match_stats" do
+    before { PlayerMatchStat.destroy_all }
+    
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:player) { FactoryGirl.create(:player) }
+    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, player: player, match: match) }
+    let!(:player_season_stat) { FactoryGirl.create(:player_season_stat, player: player, season: season) }
+    
+    specify { expect(player_season_stat.player_match_stats.to_a).to eq [ player_match_stat ] }               
+  end
+  
+  describe "#summarize_stats" do
+    before { PlayerMatchStat.destroy_all }
+    
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:match_day2) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day2) }
+    let!(:match_day3) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match3) { FactoryGirl.create(:match, match_day: match_day3) }        
+    let!(:player) { FactoryGirl.create(:player) }
+    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, player: player, match: match, lineup: :starting_lineup, goals: 1, goal_assists: 1, own_goals: 1, goals_conceded: 1, yellow_card_time: 40, red_card_time: 80, man_of_the_match: true, rating: 700, points: 10, substitution_off_time: 90 ) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: player, match: match2, lineup: :substitute, goals: 2, goal_assists: 2, own_goals: 2, goals_conceded: 2, yellow_card_time: 40, red_card_time: 80, shared_man_of_the_match: true, rating: 800, points: 20, substitution_on_time: 5) }
+    let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, player: player, match: match3, lineup: :did_not_participate) }
+    let!(:player_stats_summary) { FactoryGirl.create(:player_season_stat, player: player, season: season) }    
+    
+    specify { expect(player_stats_summary.goals).to eq 3 }
+    specify { expect(player_stats_summary.goal_assists).to eq 3 }
+    specify { expect(player_stats_summary.own_goals).to eq 3 }
+    specify { expect(player_stats_summary.goals_conceded).to eq 3 }
+    specify { expect(player_stats_summary.clean_sheets).to eq 0 }
+    specify { expect(player_stats_summary.rating).to eq 750 }
+    specify { expect(player_stats_summary.points).to eq 30 }                    
+    specify { expect(player_stats_summary.yellow_cards).to eq 2 }
+    specify { expect(player_stats_summary.red_cards).to eq 2 }
+    specify { expect(player_stats_summary.man_of_the_match).to eq 1 }
+    specify { expect(player_stats_summary.shared_man_of_the_match).to eq 1 }
+    specify { expect(player_stats_summary.games_started).to eq 1 }
+    specify { expect(player_stats_summary.games_substitute).to eq 1 }
+    specify { expect(player_stats_summary.games_did_not_participate).to eq 1 }
+    specify { expect(player_stats_summary.substitutions_on).to eq 1 }
+    specify { expect(player_stats_summary.substitutions_off).to eq 1 }
+    specify { expect(player_stats_summary.minutes_played).to eq 175 }                        
+  end
+  
   it_should_behave_like "player stats summary"
 
   context "when player is nil" do

@@ -367,7 +367,20 @@ describe PlayerMatchStat, type: :model do
     specify { expect(PlayerMatchStat.by_d11_match_day(d11_match_day).to_a).to eq [ player_match_stat ] }           
   end
 
-  it_should_behave_like "player stats"
+  describe ".by_player_and_season" do
+    before { PlayerMatchStat.destroy_all }
+    
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:player) { FactoryGirl.create(:player) }
+    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, player: player, match: match ) }
+    
+    specify { expect(PlayerMatchStat.by_player_and_season(player, season).to_a).to eq [ player_match_stat ] }               
+  end
+  
+  it_should_behave_like "player stats", false
 
   context "when player is nil" do
     before { @player_match_stat.player = nil }
