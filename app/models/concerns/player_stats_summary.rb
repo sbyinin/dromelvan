@@ -20,7 +20,7 @@ module PlayerStatsSummary
     
     def summarize_stats
       reset_stats_summary
-      games_played = 0
+      games_rated = 0
 
       player_match_stats.each do |player_match_stat|
         self.goals += player_match_stat.goals
@@ -29,12 +29,14 @@ module PlayerStatsSummary
         
         if player_match_stat.starting_lineup? || player_match_stat.substitution_on_time > 0 then
           self.rating += player_match_stat.rating
+          if player_match_stat.rating > 0
+            games_rated += 1
+          end
 
           self.goals_conceded += player_match_stat.goals_conceded
           if player_match_stat.goals_conceded == 0 then
             self.clean_sheets += 1
-          end
-          games_played += 1
+          end          
         end
         
         self.points += player_match_stat.points
@@ -77,9 +79,9 @@ module PlayerStatsSummary
         
         self.minutes_played += player_match_stat.minutes_played 
       end
-      
-      if games_played > 0 then
-        self.rating = (self.rating.to_f / games_played.to_f).round
+            
+      if games_rated > 0 then
+        self.rating = (self.rating.to_f / games_rated.to_f).round
       end      
     end
     
