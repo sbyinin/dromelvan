@@ -12,7 +12,7 @@ class PlayerMatchStat < ActiveRecord::Base
   default_scope -> { joins(:match).order('matches.datetime').readonly(false) }
   
   after_initialize :init
-  before_validation :update_played_position
+  before_validation :update_points, :update_played_position
   
   validates :player, presence: true
   validates :match, presence: true
@@ -28,18 +28,22 @@ class PlayerMatchStat < ActiveRecord::Base
   validates :man_of_the_match, inclusion: [true, false]
   validates :shared_man_of_the_match, inclusion: [true, false]
 
+  def participated?
+    self.starting_lineup? || (!self.substitution_on_time.nil? && self.substitution_on_time > 0)  
+  end
+  
   def update_points
     # Caluclates points for season 2014-2015 rules
     self.points = 0
     
-    if self.starting_lineup? || self.substitution_on_time > 0
+    if participated?
       if self.red_card_time > 0
         self.points -= 4
       elsif self.yellow_card_time > 0
         self.points -= 1
       end
       
-      if self.position.defender?
+      if !self.position.nil? && self.position.defender?
         if self.goals_conceded == 0
           self.points += 4;
         elsif self.goals_conceded >= 2
@@ -73,7 +77,7 @@ class PlayerMatchStat < ActiveRecord::Base
       self.points += (4 * self.goals) - (4 * self.own_goals)
       self.points += (2 * self.goal_assists)
       
-    elsif self.position.defender?
+    elsif !self.position.nil? && self.position.defender?
       self.points = -1      
     end
     self.points

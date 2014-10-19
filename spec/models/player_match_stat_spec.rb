@@ -28,6 +28,9 @@ describe PlayerMatchStat, type: :model do
   it { is_expected.to respond_to(:red_card_time) }
   it { is_expected.to respond_to(:man_of_the_match) }
   it { is_expected.to respond_to(:shared_man_of_the_match) }
+  it { is_expected.to respond_to(:minutes_played) }
+  it { is_expected.to respond_to(:participated?) }
+  it { is_expected.to respond_to(:update_points) }
 
   it { is_expected.to be_valid }
   
@@ -135,6 +138,18 @@ describe PlayerMatchStat, type: :model do
       specify { expect(player_match_stat1.minutes_played).to eq 90 }      
       specify { expect(player_match_stat2.minutes_played).to eq 30 }      
     end
+  end
+  
+  describe '#participated?' do
+    let(:player_match_stat1) { FactoryGirl.create(:player_match_stat, lineup: :starting_lineup) }
+    let(:player_match_stat2) { FactoryGirl.create(:player_match_stat, lineup: :substitute) }
+    let(:player_match_stat3) { FactoryGirl.create(:player_match_stat, lineup: :substitute, substitution_on_time: 30) }
+    let(:player_match_stat4) { FactoryGirl.create(:player_match_stat, lineup: :did_not_participate) }
+    
+    specify { expect(player_match_stat1.participated?).to eq true }
+    specify { expect(player_match_stat2.participated?).to eq false }
+    specify { expect(player_match_stat3.participated?).to eq true }
+    specify { expect(player_match_stat4.participated?).to eq false }
   end
   
   describe '#update_points' do

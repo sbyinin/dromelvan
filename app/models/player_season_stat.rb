@@ -4,6 +4,8 @@ class PlayerSeasonStat < ActiveRecord::Base
   belongs_to :player
   belongs_to :season
   
+  scope :ranking_order, -> { order(points: :desc, goals: :desc, man_of_the_match: :desc, goal_assists: :desc, shared_man_of_the_match: :desc, rating: :desc, red_cards: :asc, yellow_cards: :asc) }
+  
   after_initialize :init
   
   validates :player, presence: true
@@ -22,7 +24,7 @@ class PlayerSeasonStat < ActiveRecord::Base
   def PlayerSeasonStat.update_rankings(season)
     ranking = 1
     PlayerSeasonStat.transaction do
-      where(season: season).order(points: :desc).each do |player_season_stat|
+      where(season: season).ranking_order.each do |player_season_stat|   
         # This is a LOT faster than updating and doing .save on each object
         PlayerSeasonStat.connection.execute "UPDATE player_season_stats SET ranking = #{ranking} WHERE id = #{player_season_stat.id}"
         ranking += 1

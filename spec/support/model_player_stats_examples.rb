@@ -96,7 +96,8 @@ shared_examples_for "player stats" do |reset|
   context "when points is nil" do
     before { subject.points = nil }
     it("if reset",if: reset) { is_expected.to be_valid }
-    it("if not reset",if: !reset) { is_expected.not_to be_valid }
+    # Points are calculated in before_validation
+    it("if not reset",if: !reset) { is_expected.to be_valid }
   end
   
 end

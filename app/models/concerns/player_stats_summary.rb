@@ -27,7 +27,7 @@ module PlayerStatsSummary
         self.goal_assists += player_match_stat.goal_assists
         self.own_goals += player_match_stat.own_goals
         
-        if player_match_stat.starting_lineup? || player_match_stat.substitution_on_time > 0 then
+        if player_match_stat.participated? then
           self.rating += player_match_stat.rating
           if player_match_stat.rating > 0
             games_rated += 1
