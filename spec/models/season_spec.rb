@@ -109,6 +109,13 @@ describe Season, type: :model do
     end
   end
 
+  context "with transfer_window dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:season) }
+      let!(:dependent) { FactoryGirl.create(:transfer_window, season: owner) }      
+    end
+  end
+
   describe "default scope order" do
     before { Season.destroy_all }
     

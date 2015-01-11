@@ -5,6 +5,7 @@ class Season < ActiveRecord::Base
   has_one :d11_league, dependent: :restrict_with_exception
   has_many :player_season_infos, dependent: :restrict_with_exception
   has_many :player_season_stats, dependent: :restrict_with_exception
+  has_many :transfer_window, dependent: :restrict_with_exception
 
   enum status: [ :pending, :active, :finished ]
  

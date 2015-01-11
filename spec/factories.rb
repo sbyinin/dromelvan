@@ -167,4 +167,12 @@ FactoryGirl.define do
     added_time 0
   end
 
+  factory :transfer_window do
+    season
+    d11_match_day
+    transfer_window_number 1
+    status 0
+    datetime DateTime.now
+  end
+  
 end

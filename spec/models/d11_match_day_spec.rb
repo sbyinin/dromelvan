@@ -113,5 +113,12 @@ describe D11MatchDay, type: :model do
       let!(:dependent) { FactoryGirl.create(:d11_match, d11_match_day: owner) }      
     end
   end
+
+  context "with transfer_window dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:d11_match_day) }
+      let!(:dependent) { FactoryGirl.create(:transfer_window, d11_match_day: owner) }      
+    end
+  end
   
 end
