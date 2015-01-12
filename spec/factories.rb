@@ -174,5 +174,12 @@ FactoryGirl.define do
     status 0
     datetime DateTime.now
   end
+
+  factory :transfer_day do
+    transfer_window
+    transfer_day_number 1
+    status 0
+    datetime DateTime.now
+  end
   
 end

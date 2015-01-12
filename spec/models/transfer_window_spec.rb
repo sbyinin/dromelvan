@@ -118,4 +118,11 @@ describe TransferWindow, type: :model do
     it { is_expected.not_to be_valid }
   end
   
+  context "with transfer_day dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:transfer_window) }
+      let!(:dependent) { FactoryGirl.create(:transfer_day, transfer_window: owner) }      
+    end
+  end
+  
 end

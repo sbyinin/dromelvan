@@ -2,6 +2,7 @@ class TransferWindow < ActiveRecord::Base
   
   belongs_to :season
   belongs_to :d11_match_day
+  has_many :transfer_day, dependent: :restrict_with_exception
   
   enum status: [ :pending, :active, :finished ]
   
@@ -36,6 +37,5 @@ class TransferWindow < ActiveRecord::Base
   def next
     TransferWindow.where(season: season, transfer_window_number: transfer_window_number + 1).first
   end
-  
-  
+    
 end

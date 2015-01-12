@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150111171224) do
+ActiveRecord::Schema.define(version: 20150112205114) do
 
   create_table "cards", force: true do |t|
     t.integer  "match_id"
@@ -249,6 +249,15 @@ ActiveRecord::Schema.define(version: 20150111171224) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "colour"
+  end
+
+  create_table "transfer_days", force: true do |t|
+    t.integer  "transfer_window_id"
+    t.integer  "transfer_day_number"
+    t.integer  "status"
+    t.datetime "datetime"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "transfer_windows", force: true do |t|
