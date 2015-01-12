@@ -1,0 +1,5 @@
+<% provide :title, @transfer_window.name
+   provide :breadcrumbs, breadcrumbs([ @transfer_window.season, @transfer_window.season.d11_league, :select_name ], season: @transfer_window.season ) %> 
+
+<h1><%= @transfer_window.name %></h1>
+<%= render 'layouts/administration_links', resource: @transfer_window %>
