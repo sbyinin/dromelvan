@@ -1,0 +1,5 @@
+<% provide :title, @transfer_day.name
+   provide :breadcrumbs, breadcrumbs([ @transfer_day.transfer_window.season, @transfer_day.transfer_window.season.d11_league, @transfer_day.transfer_window, :select_name ], transfer_window: @transfer_day.transfer_window.season ) %> 
+
+<h1><%= @transfer_day.name %></h1>
+<%= render 'layouts/administration_links', resource: @transfer_day %>

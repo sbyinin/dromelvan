@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   resources :d11_match_days, only: [:show], concerns: [:select]
   resources :d11_matches, only: [:show], concerns: [:select]
   resources :transfer_windows, only: [:show], concerns: [:select]
+  resources :transfer_days, only: [:show], concerns: [:select]
     
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   
