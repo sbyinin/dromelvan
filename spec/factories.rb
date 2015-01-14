@@ -189,7 +189,7 @@ FactoryGirl.define do
     d11_team
     position
     ranking 0
-    new false
+    new_player false
   end
 
 end

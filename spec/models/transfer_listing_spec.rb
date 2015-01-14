@@ -59,8 +59,20 @@ describe TransferListing, type: :model do
   
   it_should_behave_like "player stats summary"
   
-  # player_match_stats
-  # default scope order
+  describe '#player_match_stats' do
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match1) { FactoryGirl.create(:match, match_day: match_day, datetime: DateTime.now - 1.day) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day, datetime: DateTime.now + 1.day) }
+    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, player: player, match: match1) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: player, match: match2) }
+    let!(:transfer_window) { FactoryGirl.create(:transfer_window, season: season ) }
+    let!(:transfer_day) { FactoryGirl.create(:transfer_day, transfer_window: transfer_window, datetime: DateTime.now ) }
+    let!(:transfer_listing) { FactoryGirl.create(:transfer_listing, player: player, transfer_day: transfer_day) }      
+    
+    specify { expect(transfer_listing.player_match_stats).to eq [ player_match_stat1 ] }
+  end
   
   context "when transfer_day is nil" do
     before { @transfer_listing.transfer_day = nil }
@@ -101,5 +113,32 @@ describe TransferListing, type: :model do
     before { @transfer_listing.new_player = nil }
     it { is_expected.not_to be_valid }
   end
-  
+
+  describe "default scope order" do
+    before { TransferListing.destroy_all }
+
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match) { FactoryGirl.create(:match, match_day: match_day) }    
+    let!(:player1) { FactoryGirl.create(:player) }
+    let!(:player2) { FactoryGirl.create(:player) }
+    let!(:player3) { FactoryGirl.create(:player) }
+    let!(:player4) { FactoryGirl.create(:player) }
+    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, player: player1, match: match, rating: 600, lineup: :starting_lineup) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: player2, match: match, rating: 800, lineup: :starting_lineup) }
+    let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, player: player3, match: match, rating: 700, lineup: :starting_lineup) }
+    let!(:player_match_stat4) { FactoryGirl.create(:player_match_stat, player: player4, match: match, rating: 700, lineup: :starting_lineup) }
+    let!(:d11_team1) { FactoryGirl.create(:d11_team, name: "Bbbb") }
+    let!(:d11_team2) { FactoryGirl.create(:d11_team, name: "Aaaa") }
+    let!(:transfer_window) { FactoryGirl.create(:transfer_window, season: season ) }
+    let!(:transfer_day) { FactoryGirl.create(:transfer_day, transfer_window: transfer_window) }    
+    let!(:transfer_listing1) { FactoryGirl.create(:transfer_listing, player: player1, transfer_day: transfer_day, d11_team: d11_team1) }
+    let!(:transfer_listing2) { FactoryGirl.create(:transfer_listing, player: player2, transfer_day: transfer_day, d11_team: d11_team1) }
+    let!(:transfer_listing3) { FactoryGirl.create(:transfer_listing, player: player3, transfer_day: transfer_day, d11_team: d11_team1) }
+    let!(:transfer_listing4) { FactoryGirl.create(:transfer_listing, player: player4, transfer_day: transfer_day, d11_team: d11_team2) }
+    
+    specify { expect(TransferListing.all).to eq [ transfer_listing4, transfer_listing2, transfer_listing3, transfer_listing1 ] }
+  end
+
 end

@@ -7,7 +7,8 @@ class TransferListing < ActiveRecord::Base
   belongs_to :d11_team
   belongs_to :position
   
-  default_scope -> { order(points: :desc) }
+  # Todo - do this with symbols instead of a string
+  default_scope -> { joins(:d11_team).order("d11_teams.name, points desc") }
   
   validates :transfer_day, presence: true
   validates :player, presence: true
@@ -20,9 +21,10 @@ class TransferListing < ActiveRecord::Base
   def player_match_stats
     player_match_stats = []
     if !transfer_day.nil? then
-      player_match_stats = PlayerMatchStat.by_player_and_season(player, transfer_day.transfer_window.season)
-      player_match_stats.each do |player_match_stat|
-        # puts("kek")
+      PlayerMatchStat.by_player_and_season(player, transfer_day.transfer_window.season).each do |player_match_stat|
+        if player_match_stat.match.datetime <= transfer_day.datetime
+          player_match_stats << player_match_stat
+        end
       end
     end
     player_match_stats
