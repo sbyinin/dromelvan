@@ -182,4 +182,14 @@ FactoryGirl.define do
     datetime DateTime.now
   end
   
+  factory :transfer_listing do
+    transfer_day
+    player
+    team
+    d11_team
+    position
+    ranking 0
+    new false
+  end
+
 end
