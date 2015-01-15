@@ -104,6 +104,13 @@ describe TransferDay, type: :model do
     before { @transfer_day.datetime = nil }
     it { is_expected.not_to be_valid }
   end
+
+  context "with transfer_listing dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:transfer_day) }
+      let!(:dependent) { FactoryGirl.create(:transfer_listing, transfer_day: owner) }      
+    end
+  end
   
 end
 

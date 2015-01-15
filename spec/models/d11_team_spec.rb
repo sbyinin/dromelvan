@@ -97,6 +97,13 @@ describe D11Team, type: :model do
       let!(:dependent) { FactoryGirl.create(:player_season_info, d11_team: owner) }      
     end
   end
+
+  context "with transfer_listing dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:d11_team) }
+      let!(:dependent) { FactoryGirl.create(:transfer_listing, d11_team: owner) }      
+    end
+  end
     
 end
 

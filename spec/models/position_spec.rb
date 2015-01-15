@@ -81,6 +81,13 @@ describe Position, type: :model do
     end
   end
 
+  context "with transfer_listing dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:position) }
+      let!(:dependent) { FactoryGirl.create(:transfer_listing, position: owner) }      
+    end
+  end
+
   describe "default scope order" do
     before { Position.destroy_all }
     

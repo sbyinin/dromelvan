@@ -1,6 +1,7 @@
 class TransferDay < ActiveRecord::Base
 
   belongs_to :transfer_window
+  has_many :transfer_listings, dependent: :restrict_with_exception
   
   enum status: [ :pending, :active, :finished ]
   

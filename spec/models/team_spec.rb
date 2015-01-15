@@ -156,5 +156,12 @@ describe Team, type: :model do
       let!(:dependent) { FactoryGirl.create(:player_season_info, team: owner) }      
     end
   end
+
+  context "with transfer_listing dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:team) }
+      let!(:dependent) { FactoryGirl.create(:transfer_listing, team: owner) }      
+    end
+  end
   
 end

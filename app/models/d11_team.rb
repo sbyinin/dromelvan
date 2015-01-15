@@ -7,6 +7,7 @@ class D11Team < ActiveRecord::Base
   has_many :away_d11_matches, class_name: D11Match, foreign_key: :away_d11_team_id, dependent: :restrict_with_exception    
   has_many :player_match_stats, dependent: :restrict_with_exception
   has_many :player_season_infos, dependent: :restrict_with_exception
+  has_many :transfer_listings, dependent: :restrict_with_exception
 
   default_scope -> { order(name: :asc) }
   
