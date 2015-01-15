@@ -74,6 +74,36 @@ describe TransferListing, type: :model do
     specify { expect(transfer_listing.player_match_stats).to eq [ player_match_stat1 ] }
   end
   
+  describe ".update_rankings" do
+    before { TransferListing.destroy_all }
+
+    describe "after destroy_all" do
+      let!(:season) { FactoryGirl.create(:season) }
+      let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+      let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+      let!(:match) { FactoryGirl.create(:match, match_day: match_day) }    
+      let!(:player1) { FactoryGirl.create(:player) }
+      let!(:player2) { FactoryGirl.create(:player) }
+      let!(:player3) { FactoryGirl.create(:player) }
+      let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, player: player1, match: match, rating: 600, lineup: :starting_lineup) }
+      let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: player2, match: match, rating: 800, lineup: :starting_lineup) }
+      let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, player: player3, match: match, rating: 700, lineup: :starting_lineup) }
+      let!(:transfer_window) { FactoryGirl.create(:transfer_window, season: season ) }
+      let!(:transfer_day) { FactoryGirl.create(:transfer_day, transfer_window: transfer_window) }    
+      let!(:transfer_listing1) { FactoryGirl.create(:transfer_listing, player: player1, transfer_day: transfer_day) }
+      let!(:transfer_listing2) { FactoryGirl.create(:transfer_listing, player: player2, transfer_day: transfer_day) }
+      let!(:transfer_listing3) { FactoryGirl.create(:transfer_listing, player: player3, transfer_day: transfer_day) }
+      
+      before do
+        TransferListing.update_rankings(transfer_day)
+      end
+
+      specify { expect(transfer_listing1.reload.ranking).to eq 3 }
+      specify { expect(transfer_listing2.reload.ranking).to eq 1 }
+      specify { expect(transfer_listing3.reload.ranking).to eq 2 }
+    end
+  end
+  
   context "when transfer_day is nil" do
     before { @transfer_listing.transfer_day = nil }
     it { is_expected.not_to be_valid }

@@ -10,6 +10,8 @@ class TransferListing < ActiveRecord::Base
   # Todo - do this with symbols instead of a string
   default_scope -> { joins(:d11_team).order("d11_teams.name, points desc") }
   
+  after_initialize :init
+  
   validates :transfer_day, presence: true
   validates :player, presence: true
   validates :team, presence: true
@@ -34,5 +36,23 @@ class TransferListing < ActiveRecord::Base
     reset_stats_summary
     self.ranking = 0
   end
+
+  def TransferListing.update_rankings(transfer_day)
+    ranking = 1
+    TransferListing.transaction do
+      where(transfer_day: transfer_day).reorder(points: :desc).each do |transfer_listing|   
+        # This is a LOT faster than updating and doing .save on each object
+        TransferListing.connection.execute "UPDATE transfer_listings SET ranking = #{ranking} WHERE id = #{transfer_listing.id}"
+        ranking += 1
+      end
+    end
+    ranking
+  end
+  
+  private
+  
+    def init
+      self.ranking ||= 0
+    end
   
 end

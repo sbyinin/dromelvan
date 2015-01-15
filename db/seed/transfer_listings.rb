@@ -20921,7 +20921,7 @@ transfer_listings = [
 
 puts("Seeding transfer listings...")
 
-transfer_listings.each do |id, transfer_window_id, player_id, d11_team_id, new|
+transfer_listings.each do |id, transfer_window_id, player_id, d11_team_id, new_player|
   if transfer_window_id > 35
     transfer_window_id -= 1
   end
@@ -20930,8 +20930,15 @@ transfer_listings.each do |id, transfer_window_id, player_id, d11_team_id, new|
   player_season_stats = PlayerSeasonStat.where(player_id: player_id, season_id: transfer_day.transfer_window.season_id).first
   
   if !player_season_info.nil? && !player_season_stats.nil?
-    TransferListing.create(transfer_day_id: transfer_day.id, player_id: player_id, team: player_season_info.team, d11_team_id: d11_team_id, position: player_season_info.position, new_player: new)
+    TransferListing.create(transfer_day_id: transfer_day.id, player_id: player_id, team: player_season_info.team, d11_team_id: d11_team_id, position: player_season_info.position, new_player: new_player)
   else
     puts("player_id: #{player_id} season_id: #{transfer_day.transfer_window.season_id} d11_team_id: #{d11_team_id}")
   end
 end
+
+puts("..updating rankings...")
+
+TransferDay.all.each do |transfer_day|
+  TransferListing.update_rankings(transfer_day)
+end
+	
