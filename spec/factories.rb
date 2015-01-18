@@ -192,4 +192,15 @@ FactoryGirl.define do
     new_player false
   end
 
+  factory :transfer_bid do
+    transfer_day
+    player
+    player_ranking 1
+    d11_team
+    d11_team_ranking 1
+    fee 5
+    active_fee 5
+    successful false
+  end
+
 end

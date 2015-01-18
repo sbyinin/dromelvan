@@ -32,4 +32,5 @@
 #require File.expand_path('../seed/player_season_stats', __FILE__)
 #require File.expand_path('../seed/transfer_windows', __FILE__)
 #require File.expand_path('../seed/transfer_days', __FILE__)
-require File.expand_path('../seed/transfer_listings', __FILE__)
+#require File.expand_path('../seed/transfer_listings', __FILE__)
+require File.expand_path('../seed/transfer_bids', __FILE__)
