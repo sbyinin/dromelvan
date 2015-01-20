@@ -40,7 +40,7 @@ describe TransferBid, type: :model do
     it { is_expected.to eq d11_team }
   end
 
-  describe '#d11_team' do
+  describe '#d11_team_ranking' do
     subject { @transfer_bid.d11_team_ranking }
     it { is_expected.to eq 1 }
   end

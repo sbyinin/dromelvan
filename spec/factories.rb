@@ -203,4 +203,11 @@ FactoryGirl.define do
     successful false
   end
 
+  factory :transfer do
+    transfer_day
+    player
+    d11_team
+    fee 5
+  end
+
 end

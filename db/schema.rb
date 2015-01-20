@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150116062914) do
+ActiveRecord::Schema.define(version: 20150120121443) do
 
   create_table "cards", force: true do |t|
     t.integer  "match_id"
@@ -308,6 +308,15 @@ ActiveRecord::Schema.define(version: 20150116062914) do
     t.integer  "transfer_window_number"
     t.integer  "status"
     t.datetime "datetime"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transfers", force: true do |t|
+    t.integer  "transfer_day_id"
+    t.integer  "player_id"
+    t.integer  "d11_team_id"
+    t.integer  "fee"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
