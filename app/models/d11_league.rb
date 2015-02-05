@@ -3,6 +3,7 @@ class D11League < ActiveRecord::Base
   
   belongs_to :season
   has_many :d11_match_days, dependent: :restrict_with_exception
+  has_many :d11_team_table_stats, dependent: :restrict_with_exception
   
   # TODO: Figure out why this is needed for the has_one in Season for the tests to
   # pass and how to change it if it's not needed.

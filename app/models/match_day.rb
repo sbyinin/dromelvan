@@ -2,6 +2,7 @@ class MatchDay < ActiveRecord::Base
   
   belongs_to :premier_league
   has_many :matches, dependent: :restrict_with_exception
+  has_many :team_table_stats, dependent: :restrict_with_exception
   
   default_scope -> { order(:date) }
   

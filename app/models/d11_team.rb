@@ -8,6 +8,7 @@ class D11Team < ActiveRecord::Base
   has_many :player_match_stats, dependent: :restrict_with_exception
   has_many :player_season_infos, dependent: :restrict_with_exception
   has_many :transfer_listings, dependent: :restrict_with_exception
+  has_many :d11_team_table_stats, dependent: :restrict_with_exception
 
   default_scope -> { order(name: :asc) }
   

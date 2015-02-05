@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120121443) do
+ActiveRecord::Schema.define(version: 20150121100522) do
 
   create_table "cards", force: true do |t|
     t.integer  "match_id"
@@ -55,6 +55,41 @@ ActiveRecord::Schema.define(version: 20150120121443) do
     t.integer  "home_team_points"
     t.integer  "away_team_points"
     t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "d11_team_table_stats", force: true do |t|
+    t.integer  "d11_team_id"
+    t.integer  "d11_league_id"
+    t.integer  "d11_match_day_id"
+    t.integer  "matches_played"
+    t.integer  "matches_won"
+    t.integer  "matches_drawn"
+    t.integer  "matches_lost"
+    t.integer  "goals_for"
+    t.integer  "goals_against"
+    t.integer  "goal_difference"
+    t.integer  "points"
+    t.integer  "ranking"
+    t.integer  "home_matches_played"
+    t.integer  "home_matches_won"
+    t.integer  "home_matches_drawn"
+    t.integer  "home_matches_lost"
+    t.integer  "home_goals_for"
+    t.integer  "home_goals_against"
+    t.integer  "home_goal_difference"
+    t.integer  "home_points"
+    t.integer  "home_ranking"
+    t.integer  "away_matches_played"
+    t.integer  "away_matches_won"
+    t.integer  "away_matches_drawn"
+    t.integer  "away_matches_lost"
+    t.integer  "away_goals_for"
+    t.integer  "away_goals_against"
+    t.integer  "away_goal_difference"
+    t.integer  "away_points"
+    t.integer  "away_ranking"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -230,6 +265,41 @@ ActiveRecord::Schema.define(version: 20150120121443) do
     t.integer  "player_in_id"
     t.integer  "time"
     t.integer  "added_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "team_table_stats", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "premier_league_id"
+    t.integer  "match_day_id"
+    t.integer  "matches_played"
+    t.integer  "matches_won"
+    t.integer  "matches_drawn"
+    t.integer  "matches_lost"
+    t.integer  "goals_for"
+    t.integer  "goals_against"
+    t.integer  "goal_difference"
+    t.integer  "points"
+    t.integer  "ranking"
+    t.integer  "home_matches_played"
+    t.integer  "home_matches_won"
+    t.integer  "home_matches_drawn"
+    t.integer  "home_matches_lost"
+    t.integer  "home_goals_for"
+    t.integer  "home_goals_against"
+    t.integer  "home_goal_difference"
+    t.integer  "home_points"
+    t.integer  "home_ranking"
+    t.integer  "away_matches_played"
+    t.integer  "away_matches_won"
+    t.integer  "away_matches_drawn"
+    t.integer  "away_matches_lost"
+    t.integer  "away_goals_for"
+    t.integer  "away_goals_against"
+    t.integer  "away_goal_difference"
+    t.integer  "away_points"
+    t.integer  "away_ranking"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

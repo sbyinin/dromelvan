@@ -53,5 +53,12 @@ describe PremierLeague, type: :model do
       let!(:dependent) { FactoryGirl.create(:match_day, premier_league: owner) }      
     end
   end
+
+  context "with team_table_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:premier_league) }
+      let!(:dependent) { FactoryGirl.create(:team_table_stat, premier_league: owner) }      
+    end
+  end
     
 end

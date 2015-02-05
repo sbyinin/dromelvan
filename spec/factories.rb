@@ -210,4 +210,16 @@ FactoryGirl.define do
     fee 5
   end
 
+  factory :d11_team_table_stat do
+    d11_team
+    d11_league
+    d11_match_day    
+  end
+  
+  factory :team_table_stat do
+    team
+    premier_league
+    match_day    
+  end
+  
 end

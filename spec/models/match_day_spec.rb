@@ -102,5 +102,12 @@ describe MatchDay, type: :model do
       let!(:dependent) { FactoryGirl.create(:match, match_day: owner) }      
     end
   end
+
+  context "with team_table_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:match_day) }
+      let!(:dependent) { FactoryGirl.create(:team_table_stat, match_day: owner) }      
+    end
+  end
     
 end
