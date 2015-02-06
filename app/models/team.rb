@@ -11,6 +11,7 @@ class Team < ActiveRecord::Base
   has_many :player_season_infos, dependent: :restrict_with_exception
   has_many :transfer_listings, dependent: :restrict_with_exception
   has_many :team_table_stats, dependent: :restrict_with_exception
+  has_many :team_registrations, dependent: :restrict_with_exception
 
   default_scope -> { order(name: :asc) }
 

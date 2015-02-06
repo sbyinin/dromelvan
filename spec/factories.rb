@@ -221,5 +221,15 @@ FactoryGirl.define do
     premier_league
     match_day    
   end
+
+  factory :team_registration do
+    team
+    season    
+  end
+  
+  factory :d11_team_registration do
+    d11_team
+    season
+  end
   
 end
