@@ -36,4 +36,6 @@
 #require File.expand_path('../seed/transfer_bids', __FILE__)
 #require File.expand_path('../seed/transfers', __FILE__)
 #require File.expand_path('../seed/team_registrations', __FILE__)
-require File.expand_path('../seed/d11_team_registrations', __FILE__)
+#require File.expand_path('../seed/d11_team_registrations', __FILE__)
+#require File.expand_path('../seed/team_table_stats', __FILE__)
+require File.expand_path('../seed/d11_team_table_stats', __FILE__)
