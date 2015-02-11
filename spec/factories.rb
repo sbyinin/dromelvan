@@ -231,5 +231,5 @@ FactoryGirl.define do
     d11_team
     season
   end
-  
+
 end
