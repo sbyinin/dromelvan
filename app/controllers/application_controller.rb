@@ -34,15 +34,19 @@ class ApplicationController < ActionController::Base
   end
   
   def create
-    resource = controller_name.classify.constantize.new(resource_params)
-    self.instance_variable_set "@#{controller_name.tableize.singularize}", resource    
-    #pre_save(resource)
+    resource = self.instance_variable_get "@#{controller_name.tableize.singularize}"    
+    if !resource.nil?
+      resource.update_attributes(resource_params)
+    else
+      resource ||= controller_name.classify.constantize.new(resource_params)
+      self.instance_variable_set "@#{controller_name.tableize.singularize}", resource    
+    end
     
     if resource.save
       flash[:success] = "#{resource.class.name.humanize} created."
-      redirect_to action: "index"
+      redirect_to action: :index
     else
-      render 'new'
+      render :new
     end
   end  
   

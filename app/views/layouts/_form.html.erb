@@ -1,0 +1,15 @@
+<% resource = instance_variable_get "@#{controller_name.tableize.singularize}" %>
+<div class="form-container">
+  <h2><%= resource.class.name.titleize %> Details</h2>  
+  <%= form_for(resource) do |f| %>
+    <%= render "layouts/validation_errors", resource: resource %>
+    <%= yield f %>
+    <div class="button-panel">
+      <% if action_name == "new" || action_name == "create"  %>
+      <%= f.button "Save", class: "form-button", name: "submit-button" %>
+      <% elsif action_name == "edit" || action_name == "update"  %>
+      <%= f.button "Save Changes", class: "form-button", name: "submit-button" %>
+      <% end %>
+    </div>                    
+  <% end %>
+</div>

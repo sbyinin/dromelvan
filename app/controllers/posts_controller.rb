@@ -4,6 +4,11 @@ class PostsController < ApplicationController
   def index
     @posts = Post.paginate(page: params[:page]) 
   end
+
+  def create
+    @post = Post.new(user: current_user)
+    super
+  end
   
   def edit
   end
