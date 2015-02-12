@@ -11,6 +11,12 @@ FactoryGirl.define do
     end    
   end
 
+  factory :post do
+    user
+    title "Title"
+    content "Content."
+  end
+
   factory :country do
     sequence(:name) { |n| "Country #{n}" }
     sequence(:iso) { |n| "#{('AAA'..'ZZZ').to_a[n]}" }    

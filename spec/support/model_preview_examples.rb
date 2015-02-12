@@ -66,7 +66,7 @@ shared_examples_for "preview" do
   describe '#away_red_cards' do
     specify { expect(subject.away_red_cards).to eq 2 } 
   end 
-=begin  
+
   context "when previous meetings don't exist" do
     let(:first_meeting) { FactoryGirl.create(subject.class.name.delete("Preview").underscore.to_sym) }    
     let(:preview) { subject.class.new(subject.class.name.delete("Preview").underscore.to_sym => first_meeting) }
@@ -86,5 +86,5 @@ shared_examples_for "preview" do
     specify { expect(preview.home_red_cards).to eq 0 }
     specify { expect(preview.away_red_cards).to eq 0 }     
   end
-=end    
+
 end

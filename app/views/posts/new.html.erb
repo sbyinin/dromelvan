@@ -1,0 +1,49 @@
+<% provide :title, "New post"
+   provide :breadcrumbs, breadcrumbs([ :index, :title ]) %>
+   
+<h1>New Post</h1>
+<div class="section">
+  
+  <div class="form-context">
+    <p>Enter a topic and some content to share your wisdom with the D11 world.</p>
+  </div> 
+
+  <div class="form-container">
+    <h2>Post Details</h2>
+    <%= form_for(@post) do |f| %>        
+      <fieldset>
+        <legend><span>Post Details</span></legend>
+        <% if !alert.nil? && !alert.empty? %>
+        <div class="alert alert-danger"><%= alert %></div>
+        <% end %>
+
+        <% if defined?(@post) && @post.errors.any? %>
+        <div class="alert alert-danger">
+          The form contains <%= pluralize(@post.errors.count, "error") %>.
+          <% @post.errors.full_messages.each do |msg| %>
+          <p><%= msg %>.</p>
+          <% end %>
+        </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :title %>
+          <%= f.text_field :title, required: true, autofocus: true %>
+        </div>
+      
+        <div class="form-group">
+          <%= f.label :content %>
+          <%= f.text_area :content, required: true %>
+        </div>      
+      </fieldset>              
+      <div class="button-panel">
+        <%= f.button "Save", class: "form-button", name: "submit-button" %>
+      </div>                    
+    <% end %>
+  </div>
+  
+  <div class="form-context-image">
+    <%= image_tag "context/form.png", alt: "Context images." %>
+  </div>
+  
+</div> 

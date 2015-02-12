@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :administrator_signed_in?
   
   rescue_from ActiveRecord::RecordNotFound do |exception|
-    render '/public/404', status: :not_found
+    not_found
   end
   
   def index
@@ -28,6 +28,24 @@ class ApplicationController < ActionController::Base
     self.instance_variable_set "@#{controller_name.tableize.singularize}", resource
   end
     
+  def new
+    resource = controller_name.classify.constantize.new
+    self.instance_variable_set "@#{controller_name.tableize.singularize}", resource
+  end
+  
+  def create
+    resource = controller_name.classify.constantize.new(resource_params)
+    self.instance_variable_set "@#{controller_name.tableize.singularize}", resource    
+    #pre_save(resource)
+    
+    if resource.save
+      flash[:success] = "#{resource.class.name.humanize} created."
+      redirect_to action: "index"
+    else
+      render 'new'
+    end
+  end  
+  
   def administrator_signed_in?
     current_user.try(:administrator?)
   end
@@ -41,5 +59,13 @@ class ApplicationController < ActionController::Base
        devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :password_confirmation, :remember_me) }
        devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :password_confirmation, :current_password) }
     end       
+  
+  private
+    def not_found
+      render '/public/404', status: :not_found
+    end
     
+    def authorize_administrator
+      not_found unless administrator_signed_in? 
+    end
 end
