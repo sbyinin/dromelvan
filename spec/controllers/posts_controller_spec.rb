@@ -1,26 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe PostsController, :type => :controller do
+describe PostsController, type: :controller do
 
-  describe "GET index" do
-    it "returns http success" do
-      get :index
-      expect(response).to be_success
-    end
-  end
+  it_should_behave_like "index controller"
+  
+  it_should_behave_like "show controller"
 
-  describe "GET new" do
-    it "returns http success" do
-      get :new
-      expect(response).to be_success
-    end
-  end
-
-  describe "GET edit" do
-    it "returns http success" do
-      get :edit
-      expect(response).to be_success
-    end
-  end
-
+  it_should_behave_like "admin action controller", :new
+  it_should_behave_like "admin action controller", :create
+  
 end
