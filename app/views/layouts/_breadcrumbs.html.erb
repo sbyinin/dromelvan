@@ -9,6 +9,9 @@
       <% else %>
       <li><%= link_to controller_name.titleize, url_for(action: 'index') %></li>
       <% end %>
+
+    <% elsif breadcrumb == :id then %>
+      <li><%= instance_variable_get("@#{controller_name.singularize}").id %></li>
       
     <% elsif breadcrumb == :name then %>
       <li><%= instance_variable_get("@#{controller_name.singularize}").name %></li>

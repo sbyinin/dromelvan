@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   resources :d11_matches, only: [:show], concerns: [:select]
   resources :transfer_windows, only: [:show], concerns: [:select]
   resources :transfer_days, only: [:show], concerns: [:select]
-  resources :posts, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :posts
     
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   

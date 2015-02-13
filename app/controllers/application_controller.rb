@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
     
     if resource.save
       flash[:success] = "#{resource.class.name.humanize} created."
-      redirect_to action: :index
+      redirect_to resource
     else
       render :new
     end

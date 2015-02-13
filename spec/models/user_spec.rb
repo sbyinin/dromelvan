@@ -16,4 +16,11 @@ describe User, type: :model do
     end
   end
 
+  context "with post dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:user) }
+      let!(:dependent) { FactoryGirl.create(:post, user: owner) }      
+    end
+  end
+
 end
