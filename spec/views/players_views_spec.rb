@@ -8,6 +8,9 @@ describe "Player", type: :view do
   let!(:team) { FactoryGirl.create(:team, name: "None") }
   let!(:d11_team) { FactoryGirl.create(:d11_team, name: "None") }
   let!(:position) { FactoryGirl.create(:position, name: "Unknown") }
+  # The season select show views need a season
+  let!(:season) { FactoryGirl.create(:season) }
+
   
   it_should_behave_like "index view", Player
 

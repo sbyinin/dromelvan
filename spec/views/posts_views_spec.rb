@@ -9,7 +9,11 @@ describe "Post", type: :view do
   it_should_behave_like "show view", Post do
     let(:h1_text) { resource.title }
   end
-  
+
+  it_should_behave_like "new view", Post do
+    let(:fill_ins) { { "Title" => "Title", "Content" => "Content." } }
+  end
+    
   pending "all post view specs."
   
   pending "final index layout."

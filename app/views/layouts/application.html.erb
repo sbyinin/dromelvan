@@ -17,7 +17,12 @@
 
 <main role="main">
   <%= yield(:hero_unit) %>
+  <% resource = self.instance_variable_get "@#{controller_name.tableize.singularize}"
+     if !resource.nil? %>
+  <div class="content <%= controller_name.dasherize %> <%= action_name %>" id="<%= resource.id %>">
+  <% else %>
   <div class="content <%= controller_name.dasherize %> <%= action_name %>">
+  <% end %>
     <%= yield(:breadcrumbs) %>    
     <%= render 'devise/shared/notice' %>
     

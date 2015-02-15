@@ -15,7 +15,7 @@
       <ul class="navbar-menubar">        
         <li class="dropdown">
           <%= render 'layouts/dropdown_toggle', text: "Home" %>
-          <ul class="dropdown-menu" role="menu">
+          <ul class="dropdown-menu" id="main-menu" role="menu">
             <li><%= link_to "Home", main_app.root_path %></li>
             <li><%= link_to "Rules", main_app.rules_path %></li>
             <li><%= link_to "About Drömelvan", main_app.about_path %></li>
@@ -24,7 +24,7 @@
 
         <li class="dropdown">
           <%= render 'layouts/dropdown_toggle', text: "D11" %>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" id="d11-menu">
             <% if !D11League.current.nil? %>
             <li><%= link_to "Fixtures", main_app.d11_league_path(D11League.current) %></li>
             <li><%= link_to "Table", main_app.d11_league_path(D11League.current, anchor: "table") %></li>
@@ -39,7 +39,7 @@
 
         <li class="dropdown">
           <%= render 'layouts/dropdown_toggle', text: "Premier League" %>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" id="premier-league-menu">
             <% if !PremierLeague.current.nil? %>
             <li><%= link_to "Fixtures", main_app.premier_league_path(PremierLeague.current) %></li>
             <li><%= link_to "Table", main_app.premier_league_path(PremierLeague.current, anchor: "table") %></li>
@@ -52,7 +52,7 @@
                 
         <li class="dropdown">
           <%= render 'layouts/dropdown_toggle', text: "Browse" %>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" id="browse-menu">
             <li><%= link_to "Countries", main_app.countries_path %></li>
             <li><%= link_to "Players", main_app.players_path %></li>
             <li><%= link_to "Teams", main_app.teams_path %></li>
@@ -65,7 +65,7 @@
         <% if user_signed_in? %>
         <li class="dropdown">
           <%= render 'layouts/dropdown_toggle', text: "#{current_user.name}" %>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" id="user-menu">
             <% if administrator_signed_in? %>
             <li><%= link_to "Administration", rails_admin.dashboard_path %></li>            
             <% end %>
