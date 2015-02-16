@@ -20,7 +20,7 @@ describe "Post", type: :view do
     
   pending "all post view specs."
   
-  pending "final index layout."
+  pending "final index layout with pagination."
   
   pending "final show layout."
   
