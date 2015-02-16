@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     if !resource.nil?
       resource.update_attributes(resource_params)
     else
-      resource ||= controller_name.classify.constantize.new(resource_params)
+      resource = controller_name.classify.constantize.new(resource_params)
       self.instance_variable_set "@#{controller_name.tableize.singularize}", resource    
     end
     
@@ -49,6 +49,31 @@ class ApplicationController < ActionController::Base
       render :new
     end
   end  
+  
+  def edit
+    resource = controller_name.classify.constantize.find(params[:id])
+    self.instance_variable_set "@#{controller_name.tableize.singularize}", resource    
+  end
+  
+  def update
+    resource = self.instance_variable_get "@#{controller_name.tableize.singularize}"    
+    if resource.nil?
+      resource = controller_name.classify.constantize.find(params[:id])
+    end
+    
+    if resource.update_attributes(resource_params)
+      flash[:success] = "#{resource.class.name.humanize} updated."
+      redirect_to resource
+    else
+      render :edit
+    end
+  end
+  
+  def destroy
+    controller_name.classify.constantize.find(params[:id]).destroy
+    flash[:success] = "#{controller_name.singularize.humanize} deleted."
+    redirect_to url_for(action: :index)
+  end
   
   def administrator_signed_in?
     current_user.try(:administrator?)

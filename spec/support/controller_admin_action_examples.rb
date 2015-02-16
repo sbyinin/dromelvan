@@ -1,6 +1,6 @@
 shared_examples_for "admin action controller" do |action|
 
-  describe "GET '#{action}'" do
+  describe "'#{action}'" do
     context "as non-user" do
       specify do
         execute(action)
@@ -31,12 +31,20 @@ shared_examples_for "admin action controller" do |action|
     end    
   end
 
-
   def execute(action)
-    if action == :create || action == :update || action == :destroy
-      post action, subject.controller_name.tableize.singularize.to_sym => FactoryGirl.attributes_for(subject.controller_name.tableize.singularize.to_sym)
-    else
+    if action == :new
       get action
+    elsif action == :create
+      post action, subject.controller_name.tableize.singularize.to_sym => FactoryGirl.attributes_for(subject.controller_name.tableize.singularize.to_sym)
+    elsif action == :edit
+      resource = FactoryGirl.create(subject.controller_name.tableize.singularize.to_sym)
+      get action, id: resource.id      
+    elsif action == :update
+      resource = FactoryGirl.create(subject.controller_name.tableize.singularize.to_sym)
+      patch action, id: resource.id, subject.controller_name.tableize.singularize.to_sym => FactoryGirl.attributes_for(subject.controller_name.tableize.singularize.to_sym)
+    elsif action == :destroy
+      resource = FactoryGirl.create(subject.controller_name.tableize.singularize.to_sym)
+      delete action, id: resource.id
     end    
   end
 end

@@ -1,5 +1,14 @@
 <% if administrator_signed_in? %>
 <p class="administration-links">
+  <% if route_exists?( { controller: controller_name, action: 'edit' }) %>
+  <%= link_to "Edit", edit_polymorphic_path(resource) %>
+  <% else %>
   <%= link_to "Edit", rails_admin.edit_path(model_name: resource.class.name, id: resource.id) %>
+  <% end %>
+
+  <% if route_exists?( { controller: controller_name, action: 'destroy' }) %>
+  <%= link_to "Delete", resource, method: :delete, class: "delete_link" %>
+  <% end %>
+
 </p>
 <% end %>

@@ -9,10 +9,13 @@ class PostsController < ApplicationController
     @post = Post.new(user: current_user)   
     super
   end
-  
-  def edit
+
+  def update
+    @post = Post.find(params[:id])
+    @post.user = current_user
+    super
   end
-  
+    
   private
     def resource_params
       params.require(:post).permit(:title, :content)

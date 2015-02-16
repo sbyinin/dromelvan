@@ -1,2 +1,17 @@
-<h1>Posts#edit</h1>
-<p>Find me in app/views/posts/edit.html.erb</p>
+<% provide :title, "Edit post"
+   provide :breadcrumbs, breadcrumbs([ :index, :title ]) %>
+   
+<h1>Edit Post</h1>
+<div class="section">
+  
+  <div class="form-context">
+    <p>Edit the topic and/or content to correct the knowledge you shared with the D11 world.</p>
+  </div> 
+
+  <%= render "form" %>
+  
+  <div class="form-context-image">
+    <%= image_tag "context/form.png", alt: "Context images." %>
+  </div>
+  
+</div> 

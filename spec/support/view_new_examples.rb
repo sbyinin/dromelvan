@@ -7,7 +7,7 @@ shared_examples_for "new view" do |resource_class|
       sign_in admin
       visit new_polymorphic_path(resource_class)
     end
-  
+   
     it { is_expected.to have_selector("form#new_#{resource_class.table_name.singularize}") }
     
     context "with invalid data" do

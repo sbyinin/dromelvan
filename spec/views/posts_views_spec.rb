@@ -13,6 +13,10 @@ describe "Post", type: :view do
   it_should_behave_like "new view", Post do
     let(:fill_ins) { { "Title" => "Title", "Content" => "Content." } }
   end
+
+  it_should_behave_like "edit view", Post do
+    let(:fill_ins) { { "Title" => "New Title", "Content" => "New content." } }
+  end
     
   pending "all post view specs."
   
