@@ -62,7 +62,6 @@ shared_examples_for "show view" do |resource_class|
       context "after clicking edit" do     
         before do
           click_link 'Edit', href: rails_admin.edit_path(model_name: resource.class.name, id: resource.id)
-          puts("clicked")
         end
         
         it { is_expected.to have_selector("form#edit_#{resource_class.table_name.singularize}") }
@@ -84,6 +83,18 @@ shared_examples_for "show view" do |resource_class|
     
     context "when destroy route exists", if: destroy_route_exists do
       it { is_expected.to have_link('Delete', href: polymorphic_path(resource)) }
+      
+      specify { expect { click_link 'Delete', href: polymorphic_path(resource) }.to change(resource_class, :count).by(-1) }
+      
+      context "after clicking delete" do     
+        before do
+          click_link 'Delete', href: polymorphic_path(resource)
+        end
+        
+        specify { expect{ resource.reload }.to raise_error(ActiveRecord::RecordNotFound) }
+        
+        it { is_expected.to have_selector("div.#{resource_class.table_name.dasherize}") } 
+      end
     end
   end
 end
