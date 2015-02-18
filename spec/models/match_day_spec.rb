@@ -3,14 +3,8 @@ require 'rails_helper'
 describe MatchDay, type: :model do
   
   let(:premier_league) { FactoryGirl.create(:premier_league) }
-  let(:d11_match_day) { FactoryGirl.create(:d11_match_day) }
   
-  before do
-    @match_day = FactoryGirl.create(:match_day, premier_league: premier_league, date: Date.today, match_day_number: 1)
-    d11_match_day.match_day = @match_day
-  end
-  
-  
+  before { @match_day = FactoryGirl.create(:match_day, premier_league: premier_league, date: Date.today, match_day_number: 1) }
   
   subject { @match_day }
   
@@ -27,20 +21,15 @@ describe MatchDay, type: :model do
     it { is_expected.to eq premier_league }
   end
 
-  describe '#d11_match_day' do
-    subject { @match_day.d11_match_day }
-    it { is_expected.to eq d11_match_day }
-  end
-
   describe '#date' do
     subject { @match_day.date }
     it { is_expected.to eq Date.today }
   end
     
-#  describe '#match_day_number' do
-#    subject { @match_day.match_day_number }
-#    it { is_expected.to eq 1 }
-#  end
+  describe '#match_day_number' do
+    subject { @match_day.match_day_number }
+    it { is_expected.to eq 1 }
+  end
 
   describe '#name' do
     subject { @match_day.name }
