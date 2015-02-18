@@ -6,6 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# NOTE: DISABLE :update_points in before_validation for PlayerMatchStats before seeding to
+# get correct points for pre 2014-2015 match stats. (Unless we add correct point calculations
+# for previous seasons)
+
 #require File.expand_path('../seed/users', __FILE__)
 #require File.expand_path('../seed/countries', __FILE__)
 #require File.expand_path('../seed/d11_teams', __FILE__)
@@ -27,6 +31,7 @@
 #require File.expand_path('../seed/d11_match_days', __FILE__)
 #require File.expand_path('../seed/d11_matches', __FILE__)
 #require File.expand_path('../seed/player_match_stats', __FILE__)
+##The below is not needed since goals conceded are set in update_points for PlayerMatchStats.
 ##require File.expand_path('../seed/player_match_stats_goals_conceded', __FILE__)
 #require File.expand_path('../seed/player_season_infos', __FILE__)
 #require File.expand_path('../seed/player_season_stats', __FILE__)
@@ -39,3 +44,7 @@
 #require File.expand_path('../seed/d11_team_registrations', __FILE__)
 #require File.expand_path('../seed/team_table_stats', __FILE__)
 #require File.expand_path('../seed/d11_team_table_stats', __FILE__)
+#require File.expand_path('../seed/team_match_squad_stats', __FILE__)
+#require File.expand_path('../seed/team_season_squad_stats', __FILE__)
+require File.expand_path('../seed/d11_team_match_squad_stats', __FILE__)
+#require File.expand_path('../seed/d11_team_season_squad_stats', __FILE__)

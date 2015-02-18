@@ -24,7 +24,10 @@ class D11MatchDay < ActiveRecord::Base
   end
 
   def match_day
-    d11_league.season.premier_league.match_days.where(match_day_number: match_day_number).first
+    # TODO add a match_day_id instead.
+    if !d11_league.season.premier_league.nil?
+      d11_league.season.premier_league.match_days.where(match_day_number: match_day_number).first
+    end    
   end
   
   def D11MatchDay.current

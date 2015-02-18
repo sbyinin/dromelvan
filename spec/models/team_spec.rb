@@ -177,5 +177,19 @@ describe Team, type: :model do
       let!(:dependent) { FactoryGirl.create(:team_registration, team: owner) }      
     end
   end
+
+  context "with team_match_squad_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:team) }
+      let!(:dependent) { FactoryGirl.create(:team_match_squad_stat, team: owner) }      
+    end
+  end
+
+  context "with team_season_squad_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:team) }
+      let!(:dependent) { FactoryGirl.create(:team_season_squad_stat, team: owner) }      
+    end
+  end
   
 end

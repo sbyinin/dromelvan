@@ -23,7 +23,7 @@ class TransferListing < ActiveRecord::Base
   def player_match_stats
     player_match_stats = []
     if !transfer_day.nil? then
-      PlayerMatchStat.by_player_and_season(player, transfer_day.transfer_window.season).each do |player_match_stat|
+      PlayerMatchStat.by_player(player).by_season(transfer_day.transfer_window.season).each do |player_match_stat|
         if player_match_stat.match.datetime <= transfer_day.datetime
           player_match_stats << player_match_stat
         end

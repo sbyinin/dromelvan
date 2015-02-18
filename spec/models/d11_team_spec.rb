@@ -118,6 +118,20 @@ describe D11Team, type: :model do
       let!(:dependent) { FactoryGirl.create(:d11_team_registration, d11_team: owner) }      
     end
   end
+
+  context "with d11_team_match_squad_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:d11_team) }
+      let!(:dependent) { FactoryGirl.create(:d11_team_match_squad_stat, d11_team: owner) }      
+    end
+  end
+
+  context "with d11_team_season_squad_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:d11_team) }
+      let!(:dependent) { FactoryGirl.create(:d11_team_season_squad_stat, d11_team: owner) }      
+    end
+  end
     
 end
 

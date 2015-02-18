@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211131014) do
+ActiveRecord::Schema.define(version: 20150217081149) do
 
   create_table "cards", force: true do |t|
     t.integer  "match_id"
@@ -59,10 +59,60 @@ ActiveRecord::Schema.define(version: 20150211131014) do
     t.datetime "updated_at"
   end
 
+  create_table "d11_team_match_squad_stats", force: true do |t|
+    t.integer  "d11_team_id"
+    t.integer  "d11_match_id"
+    t.integer  "team_goals"
+    t.integer  "goals"
+    t.integer  "goal_assists"
+    t.integer  "own_goals"
+    t.integer  "goals_conceded"
+    t.integer  "clean_sheets"
+    t.integer  "yellow_cards"
+    t.integer  "red_cards"
+    t.integer  "man_of_the_match"
+    t.integer  "shared_man_of_the_match"
+    t.integer  "rating"
+    t.integer  "points"
+    t.integer  "games_started"
+    t.integer  "games_substitute"
+    t.integer  "games_did_not_participate"
+    t.integer  "substitutions_on"
+    t.integer  "substitutions_off"
+    t.integer  "minutes_played"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "d11_team_registrations", force: true do |t|
     t.integer  "season_id"
     t.integer  "d11_team_id"
     t.boolean  "approved"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "d11_team_season_squad_stats", force: true do |t|
+    t.integer  "d11_team_id"
+    t.integer  "season_id"
+    t.integer  "team_goals"
+    t.integer  "goals"
+    t.integer  "goal_assists"
+    t.integer  "own_goals"
+    t.integer  "goals_conceded"
+    t.integer  "clean_sheets"
+    t.integer  "yellow_cards"
+    t.integer  "red_cards"
+    t.integer  "man_of_the_match"
+    t.integer  "shared_man_of_the_match"
+    t.integer  "rating"
+    t.integer  "points"
+    t.integer  "games_started"
+    t.integer  "games_substitute"
+    t.integer  "games_did_not_participate"
+    t.integer  "substitutions_on"
+    t.integer  "substitutions_off"
+    t.integer  "minutes_played"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -285,9 +335,57 @@ ActiveRecord::Schema.define(version: 20150211131014) do
     t.datetime "updated_at"
   end
 
+  create_table "team_match_squad_stats", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "match_id"
+    t.integer  "goals"
+    t.integer  "goal_assists"
+    t.integer  "own_goals"
+    t.integer  "goals_conceded"
+    t.integer  "clean_sheets"
+    t.integer  "yellow_cards"
+    t.integer  "red_cards"
+    t.integer  "man_of_the_match"
+    t.integer  "shared_man_of_the_match"
+    t.integer  "rating"
+    t.integer  "points"
+    t.integer  "games_started"
+    t.integer  "games_substitute"
+    t.integer  "games_did_not_participate"
+    t.integer  "substitutions_on"
+    t.integer  "substitutions_off"
+    t.integer  "minutes_played"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "team_registrations", force: true do |t|
     t.integer  "season_id"
     t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "team_season_squad_stats", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "season_id"
+    t.integer  "goals"
+    t.integer  "goal_assists"
+    t.integer  "own_goals"
+    t.integer  "goals_conceded"
+    t.integer  "clean_sheets"
+    t.integer  "yellow_cards"
+    t.integer  "red_cards"
+    t.integer  "man_of_the_match"
+    t.integer  "shared_man_of_the_match"
+    t.integer  "rating"
+    t.integer  "points"
+    t.integer  "games_started"
+    t.integer  "games_substitute"
+    t.integer  "games_did_not_participate"
+    t.integer  "substitutions_on"
+    t.integer  "substitutions_off"
+    t.integer  "minutes_played"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -33,10 +33,12 @@ module PlayerStatsSummary
             games_rated += 1
           end
 
-          self.goals_conceded += player_match_stat.goals_conceded
-          if player_match_stat.goals_conceded == 0 then
-            self.clean_sheets += 1
-          end          
+          if player_match_stat.position.defender? then
+            self.goals_conceded += player_match_stat.goals_conceded
+            if player_match_stat.goals_conceded == 0 then
+              self.clean_sheets += 1
+            end
+          end
         end
         
         self.points += player_match_stat.points

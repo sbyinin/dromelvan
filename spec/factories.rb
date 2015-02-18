@@ -238,4 +238,24 @@ FactoryGirl.define do
     season
   end
 
+  factory :team_match_squad_stat do
+    team
+    match
+  end
+
+  factory :team_season_squad_stat do
+    team
+    season
+  end
+
+  factory :d11_team_match_squad_stat do
+    d11_team
+    d11_match
+  end
+
+  factory :d11_team_season_squad_stat do
+    d11_team
+    season
+  end
+
 end

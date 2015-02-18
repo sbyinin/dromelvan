@@ -3,6 +3,7 @@ class D11Match < ActiveRecord::Base
   belongs_to :home_d11_team, class_name: D11Team, foreign_key: :home_d11_team_id
   belongs_to :away_d11_team, class_name: D11Team, foreign_key: :away_d11_team_id
   belongs_to :d11_match_day
+  has_many :d11_team_match_squad_stats, dependent: :restrict_with_exception
 
   enum status: [ :pending, :active, :finished ]
   

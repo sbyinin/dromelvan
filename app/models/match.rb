@@ -8,6 +8,7 @@ class Match < ActiveRecord::Base
   has_many :goals, dependent: :restrict_with_exception
   has_many :cards, dependent: :restrict_with_exception
   has_many :substitutions, dependent: :restrict_with_exception
+  has_many :team_match_squad_stats, dependent: :restrict_with_exception
 
   enum status: [ :pending, :active, :finished ]
 

@@ -299,6 +299,13 @@ describe Match, type: :model do
     end
   end
 
+  context "with team_match_squad_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:match) }
+      let!(:dependent) { FactoryGirl.create(:team_match_squad_stat, match: owner) }      
+    end
+  end
+
   describe "default scope order" do
     before { Match.destroy_all }
     

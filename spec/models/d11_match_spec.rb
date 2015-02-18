@@ -217,6 +217,12 @@ describe D11Match, type: :model do
     it { is_expected.not_to be_valid }
   end  
     
+  context "with d11_team_match_squad_stat dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:d11_match) }
+      let!(:dependent) { FactoryGirl.create(:d11_team_match_squad_stat, d11_match: owner) }      
+    end
+  end
     
   describe "default scope order" do
     before { D11Match.destroy_all }

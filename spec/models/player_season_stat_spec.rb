@@ -8,7 +8,7 @@ describe PlayerSeasonStat, type: :model do
   
   subject { @player_season_stat }
 
-  it { is_expected.to respond_to(:player_id) }
+  it { is_expected.to respond_to(:player) }
   it { is_expected.to respond_to(:season) }
   it { is_expected.to respond_to(:ranking) }
 
@@ -51,30 +51,65 @@ describe PlayerSeasonStat, type: :model do
     let!(:match_day2) { FactoryGirl.create(:match_day, premier_league: premier_league) }
     let!(:match2) { FactoryGirl.create(:match, match_day: match_day2) }
     let!(:match_day3) { FactoryGirl.create(:match_day, premier_league: premier_league) }
-    let!(:match3) { FactoryGirl.create(:match, match_day: match_day3) }        
+    let!(:match3) { FactoryGirl.create(:match, match_day: match_day3) }
+    let!(:match_day4) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match4) { FactoryGirl.create(:match, match_day: match_day4) }            
     let!(:player) { FactoryGirl.create(:player) }
-    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, player: player, match: match, lineup: :starting_lineup, goals: 1, goal_assists: 1, own_goals: 1, goals_conceded: 1, yellow_card_time: 40, red_card_time: 80, man_of_the_match: true, rating: 700, substitution_off_time: 90 ) }
-    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: player, match: match2, lineup: :substitute, goals: 2, goal_assists: 2, own_goals: 2, goals_conceded: 2, yellow_card_time: 40, red_card_time: 80, shared_man_of_the_match: true, rating: 800, substitution_on_time: 5) }
-    let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, player: player, match: match3, lineup: :did_not_participate) }
-    let!(:player_season_stats) { FactoryGirl.create(:player_season_stat, player: player, season: season) }    
     
-    specify { expect(player_season_stats.goals).to eq 3 }
-    specify { expect(player_season_stats.goal_assists).to eq 3 }
-    specify { expect(player_season_stats.own_goals).to eq 3 }
-    specify { expect(player_season_stats.goals_conceded).to eq 3 }
-    specify { expect(player_season_stats.clean_sheets).to eq 0 }
-    specify { expect(player_season_stats.rating).to eq 750 }
-    specify { expect(player_season_stats.points).to eq 7 }                    
-    specify { expect(player_season_stats.yellow_cards).to eq 2 }
-    specify { expect(player_season_stats.red_cards).to eq 2 }
-    specify { expect(player_season_stats.man_of_the_match).to eq 1 }
-    specify { expect(player_season_stats.shared_man_of_the_match).to eq 1 }
-    specify { expect(player_season_stats.games_started).to eq 1 }
-    specify { expect(player_season_stats.games_substitute).to eq 1 }
-    specify { expect(player_season_stats.games_did_not_participate).to eq 1 }
-    specify { expect(player_season_stats.substitutions_on).to eq 1 }
-    specify { expect(player_season_stats.substitutions_off).to eq 1 }
-    specify { expect(player_season_stats.minutes_played).to eq 175 }                        
+    context "for defender" do
+      let!(:position) { FactoryGirl.create(:position, defender: true) }
+      let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, player: player, match: match, position: position, lineup: :starting_lineup, goals: 1, goal_assists: 1, own_goals: 1, goals_conceded: 1, yellow_card_time: 40, red_card_time: 80, man_of_the_match: true, rating: 700, substitution_off_time: 90 ) }
+      let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: player, match: match2, position: position, lineup: :substitute, goals: 2, goal_assists: 2, own_goals: 2, goals_conceded: 2, yellow_card_time: 40, red_card_time: 80, shared_man_of_the_match: true, rating: 800, substitution_on_time: 5) }
+      let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, player: player, match: match3, position: position, lineup: :starting_lineup, goals_conceded: 0, rating: 600) }      
+      let!(:player_match_stat4) { FactoryGirl.create(:player_match_stat, player: player, match: match4, position: position, lineup: :did_not_participate) }
+      let!(:player_season_stats) { FactoryGirl.create(:player_season_stat, player: player, season: season) }    
+      
+      specify { expect(player_season_stats.goals).to eq 3 }
+      specify { expect(player_season_stats.goal_assists).to eq 3 }
+      specify { expect(player_season_stats.own_goals).to eq 3 }
+      specify { expect(player_season_stats.goals_conceded).to eq 3 }
+      specify { expect(player_season_stats.clean_sheets).to eq 1 }
+      specify { expect(player_season_stats.rating).to eq 700 }
+      specify { expect(player_season_stats.points).to eq 9 }                    
+      specify { expect(player_season_stats.yellow_cards).to eq 2 }
+      specify { expect(player_season_stats.red_cards).to eq 2 }
+      specify { expect(player_season_stats.man_of_the_match).to eq 1 }
+      specify { expect(player_season_stats.shared_man_of_the_match).to eq 1 }
+      specify { expect(player_season_stats.games_started).to eq 2 }
+      specify { expect(player_season_stats.games_substitute).to eq 1 }
+      specify { expect(player_season_stats.games_did_not_participate).to eq 1 }
+      specify { expect(player_season_stats.substitutions_on).to eq 1 }
+      specify { expect(player_season_stats.substitutions_off).to eq 1 }
+      specify { expect(player_season_stats.minutes_played).to eq 265 }
+    end
+    
+    context "for non-defender" do
+      let!(:position) { FactoryGirl.create(:position, defender: false) }
+      let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, player: player, match: match, position: position, lineup: :starting_lineup, goals: 1, goal_assists: 1, own_goals: 1, goals_conceded: 1, yellow_card_time: 40, red_card_time: 80, man_of_the_match: true, rating: 700, substitution_off_time: 90 ) }
+      let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: player, match: match2, position: position, lineup: :substitute, goals: 2, goal_assists: 2, own_goals: 2, goals_conceded: 2, yellow_card_time: 40, red_card_time: 80, shared_man_of_the_match: true, rating: 800, substitution_on_time: 5) }
+      let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, player: player, match: match3, position: position, lineup: :starting_lineup, goals_conceded: 0, rating: 600) }      
+      let!(:player_match_stat4) { FactoryGirl.create(:player_match_stat, player: player, match: match4, position: position, lineup: :did_not_participate) }
+      let!(:player_season_stats) { FactoryGirl.create(:player_season_stat, player: player, season: season) }    
+      
+      specify { expect(player_season_stats.goals).to eq 3 }
+      specify { expect(player_season_stats.goal_assists).to eq 3 }
+      specify { expect(player_season_stats.own_goals).to eq 3 }
+      specify { expect(player_season_stats.goals_conceded).to eq 0 }
+      specify { expect(player_season_stats.clean_sheets).to eq 0 }
+      specify { expect(player_season_stats.rating).to eq 700 }
+      specify { expect(player_season_stats.points).to eq 7 }                    
+      specify { expect(player_season_stats.yellow_cards).to eq 2 }
+      specify { expect(player_season_stats.red_cards).to eq 2 }
+      specify { expect(player_season_stats.man_of_the_match).to eq 1 }
+      specify { expect(player_season_stats.shared_man_of_the_match).to eq 1 }
+      specify { expect(player_season_stats.games_started).to eq 2 }
+      specify { expect(player_season_stats.games_substitute).to eq 1 }
+      specify { expect(player_season_stats.games_did_not_participate).to eq 1 }
+      specify { expect(player_season_stats.substitutions_on).to eq 1 }
+      specify { expect(player_season_stats.substitutions_off).to eq 1 }
+      specify { expect(player_season_stats.minutes_played).to eq 265 }
+    end
+    
   end
   
   describe ".update_rankings" do
@@ -116,7 +151,7 @@ describe PlayerSeasonStat, type: :model do
     it { is_expected.not_to be_valid }
   end
 
-  context "when match is nil" do
+  context "when season is nil" do
     before { @player_season_stat.season = nil }
     it { is_expected.not_to be_valid }
   end

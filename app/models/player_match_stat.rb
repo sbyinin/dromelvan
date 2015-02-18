@@ -12,7 +12,7 @@ class PlayerMatchStat < ActiveRecord::Base
   default_scope -> { joins(:match).order('matches.datetime').readonly(false) }
   
   after_initialize :init
-  before_validation :update_points, :update_played_position
+  before_validation :update_played_position, :update_points
   
   validates :player, presence: true
   validates :match, presence: true
@@ -33,9 +33,16 @@ class PlayerMatchStat < ActiveRecord::Base
   end
   
   def update_points
-    # Caluclates points for season 2014-2015 rules
+    # Calculates points for season 2014-2015 rules
     self.points = 0
     
+    if !participated? || !self.position.defender?
+      # TODO: Maybe move this to the code where match stats are uploaded and transferred to PlayerMatchStat objects.
+      if !self.goals_conceded.nil? && self.goals_conceded >= 0
+        self.goals_conceded = 0
+      end
+    end
+
     if participated?
       if self.red_card_time > 0
         self.points -= 4
@@ -50,7 +57,7 @@ class PlayerMatchStat < ActiveRecord::Base
           self.points -= (self.goals_conceded - 1)
         end
       end
-
+      
       if self.man_of_the_match?
         self.points += 4
       elsif self.shared_man_of_the_match?
@@ -92,23 +99,35 @@ class PlayerMatchStat < ActiveRecord::Base
       0
     end
   end
+
+  def PlayerMatchStat.by_player(player)
+    where(player: player)
+  end
+
+  def PlayerMatchStat.by_team(team)
+    where(team: team)
+  end
+
+  def PlayerMatchStat.by_d11_team(d11_team)
+    where(d11_team: d11_team)
+  end
+
+  def PlayerMatchStat.by_season(season)
+    joins(match: [match_day: [premier_league: :season]]).where(seasons: {id: (!season.nil? ? season.id : -1)})
+  end
   
   def PlayerMatchStat.by_match_day(match_day)
     joins(:match).where(matches: {match_day_id: (!match_day.nil? ? match_day.id : -1)}).readonly(false)
   end
 
+  def PlayerMatchStat.by_match(match)
+    where(match: match)
+  end
+
   def PlayerMatchStat.by_d11_match_day(d11_match_day)
     by_match_day(d11_match_day.match_day)
   end
-  
-  def PlayerMatchStat.by_player_and_season(player, season)
-    if !player.nil? && !season.nil? then
-      joins(match: [match_day: [premier_league: :season]]).where(player: player, seasons: {id: season.id})
-    else
-      []
-    end
-  end
-  
+    
   private
   
     def init

@@ -5,7 +5,7 @@ describe PlayerMatchStat, type: :model do
   let(:match) { FactoryGirl.create(:match) }
   let(:team) { FactoryGirl.create(:team) }
   let(:d11_team) { FactoryGirl.create(:d11_team) }
-  let(:position) { FactoryGirl.create(:position) }
+  let(:position) { FactoryGirl.create(:position, defender: true) }
   let(:played_position) { position.code }
 
   before { @player_match_stat = FactoryGirl.create(:player_match_stat, player: player, match: match, team: team, d11_team: d11_team, position: position, played_position: played_position) }
@@ -178,7 +178,13 @@ describe PlayerMatchStat, type: :model do
         specify { expect(player_match_stat_substitute.points).to eq 4 }
         specify { expect(player_match_stat_unused_substitute.points).to eq (-1) }
         specify { expect(player_match_stat_dnp_non_defender.points).to eq 0 }
-        specify { expect(player_match_stat_dnp_defender.points).to eq (-1) }
+        specify { expect(player_match_stat_dnp_defender.points).to eq (-1) }        
+        specify { expect(player_match_stat_defender.goals_conceded).to eq 0 }
+        specify { expect(player_match_stat_non_defender.goals_conceded).to eq 0 }
+        specify { expect(player_match_stat_substitute.goals_conceded).to eq 0 }
+        specify { expect(player_match_stat_unused_substitute.goals_conceded).to eq 0 }
+        specify { expect(player_match_stat_dnp_non_defender.goals_conceded).to eq 0 }
+        specify { expect(player_match_stat_dnp_defender.goals_conceded).to eq 0 }
       end
   
       context 'with one goals_conceded' do
@@ -203,6 +209,13 @@ describe PlayerMatchStat, type: :model do
         specify { expect(player_match_stat_unused_substitute.points).to eq (-1) }
         specify { expect(player_match_stat_dnp_non_defender.points).to eq 0 }
         specify { expect(player_match_stat_dnp_defender.points).to eq (-1) }
+        
+        specify { expect(player_match_stat_defender.goals_conceded).to eq 1 }
+        specify { expect(player_match_stat_non_defender.goals_conceded).to eq 0 }
+        specify { expect(player_match_stat_substitute.goals_conceded).to eq 1 }
+        specify { expect(player_match_stat_unused_substitute.goals_conceded).to eq 0 }
+        specify { expect(player_match_stat_dnp_non_defender.goals_conceded).to eq 0 }
+        specify { expect(player_match_stat_dnp_defender.goals_conceded).to eq 0 }        
       end
       
       context 'with two goals_conceded' do
@@ -357,15 +370,79 @@ describe PlayerMatchStat, type: :model do
     end
     
   end
+
+  describe ".by_player" do
+    before { PlayerMatchStat.destroy_all }
+    
+    let!(:player) { FactoryGirl.create(:player) }
+    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, player: player) }
+    let!(:player2) { FactoryGirl.create(:player) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: player2 ) }
+    
+    specify { expect(PlayerMatchStat.by_player(player).to_a).to eq [ player_match_stat ] }               
+  end
+
+  describe ".by_team" do
+    before { PlayerMatchStat.destroy_all }
+    
+    let!(:team) { FactoryGirl.create(:team) }
+    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, team: team) }
+    let!(:team2) { FactoryGirl.create(:team) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, team: team2) }
+    
+    specify { expect(PlayerMatchStat.by_team(team).to_a).to eq [ player_match_stat ] }               
+  end
+
+  describe ".by_d11_team" do
+    before { PlayerMatchStat.destroy_all }
+    
+    let!(:d11_team) { FactoryGirl.create(:d11_team) }
+    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, d11_team: d11_team) }
+    let!(:d11_team2) { FactoryGirl.create(:d11_team) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, d11_team: d11_team2) }
+    
+    specify { expect(PlayerMatchStat.by_d11_team(d11_team).to_a).to eq [ player_match_stat ] }               
+  end
+
+  describe ".by_season" do
+    before { PlayerMatchStat.destroy_all }
+    
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, match: match ) }
+    let!(:season2) { FactoryGirl.create(:season) }
+    let!(:premier_league2) { FactoryGirl.create(:premier_league, season: season2) }
+    let!(:match_day2) { FactoryGirl.create(:match_day, premier_league: premier_league2) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day2) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match2) }
+    
+    specify { expect(PlayerMatchStat.by_season(season).to_a).to eq [ player_match_stat ] }               
+  end
   
   describe ".by_match_day" do    
     before { PlayerMatchStat.destroy_all }
     
     let!(:match_day) { FactoryGirl.create(:match_day) }
     let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
-    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, match: match ) }
+    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, match: match) }
+    let!(:match_day2) { FactoryGirl.create(:match_day) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day2) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match2) }
     
     specify { expect(PlayerMatchStat.by_match_day(match_day).to_a).to eq [ player_match_stat ] }       
+  end
+
+  describe ".by_match" do    
+    before { PlayerMatchStat.destroy_all }
+    
+    let!(:match) { FactoryGirl.create(:match) }
+    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, match: match) }
+    let!(:match2) { FactoryGirl.create(:match) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match2) }
+    
+    specify { expect(PlayerMatchStat.by_match(match).to_a).to eq [ player_match_stat ] }       
   end
   
   describe ".by_d11_match_day" do
@@ -377,24 +454,16 @@ describe PlayerMatchStat, type: :model do
     let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 28) }
     let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 28) }
     let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
-    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, match: match ) }
+    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, match: match) }
+
+    let!(:d11_match_day2) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 29) }
+    let!(:match_day2) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 29) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day2) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match2) }
     
     specify { expect(PlayerMatchStat.by_d11_match_day(d11_match_day).to_a).to eq [ player_match_stat ] }           
   end
 
-  describe ".by_player_and_season" do
-    before { PlayerMatchStat.destroy_all }
-    
-    let!(:season) { FactoryGirl.create(:season) }
-    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
-    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
-    let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
-    let!(:player) { FactoryGirl.create(:player) }
-    let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, player: player, match: match ) }
-    
-    specify { expect(PlayerMatchStat.by_player_and_season(player, season).to_a).to eq [ player_match_stat ] }               
-  end
-  
   it_should_behave_like "player stats", false
 
   context "when player is nil" do

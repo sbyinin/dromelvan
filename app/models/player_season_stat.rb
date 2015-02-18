@@ -13,7 +13,7 @@ class PlayerSeasonStat < ActiveRecord::Base
   validates :ranking, numericality: { greater_than_or_equal_to: 0 }
 
   def player_match_stats
-    PlayerMatchStat.by_player_and_season(player, season)
+    PlayerMatchStat.by_player(player).by_season(season)
   end
   
   def reset
