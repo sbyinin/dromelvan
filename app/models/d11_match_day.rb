@@ -7,6 +7,10 @@ class D11MatchDay < ActiveRecord::Base
   has_many :d11_team_table_stats, dependent: :restrict_with_exception
 
   default_scope -> { order(:date) }
+
+  # TODO: Figure out why this is needed for the has_one in Season for the tests to
+  # pass and how to change it if it's not needed.
+  after_destroy { match_day.d11_match_day = nil }
   
   validates :d11_league, presence: true
   validates :match_day, presence: true
