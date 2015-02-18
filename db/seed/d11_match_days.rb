@@ -385,7 +385,10 @@ d11_match_days = [
 puts("Seeding d11_match_days...")
 
 d11_match_days.each do |match_day_number, date, d11_league_id|
-  D11MatchDay.create(match_day_number: match_day_number, date: date, d11_league: D11League.find(d11_league_id))
+  d11_league = D11League.find(d11_league_id)
+  match_day = MatchDay.where(premier_league: d11_league.season.premier_league, match_day_number: match_day_number).first
+  D11MatchDay.create(match_day_number: match_day_number, date: date, d11_league: match_day: match_day, D11League.find(d11_league_id))  
 end
 
 D11MatchDay.find(1).destroy
+

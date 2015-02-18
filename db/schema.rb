@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217081149) do
+ActiveRecord::Schema.define(version: 20150218141152) do
 
   create_table "cards", force: true do |t|
     t.integer  "match_id"
@@ -40,10 +40,11 @@ ActiveRecord::Schema.define(version: 20150217081149) do
 
   create_table "d11_match_days", force: true do |t|
     t.integer  "d11_league_id"
+    t.integer  "match_day_id"
     t.date     "date"
     t.integer  "match_day_number"
     t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "updated_at"    
   end
 
   create_table "d11_matches", force: true do |t|
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 20150217081149) do
     t.integer  "d11_team_id"
     t.integer  "d11_match_id"
     t.integer  "team_goals"
+    t.integer  "team_points"
     t.integer  "goals"
     t.integer  "goal_assists"
     t.integer  "own_goals"
@@ -96,6 +98,7 @@ ActiveRecord::Schema.define(version: 20150217081149) do
     t.integer  "d11_team_id"
     t.integer  "season_id"
     t.integer  "team_goals"
+    t.integer  "team_points"
     t.integer  "goals"
     t.integer  "goal_assists"
     t.integer  "own_goals"
@@ -338,6 +341,8 @@ ActiveRecord::Schema.define(version: 20150217081149) do
   create_table "team_match_squad_stats", force: true do |t|
     t.integer  "team_id"
     t.integer  "match_id"
+    t.integer  "team_goals"
+    t.integer  "team_points"
     t.integer  "goals"
     t.integer  "goal_assists"
     t.integer  "own_goals"
@@ -369,6 +374,8 @@ ActiveRecord::Schema.define(version: 20150217081149) do
   create_table "team_season_squad_stats", force: true do |t|
     t.integer  "team_id"
     t.integer  "season_id"
+    t.integer  "team_goals"
+    t.integer  "team_points"
     t.integer  "goals"
     t.integer  "goal_assists"
     t.integer  "own_goals"

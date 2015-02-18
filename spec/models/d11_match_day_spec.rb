@@ -3,22 +3,28 @@ require 'rails_helper'
 describe D11MatchDay, type: :model do
   
   let(:d11_league) { FactoryGirl.create(:d11_league) }
+  let(:match_day) { FactoryGirl.create(:match_day) }
   
-  before { @d11_match_day = FactoryGirl.create(:d11_match_day, d11_league: d11_league, date: Date.today, match_day_number: 1) }
+  before { @d11_match_day = FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day: match_day, date: Date.today, match_day_number: 1) }
   
   subject { @d11_match_day }
   
   it { is_expected.to respond_to(:d11_league) }
+  it { is_expected.to respond_to(:match_day) }
   it { is_expected.to respond_to(:date) }
   it { is_expected.to respond_to(:match_day_number) }
   it { is_expected.to respond_to(:name) }
-  it { is_expected.to respond_to(:match_day) }
   
   it { is_expected.to be_valid }
   
   describe '#d11_league' do
     subject { @d11_match_day.d11_league }
     it { is_expected.to eq d11_league }
+  end
+
+  describe '#match_day' do
+    subject { @d11_match_day.match_day }
+    it { is_expected.to eq match_day }
   end
 
   describe '#date' do
@@ -34,16 +40,6 @@ describe D11MatchDay, type: :model do
   describe '#name' do
     subject { @d11_match_day.name }
     it { is_expected.to eq "Match Day #{@d11_match_day.match_day_number}" }
-  end
-
-  describe '#match_day' do
-    let!(:season) { FactoryGirl.create(:season) }
-    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
-    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 38) }
-    let(:d11_league) { FactoryGirl.create(:d11_league, season: season) }
-    let(:d11_match_day) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 38) }
-    
-    specify { expect(d11_match_day.match_day).to eq match_day }
   end
 
   describe '#previous' do
@@ -80,6 +76,11 @@ describe D11MatchDay, type: :model do
   
   context "when d11_league is nil" do
     before { @d11_match_day.d11_league = nil }
+    it { is_expected.not_to be_valid }
+  end
+
+  context "when match_day is nil" do
+    before { @d11_match_day.match_day = nil }
     it { is_expected.not_to be_valid }
   end
 

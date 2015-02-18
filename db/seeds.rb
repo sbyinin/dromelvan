@@ -46,5 +46,5 @@
 #require File.expand_path('../seed/d11_team_table_stats', __FILE__)
 #require File.expand_path('../seed/team_match_squad_stats', __FILE__)
 #require File.expand_path('../seed/team_season_squad_stats', __FILE__)
-require File.expand_path('../seed/d11_team_match_squad_stats', __FILE__)
+#require File.expand_path('../seed/d11_team_match_squad_stats', __FILE__)
 #require File.expand_path('../seed/d11_team_season_squad_stats', __FILE__)

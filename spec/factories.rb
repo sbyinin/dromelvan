@@ -130,6 +130,7 @@ FactoryGirl.define do
 
   factory :d11_match_day do
     d11_league
+    match_day
     date Date.today
     match_day_number 1
   end

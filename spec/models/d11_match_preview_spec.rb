@@ -14,11 +14,11 @@ describe D11MatchPreview, type: :model do
   let!(:match3) { FactoryGirl.create(:match, match_day: match_day3) }
   let!(:match4) { FactoryGirl.create(:match, match_day: match_day4) }
   let!(:match5) { FactoryGirl.create(:match, match_day: match_day5) }  
-  let!(:d11_match_day1) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 1, date: Date.today - 4.day) }
-  let!(:d11_match_day2) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 2, date: Date.today - 3.day) }
-  let!(:d11_match_day3) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 3, date: Date.today - 2.day) }
-  let!(:d11_match_day4) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 4, date: Date.today - 1.day) }
-  let!(:d11_match_day5) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 6, date: Date.today + 1.day) }  
+  let!(:d11_match_day1) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day: match_day1, match_day_number: 1, date: Date.today - 4.day) }
+  let!(:d11_match_day2) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day: match_day2, match_day_number: 2, date: Date.today - 3.day) }
+  let!(:d11_match_day3) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day: match_day3, match_day_number: 3, date: Date.today - 2.day) }
+  let!(:d11_match_day4) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day: match_day4, match_day_number: 4, date: Date.today - 1.day) }
+  let!(:d11_match_day5) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day: match_day5, match_day_number: 6, date: Date.today + 1.day) }  
   let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 5, date: Date.today) }
   let!(:d11_match) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day) }
   let(:d11_team1) { d11_match.home_d11_team }

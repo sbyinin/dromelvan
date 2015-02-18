@@ -451,13 +451,12 @@ describe PlayerMatchStat, type: :model do
     let!(:season) { FactoryGirl.create(:season) }
     let!(:d11_league) { FactoryGirl.create(:d11_league, season: season) }
     let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
-    let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 28) }
     let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 28) }
+    let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day: match_day, match_day_number: 28) }
     let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
     let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, match: match) }
-
-    let!(:d11_match_day2) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 29) }
     let!(:match_day2) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 29) }
+    let!(:d11_match_day2) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day: match_day2, match_day_number: 29) }  
     let!(:match2) { FactoryGirl.create(:match, match_day: match_day2) }
     let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match2) }
     

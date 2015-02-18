@@ -3,12 +3,19 @@ require 'rails_helper'
 describe MatchDay, type: :model do
   
   let(:premier_league) { FactoryGirl.create(:premier_league) }
+  let(:d11_match_day) { FactoryGirl.create(:d11_match_day) }
   
-  before { @match_day = FactoryGirl.create(:match_day, premier_league: premier_league, date: Date.today, match_day_number: 1) }
+  before do
+    @match_day = FactoryGirl.create(:match_day, premier_league: premier_league, date: Date.today, match_day_number: 1)
+    d11_match_day.match_day = @match_day
+  end
+  
+  
   
   subject { @match_day }
   
   it { is_expected.to respond_to(:premier_league) }
+  it { is_expected.to respond_to(:d11_match_day) }
   it { is_expected.to respond_to(:date) }
   it { is_expected.to respond_to(:match_day_number) }
   it { is_expected.to respond_to(:name) }
@@ -20,15 +27,20 @@ describe MatchDay, type: :model do
     it { is_expected.to eq premier_league }
   end
 
+  describe '#d11_match_day' do
+    subject { @match_day.d11_match_day }
+    it { is_expected.to eq d11_match_day }
+  end
+
   describe '#date' do
     subject { @match_day.date }
     it { is_expected.to eq Date.today }
   end
     
-  describe '#match_day_number' do
-    subject { @match_day.match_day_number }
-    it { is_expected.to eq 1 }
-  end
+#  describe '#match_day_number' do
+#    subject { @match_day.match_day_number }
+#    it { is_expected.to eq 1 }
+#  end
 
   describe '#name' do
     subject { @match_day.name }
@@ -94,6 +106,13 @@ describe MatchDay, type: :model do
     let!(:match_day2) { FactoryGirl.create(:match_day, date: Date.today - 1.day) }
     
     specify { expect(MatchDay.all).to eq [ match_day2, match_day1 ] }
+  end
+
+  context "with d11_match_day dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:match_day) }
+      let!(:dependent) { FactoryGirl.create(:d11_match_day, match_day: owner) }      
+    end
   end
 
   context "with match dependents" do    

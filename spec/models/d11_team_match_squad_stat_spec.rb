@@ -34,7 +34,7 @@ describe D11TeamMatchSquadStat, type: :model do
     let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 1) }
     let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
     let!(:d11_league) { FactoryGirl.create(:d11_league, season: season) }
-    let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 1) }
+    let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day: match_day,  match_day_number: 1) }
     let!(:d11_match) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day) }
         
     context "for defenders" do
