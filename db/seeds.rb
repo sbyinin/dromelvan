@@ -48,3 +48,6 @@
 #require File.expand_path('../seed/team_season_squad_stats', __FILE__)
 #require File.expand_path('../seed/d11_team_match_squad_stats', __FILE__)
 #require File.expand_path('../seed/d11_team_season_squad_stats', __FILE__)
+#require File.expand_path('../seed/player_career_stats', __FILE__)
+#require File.expand_path('../seed/team_career_squad_stats', __FILE__)
+#require File.expand_path('../seed/d11_team_career_squad_stats', __FILE__)

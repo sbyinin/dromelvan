@@ -8,15 +8,9 @@ describe TeamMatchSquadStat, type: :model do
   
   subject { @team_match_squad_stat }
 
-  it { is_expected.to respond_to(:team) }
   it { is_expected.to respond_to(:match) }
 
   it { is_expected.to be_valid }
-
-  describe '#team' do
-    subject { @team_match_squad_stat.team }
-    it { is_expected.to eq team }
-  end
 
   describe '#match' do
     subject { @team_match_squad_stat.match }
@@ -80,13 +74,8 @@ describe TeamMatchSquadStat, type: :model do
     end
   end
   
-  it_should_behave_like "player stats summary"
+  it_should_behave_like "team squad stats summary"
   
-  context "when team is nil" do
-    before { @team_match_squad_stat.team = nil }
-    it { is_expected.not_to be_valid }
-  end
-
   context "when match is nil" do
     before { @team_match_squad_stat.match = nil }
     it { is_expected.not_to be_valid }

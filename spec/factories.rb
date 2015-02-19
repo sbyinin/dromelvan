@@ -123,6 +123,10 @@ FactoryGirl.define do
     season
   end
 
+  factory :player_career_stat do
+    player
+  end
+
   factory :d11_league do
     name "Drömelvan"
     season
@@ -249,6 +253,10 @@ FactoryGirl.define do
     season
   end
 
+  factory :team_career_squad_stat do
+    team
+  end
+
   factory :d11_team_match_squad_stat do
     d11_team
     d11_match
@@ -257,6 +265,10 @@ FactoryGirl.define do
   factory :d11_team_season_squad_stat do
     d11_team
     season
+  end
+
+  factory :d11_team_career_squad_stat do
+    d11_team
   end
 
 end

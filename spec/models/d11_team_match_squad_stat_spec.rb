@@ -13,15 +13,9 @@ describe D11TeamMatchSquadStat, type: :model do
   
   subject { @d11_team_match_squad_stat }
 
-  it { is_expected.to respond_to(:d11_team) }
   it { is_expected.to respond_to(:d11_match) }
 
   it { is_expected.to be_valid }
-
-  describe '#d11_team' do
-    subject { @d11_team_match_squad_stat.d11_team }
-    it { is_expected.to eq d11_team }
-  end
 
   describe '#d11_match' do
     subject { @d11_team_match_squad_stat.d11_match }
@@ -44,7 +38,8 @@ describe D11TeamMatchSquadStat, type: :model do
       let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, d11_team: d11_match.home_d11_team, match: match, position: position, lineup: :starting_lineup, goals_conceded: 0, rating: 600) }      
       let!(:player_match_stat4) { FactoryGirl.create(:player_match_stat, d11_team: d11_match.home_d11_team, match: match, position: position, lineup: :did_not_participate) }
       let!(:d11_team_match_squad_stat) { FactoryGirl.create(:d11_team_match_squad_stat, d11_team: d11_match.home_d11_team, d11_match: d11_match) }
-            
+
+      specify { expect(d11_team_match_squad_stat.team_goals).to eq 2 }                        
       specify { expect(d11_team_match_squad_stat.goals).to eq 3 }
       specify { expect(d11_team_match_squad_stat.goal_assists).to eq 3 }
       specify { expect(d11_team_match_squad_stat.own_goals).to eq 3 }
@@ -71,6 +66,7 @@ describe D11TeamMatchSquadStat, type: :model do
       let!(:player_match_stat4) { FactoryGirl.create(:player_match_stat, d11_team: d11_match.home_d11_team, match: match, lineup: :did_not_participate) }
       let!(:d11_team_match_squad_stat) { FactoryGirl.create(:d11_team_match_squad_stat, d11_team: d11_match.home_d11_team, d11_match: d11_match) }
       
+      specify { expect(d11_team_match_squad_stat.team_goals).to eq 2 }                        
       specify { expect(d11_team_match_squad_stat.goals).to eq 3 }
       specify { expect(d11_team_match_squad_stat.goal_assists).to eq 3 }
       specify { expect(d11_team_match_squad_stat.own_goals).to eq 3 }
@@ -91,25 +87,10 @@ describe D11TeamMatchSquadStat, type: :model do
     end
   end
 
-  it_should_behave_like "player stats summary"
-
-  context "when d11_team is nil" do
-    before { @d11_team_match_squad_stat.d11_team = nil }
-    it { is_expected.not_to be_valid }
-  end
-
+  it_should_behave_like "d11 team squad stats summary"
+  
   context "when d11_match is nil" do
     before { @d11_team_match_squad_stat.d11_match = nil }
-    it { is_expected.not_to be_valid }
-  end
-
-  context "when team_goals is nil" do
-    before { @d11_team_match_squad_stat.team_goals = nil }
-    it { is_expected.not_to be_valid }
-  end
-  
-  context "when team_goals is invalid" do
-    before { @d11_team_match_squad_stat.team_goals = -1 }
     it { is_expected.not_to be_valid }
   end
 

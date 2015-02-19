@@ -8,15 +8,9 @@ describe TeamSeasonSquadStat, type: :model do
   
   subject { @team_season_squad_stat }
 
-  it { is_expected.to respond_to(:team) }
   it { is_expected.to respond_to(:season) }
 
   it { is_expected.to be_valid }
-
-  describe '#team' do
-    subject { @team_season_squad_stat.team }
-    it { is_expected.to eq team }
-  end
 
   describe '#season' do
     subject { @team_season_squad_stat.season }
@@ -83,13 +77,8 @@ describe TeamSeasonSquadStat, type: :model do
     end
   end
 
-  it_should_behave_like "player stats summary"
+  it_should_behave_like "team squad stats summary"
   
-  context "when team is nil" do
-    before { @team_season_squad_stat.team = nil }
-    it { is_expected.not_to be_valid }
-  end
-
   context "when season is nil" do
     before { @team_season_squad_stat.season = nil }
     it { is_expected.not_to be_valid }
