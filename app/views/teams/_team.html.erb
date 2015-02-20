@@ -1,5 +1,6 @@
-<% if team.id > 1 %>
-<%= link_to team.name, team, class: "model-link" %>
+<% if !team.dummy?
+   label ||= :name %>
+<%= link_to (label == :name ? team.name : team.code), team, class: "model-link" %>
 <% else %>
 None
 <% end %>

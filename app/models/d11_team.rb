@@ -30,8 +30,14 @@ class D11Team < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 25 }, uniqueness: { case_sensitive: false }
   validates :code, uniqueness: { case_sensitive: false, allow_blank: true }
   validates_length_of :code, is: 3, allow_nil: true
+  validates :dummy, inclusion: [true, false] 
 
   validates_attachment_size :club_crest, less_than: 5.megabytes
   validates_attachment_content_type :club_crest, content_type: [ "image/jpeg", "image/jpg", "image/gif", "image/png" ]
+
+  private  
+    def init
+      self.dummy ||= false
+    end
 
 end

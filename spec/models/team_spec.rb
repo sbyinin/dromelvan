@@ -16,6 +16,7 @@ describe Team, type: :model do
   it { is_expected.to respond_to(:established) }
   it { is_expected.to respond_to(:motto) }
   it { is_expected.to respond_to(:colour) }
+  it { is_expected.to respond_to(:dummy) }
   it { is_expected.to respond_to(:club_crest) }
 
   it { is_expected.to be_valid }
@@ -58,6 +59,11 @@ describe Team, type: :model do
   describe '#colour' do
     subject { @team.colour }
     it { is_expected.to eq "#FFFFFF" }
+  end
+
+  describe '#dummy' do
+    subject { @team.dummy }
+    it { is_expected.to eq false }
   end
 
   it_should_behave_like "named scope"
@@ -108,6 +114,11 @@ describe Team, type: :model do
     it { is_expected.not_to be_valid }
   end
 
+  context "when dummy is nil" do
+    before { @team.dummy = nil }
+    it { is_expected.not_to be_valid }
+  end
+    
   context "with home_match dependents" do    
     it_should_behave_like "all dependency owners" do
       let!(:owner) { FactoryGirl.create(:team) }

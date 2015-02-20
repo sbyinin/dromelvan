@@ -13,6 +13,7 @@ describe D11Team, type: :model do
   it { is_expected.to respond_to(:co_owner) }
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:code) }
+  it { is_expected.to respond_to(:dummy) }
   it { is_expected.to respond_to(:club_crest) }
 
   it { is_expected.to be_valid }
@@ -35,6 +36,11 @@ describe D11Team, type: :model do
   describe '#code' do
     subject { @d11_team.code }
     it { is_expected.to eq "TDT" }
+  end
+  
+  describe '#dummy' do
+    subject { @d11_team.dummy }
+    it { is_expected.to eq false }
   end
   
   it_should_behave_like "named scope"
@@ -67,6 +73,11 @@ describe D11Team, type: :model do
 
   context "when code is invalid" do
     before { @d11_team.code = "1234" }
+    it { is_expected.not_to be_valid }
+  end
+
+  context "when dummy is nil" do
+    before { @d11_team.dummy = nil }
     it { is_expected.not_to be_valid }
   end
 

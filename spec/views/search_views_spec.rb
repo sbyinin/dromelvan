@@ -4,18 +4,21 @@ describe "Search", type: :view do
   
   subject { page }
 
-  # It's tricky to replace ' '  with '+' in search_path parameters so give the player
-  # a name without spaces. Actual search function is tested in player_spec anyway.
-  let(:player) { FactoryGirl.create(:player, first_name: "", last_name: "Testname") }
-  let(:team) { FactoryGirl.create(:team, name: "Testname") }
+  let!(:player) { FactoryGirl.create(:player) }
+  let!(:season) { FactoryGirl.create(:season) }
+  let!(:position) { FactoryGirl.create(:position) }
+  let!(:team) { FactoryGirl.create(:team) }
+  let!(:d11_team) { FactoryGirl.create(:d11_team) }
+  let!(:player_season_info) { FactoryGirl.create(:player_season_info, player: player, season: season, position: position, team: team, d11_team: d11_team) }
 
   describe "search view" do
     before { visit search_path(search: {q: player.name }) }
     
-    it { is_expected.to have_link(player.name, player) }
-    it { is_expected.to have_link(team.name, team) }
+    it { is_expected.to within(:css, 'div.search-result.player') { have_link(player.name, player)} }
+    it { is_expected.to within(:css, 'div.search-result.player') { have_link(team.name, team)} }
+    it { is_expected.to within(:css, 'div.search-result.player') { have_link(team.code, team)} }
+    it { is_expected.to within(:css, 'div.search-result.player') { have_link(d11_team.name, d11_team)} }
+    it { is_expected.to within(:css, 'div.search-result.player') { have_link(d11_team.code, d11_team)} }
   end
-  
-  pending "Team and D11 team links and search results."
   
 end

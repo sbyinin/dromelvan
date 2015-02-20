@@ -37,6 +37,7 @@ class Team < ActiveRecord::Base
   validates_length_of :code, :is => 3
   validates :established, presence: true, inclusion: 1800..2020
   validates :colour, format: { with: /\A#[A-Z0-9]{6}\z/ }
+  validates :dummy, inclusion: [true, false] 
   
   validates_attachment_size :club_crest, less_than: 5.megabytes
   validates_attachment_content_type :club_crest, content_type: [ "image/jpeg", "image/jpg", "image/gif", "image/png" ]
@@ -44,6 +45,7 @@ class Team < ActiveRecord::Base
   private  
     def init
       self.colour ||= "#000000"
+      self.dummy ||= false
     end
 
 end

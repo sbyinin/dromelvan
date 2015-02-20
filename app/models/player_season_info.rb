@@ -6,6 +6,8 @@ class PlayerSeasonInfo < ActiveRecord::Base
   belongs_to :d11_team
   belongs_to :position
 
+  default_scope -> { joins(:season).order("seasons.date desc") }
+
   after_initialize :init
   
   validates :player, presence: true
@@ -15,6 +17,30 @@ class PlayerSeasonInfo < ActiveRecord::Base
   validates :position, presence: true
   validates :value, presence: true, inclusion: 0..500
   validates :player_id, uniqueness: {scope: :season_id} 
+
+  def PlayerSeasonInfo.by_player(player)
+    where(player: player)
+  end
+
+  def PlayerSeasonInfo.by_season(season)
+    where(season: season)
+  end
+  
+  def PlayerSeasonInfo.current(player)
+    by_player_and_season(player, Season.current)
+  end
+  
+  def PlayerSeasonInfo.by_player_and_season(player, season)
+    player_season_info = by_player(player).by_season(season).first
+    if player_season_info.nil?
+      player_season_info = new(player: player, season: Season.current)
+      player_season_infos = by_player(player)
+      if player_season_infos.size > 0
+        player_season_info.position = player_season_infos.first.position
+      end
+    end
+    player_season_info
+  end
   
   private  
     def init

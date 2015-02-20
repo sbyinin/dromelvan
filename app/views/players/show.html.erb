@@ -1,6 +1,6 @@
 <% provide :title, @player.name
    provide :breadcrumbs, breadcrumbs([ :index , :name, :select_season ])
-   player_season_info = @player.season_info(@season) %> 
+   player_season_info = PlayerSeasonInfo.by_player_and_season(@player, @season) %> 
   
 <h1><%= @player.name %></h1>
 <%= render 'layouts/administration_links', resource: @player %>
@@ -42,12 +42,12 @@
 
         <dl class="data">
           <dt>Date of birth:</dt>
-          <dd><%= @player.date_of_birth %> (age <%= @player.age %>)</dd>
+          <dd><% if !@player.date_of_birth.nil? %><%= @player.date_of_birth %> (age <%= @player.age %>)<% else %>Unknown<% end %></dd>
           <dt>Height:</dt>
           <dd><%= @player.height %> cm</dd>
           <dt>Weight:</dt>
           <dd><%= @player.weight%> kg</dd>                  
-          <dt>WhoScored Id:</dt>
+          <dt>WhoScored:</dt>
           <dd><%= render 'players/whoscored_link', player: @player %></dd>
           <dt>Value:</dt>
           <dd><%= player_value player_season_info.value %></dd>          

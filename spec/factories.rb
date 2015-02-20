@@ -24,7 +24,8 @@ FactoryGirl.define do
 
   factory :d11_team do    
     sequence(:name) { |n| "Test D11 Team #{n}" }
-    sequence(:code) { |n| "#{('AAA'..'ZZZ').to_a[n]}" }    
+    sequence(:code) { |n| "#{('AAA'..'ZZZ').to_a[n]}" }
+    dummy false
     association :owner, factory: :user
   end
 
@@ -60,6 +61,7 @@ FactoryGirl.define do
     motto "Motto"
     stadium
     whoscored_id 1
+    dummy false
   end
 
   factory :season do
