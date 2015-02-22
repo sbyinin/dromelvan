@@ -1,2 +1,2 @@
 <% style ||= :large %>
-<%= image_tag(d11_team.club_crest.url(style), class: "club-crest #{style}", alt: "Club crest of #{d11_team.name}", title: d11_team.name) %>
+<%= link_to image_tag(d11_team.club_crest.url(style), class: "club-crest #{style}", alt: "Club crest of #{d11_team.name}", title: d11_team.name), d11_team, class: "image-link" %>

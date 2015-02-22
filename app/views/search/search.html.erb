@@ -19,7 +19,7 @@
         <%= render 'players/player_photo', style: :small, player: player %>
         <div class="search-info name"><%= render player %></div>
         <div class="search-info position"><%= render player_season_info.position %><% if !player.date_of_birth.nil? %>, age <%= player.age %><% end %></div>
-        <div class="search-info team-name"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> <%= render player_season_info.team %></div>
+        <div class="search-info team-name"><%= render 'teams/club_crest', style: :icon, team: player_season_info.team %> <%= render player_season_info.team %></div>
         <div class="search-info team-code"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> <%= render player_season_info.team, label: :code %></div>
         <div class="search-info d11-team-name"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> <%= render player_season_info.d11_team %></div>
         <div class="search-info d11-team-code"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> <%= render player_season_info.d11_team, label: :code %></div>
@@ -41,11 +41,11 @@
   <div class="section">
     <% @teams.each do |team| %>
       <div class="search-result team">
-        <%= image_tag '/assets/missing/club-crest-small.png', class: "club-crest" %>
+        <%= render 'teams/club_crest', style: :small, team: team %>
         <div class="search-info name"><%= render team %></div>
-        <div class="search-info year">Established <%= team.established %></div>
-        <div class="search-info name"><%= team.stadium.name %></div>
-        <div class="search-info name"><%= team.stadium.city %></div>
+        <div class="search-info established">Established <%= team.established %></div>
+        <div class="search-info stadium"><%= team.stadium.name %></div>
+        <div class="search-info city"><%= team.stadium.city %></div>
       </div>
     <% end %>
   </div>
@@ -61,11 +61,11 @@
   <div class="section">
     <% @d11_teams.each do |d11_team| %>
       <div class="search-result d11-team">
-        <%= image_tag '/assets/missing/club-crest-small.png', class: "club-crest" %>
+        <%= render 'd11_teams/club_crest', style: :small, d11_team: d11_team %>
         <div class="search-info name"><%= render d11_team %></div>
-        <div class="search-info name">Owner: <%= d11_team.owner.name %></div>
+        <div class="search-info owner">Owner: <%= d11_team.owner.name %></div>
         <% if !d11_team.co_owner.nil? %>
-        <div class="search-info name">Co owner: <%= d11_team.co_owner.name %></div>
+        <div class="search-info co-owner">Co owner: <%= d11_team.co_owner.name %></div>
         <% end %>
       </div>
     <% end %>
