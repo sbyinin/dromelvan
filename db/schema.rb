@@ -184,13 +184,13 @@ ActiveRecord::Schema.define(version: 20150220133538) do
     t.integer  "co_owner_id"
     t.string   "name"
     t.string   "code"
+    t.boolean  "dummy"    
     t.string   "club_crest_file_name"
     t.string   "club_crest_content_type"
     t.integer  "club_crest_file_size"
     t.datetime "club_crest_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "dummy"
   end
 
   create_table "goals", force: true do |t|
@@ -512,14 +512,14 @@ ActiveRecord::Schema.define(version: 20150220133538) do
     t.string   "motto"
     t.integer  "stadium_id"
     t.integer  "whoscored_id"
+    t.string   "colour"
+    t.boolean  "dummy"    
     t.string   "club_crest_file_name"
     t.string   "club_crest_content_type"
     t.integer  "club_crest_file_size"
     t.datetime "club_crest_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "colour"
-    t.boolean  "dummy"
   end
 
   create_table "transfer_bids", force: true do |t|
