@@ -35,4 +35,17 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+  
+  config.model Team do
+    exclude_fields :home_matches, :away_matches, :player_match_stats, :goals, :cards, :substitutions, :player_season_infos, :transfer_listings, :team_table_stats, :team_registrations, :team_match_squad_stats, :team_season_squad_stats
+  end
+
+  config.model D11Team do
+    exclude_fields :home_d11_matches, :away_d11_matches, :player_match_stats, :player_season_infos, :transfer_listings, :d11_team_table_stats, :d11_team_registrations, :d11_team_match_squad_stats, :d11_team_season_squad_stats
+  end
+
+  config.model Player do
+    exclude_fields :player_match_stats, :goals, :cards, :substitutions, :in_substitutions, :player_season_infos, :player_season_stats, :transfer_listings
+  end
+  
 end
