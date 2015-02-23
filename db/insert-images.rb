@@ -3,15 +3,17 @@
 Dir.entries("project/graphics/player-photos").each do |file_name|
   name = file_name.sub('.jpg','').parameterize
   player = Player.where(parameterized_name: name).first
-  if !player.nil?
+  if !player.nil? && player.player_photo_file_name.nil?
     player.player_photo = File.new("project/graphics/player-photos/#{file_name}")
     player.save
   else
     players = Player.named(name)
     if players.size == 1
       player = players.first
-      player.player_photo = File.new("project/graphics/player-photos/#{file_name}")
-      player.save      
+      if player.player_photo_file_name.nil?
+        player.player_photo = File.new("project/graphics/player-photos/#{file_name}")
+        player.save              
+      end
     end
   end  
 end
