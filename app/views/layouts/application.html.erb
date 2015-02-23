@@ -23,7 +23,9 @@
   <% else %>
   <div class="content <%= controller_name.dasherize %> <%= action_name %>">
   <% end %>
-    <%= yield(:breadcrumbs) %>    
+    <!-- Maybe we don't want breadcrumbs after all.
+    <%= yield(:breadcrumbs) %>
+    -->
     <%= render 'devise/shared/notice' %>
     
     <% flash.each do |key, value| %>
