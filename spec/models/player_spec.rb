@@ -60,7 +60,21 @@ describe Player, type: :model do
     subject { @player.age }
     it { is_expected.to eq 30 }
   end
-        
+
+  describe ".season_info" do
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:player_season_info) { FactoryGirl.create(:player_season_info, player: @player, season: season) }
+    
+    specify { expect(@player.season_info(season)).to eq player_season_info }      
+  end
+    
+  describe ".season_stat" do
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:player_season_stat) { FactoryGirl.create(:player_season_stat, player: @player, season: season) }
+    
+    specify { expect(@player.season_stat(season)).to eq player_season_stat }      
+  end
+  
   context "when full_name is blank" do
     before { @player.full_name = "" }
     it { is_expected.to be_valid }

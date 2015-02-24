@@ -14,32 +14,35 @@
       
       <div class="panel-body">
         <div class="brief-info image-container">
-          <h3>Eleven Robbie Savages</h3>
-          <p><%= render season.d11_league %> Champions</p>
-          <%= image_tag '/assets/missing/club-crest-large.png', class: "club-crest" %>
+          <% d11_team_table_stat = season.d11_league.winner %>
+          <h3><%= render d11_team_table_stat.d11_team %></h3>
+          <p><%= render season.d11_league %> <% if season.finished? %>Champion<% else %>Leader<% end %></p>
+          <%= render "d11_teams/club_crest", d11_team: d11_team_table_stat.d11_team %>
           <p>
-            <span class="points"><span class="value">123</span> points</span>
-            <span class="goals"><span class="value">32</span> goals</span>
+            <span class="points"><span class="value"><%= d11_team_table_stat.points %></span> points</span>
+            <span class="goals"><span class="value"><%= d11_team_table_stat.goals_for %></span> goals</span>
           </p>          
         </div>
         
         <div class="brief-info image-container">
-          <h3>West Bromwich Albion</h3>
-          <p><%= render season.premier_league %> Champions</p>
-          <%= image_tag '/assets/missing/club-crest-large.png', class: "club-crest" %>
+          <% team_table_stat = season.premier_league.winner %>
+          <h3><%= render team_table_stat.team %></h3>
+          <p><%= render season.premier_league %> <% if season.finished? %>Champions<% else %>Leaders<% end %></p>
+          <%= render "teams/club_crest", team: team_table_stat.team %>
           <p>
-            <span class="points"><span class="value">123</span> points</span>
-            <span class="goals"><span class="value">+32</span> gd</span>
+            <span class="points"><span class="value"><%= team_table_stat.points %></span> points</span>
+            <span class="goals"><span class="value"><%= d11_team_table_stat.goal_difference %></span> gd</span>
           </p>                    
         </div>
 
         <div class="brief-info image-container">
-          <h3>Robbie Savage (LEI)</h3>
+          <% player_season_stat = season.winner %>
+          <h3><%= render player_season_stat.player %> (<%= render player_season_stat.player.season_info(season).team, label: :code %>)</h3>
           <p>Most Valuable Player</p>
-          <%= image_tag '/assets/missing/player-photo-large.png', class: "player-photo" %>
+          <%= render "players/player_photo", player: player_season_stat.player %>
           <p>
-            <span class="points"><span class="value">123</span> points</span>
-            <span class="goals"><span class="value">32</span> goals</span>
+            <span class="points"><span class="value"><%= player_season_stat.points %></span> points</span>
+            <span class="goals"><span class="value"><%= player_season_stat.goals %></span> goals</span>
           </p>                              
         </div>
 
@@ -47,20 +50,23 @@
           <h3>Runners Up</h3>
           <h4>Drömelvan</h4>
           <ul>
-            <li><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> Ten Robbie Savages 123p</li>
-            <li><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> Nine Robbie Savages 123p</li>
+            <% season.d11_league.runners_up.each do |d11_team_table_stat| %>
+            <li><%= render "d11_teams/club_crest", d11_team: d11_team_table_stat.d11_team, style: :icon %> <%= render d11_team_table_stat.d11_team %> <%= d11_team_table_stat.points %>p</li>
+            <% end %>
           </ul>
           
           <h4>Premier League</h4>
           <ul>
-            <li><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> East Bromwich Albion 123p</li>
-            <li><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> North Bromwich Albion 123p</li>
+            <% season.premier_league.runners_up.each do |team_table_stat| %>
+            <li><%= render "teams/club_crest", team: team_table_stat.team, style: :icon %> <%= render team_table_stat.team %> <%= team_table_stat.points %>p</li>
+            <% end %>
           </ul>
           
           <h4>Most Valuable Players</h4>
           <ul>
-            <li><%= image_tag '/assets/missing/player-photo-icon.png', class: "player-photo" %> King Savage (LEI) 123p</li>
-            <li><%= image_tag '/assets/missing/player-photo-icon.png', class: "player-photo" %> Prince Savage (LEI) 123p</li>
+            <% season.runners_up.each do |player_season_stat| %>
+            <li><%= render "players/player_photo", player: player_season_stat.player, style: :icon %> <%= render player_season_stat.player %> (<%= render player_season_stat.player.season_info(season).team, label: :code %>) <%= player_season_stat.points %>p</li>
+            <% end %>            
           </ul>          
         </div>
         
