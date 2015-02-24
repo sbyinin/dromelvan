@@ -12,6 +12,14 @@ class D11League < ActiveRecord::Base
   validates :name, presence: true
   validates :season, presence: true
 
+  def winner    
+    d11_team_table_stats.where(d11_match_day: d11_match_days.last).order(ranking: :asc).first
+  end
+  
+  def runners_up
+    d11_team_table_stats.where(d11_match_day: d11_match_days.last).order(ranking: :asc)[1..2]
+  end
+
   def D11League.current
     Season.current.d11_league unless Season.current.nil?
   end

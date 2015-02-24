@@ -11,6 +11,14 @@ class PremierLeague < ActiveRecord::Base
   
   validates :name, presence: true
   validates :season, presence: true
+
+  def winner    
+    team_table_stats.where(match_day: match_days.last).order(ranking: :asc).first
+  end
+  
+  def runners_up
+    team_table_stats.where(match_day: match_days.last).order(ranking: :asc)[1..2]
+  end
  
   def PremierLeague.current
     Season.current.premier_league unless Season.current.nil?

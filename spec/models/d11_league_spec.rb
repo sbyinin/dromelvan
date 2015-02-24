@@ -34,6 +34,21 @@ describe D11League, type: :model do
     
     specify { expect(D11League.current).to eq d11_league2 }
   end
+
+  describe '.winner & .runners_up' do
+    let!(:d11_league) { FactoryGirl.create(:d11_league, season: season) }
+    let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, d11_league: d11_league) }    
+    let!(:d11_team_table_stat1) { FactoryGirl.create(:d11_team_table_stat, d11_league: d11_league, d11_match_day: d11_match_day, home_matches_won: 3) }
+    let!(:d11_team_table_stat2) { FactoryGirl.create(:d11_team_table_stat, d11_league: d11_league, d11_match_day: d11_match_day, home_matches_won: 2) }
+    let!(:d11_team_table_stat3) { FactoryGirl.create(:d11_team_table_stat, d11_league: d11_league, d11_match_day: d11_match_day, away_matches_won: 1) }
+        
+    before do
+      D11TeamTableStat.update_rankings(d11_match_day)
+    end
+    
+    specify { expect(d11_league.winner).to eq d11_team_table_stat1 }
+    specify { expect(d11_league.runners_up).to eq [ d11_team_table_stat2, d11_team_table_stat3 ] }    
+  end
   
   it_should_behave_like "season unique named"
    

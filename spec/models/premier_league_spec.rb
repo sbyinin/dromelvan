@@ -34,6 +34,21 @@ describe PremierLeague, type: :model do
     
     specify { expect(PremierLeague.current).to eq premier_league2 }
   end
+
+  describe '.winner & .runners_up' do
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }    
+    let!(:team_table_stat1) { FactoryGirl.create(:team_table_stat, premier_league: premier_league, match_day: match_day, home_matches_won: 3) }
+    let!(:team_table_stat2) { FactoryGirl.create(:team_table_stat, premier_league: premier_league, match_day: match_day, home_matches_won: 2) }
+    let!(:team_table_stat3) { FactoryGirl.create(:team_table_stat, premier_league: premier_league, match_day: match_day, away_matches_won: 1) }
+        
+    before do
+      TeamTableStat.update_rankings(match_day)
+    end
+    
+    specify { expect(premier_league.winner).to eq team_table_stat1 }
+    specify { expect(premier_league.runners_up).to eq [ team_table_stat2, team_table_stat3 ] }    
+  end
   
   it_should_behave_like "season unique named"
   

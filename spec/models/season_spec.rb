@@ -44,6 +44,26 @@ describe Season, type: :model do
     specify { expect(Season.current).to eq season2 }
   end
 
+  describe '.winner & .runners_up' do
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, match: match, rating: 800) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match, rating: 700) }
+    let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, match: match, rating: 600) }
+    let!(:player_season_stat1) { FactoryGirl.create(:player_season_stat, season: season, player: player_match_stat1.player) }
+    let!(:player_season_stat2) { FactoryGirl.create(:player_season_stat, season: season, player: player_match_stat2.player) }
+    let!(:player_season_stat3) { FactoryGirl.create(:player_season_stat, season: season, player: player_match_stat3.player) }
+    
+    before do
+      PlayerSeasonStat.update_rankings(season)
+    end
+    
+    specify { expect(season.winner).to eq player_season_stat1 }
+    specify { expect(season.runners_up).to eq [ player_season_stat2, player_season_stat3 ] }    
+  end
+  
   it_should_behave_like "named scope"
   
   context "when name is nil" do

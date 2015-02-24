@@ -22,6 +22,14 @@ class Season < ActiveRecord::Base
   validates :date, presence: true
   validates :legacy, inclusion: [true, false]
   
+  def winner
+    player_season_stats.order(ranking: :asc).first
+  end
+  
+  def runners_up
+    player_season_stats.order(ranking: :asc)[1..2]
+  end
+  
   def Season.current
     Season.all.first
   end
