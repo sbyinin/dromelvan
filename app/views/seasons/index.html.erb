@@ -4,6 +4,7 @@
 <h1>Seasons</h1>
 
 <% Season.all.each do |season| %>
+<% cache(season) do %>
 <div class="section">
   <div class="season-summary-container">
     <div class="season-summary standard-panel">
@@ -74,4 +75,5 @@
     </div>
   </div>
 </div>
+<% end %>
 <% end %>
