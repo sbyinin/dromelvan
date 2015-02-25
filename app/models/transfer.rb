@@ -20,7 +20,7 @@ class Transfer < ActiveRecord::Base
     end
   
     def validate_fee
-      if !fee.nil? && !fee.modulo(5).zero? then
+      if !transfer_day.nil? && !transfer_day.transfer_window.season.legacy? && !fee.nil? && !fee.modulo(5).zero? then
         errors.add(:fee, "must be divisible by 5")
       end
     end

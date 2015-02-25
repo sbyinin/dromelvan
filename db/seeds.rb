@@ -6,10 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# NOTE: DISABLE :update_points in before_validation for PlayerMatchStats before seeding to
-# get correct points for pre 2014-2015 match stats. (Unless we add correct point calculations
-# for previous seasons)
-
 #require File.expand_path('../seed/users', __FILE__)
 #require File.expand_path('../seed/countries', __FILE__)
 #require File.expand_path('../seed/d11_teams', __FILE__)

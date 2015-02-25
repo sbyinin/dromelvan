@@ -15,7 +15,7 @@ seasons = [
 puts("Seeding seasons...")
 
 seasons.each do |name, status, date|
-  Season.create(name: name, status: status, date: date)
+  Season.create(name: name, status: status, date: date, legacy: true)
 end
 
 Season.find(1).destroy

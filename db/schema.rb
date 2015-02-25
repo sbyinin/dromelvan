@@ -40,11 +40,11 @@ ActiveRecord::Schema.define(version: 20150220133538) do
 
   create_table "d11_match_days", force: true do |t|
     t.integer  "d11_league_id"
+    t.integer  "match_day_id"
     t.date     "date"
     t.integer  "match_day_number"
     t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "match_day_id"
+    t.datetime "updated_at"    
   end
 
   create_table "d11_matches", force: true do |t|
@@ -62,7 +62,8 @@ ActiveRecord::Schema.define(version: 20150220133538) do
 
   create_table "d11_team_career_squad_stats", force: true do |t|
     t.integer  "d11_team_id"
-    t.integer  "goals"
+    t.integer  "team_goals"
+    t.integer  "goals"    
     t.integer  "goal_assists"
     t.integer  "own_goals"
     t.integer  "goals_conceded"
@@ -80,8 +81,7 @@ ActiveRecord::Schema.define(version: 20150220133538) do
     t.integer  "substitutions_off"
     t.integer  "minutes_played"
     t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "team_goals"
+    t.datetime "updated_at"    
   end
 
   create_table "d11_team_match_squad_stats", force: true do |t|
@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(version: 20150220133538) do
     t.integer  "co_owner_id"
     t.string   "name"
     t.string   "code"
-    t.boolean  "dummy"    
+    t.boolean  "dummy"
     t.string   "club_crest_file_name"
     t.string   "club_crest_content_type"
     t.integer  "club_crest_file_size"
@@ -413,7 +413,6 @@ ActiveRecord::Schema.define(version: 20150220133538) do
   create_table "team_match_squad_stats", force: true do |t|
     t.integer  "team_id"
     t.integer  "match_id"
-    t.integer  "team_goals"
     t.integer  "team_points"
     t.integer  "goals"
     t.integer  "goal_assists"
@@ -446,7 +445,6 @@ ActiveRecord::Schema.define(version: 20150220133538) do
   create_table "team_season_squad_stats", force: true do |t|
     t.integer  "team_id"
     t.integer  "season_id"
-    t.integer  "team_goals"
     t.integer  "team_points"
     t.integer  "goals"
     t.integer  "goal_assists"
@@ -513,7 +511,7 @@ ActiveRecord::Schema.define(version: 20150220133538) do
     t.integer  "stadium_id"
     t.integer  "whoscored_id"
     t.string   "colour"
-    t.boolean  "dummy"    
+    t.boolean  "dummy"
     t.string   "club_crest_file_name"
     t.string   "club_crest_content_type"
     t.integer  "club_crest_file_size"

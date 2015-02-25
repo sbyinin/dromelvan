@@ -33,61 +33,64 @@ class PlayerMatchStat < ActiveRecord::Base
   end
   
   def update_points
-    # Calculates points for season 2014-2015 rules
-    self.points = 0
-    
-    if !participated? || !self.position.defender?
-      # TODO: Maybe move this to the code where match stats are uploaded and transferred to PlayerMatchStat objects.
-      if !self.goals_conceded.nil? && self.goals_conceded >= 0
-        self.goals_conceded = 0
-      end
-    end
-
-    if participated?
-      if self.red_card_time > 0
-        self.points -= 4
-      elsif self.yellow_card_time > 0
-        self.points -= 1
-      end
+    if !match.match_day.premier_league.season.legacy?
+      # Calculates points for season 2014-2015 rules
+      self.points = 0
       
-      if !self.position.nil? && self.position.defender?
-        if self.goals_conceded == 0
-          self.points += 4;
-        elsif self.goals_conceded >= 2
-          self.points -= (self.goals_conceded - 1)
+      if !participated? || !self.position.defender?
+        # TODO: Maybe move this to the code where match stats are uploaded and transferred to PlayerMatchStat objects.
+        if !self.goals_conceded.nil? && self.goals_conceded >= 0
+          self.goals_conceded = 0
         end
       end
-      
-      if self.man_of_the_match?
-        self.points += 4
-      elsif self.shared_man_of_the_match?
-        self.points += 2
-      end
-
-      case self.rating
-        # 0 should only be for did not participate. Do this manually if some player
-        # somehow manages to get a real rating of 0 (which seems very unlikely).
-        when 0 then self.points -= 0
-        when 1..49 then self.points -= 6
-        when 50..149 then self.points -= 5
-        when 150..249 then self.points -= 4
-        when 250..349 then self.points -= 3
-        when 350..449 then self.points -= 2
-        when 450..549 then self.points -= 1
-        when 550..649 then self.points += 0
-        when 650..749 then self.points += 1
-        when 750..849 then self.points += 2
-        when 850..949 then self.points += 3
-        when 950..1000 then self.points += 5
-      end
+  
+      if participated?
+        if self.red_card_time > 0
+          self.points -= 4
+        elsif self.yellow_card_time > 0
+          self.points -= 1
+        end
         
-      self.points += (4 * self.goals) - (4 * self.own_goals)
-      self.points += (2 * self.goal_assists)
-      
-    elsif !self.position.nil? && self.position.defender?
-      self.points = -1      
+        if !self.position.nil? && self.position.defender?
+          if self.goals_conceded == 0
+            self.points += 4;
+          elsif self.goals_conceded >= 2
+            self.points -= (self.goals_conceded - 1)
+          end
+        end
+        
+        if self.man_of_the_match?
+          self.points += 4
+        elsif self.shared_man_of_the_match?
+          self.points += 2
+        end
+  
+        case self.rating
+          # 0 should only be for did not participate. Do this manually if some player
+          # somehow manages to get a real rating of 0 (which seems very unlikely).
+          when 0 then self.points -= 0
+          when 1..49 then self.points -= 6
+          when 50..149 then self.points -= 5
+          when 150..249 then self.points -= 4
+          when 250..349 then self.points -= 3
+          when 350..449 then self.points -= 2
+          when 450..549 then self.points -= 1
+          when 550..649 then self.points += 0
+          when 650..749 then self.points += 1
+          when 750..849 then self.points += 2
+          when 850..949 then self.points += 3
+          when 950..1000 then self.points += 5
+        end
+          
+        self.points += (4 * self.goals) - (4 * self.own_goals)
+        self.points += (2 * self.goal_assists)
+        
+      # Have to check for nil position since we're calling this before validation.
+      elsif !self.position.nil? && self.position.defender?
+        self.points = -1      
+      end
+      self.points
     end
-    self.points
   end
   
   def minutes_played
