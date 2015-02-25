@@ -33,7 +33,7 @@ class PlayerMatchStat < ActiveRecord::Base
   end
   
   def update_points
-    if !match.match_day.premier_league.season.legacy?
+    if !match.nil? && !match.match_day.premier_league.season.legacy?
       # Calculates points for season 2014-2015 rules
       self.points = 0
       
