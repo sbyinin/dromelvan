@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150220133538) do
+ActiveRecord::Schema.define(version: 20150226211619) do
 
   create_table "cards", force: true do |t|
     t.integer  "match_id"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20150220133538) do
     t.date     "date"
     t.integer  "match_day_number"
     t.datetime "created_at"
-    t.datetime "updated_at"    
+    t.datetime "updated_at"
   end
 
   create_table "d11_matches", force: true do |t|
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20150220133538) do
   create_table "d11_team_career_squad_stats", force: true do |t|
     t.integer  "d11_team_id"
     t.integer  "team_goals"
-    t.integer  "goals"    
+    t.integer  "goals"
     t.integer  "goal_assists"
     t.integer  "own_goals"
     t.integer  "goals_conceded"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20150220133538) do
     t.integer  "substitutions_off"
     t.integer  "minutes_played"
     t.datetime "created_at"
-    t.datetime "updated_at"    
+    t.datetime "updated_at"
   end
 
   create_table "d11_team_match_squad_stats", force: true do |t|
@@ -275,6 +275,12 @@ ActiveRecord::Schema.define(version: 20150220133538) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "player_match_stats", ["d11_team_id"], name: "index_player_match_stats_on_d11_team_id"
+  add_index "player_match_stats", ["match_id"], name: "index_player_match_stats_on_match_id"
+  add_index "player_match_stats", ["player_id"], name: "index_player_match_stats_on_player_id"
+  add_index "player_match_stats", ["position_id"], name: "index_player_match_stats_on_position_id"
+  add_index "player_match_stats", ["team_id"], name: "index_player_match_stats_on_team_id"
 
   create_table "player_season_infos", force: true do |t|
     t.integer  "player_id"
