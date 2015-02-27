@@ -1,6 +1,3 @@
 <% if !team.dummy?
    label ||= :name %>
-<%= link_to (label == :name ? team.name : team.code), team, class: "model-link" %>
-<% else %>
-None
-<% end %>
+<%= link_to (label == :name ? team.name : team.code), team, class: "model-link" %><% else %>None<% end %>
