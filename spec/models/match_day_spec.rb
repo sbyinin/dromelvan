@@ -57,6 +57,15 @@ describe MatchDay, type: :model do
     specify { expect(match_day1.next).to eq match_day2 }
     specify { expect(match_day2.next).to be_nil }
   end
+
+  describe '#match_dates' do
+    let!(:match_day) { FactoryGirl.create(:match_day) }
+    let!(:match1) { FactoryGirl.create(:match, match_day: match_day, datetime: DateTime.tomorrow) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day, datetime: DateTime.now) }
+    let!(:match3) { FactoryGirl.create(:match, match_day: match_day, datetime: DateTime.yesterday) }      
+      
+    specify { expect(match_day.match_dates).to eq [ match3.datetime.to_date, match2.datetime.to_date, match1.datetime.to_date ] }
+  end
     
   describe '.current' do
     before { MatchDay.destroy_all }
@@ -67,6 +76,7 @@ describe MatchDay, type: :model do
     
     specify { expect(MatchDay.current).to eq match_day2 }
   end
+
     
   context "when premier_league is nil" do
     before { @match_day.premier_league = nil }

@@ -39,17 +39,34 @@ class Match < ActiveRecord::Base
   def name
     "#{home_team.name} vs #{away_team.name}"
   end
-  
-  def points(team)
-    if home_team_goals == away_team_goals
-      1      
-    elsif team == home_team && home_team_goals > away_team_goals
-      3
-    elsif team == away_team && away_team_goals > home_team_goals
-      3
+
+  def result(team)
+    if finished? && (team == home_team or team == away_team)
+      if home_team_goals == away_team_goals
+        :draw
+      elsif team == home_team && home_team_goals > away_team_goals
+        :win
+      elsif team == away_team && away_team_goals > home_team_goals
+        :win
+      else
+        :loss
+      end
     else
+      nil
+    end    
+  end
+
+  def points(team)
+    result = result(team)
+    if result == :draw
+      1      
+    elsif result == :win
+      3
+    elsif result == :loss
       0
-    end
+    else
+      nil
+    end    
   end
   
   def goals_for(team)
@@ -82,14 +99,6 @@ class Match < ActiveRecord::Base
 
   def Match.by_date(date)
     Match.where(datetime: date.beginning_of_day..date.end_of_day)
-  end
-
-  def Match.match_dates
-    match_dates = []
-    pluck(:datetime).each do |match_date|
-      match_dates += [ match_date.to_date ]
-    end
-    match_dates.uniq
   end
   
   private  

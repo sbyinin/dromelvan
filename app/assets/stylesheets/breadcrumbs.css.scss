@@ -1,0 +1,37 @@
+body {
+    main {
+        
+        ol.context-links {
+            margin-top: -12px;
+        }
+
+        h1 + ol.context-links {
+            margin-top: -16px;
+        }
+        
+        ol.context-links {
+            select {
+                margin-bottom: $padding-base-vertical;
+                margin-top: $padding-base-vertical;
+            }
+        }
+        
+        ol.breadcrumb,
+        ol.context-links {                        
+            form.onchange-submit-form {
+                display: inline;    
+            }            
+        }        
+    }
+}
+@media only screen and (max-width: $screen-phone-portrait-max) {
+    ol.breadcrumb {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: $screen-phone-landscape-min) {
+    ol.context-links {
+        display: none;
+    }
+}

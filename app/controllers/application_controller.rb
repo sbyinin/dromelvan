@@ -26,6 +26,9 @@ class ApplicationController < ActionController::Base
   def show
     resource = controller_name.classify.constantize.find(params[:id])
     self.instance_variable_set "@#{controller_name.tableize.singularize}", resource
+    if request.xhr?
+      render layout: "../#{controller_name.tableize}/tooltip"   
+    end    
   end
     
   def new

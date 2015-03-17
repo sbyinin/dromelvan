@@ -1,5 +1,6 @@
 class D11Team < ActiveRecord::Base
   include NameScope
+  include TeamPlayers
   
   belongs_to :owner, class_name: :User, foreign_key: :owner_id
   belongs_to :co_owner, class_name: :User, foreign_key: :co_owner_id

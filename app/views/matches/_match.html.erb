@@ -1,0 +1,1 @@
+<% if !match.pending? then %><%= link_to "#{match.home_team_goals} - #{match.away_team_goals}", match, class: "model-link" %><% else %><%= link_to "vs", match, class: "model-link" %><% end %>

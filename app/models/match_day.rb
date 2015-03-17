@@ -22,6 +22,14 @@ class MatchDay < ActiveRecord::Base
   def next
     premier_league.match_days.where(match_day_number: match_day_number + 1).first
   end
+
+  def match_dates
+    match_dates = []
+    matches.pluck(:datetime).each do |match_date|
+      match_dates += [ match_date.to_date ]
+    end
+    match_dates.uniq
+  end
   
   def MatchDay.current
     where("date <= ?", Date.today).last

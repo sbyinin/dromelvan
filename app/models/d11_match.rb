@@ -26,17 +26,34 @@ class D11Match < ActiveRecord::Base
     "#{home_d11_team.name} vs #{away_d11_team.name}"
   end
   
-  def points(d11_team)
+  def result(d11_team)
     update_goals
-    if home_team_goals == away_team_goals
-      1      
-    elsif d11_team == home_d11_team && home_team_goals > away_team_goals
-      3
-    elsif d11_team == away_d11_team && away_team_goals > home_team_goals
-      3
+    if d11_team == home_d11_team or d11_team == away_d11_team
+      if home_team_goals == away_team_goals
+        :draw
+      elsif d11_team == home_d11_team && home_team_goals > away_team_goals
+        :win
+      elsif d11_team == away_d11_team && away_team_goals > home_team_goals
+        :win
+      else
+        :loss
+      end
     else
+      nil
+    end    
+  end
+
+  def points(d11_team)
+    result = result(d11_team)
+    if result == :draw
+      1      
+    elsif result == :win
+      3
+    elsif result == :loss
       0
-    end
+    else
+      nil
+    end    
   end
   
   def goals_for(d11_team)

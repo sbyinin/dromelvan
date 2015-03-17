@@ -45,6 +45,7 @@ describe D11Team, type: :model do
   
   it_should_behave_like "named scope"
   it_should_behave_like "name ordered"
+  it_should_behave_like "team players"
   
   context "when co_owner is nil" do
     before { @d11_team.co_owner = nil }

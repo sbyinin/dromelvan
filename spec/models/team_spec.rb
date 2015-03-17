@@ -66,8 +66,33 @@ describe Team, type: :model do
     it { is_expected.to eq false }
   end
 
+  describe '#form_matches' do
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match1) { FactoryGirl.create(:match, status: :finished, match_day: match_day, home_team: @team, datetime: DateTime.now - 5.days) }
+    let!(:match2) { FactoryGirl.create(:match, status: :finished, match_day: match_day, home_team: @team, home_team_goals: 1, datetime: DateTime.now - 4.days) }
+    let!(:match3) { FactoryGirl.create(:match, status: :finished, match_day: match_day, home_team: @team, datetime: DateTime.now - 3.days) }
+    let!(:match4) { FactoryGirl.create(:match, status: :finished, match_day: match_day, home_team: @team, away_team_goals: 1, datetime: DateTime.now - 2.days) }
+    let!(:match5) { FactoryGirl.create(:match, status: :finished, match_day: match_day, home_team: @team, datetime: DateTime.now - 1.days) }
+    let!(:match6) { FactoryGirl.create(:match, status: :finished, match_day: match_day, home_team: @team, home_team_goals: 1, datetime: DateTime.now) }
+    let!(:match7) { FactoryGirl.create(:match, status: :pending, match_day: match_day, home_team: @team, datetime: DateTime.now + 1.day) }
+    
+    specify { expect(@team.form_matches(season)).to eq [match2, match3, match4, match5, match6] }
+    specify { expect(@team.form_matches(season, 2)).to eq [match5, match6] }
+    specify { expect(@team.form_matches(season, 6)).to eq [match1, match2, match3, match4, match5, match6] }
+    specify { expect(match1.result(@team)).to eq :draw }
+    specify { expect(match2.result(@team)).to eq :win }
+    specify { expect(match3.result(@team)).to eq :draw }
+    specify { expect(match4.result(@team)).to eq :loss }
+    specify { expect(match5.result(@team)).to eq :draw }
+    specify { expect(match6.result(@team)).to eq :win }
+    specify { expect(match7.result(@team)).to eq nil }
+  end
+  
   it_should_behave_like "named scope"
   it_should_behave_like "name ordered"
+  it_should_behave_like "team players"
   
   context "when nickname is blank" do
     before { @team.nickname = "" }

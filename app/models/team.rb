@@ -1,5 +1,6 @@
 class Team < ActiveRecord::Base
   include NameScope
+  include TeamPlayers
     
   belongs_to :stadium
   has_many :home_matches, class_name: Match, foreign_key: :home_team_id, dependent: :restrict_with_exception
@@ -42,6 +43,28 @@ class Team < ActiveRecord::Base
   validates_attachment_size :club_crest, less_than: 5.megabytes
   validates_attachment_content_type :club_crest, content_type: [ "image/jpeg", "image/jpg", "image/gif", "image/png" ]
 
+  def form_matches(season, count = 5)
+    Match.by_team(self).by_season(season).where(status: 2)[-count..-1]
+  end
+  
+  def form(season, count = 5)
+    form = []
+    matches = Match.by_team(self).by_season(season)
+    matches.each do |match|
+      if match.finished?
+        points = match.points(self)
+        if points == 3
+          form << :win
+        elsif points == 1
+          form << :draw
+        else
+          form << :loss
+        end
+      end
+    end
+    form[-count..-1]
+  end
+  
   private  
     def init
       self.colour ||= "#000000"

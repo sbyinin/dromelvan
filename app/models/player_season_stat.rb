@@ -8,6 +8,10 @@ class PlayerSeasonStat < ActiveRecord::Base
   def player_match_stats
     PlayerMatchStat.by_player(player).by_season(season)
   end
+
+  def PlayerSeasonStat.by_team(team)
+    joins("player_season_infos").where("player_season_stats.player_id = player_season_infos.player_id", team: team)
+  end
   
   def PlayerSeasonStat.update_rankings(season)
     ranking = 1

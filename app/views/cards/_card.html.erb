@@ -1,4 +1,4 @@
-<% if card.card_type == 0 then %>
+<% if card.yellow? then %>
   <%= image_tag('/assets/match-events/yellow_card.png', alt: "Yellow card", title: "Yellow card") %>
 <% else %>
   <%= image_tag('/assets/match-events/red_card.png', alt: "Red card", title: "Red card") %>    

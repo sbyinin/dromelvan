@@ -6,7 +6,7 @@ describe Match, type: :model do
   let(:away_team) { FactoryGirl.create(:team) }
   let(:match_day) { FactoryGirl.create(:match_day) }
   let(:stadium) { FactoryGirl.create(:stadium) }
-  let(:datetime) { DateTime.now }
+  let(:datetime) { DateTime.new(1970, 01, 01) }
   
   before { @match = FactoryGirl.create(:match, home_team: home_team, away_team: away_team, match_day: match_day, stadium: stadium, home_team_goals: 1, away_team_goals: 2, datetime: datetime, status: 2, whoscored_id: 1) }
   
@@ -63,8 +63,10 @@ describe Match, type: :model do
   end
 
   describe '#datetime' do
-    subject { @match.datetime }
-    it { is_expected.to eq datetime }
+    specify { expect(@match.datetime).to eq datetime }
+    specify { expect(@match.datetime.to_time.to_formatted_s(:kickoff_time)).to eq "02:00" }
+    specify { expect(@match.datetime.to_date.to_formatted_s(:match_date)).to eq "Thursday, January 01 1970" }
+    specify { expect(@match.datetime.to_date.to_formatted_s(:match_date_short)).to eq "Thursday,  1.1 1970" }
   end
 
   describe '#elapsed' do
@@ -102,13 +104,15 @@ describe Match, type: :model do
     it { is_expected.to eq "#{ @match.home_team.name } vs #{ @match.away_team.name }" }
   end
 
-  describe "#points" do
+  describe "#result and points" do
     context "when home_team wins" do
       before do
           @match.home_team_goals = 2
           @match.away_team_goals = 1      
       end
-      
+
+      specify { expect(@match.result(@match.home_team)).to eq :win }
+      specify { expect(@match.result(@match.away_team)).to eq :loss }      
       specify { expect(@match.points(@match.home_team)).to eq 3 }
       specify { expect(@match.points(@match.away_team)).to eq 0 }
     end
@@ -118,7 +122,9 @@ describe Match, type: :model do
         @match.home_team_goals = 1
         @match.away_team_goals = 2
       end
-      
+
+      specify { expect(@match.result(@match.home_team)).to eq :loss }
+      specify { expect(@match.result(@match.away_team)).to eq :win }            
       specify { expect(@match.points(@match.home_team)).to eq 0 }
       specify { expect(@match.points(@match.away_team)).to eq 3 }
     end
@@ -129,6 +135,8 @@ describe Match, type: :model do
         @match.away_team_goals = 2
       end
       
+      specify { expect(@match.result(@match.home_team)).to eq :draw }
+      specify { expect(@match.result(@match.away_team)).to eq :draw }            
       specify { expect(@match.points(@match.home_team)).to eq 1 }
       specify { expect(@match.points(@match.away_team)).to eq 1 }
     end    
@@ -158,6 +166,7 @@ describe Match, type: :model do
     end    
   end
 
+  
   describe '.by_season' do
     subject { Match.by_season(@match.match_day.premier_league.season) }
     it { is_expected.to eq [ @match ] }
@@ -185,14 +194,6 @@ describe Match, type: :model do
     subject { Match.by_date(@match.datetime) }
     it { is_expected.to eq [ @match ] }
   end
-
-  describe '.match_dates' do
-    let!(:tomorrow_match) { FactoryGirl.create(:match, datetime: DateTime.tomorrow) }
-    let!(:yesterday_match) { FactoryGirl.create(:match, datetime: DateTime.yesterday) }      
-      
-    specify { expect(Match.match_dates).to eq [ yesterday_match.datetime.to_date, @match.datetime.to_date, tomorrow_match.datetime.to_date ] }
-  end
-
 
 
   context "when home_team is nil" do

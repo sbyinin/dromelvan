@@ -1,0 +1,5 @@
+<% if match.pending? %>
+<%= render 'matches/match_preview', match: match, team: team %>
+<% else %>
+<%= render 'matches/match_events', match: match, team: team %>
+<% end %>

@@ -84,13 +84,15 @@ describe D11Match, type: :model do
   end
 
 
-  describe "#points" do
+  describe "#result and points" do
     context "when home_d11_team wins" do
       before do
         @d11_match.home_team_points = 5
         @d11_match.away_team_points = 0
       end
       
+      specify { expect(@d11_match.result(@d11_match.home_d11_team)).to eq :win }
+      specify { expect(@d11_match.result(@d11_match.away_d11_team)).to eq :loss }            
       specify { expect(@d11_match.points(@d11_match.home_d11_team)).to eq 3 }
       specify { expect(@d11_match.points(@d11_match.away_d11_team)).to eq 0 }
     end
@@ -100,7 +102,9 @@ describe D11Match, type: :model do
         @d11_match.home_team_points = 0
         @d11_match.away_team_points = 5
       end
-      
+
+      specify { expect(@d11_match.result(@d11_match.home_d11_team)).to eq :loss }
+      specify { expect(@d11_match.result(@d11_match.away_d11_team)).to eq :win }                  
       specify { expect(@d11_match.points(@d11_match.home_d11_team)).to eq 0 }
       specify { expect(@d11_match.points(@d11_match.away_d11_team)).to eq 3 }
     end
@@ -111,6 +115,8 @@ describe D11Match, type: :model do
         @d11_match.away_team_points = 5
       end
       
+      specify { expect(@d11_match.result(@d11_match.home_d11_team)).to eq :draw }
+      specify { expect(@d11_match.result(@d11_match.away_d11_team)).to eq :draw }                  
       specify { expect(@d11_match.points(@d11_match.home_d11_team)).to eq 1 }
       specify { expect(@d11_match.points(@d11_match.away_d11_team)).to eq 1 }
     end    

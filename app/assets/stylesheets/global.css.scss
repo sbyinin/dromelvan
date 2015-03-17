@@ -13,18 +13,16 @@ body {
             margin-bottom: 20px;
         }
         
-        p.administration-links {
-            margin-top: -15px;    
+        p.administration-links,
+        p.navigation-links {
+            margin-top: -12px;
         }
-        
-        ol.breadcrumb {
-            @extend .hidden-xs;
-            
-            form.onchange-submit-form {
-                display: inline;    
-            }            
+
+        h1 + p.administration-links,
+        h1 + p.navigation-links {
+            margin-top: -16px;
         }
-        
+                                
         div.brief-info {
             @include make-sm-column(6);
             @include make-md-column(3);
@@ -62,13 +60,25 @@ body {
         h1 {
             margin-top: $padding-large-vertical;
         }
+        
+        div.section {
+            div.main {
+                @include make-md-column(8);
+                @include make-lg-column(9);
+            }
+            
+            div.related {
+                @include make-md-column(4);
+                @include make-lg-column(3);
+            }
+        }
     }
     
     div.section {
         @extend .row;
     }
     
-    ul {
+    ul,ol {
         list-style: none;
         padding-left: 0px;
     }
@@ -76,5 +86,4 @@ body {
     ul.related {
         @extend .list-inline;
     }
-
 }

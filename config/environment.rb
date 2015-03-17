@@ -3,3 +3,8 @@ require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
 Rails.application.initialize!
+
+# Tested in Match specs.
+Time::DATE_FORMATS[:kickoff_time] = "%H:%M"
+Date::DATE_FORMATS[:match_date] = "%A, %B %d %Y"
+Date::DATE_FORMATS[:match_date_short] = "%A, %e.%-m %Y"

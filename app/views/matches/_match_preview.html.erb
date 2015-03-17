@@ -1,0 +1,34 @@
+<div class="match-details preview">
+  <% season = match.match_day.premier_league.season %>
+  <ul class="match-preview">
+    <li class="match-preview-label">Form:</li>
+    <li>
+      <% form_matches = team.form_matches(season) %>
+      <% if !form_matches.nil? %>
+        <% form_matches.each do |match| %>
+        <span class="form-result <%= match.result(team) %>"><%= link_to match.result(team)[0].upcase, match, title: "#{match.home_team.name} #{match.home_team_goals} - #{match.away_team.name} #{match.away_team_goals}", data: { toggle: "tooltip" } %></span>
+        <% end %>
+      <% else %>
+        No matches played.
+      <% end %>
+    </li>
+    <% top_scorer = team.top_scorer(season) %>
+    <li class="match-preview-label">Top scorer:</li>    
+    <li>
+      <% if !top_scorer.nil? %>
+        <%= render top_scorer.player %>, <%= top_scorer.goals %> goals
+      <% else %>
+        No goals scored.
+      <% end %>      
+    </li>
+    <% most_valuable_player = team.most_valuable_player(season) %>
+    <li class="match-preview-label">Most valuable player:</li>  
+    <li>
+      <% if !most_valuable_player.nil? %>
+        <%= render most_valuable_player.player %>, <%= most_valuable_player.points %> pts
+      <% else %>
+        No points scored.
+      <% end %>
+    </li>
+  </ul>
+</div>

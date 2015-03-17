@@ -4,26 +4,13 @@
 main {
     
     table {
-	td {
-	    vertical-align: middle !important;    
-	}
-    }
-    
-    table.data {
 	@extend .table;
-//	@extend .table-condensed;    
-	@extend .table-striped;
-	@extend .table-hover;
-	@extend .table-bordered;
-  		
-        // Remove this if we remove .table-bordered.
-	th, td  {
-	    border-bottom: 0 !important;
-	    border-left: 0 !important;
-	}
-			
 	width: 100%;
 
+	td {
+//	    vertical-align: middle !important;    
+	}
+	
 	// Default column widths
 	.main-column {
 	    width: 95%;	
@@ -52,8 +39,37 @@ main {
 		
 	.number-column {
 	    text-align: right;
-	}
+	}	
     }
+    
+    table.data {
+//	@extend .table-condensed;    
+	@extend .table-striped;
+	@extend .table-hover;
+	@extend .table-bordered;
+  		
+        // Remove this if we remove .table-bordered.
+	th, td  {
+	    border-bottom: 0 !important;
+	    border-left: 0 !important;
+	}			
+    }
+    
+    table.league-table {
+	tbody {
+	    tr:nth-child(n+1):nth-child(-n+4) {
+		background-color: $table-champions-league-color;
+	    }        
+	
+	    tr:nth-child(n+5):nth-child(-n+5) {
+		background-color: $table-europa-league-color;
+	    }        
+	
+	    tr:nth-child(n+18) {
+		background-color: $table-relegation-color;
+	    }
+	}
+    }    
 }
 
 /* Bootstrap overrides ------------------------------------------------------ */
@@ -86,6 +102,99 @@ main {
 	    display: none;
 	}
     }
+    
+    div.standard-panel table {
+	margin-bottom: 0px;
+    }
+}
+
+body {
+    // Popup tooltip styling.
+    div.tooltip {
+	div.tooltip-inner {
+	    table {
+		td {
+		    padding: $table-condensed-cell-padding;
+		}
+		
+		td.name-column {
+		    text-align: left;
+		}
+	    }
+	}
+    }
+}
+
+/* Specific tables ---------------------------------------------------------- */
+
+table.match-date-fixtures {
+    .time-column {
+        width: 80px;
+	@extend .hidden-xs;
+    }
+
+    .time-elapsed-column {
+        width: 50px;
+        text-align: center;
+    }
+    
+    .team-column {
+        width: 240px;
+    }
+    
+    .result-column {
+        text-align: center;
+        width: 60px;
+    }
+
+    .home-team-column {
+        img.club-crest {
+            padding-right: 4px;
+        }
+    }
+    
+    .away-team-column {
+        text-align: right;
+        img.club-crest {
+            padding-left: 4px;
+        }        
+    }
+    
+    .stadium-column {
+        @extend .visible-lg;
+    }
+    
+    .team-simple-column {
+	div.team-name {
+	    font-weight: bold;
+	}	
+    }
+    
+    .team-simple-column,
+    .result-simple-column {
+	ol {	    
+	    margin-bottom: 0px;
+	}
+	
+	div.team-name {
+	    margin-top: 6px;
+	}
+    }
+    
+    ul.match-events {
+        padding-top: 6px;
+	margin-bottom: 0px;
+    }
+}
+
+table.league-table {
+    .matches-played-column,
+    .matches-won-column,
+    .matches-drawn-column,
+    .matches-lost-column {
+	@extend .hidden-lg;
+	@extend .hidden-md;
+    }
 }
 
 /* Phone screen overrides --------------------------------------------------- */
@@ -116,6 +225,33 @@ main {
 		    }                
 		}	    
 	    }
+	}
+    }
+}
+
+@media only screen and (min-width: $screen-phone-landscape-min) {
+    table.match-date-fixtures {
+	.team-simple-column,
+	.result-simple-column {
+	    display: none;    
+	}
+    }
+}
+
+@media only screen and (max-width: $screen-phone-portrait-max) {
+    table.match-date-fixtures {
+	.team-column,
+	.result-column {
+	    display: none;    
+	}
+    }
+    
+    table.league-table {
+	.matches-played-column,
+	.matches-won-column,
+	.matches-drawn-column,
+	.matches-lost-column {
+	    display: none;
 	}
     }
 }
