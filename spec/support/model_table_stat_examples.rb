@@ -8,6 +8,7 @@ shared_examples_for "table stat" do
   it { is_expected.to respond_to(:goals_against) }
   it { is_expected.to respond_to(:goal_difference) }
   it { is_expected.to respond_to(:points) }
+  it { is_expected.to respond_to(:form_points) }
   it { is_expected.to respond_to(:ranking) }
   it { is_expected.to respond_to(:home_matches_played) }
   it { is_expected.to respond_to(:home_matches_won) }
@@ -60,6 +61,10 @@ shared_examples_for "table stat" do
   end
 
   describe '#points' do
+    specify { expect(subject.points).to eq 0 } 
+  end
+
+  describe '#form_points' do
     specify { expect(subject.points).to eq 0 } 
   end
 
@@ -217,6 +222,11 @@ shared_examples_for "table stat" do
   
   context "when points is nil" do
     before { subject.points = nil }
+    it { is_expected.to be_valid }
+  end
+
+  context "when form_points is nil" do
+    before { subject.form_points = nil }
     it { is_expected.to be_valid }
   end
 

@@ -2,7 +2,10 @@ main {
     div.panel-heading {
         h2 {
             margin: 0px;
-        }       
+        }
+        // TODO: styling work in progress
+        background-color: $d11-blue !important;
+        color: white;
         background-image: none !important;    
     }
     
@@ -14,6 +17,9 @@ main {
     
     div.standard-panel {
         @extend .panel;
-        @extend .panel-default;                
+        @extend .panel-default;
+        
+        border-radius: 0px;
+        border-color: black;        
     }
 }

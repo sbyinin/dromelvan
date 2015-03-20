@@ -28,7 +28,7 @@ class D11Match < ActiveRecord::Base
   
   def result(d11_team)
     update_goals
-    if d11_team == home_d11_team or d11_team == away_d11_team
+    if finished? && (d11_team == home_d11_team or d11_team == away_d11_team)
       if home_team_goals == away_team_goals
         :draw
       elsif d11_team == home_d11_team && home_team_goals > away_team_goals

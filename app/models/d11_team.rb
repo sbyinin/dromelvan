@@ -36,6 +36,35 @@ class D11Team < ActiveRecord::Base
   validates_attachment_size :club_crest, less_than: 5.megabytes
   validates_attachment_content_type :club_crest, content_type: [ "image/jpeg", "image/jpg", "image/gif", "image/png" ]
 
+  def form_matches(season, count = 5)
+    d11_matches = D11Match.by_d11_team(self).by_season(season).where(status: 2)
+    if d11_matches.nil?
+      d11_matches = []
+    end
+    if d11_matches.size > count
+      d11_matches = d11_matches[-count..-1]
+    end    
+    d11_matches
+  end
+
+  def form(season, count = 5)
+    form = []
+    d11_matches = D11Match.by_d11_team(self).by_season(season)
+    d11_matches.each do |d11_match|
+      if d11_match.finished?
+        points = d11_match.points(self)
+        if points == 3
+          form << :win
+        elsif points == 1
+          form << :draw
+        else
+          form << :loss
+        end
+      end
+    end
+    form[-count..-1]
+  end
+
   private  
     def init
       self.dummy ||= false

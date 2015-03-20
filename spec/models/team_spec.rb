@@ -77,6 +77,8 @@ describe Team, type: :model do
     let!(:match5) { FactoryGirl.create(:match, status: :finished, match_day: match_day, home_team: @team, datetime: DateTime.now - 1.days) }
     let!(:match6) { FactoryGirl.create(:match, status: :finished, match_day: match_day, home_team: @team, home_team_goals: 1, datetime: DateTime.now) }
     let!(:match7) { FactoryGirl.create(:match, status: :pending, match_day: match_day, home_team: @team, datetime: DateTime.now + 1.day) }
+    # Check that it works with fewer than five played matches too.
+    let!(:match8) { FactoryGirl.create(:match, status: :finished, home_team: @team) }
     
     specify { expect(@team.form_matches(season)).to eq [match2, match3, match4, match5, match6] }
     specify { expect(@team.form_matches(season, 2)).to eq [match5, match6] }
@@ -88,6 +90,7 @@ describe Team, type: :model do
     specify { expect(match5.result(@team)).to eq :draw }
     specify { expect(match6.result(@team)).to eq :win }
     specify { expect(match7.result(@team)).to eq nil }
+    specify { expect(@team.form_matches(match8.match_day.premier_league.season)).to eq [match8] }
   end
   
   it_should_behave_like "named scope"

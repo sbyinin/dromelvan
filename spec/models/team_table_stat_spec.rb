@@ -13,7 +13,7 @@ describe TeamTableStat, type: :model do
   it { is_expected.to respond_to(:premier_league) }
   it { is_expected.to respond_to(:match_day) }
   it { is_expected.to respond_to(:update_stats) }
-  
+
   it_should_behave_like "table stat"
 
   describe '#team' do
@@ -671,6 +671,22 @@ describe TeamTableStat, type: :model do
     before { @team_table_stat.match_day = nil }
     it { is_expected.not_to be_valid }
   end 
+
+  describe "form_points" do
+    let!(:team1) { FactoryGirl.create(:team) }
+    let!(:team2) { FactoryGirl.create(:team) }
+    let!(:match_day) { FactoryGirl.create(:match_day) }
+    let!(:match1) { FactoryGirl.create(:match, match_day: match_day, status: :finished, home_team: team1, away_team: team2, home_team_goals: 1, away_team_goals: 0) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day, status: :finished, home_team: team1, away_team: team2, home_team_goals: 0, away_team_goals: 1) }
+    let!(:match3) { FactoryGirl.create(:match, match_day: match_day, status: :finished, home_team: team1, away_team: team2, home_team_goals: 0, away_team_goals: 0) }
+    let!(:match4) { FactoryGirl.create(:match, match_day: match_day, status: :finished, home_team: team1, away_team: team2, home_team_goals: 1, away_team_goals: 0) }
+    let!(:match5) { FactoryGirl.create(:match, match_day: match_day, status: :finished, home_team: team1, away_team: team2, home_team_goals: 1, away_team_goals: 0) }
+    let!(:team_table_stat1) { FactoryGirl.create(:team_table_stat, team: team1, match_day: match_day)}
+    let!(:team_table_stat2) { FactoryGirl.create(:team_table_stat, team: team2, match_day: match_day)}
+  
+    specify { expect(team_table_stat1.form_points).to eq 10 }
+    specify { expect(team_table_stat2.form_points).to eq 4 }
+  end
 
   describe "default scope order" do
     before { TeamTableStat.destroy_all }

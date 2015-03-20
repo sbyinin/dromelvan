@@ -75,6 +75,7 @@ module TableStat
     validates :goals_against, numericality: { greater_than_or_equal_to: 0 }
     validates :goal_difference, presence: true, numericality: { only_integer: true }
     validates :points, numericality: { greater_than_or_equal_to: 0 }
+    validates :form_points, numericality: { greater_than_or_equal_to: 0 }
     validates :ranking, presence: true, inclusion: 0..20 
     validates :home_matches_played, numericality: { greater_than_or_equal_to: 0 }
     validates :home_matches_won, numericality: { greater_than_or_equal_to: 0 }
@@ -131,6 +132,7 @@ module TableStat
         self.goals_against ||= 0
         self.goal_difference ||= 0
         self.points ||= 0
+        self.form_points ||= 0
         self.ranking ||= 0        
         self.home_matches_played ||= 0
         self.home_matches_won ||= 0
@@ -174,6 +176,7 @@ module TableStat
         self.away_goals_against = (previous_table_stat.nil? ? 0 : previous_table_stat.away_goals_against)
         self.away_matches_won = (previous_table_stat.nil? ? 0 : previous_table_stat.away_matches_won)
         self.away_matches_drawn = (previous_table_stat.nil? ? 0 : previous_table_stat.away_matches_drawn)
+        self.away_matches_lost = (previous_table_stat.nil? ? 0 : previous_table_stat.away_matches_lost)
         self.away_matches_lost = (previous_table_stat.nil? ? 0 : previous_table_stat.away_matches_lost)
       end
       
@@ -226,6 +229,14 @@ module TableStat
         self.goals_against = self.home_goals_against + self.away_goals_against
         self.goal_difference = self.home_goal_difference + self.away_goal_difference
         self.points = self.home_points + self.away_points
+        
+        my_team = read_association("([a-z0-9]*_)?team")
+        my_match_day = read_association("([a-z0-9]*_)?match_day")
+        my_league = my_match_day.read_association("([a-z0-9]*_)?league")
+        self.form_points = 0
+        my_team.form_matches(my_league.season).each do |form_match|          
+          self.form_points += form_match.points(my_team)
+        end
       end
       
       def validate_totals

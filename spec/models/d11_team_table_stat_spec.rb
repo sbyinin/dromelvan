@@ -672,6 +672,22 @@ describe D11TeamTableStat, type: :model do
     it { is_expected.not_to be_valid }
   end 
 
+  describe "form_points" do
+    let!(:d11_team1) { FactoryGirl.create(:d11_team) }
+    let!(:d11_team2) { FactoryGirl.create(:d11_team) }
+    let!(:d11_match_day) { FactoryGirl.create(:d11_match_day) }
+    let!(:d11_match1) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day, status: :finished, home_d11_team: d11_team1, away_d11_team: d11_team2, home_team_points: 1, away_team_points: 0) }
+    let!(:d11_match2) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day, status: :finished, home_d11_team: d11_team1, away_d11_team: d11_team2, home_team_points: 0, away_team_points: 1) }
+    let!(:d11_match3) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day, status: :finished, home_d11_team: d11_team1, away_d11_team: d11_team2, home_team_points: 0, away_team_points: 0) }
+    let!(:d11_match4) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day, status: :finished, home_d11_team: d11_team1, away_d11_team: d11_team2, home_team_points: 1, away_team_points: 0) }
+    let!(:d11_match5) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day, status: :finished, home_d11_team: d11_team1, away_d11_team: d11_team2, home_team_points: 1, away_team_points: 0) }
+    let!(:d11_team_table_stat1) { FactoryGirl.create(:d11_team_table_stat, d11_team: d11_team1, d11_match_day: d11_match_day)}
+    let!(:d11_team_table_stat2) { FactoryGirl.create(:d11_team_table_stat, d11_team: d11_team2, d11_match_day: d11_match_day)}
+  
+    specify { expect(d11_team_table_stat1.form_points).to eq 10 }
+    specify { expect(d11_team_table_stat2.form_points).to eq 4 }
+  end
+
   describe "default scope order" do
     before { D11TeamTableStat.destroy_all }
     

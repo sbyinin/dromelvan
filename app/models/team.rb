@@ -44,7 +44,14 @@ class Team < ActiveRecord::Base
   validates_attachment_content_type :club_crest, content_type: [ "image/jpeg", "image/jpg", "image/gif", "image/png" ]
 
   def form_matches(season, count = 5)
-    Match.by_team(self).by_season(season).where(status: 2)[-count..-1]
+    matches = Match.by_team(self).by_season(season).where(status: 2)
+    if matches.nil?
+      matches = []
+    end
+    if matches.size > count
+      matches = matches[-count..-1]
+    end    
+    matches
   end
   
   def form(season, count = 5)
