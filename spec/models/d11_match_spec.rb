@@ -3,12 +3,13 @@ require 'rails_helper'
 describe D11Match, type: :model do
   let(:home_d11_team) { FactoryGirl.create(:d11_team) }
   let(:away_d11_team) { FactoryGirl.create(:d11_team) }
-  let(:d11_match_day) { FactoryGirl.create(:d11_match_day) }
+  let(:match_day) { FactoryGirl.create(:match_day, status: :finished) }
+  let(:d11_match_day) { FactoryGirl.create(:d11_match_day, match_day: match_day) }
   
-  before { @d11_match = FactoryGirl.create(:d11_match, home_d11_team: home_d11_team, away_d11_team: away_d11_team, d11_match_day: d11_match_day, home_team_points: 5, away_team_points: 10, status: 2) }
+  before { @d11_match = FactoryGirl.create(:d11_match, home_d11_team: home_d11_team, away_d11_team: away_d11_team, d11_match_day: d11_match_day, home_team_points: 5, away_team_points: 10, status: :finished) }
   
   subject { @d11_match }
-  
+
   it { is_expected.to respond_to(:home_d11_team) }
   it { is_expected.to respond_to(:away_d11_team) }
   it { is_expected.to respond_to(:d11_match_day) }
@@ -16,6 +17,7 @@ describe D11Match, type: :model do
   it { is_expected.to respond_to(:away_team_goals) }
   it { is_expected.to respond_to(:home_team_points) }
   it { is_expected.to respond_to(:away_team_points) }
+  it { is_expected.to respond_to(:elapsed) }
   it { is_expected.to respond_to(:status) }
   it { is_expected.to respond_to(:pending?) }
   it { is_expected.to respond_to(:active?) }
@@ -63,6 +65,11 @@ describe D11Match, type: :model do
     it { is_expected.to eq :finished.to_s }
   end    
     
+  describe '#elapsed' do
+    subject { @d11_match.elapsed }
+    it { is_expected.to eq "FT" }
+  end
+    
   describe '#pending?' do
     subject { @d11_match.pending? }
     it { is_expected.to eq false }
@@ -84,7 +91,7 @@ describe D11Match, type: :model do
   end
 
 
-  describe "#result and points" do
+  describe "#result and points" do    
     context "when home_d11_team wins" do
       before do
         @d11_match.home_team_points = 5
@@ -223,6 +230,29 @@ describe D11Match, type: :model do
     it { is_expected.not_to be_valid }
   end  
     
+  context "when elapsed is nil" do
+    before { @d11_match.elapsed = nil }
+    it { is_expected.to be_valid }
+  end
+
+  context "when match day status is active" do
+    let!(:match_day) { FactoryGirl.create(:match_day, status: :active) }
+    let!(:match1) { FactoryGirl.create(:match, match_day: match_day, status: :finished) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day, status: :pending) }
+    let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, match_day: match_day, match_day_number: match_day.match_day_number) }
+    let!(:d11_match) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day)}
+    let!(:d11_team_match_squad_stat1) { FactoryGirl.create(:d11_team_match_squad_stat, d11_match: d11_match, d11_team: d11_match.home_d11_team)}
+    let!(:d11_team_match_squad_stat2) { FactoryGirl.create(:d11_team_match_squad_stat, d11_match: d11_match, d11_team: d11_match.away_d11_team)}
+    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, match: match1, d11_team: d11_match.home_d11_team) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match2, d11_team: d11_match.home_d11_team) }
+        
+    before do
+      d11_match.reload.valid?      
+    end
+    # 84 since 21 of 22 players are missing and therefore are not still to play.
+    specify { expect(d11_match.elapsed).to eq "84" }
+  end
+
   context "with d11_team_match_squad_stat dependents" do    
     it_should_behave_like "all dependency owners" do
       let!(:owner) { FactoryGirl.create(:d11_match) }
@@ -248,5 +278,5 @@ describe D11Match, type: :model do
     specify { expect(D11Match.by_seasons.where(seasons: {id: d11_match1.d11_match_day.d11_league.season.id})).to eq [ d11_match1 ] }
     specify { expect(D11Match.by_seasons.where(seasons: {id: d11_match2.d11_match_day.d11_league.season.id})).to eq [ d11_match2 ] }
   end
-    
+
 end

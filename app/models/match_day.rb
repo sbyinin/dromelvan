@@ -5,11 +5,16 @@ class MatchDay < ActiveRecord::Base
   has_many :matches, dependent: :restrict_with_exception
   has_many :team_table_stats, dependent: :restrict_with_exception
   
-  default_scope -> { order(:date) }
+  enum status: [ :pending, :active, :finished ]
   
+  default_scope -> { order(:date) }
+
+  after_initialize :init
+
   validates :premier_league, presence: true
   validates :date, presence: true
-  validates :match_day_number, presence: true, inclusion: 1..38   
+  validates :match_day_number, presence: true, inclusion: 1..38
+  validates :status, presence: true
 
   def name
     "Match Day #{match_day_number}"
@@ -34,5 +39,10 @@ class MatchDay < ActiveRecord::Base
   def MatchDay.current
     where("date <= ?", Date.today).last
   end
+
+  private
+    def init
+      self.status ||= 0
+    end
   
 end

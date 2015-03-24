@@ -14,6 +14,9 @@ describe D11TeamMatchSquadStat, type: :model do
   subject { @d11_team_match_squad_stat }
 
   it { is_expected.to respond_to(:d11_match) }
+  it { is_expected.to respond_to(:players_not_played) }
+  it { is_expected.to respond_to(:players_played) }
+  it { is_expected.to respond_to(:players_missing) }
 
   it { is_expected.to be_valid }
 
@@ -87,6 +90,45 @@ describe D11TeamMatchSquadStat, type: :model do
     end
   end
 
+  describe "#players_not_played" do
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 1) }
+    let!(:match1) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day, status: :finished) }
+    let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, match_day: match_day,  match_day_number: 1) }
+    let!(:d11_match) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day) }    
+    let!(:d11_team_match_squad_stat) { FactoryGirl.create(:d11_team_match_squad_stat, d11_match: d11_match)}
+    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, match: match1, d11_team: d11_team_match_squad_stat.d11_team) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match2, d11_team: d11_team_match_squad_stat.d11_team) }
+    
+    specify { expect(d11_team_match_squad_stat.players_not_played).to eq 1 }      
+  end
+
+  describe "#players_played" do
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 1) }
+    let!(:match1) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day, status: :finished) }
+    let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, match_day: match_day,  match_day_number: 1) }
+    let!(:d11_match) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day) }    
+    let!(:d11_team_match_squad_stat) { FactoryGirl.create(:d11_team_match_squad_stat, d11_match: d11_match)}
+    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, match: match1, d11_team: d11_team_match_squad_stat.d11_team) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match2, d11_team: d11_team_match_squad_stat.d11_team) }
+    
+    specify { expect(d11_team_match_squad_stat.players_played).to eq 1 }          
+  end
+  
+  describe "#players_missing" do
+    let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 1) }
+    let!(:match1) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day, status: :finished) }
+    let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, match_day: match_day,  match_day_number: 1) }
+    let!(:d11_match) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day) }    
+    let!(:d11_team_match_squad_stat) { FactoryGirl.create(:d11_team_match_squad_stat, d11_match: d11_match)}
+    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, match: match1, d11_team: d11_team_match_squad_stat.d11_team) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match2, d11_team: d11_team_match_squad_stat.d11_team) }
+    
+    specify { expect(d11_team_match_squad_stat.players_missing).to eq 9 }              
+  end
+  
   it_should_behave_like "d11 team squad stats summary"
   
   context "when d11_match is nil" do

@@ -12,5 +12,29 @@ class D11TeamMatchSquadStat < ActiveRecord::Base
       []
     end    
   end
+
+  def players_not_played
+    count = 0
+    player_match_stats.each do |player_match_stat|
+      if !player_match_stat.match.finished?
+        count += 1
+      end      
+    end
+    count
+  end
+  
+  def players_played
+    count = 0
+    player_match_stats.each do |player_match_stat|
+      if player_match_stat.match.finished?
+        count += 1
+      end      
+    end    
+    count    
+  end
+  
+  def players_missing
+    11 - player_match_stats.size
+  end
   
 end

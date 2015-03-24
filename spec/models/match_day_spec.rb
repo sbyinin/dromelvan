@@ -4,7 +4,7 @@ describe MatchDay, type: :model do
   
   let(:premier_league) { FactoryGirl.create(:premier_league) }
   
-  before { @match_day = FactoryGirl.create(:match_day, premier_league: premier_league, date: Date.today, match_day_number: 1) }
+  before { @match_day = FactoryGirl.create(:match_day, premier_league: premier_league, date: Date.today, match_day_number: 1, status: 2) }
   
   subject { @match_day }
   
@@ -12,6 +12,7 @@ describe MatchDay, type: :model do
   it { is_expected.to respond_to(:d11_match_day) }
   it { is_expected.to respond_to(:date) }
   it { is_expected.to respond_to(:match_day_number) }
+  it { is_expected.to respond_to(:status) }
   it { is_expected.to respond_to(:name) }
   
   it { is_expected.to be_valid }
@@ -31,6 +32,11 @@ describe MatchDay, type: :model do
     it { is_expected.to eq 1 }
   end
 
+  describe '#status' do
+    subject { @match_day.status }
+    it { is_expected.to eq :finished.to_s }
+  end
+  
   describe '#name' do
     subject { @match_day.name }
     it { is_expected.to eq "Match Day #{@match_day.match_day_number}" }
@@ -98,6 +104,11 @@ describe MatchDay, type: :model do
     it { is_expected.not_to be_valid }
   end
     
+  context "when status is nil" do
+    before { @match_day.status = nil }
+    it { is_expected.not_to be_valid }
+  end
+  
   describe "default scope order" do
     before { MatchDay.destroy_all }
     

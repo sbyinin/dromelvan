@@ -11,7 +11,7 @@ class D11Match < ActiveRecord::Base
   scope :by_seasons, -> { joins(d11_match_day: [d11_league: :season]) }
 
   after_initialize :init  
-  before_validation :update_goals
+  before_validation :update_status, :update_goals, :update_elapsed
 
   validates :home_d11_team, presence: true
   validates :away_d11_team, presence: true
@@ -20,6 +20,7 @@ class D11Match < ActiveRecord::Base
   validates :away_team_goals, numericality: { greater_than_or_equal_to: 0 }
   validates :home_team_points, presence: true
   validates :away_team_points, presence: true
+  validates :elapsed, presence: true
   validates :status, presence: true
 
   def name
@@ -75,7 +76,7 @@ class D11Match < ActiveRecord::Base
       0
     end
   end
-  
+    
   def D11Match.by_season(season)
     by_seasons.where(seasons: {id: season.id})
   end
@@ -89,10 +90,35 @@ class D11Match < ActiveRecord::Base
       self.home_team_goals ||= 0
       self.away_team_goals ||= 0
       self.home_team_points ||= 0
-      self.away_team_points ||= 0            
+      self.away_team_points ||= 0
+      self.elapsed ||= "N/A"
       self.status ||= 0
     end
-  
+
+    def update_status
+      # We're doing this in before_validation so d11_match_day might be nil here.
+      # If there are no d11_team_match_squad_stats then the setup of the match isn't final in some way so let's not bother then either.
+      if !d11_match_day.nil? && !d11_team_match_squad_stats.empty?
+        if d11_match_day.match_day.pending?
+          self.status = :pending
+        elsif d11_match_day.match_day.active?
+          players_not_played = 0
+          
+          d11_team_match_squad_stats.each do |d11_team_match_squad_stat|            
+            players_not_played += d11_team_match_squad_stat.players_not_played
+          end
+          
+          if players_not_played > 0
+            self.status = :active
+          else
+            self.status = :finished
+          end
+        elsif d11_match_day.match_day.finished?
+          self.status = :finished
+        end
+      end
+    end
+    
     def update_goals
       self.home_team_points ||= 0
       self.away_team_points ||= 0      
@@ -107,6 +133,20 @@ class D11Match < ActiveRecord::Base
         self.away_team_goals = (away_team_points / 5) + 1
       else
         self.away_team_goals = 0
+      end
+    end
+    
+    def update_elapsed
+      if pending?
+        self.elapsed = "N/A"
+      elsif active?
+        count = 0
+        d11_team_match_squad_stats.each do |d11_team_match_squad_stat|
+          count += d11_team_match_squad_stat.players_played + d11_team_match_squad_stat.players_missing
+        end        
+        self.elapsed = "#{count * 4}"
+      elsif finished?
+        self.elapsed = "FT"
       end
     end
   

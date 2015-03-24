@@ -96,6 +96,7 @@ FactoryGirl.define do
     premier_league        
     date Date.today
     match_day_number 1
+    status 0
   end
 
   factory :match do

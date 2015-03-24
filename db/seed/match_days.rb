@@ -385,7 +385,7 @@ match_days = [
 puts("Seeding match_days...")
 
 match_days.each do |match_day_number, date, premier_league_id|
-  MatchDay.create(match_day_number: match_day_number, date: date, premier_league: PremierLeague.find(premier_league_id))
+  MatchDay.create(match_day_number: match_day_number, date: date, premier_league: PremierLeague.find(premier_league_id), status: 2)
 end
 
 MatchDay.find(1).destroy
