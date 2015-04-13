@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   get '/rules' => 'home#rules'
-  get '/about' => 'home#rules'
+  get '/about' => 'home#about'
   
   get '/search' => 'search#search'
   get '/live_search' => 'search#live_search'

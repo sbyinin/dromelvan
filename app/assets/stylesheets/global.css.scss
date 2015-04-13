@@ -1,5 +1,5 @@
 body {
-    font-weight: 300;
+    //font-family: "Open Sans";
     background-color: whitesmoke;
     
     .accessibility {
@@ -70,6 +70,12 @@ body {
             div.related {
                 @include make-md-column(4);
                 @include make-lg-column(3);
+            }
+            
+            div.sub-section {
+                @include make-md-column(4);
+                @include make-lg-column(3);
+                min-height: 230px;
             }
         }
     }
