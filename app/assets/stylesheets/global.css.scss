@@ -73,9 +73,9 @@ body {
             }
             
             div.sub-section {
+                @include make-sm-column(6);
                 @include make-md-column(4);
                 @include make-lg-column(3);
-                min-height: 230px;
             }
         }
     }
