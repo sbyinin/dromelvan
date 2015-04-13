@@ -74,6 +74,4 @@ describe "MatchDay", type: :view do
     end
   end
   
-  pending "final show styling."
-  
 end

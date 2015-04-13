@@ -7,7 +7,5 @@ describe "TransferWindow", type: :view do
   it_should_behave_like "show view", TransferWindow do
     let(:h1_text) { resource.name }
   end
-
-  pending "final show layout."
   
 end

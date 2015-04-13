@@ -83,7 +83,4 @@ describe "Season", type: :view do
     let(:h1_text) { "Season #{resource.name}" }
   end
 
-  pending "final index styling."
-  pending "final show layout."
-  
 end

@@ -9,7 +9,5 @@ describe "Team", type: :view do
   it_should_behave_like "show view", Team do
     let(:h1_text) { resource.name }
   end
-
-  pending "final show and index layout."
   
 end

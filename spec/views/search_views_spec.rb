@@ -59,5 +59,4 @@ describe "Search", type: :view do
     it { is_expected.not_to have_selector("div.search-result.team") }        
   end
 
-  pending "search view styling"  
 end

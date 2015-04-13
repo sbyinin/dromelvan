@@ -8,6 +8,4 @@ describe "PremierLeague", type: :view do
     let(:h1_text) { resource.name }
   end
 
-  pending "final show layout."
-  
 end
