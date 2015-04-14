@@ -104,262 +104,267 @@
 
 <table id="player-points" class="simple rules-table">
   <colgroup>
-    <col id="poanggrund_alla_column"/>
-    <col id="poang_alla_column"/>
-    <col id="poanggrund_forsvarare_column"/>
-    <col id="poang_forsvarare_column"/>
+    <col id="event-all-column"/>
+    <col id="points-all-column"/>
   </colgroup>
   <tr>
-    <th class="poanggrund">Poänggrund</th>
-    <th>Alla</th>
-    <th class="poanggrund">Poänggrund</th>
-    <th>Mv/back</th>
+    <th class="event">Match event</th>
+    <th>Points</th>
   </tr>
   <tr>
-    <td class="poanggrund">Rating 10</td>
+    <td class="event">Rating 10</td>
     <td>5</td>
-    <td class="poanggrund">1 insläppt mål</td>
-    <td>OBS! Nyhet: 0</td>
   </tr>
   <tr>
-    <td class="poanggrund">Rating 9</td>
+    <td class="event">Rating 9</td>
     <td>3</td>
-    <td class="poanggrund">2 insläppta mål</td>
-    <td>OBS! Nyhet: -1</td>
   </tr>
   <tr>
-    <td class="poanggrund">Rating 8</td>
+    <td class="event">Rating 8</td>
     <td>2</td>
-    <td class="poanggrund">3 insläppta mål</td>
-    <td>OBS! Nyhet: -2</td>
   </tr>
   <tr>
-    <td class="poanggrund">Rating 7</td>
+    <td class="event">Rating 7</td>
     <td>1</td>
-    <td class="poanggrund">4 insläppta mål</td>
-    <td>OBS! Nyhet: -3</td>
   </tr>
   <tr>
-    <td class="poanggrund">Ingen rating</td>
+    <td class="event">No rating</td>
     <td>0</td>
-    <td class="poanggrund">O.s.v</td>
-    <td>O.s.v</td>
   </tr>
   <tr>
-    <td class="poanggrund">Rating 6</td>
+    <td class="event">Rating 6</td>
     <td>0</td>
-    <td class="poanggrund">Håller nollan</td>
-    <td>4</td>
   </tr>
   <tr>
-    <td class="poanggrund">Rating 5</td>
-    <td>-1</td>
-    <td class="poanggrund">Ej spelat</td>
+    <td class="event">Rating 5</td>
     <td>-1</td>
   </tr>
   <tr>
-    <td class="poanggrund">Rating 4</td>
+    <td class="event">Rating 4</td>
     <td>-2</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
-    <td class="poanggrund">Rating 3</td>
+    <td class="event">Rating 3</td>
     <td>-3</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
-    <td class="poanggrund">Rating 2</td>
+    <td class="event">Rating 2</td>
     <td>-4</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>                    
   </tr>
   <tr>
-    <td class="poanggrund">Rating 1</td>
+    <td class="event">Rating 1</td>
     <td>-5</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
-    <td class="poanggrund">Rating 0</td>
+    <td class="event">Rating 0</td>
     <td>-6</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>                
   <tr>
-    <td class="poanggrund">MoM</td>
+    <td class="event">MoM</td>
     <td>4</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
-    <td class="poanggrund">Delad MoM</td>
+    <td class="event">Shared MoM</td>
     <td>2</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
-    <td class="poanggrund">Mål</td>
+    <td class="event">Goal</td>
     <td>4</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
-    <td class="poanggrund">Assist</td>
+    <td class="event">Assist</td>
     <td>2</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>                    
   <tr>
-    <td class="poanggrund">Självmål</td>
+    <td class="event">Own goal</td>
     <td>-4</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
-    <td class="poanggrund">Ej spelat - mf/anf</td>
-    <td>0</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td class="poanggrund">Gult kort</td>
+    <td class="event">Yellow card</td>
     <td>-1</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
-    <td class="poanggrund">Rött kort</td>
+    <td class="event">Red card</td>
     <td>-4</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
 </table>
 
 <p>
-    OBS! Nyhet: Eftersom Whoscored.com startar sina ratings från 6.00 så får spelare poäng för
-    ratings oberoende av hur många minute de spelat.
+  Additionally, goalkeepers and defenders will receive bonus or negative points based on the number of goals their team concede if
+  the players participate in the match. Goalkeepers and defenders who do not participate in their teams match for a match day will
+  receive one minus point.
 </p>
 
-<h4>Anmälningsavgift</h4>
+<table id="goalkeeper-defender-points" class="simple rules-table">
+  <colgroup>
+    <col id="goals-conceded-column"/>
+    <col id="points-defender-column"/>
+  </colgroup>
+  <tr>
+    <th class="event">Conceded</th>
+    <th>Points</th>
+  </tr>
+  <tr>
+    <td class="event">Clean sheet</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td class="event">1</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td class="event">2</td>
+    <td>-1</td>
+  </tr>
+  <tr>
+    <td class="event">3</td>
+    <td>-2</td>
+  </tr>
+  <tr>
+    <td class="event">4</td>
+    <td>-3</td>
+  </tr>
+  <tr>
+    <td class="event">Etc.</td>
+    <td>Etc.</td>
+  </tr>
+  <tr>
+    <td class="event">Didn't play</td>
+    <td>-1</td>
+  </tr>
+  
+</table>
+
+<h2>Participation fee</h2>
+
+<p>
+  The participation fee is 40 euro. This fee will be used for prize money for the teams finishing in first, second and third place.
+  The exact rewards will depend on the number of participating teams. If the competition is full and 20 teams participate, the rewards
+  will be 400 euro for first place, 250 euro for second place and 150 euro for third place.
+</p>
+
+<h2>The draft</h2>
 
 <ul>
-    <li>Anmälningsavgiften är 40 euro. Denna summa går oavkortat till prispengar
-        för de deltagare som kommer på första, andra och tredje plats. De exakta
-        summorna som betalas ut till var och en beror på antalet deltagare. Om vi
-        har 20 deltagare blir prissummorna 400, 250 och 150 euro.
-    </li>
+  <li>
+    The draft will be held at a date close to the start of the season. It has traditionally been held on the thursday before the first match day.
+    Time and location will be announced as the start of the season approaches.
+  </li>
+  <li>
+    Be on time! The squad you manage to build in the draft will be in action on the first match day of the season. A preliminary list of available
+    players will be provided at this web site.
+  </li>
+  <li>
+    The actual list of available players will be provided at the draft.
+  </li>
+  <li>
+    The number of teams in the competition cannot exceed 20 since there are only 20 teams in the Premier League. In the event that there are more
+    than 20 willing owners, 2 owners can register one team as co owners.
+  </li>
+  <li>
+    The draft will be held as an open auction. The owner of last seasons winning team will place the first bid on any of the available players. After this,
+    any other owner may place a higher bid on that player, and so on. When noone wants to place a higher bid, the player will be added to the team
+    owned by the highest bidder. Once a bid has been placed it cannot be cancelled.
+  </li>
+  <li>
+    All players are unique and each player may only belong to one D11 team.
+  </li>
+  <li>
+    All teams will have £50 million to spend on players for their squads.
+  </li>
+  <li>
+    There are no limitations on how many players from the same Premier League team a D11 team can have.
+  </li>
+  <li>
+    There are no predetermined fees for any player. The minimum fee for all players is 0,5. A new high bid also has to be
+    at least 0,5 higher than the current high bid.
+  </li>
+  <li>
+    Each team must have one goalkeeper, four defenders, four midfielders and two forwards in a 4-4-2 formation.
+  </li>
+  <li>
+    It's up to each owner to make sure they can afford the bids they place. If it is noticed that an owner has placed a bid that is higher than he can
+    afford or has won bids on too many players for one position, the bidding on the player will be restarted.
+  </li>
 </ul>
 
-<h4>Budgivningen</h4>
-
+<h2>The transfer system</h2>
 <ul>
-    <li>Preliminärt datum för budgivningen är någon gång just före säsongen börjar. Plats och
-        tidpunkt meddelas senare.</li>
-    <li>Kom i god tid! Laget man då skrapat ihop är i aktion första
-        gången lördagen den 16 augusti. Preliminär spelarlista finns
-        att tillgå på denna website.</li>
-    <li>Ordinarie lista ges vid budgivningen.</li>
-    <li>Antalet deltagare i tävlingen kan vara högst 20 eftersom det
-        inte finns fler lag i Premier League. Ifall fler än 20 önskar
-        deltaga så kan så många som det behövs bilda lag.</li>
-    <li>Budgivning hålls i princip som en auktion. Förra säsongens segrare
-        får först välja en spelare att bjuda på. Han kan välja
-        vilken spelare som helst från listan. Sedan är det fri auktion
-        (vem som helst får höja budet utan turordning) på spelaren och
-        högsta budet får spelaren i sitt lag. Man kan naturligtvis inte
-        ångra sig när man en gång fått en spelare.</li>
-    <li>Ingen kommer att ha samma spelare i sitt lag som någon annan.</li>
-    <li>Alla deltagare har £50 miljoner att spendera på sitt lag.</li>
-    <li>Det finns inga begränsningar på hur många spelare från varje lag man har.</li>
-    <li>Det finns inga givna priser på spelarna, förutom att minimipriset på
-        alla spelare är 0,5. Man måste även bjuda minst 0,5 mer än nuvarande
-        högsta bud ifall man vill bjuda över.</li>
-    <li>Laget skall bestå av målvakt, 4 försvarare, 4 mittfältare och 2 anfallare (4-4-2).</li>
-    <li>Det är viktigt att hålla koll på att man inte bjuder mer än man
-        har råd med. Se alltså till att du åtminstone har kvar så mycket
-        pengar att du får ihop ett lag! Säkert händer det att någon ändå
-        bjuder över sina tillgångar. Det kontrolleras varje gång någon
-        fått hem en spelare. Har så skett så blir det ombjudning på just
-        den aktuella spelaren.</li>
-</ul>
-
-<h4>OBS! Nyhet: Bytessystemet</h4>
-<ul>
-    <li>
-        Transferfönster öppnar i början av månaderna oktober, december, februari och april.
-        Exakta datum meddelas närmare bytestillfället.
-    </li>
-    <li>
-        OBS! Nyhet: När som helst före transferfönstret öppnar kan du logga in på siten och transferlista spelare.
-        Spelarna kommer tillsvidare att vara kvar i ditt lag och före transferfönstret stänger kan du kan även ångra 
-        alla transferlistningar du gjort. Endast du själv kan se vilka spelare som finns på din transferlista före
-        transferfönstret öppnar.
-    </li>
-    <li>
-        OBS! Nyhet: Då transferfönstret öppnar kommer alla spelare du transferlistat att försvinna från ditt lag.
-        Då detta är gjort är det får sent att ångra sig. Se till att inga spelare du vill ha kvar i ditt lag är 
-        transferlistade då deadline för transferlistning passerar!
-    </li>                
-    <li>
-        Alla spelare du transferlistat är fr.o.m transferlistningen borta ur ditt lag.
-        För att få behålla en listad spelare måste du alltså vinna budgivningen på honom igen.
-    </li>                
-    <li>
-        OBS! Nyhet: Då transferfönstret öppnar kommer du att kunna logga in och ge bud på tillgängliga spelare. Tillgängliga
-        spelare är de spelare som inte tillhörde någon deltagare före transferfönstret öppnade samt alla transferlistade spelare.
-        Du kan alltså även bjuda på de spelare du själv transferlistat.
-    </li>                
-    <li>Precis som vid budgivningen kan man bjuda och "höja" minst 0.5. Alla bud skall således
-        sluta på .0 eller .5. Observera att det högsta bud du kan ge på en spelare måste ta i
-        beaktande att man måste betala minst 0.5 på varje position. Om man har listat tre
-        spelare och har 10.0 att spendera är alltså det högsta budet på en enskild spelare
-        som kan lyckas 9.0. OBS! Nyhet: Maxbudet kommer att visas på sidan där du skickar in dina bud.</li>                                
-    <li>
-        OBS! Nyhet: Före deadline för bud passerat kan du ändra och/eller ta bort inskickade bud. Efter att deadline för bud
-        passerat är det för sent att ändra eller lägga till. Se till att dina bud ser ut som du har tänkt före deadline för
-        bud passeras.
-    </li>                                
-    <li>
-        OBS! Nyhet: Alla bud läggs i en hög och om man t.ex behöver två mittfältare så får du de två första mittfältarna
-        du först lyckas få lyckade bud på.
-    </li>                
-    <li>
-        OBS! Nyhet: Du får bara lägga ett bud på varje spelare. Detta bud är ett "upp till" bud, dvs maxbudet du vill ge för spelaren. 
-        Om du har det högsta budet blir summan du till slut får betala 0.5 högre än det näst högsta budet. Ex: Deltagare A bjuder 15.0 för 
-        spelare S. Det näst högsta budet är deltagare B som bjuder 10.0. Deltagare A får spelare S för 10.5.                    
-    </li>
-    <li>
-        OBS! Nyhet: Spelarna "bjuds ut" i poängordning. Den tillgängliga spelare som har mest poäng på buddagen går som första spelare 
-        till den deltagare som hade högsta budet på honom. Sedan går den spelaren som hade näst mest poäng till den deltagare som hade 
-        högsta budet på honom, osv, osv. Om två spelare har lika många poäng bjuds de ut i bokstavsordning. Listan på tillgängliga spelare
-        för varje transferfönster är sorterad enligt den ordning spelarna kommer att bjudas ut.
-    </li>
-    <li>Vem får spelaren? Den som har högsta budet på en spelare får honom.
-        Om budet är lika får den deltagare som ligger sämre till i
-        tävlingen spelaren.</li>                
-    <li>
-        OBS! Nyhet: Pengar som spenderats på lyckade bud tas bort från bud som inte hanteras än. Ex: Deltagare A har 15.0 som maxbud och 
-        bjuder 15.0 på spelare S och 15.0 på spelare P. Spelare S har mer poäng än spelare P och går först och deltagare A får honom för 10.5. 
-        Efter det är deltagare As maxbud 4.5, så budet på spelare P justeras ner till 4.5.
-    </li>
-    <li>Om man inte lyckats få ett enda av de alternativ man bjudit på så
-        får man försöka igen nästa dag. Då får alla som inte fått ersättare skicka
-        in nya bud på spelare för de positioner de fortfarande behöver spelare på. Om
-        man fortfarande inte fått ersättare upprepas produren en gång till nästa dag,
-        osv, osv tills dess alla fått fullt lag. Deadline för att hinna få med sina byten
-        varje bytesdag är kl 22.00 den dagen.</li>
-    <li>Om en omgång i Premier League har hunnit börja innan alla har hunnit få fullt
-        lag så spelar de olyckliga deltagarna med försvagat manskap i den omgången. Vi kommer att
-        försöka välja listningsdatum och budgivningsdatum så att det finns tillräckligt många
-        dagar för att de som vill ha fullt lag skall kunna få det.</li>
-    <li>Om du köpt en spelare till t ex omgång 30 och hans lag har spelat
-        matchen i omgång 30 tidigare, så kommer den nya spelarens
-        poäng att räknas.</li>
+  <li>
+    The transfer windows will open at the start of october, december, february and april. The exact date will be announced closer
+    to the actual date.
+  </li>
+  <li>
+    At any time before the transfer window opens the owners will be able to log in to the web site and transfer list the players
+    in their teams. The players will remain in the teams until the transfer window has opened and the owners will
+    be able to remove players from the transfer list during this time. Before the deadline each owner will only be able to see
+    which players his own team has transfer listed.
+  </li>
+  <li>
+    When the transfer window opens all transfer listed players will be removed from their teams. Once this deadline has passed
+    it is too late for owners to regret transfer listing any players. Make sure all the players you want to get rid of and only
+    players you want to get rid of are transfer listed when the transfer window opens!
+  </li>
+  
+  
+  <li>
+      Alla spelare du transferlistat är fr.o.m transferlistningen borta ur ditt lag.
+      För att få behålla en listad spelare måste du alltså vinna budgivningen på honom igen.
+  </li>                
+  <li>
+      OBS! Nyhet: Då transferfönstret öppnar kommer du att kunna logga in och ge bud på tillgängliga spelare. Tillgängliga
+      spelare är de spelare som inte tillhörde någon deltagare före transferfönstret öppnade samt alla transferlistade spelare.
+      Du kan alltså även bjuda på de spelare du själv transferlistat.
+  </li>                
+  <li>Precis som vid budgivningen kan man bjuda och "höja" minst 0.5. Alla bud skall således
+      sluta på .0 eller .5. Observera att det högsta bud du kan ge på en spelare måste ta i
+      beaktande att man måste betala minst 0.5 på varje position. Om man har listat tre
+      spelare och har 10.0 att spendera är alltså det högsta budet på en enskild spelare
+      som kan lyckas 9.0. OBS! Nyhet: Maxbudet kommer att visas på sidan där du skickar in dina bud.</li>                                
+  <li>
+      OBS! Nyhet: Före deadline för bud passerat kan du ändra och/eller ta bort inskickade bud. Efter att deadline för bud
+      passerat är det för sent att ändra eller lägga till. Se till att dina bud ser ut som du har tänkt före deadline för
+      bud passeras.
+  </li>                                
+  <li>
+      OBS! Nyhet: Alla bud läggs i en hög och om man t.ex behöver två mittfältare så får du de två första mittfältarna
+      du först lyckas få lyckade bud på.
+  </li>                
+  <li>
+      OBS! Nyhet: Du får bara lägga ett bud på varje spelare. Detta bud är ett "upp till" bud, dvs maxbudet du vill ge för spelaren. 
+      Om du har det högsta budet blir summan du till slut får betala 0.5 högre än det näst högsta budet. Ex: Deltagare A bjuder 15.0 för 
+      spelare S. Det näst högsta budet är deltagare B som bjuder 10.0. Deltagare A får spelare S för 10.5.                    
+  </li>
+  <li>
+      OBS! Nyhet: Spelarna "bjuds ut" i poängordning. Den tillgängliga spelare som har mest poäng på buddagen går som första spelare 
+      till den deltagare som hade högsta budet på honom. Sedan går den spelaren som hade näst mest poäng till den deltagare som hade 
+      högsta budet på honom, osv, osv. Om två spelare har lika många poäng bjuds de ut i bokstavsordning. Listan på tillgängliga spelare
+      för varje transferfönster är sorterad enligt den ordning spelarna kommer att bjudas ut.
+  </li>
+  <li>Vem får spelaren? Den som har högsta budet på en spelare får honom.
+      Om budet är lika får den deltagare som ligger sämre till i
+      tävlingen spelaren.</li>                
+  <li>
+      OBS! Nyhet: Pengar som spenderats på lyckade bud tas bort från bud som inte hanteras än. Ex: Deltagare A har 15.0 som maxbud och 
+      bjuder 15.0 på spelare S och 15.0 på spelare P. Spelare S har mer poäng än spelare P och går först och deltagare A får honom för 10.5. 
+      Efter det är deltagare As maxbud 4.5, så budet på spelare P justeras ner till 4.5.
+  </li>
+  <li>Om man inte lyckats få ett enda av de alternativ man bjudit på så
+      får man försöka igen nästa dag. Då får alla som inte fått ersättare skicka
+      in nya bud på spelare för de positioner de fortfarande behöver spelare på. Om
+      man fortfarande inte fått ersättare upprepas produren en gång till nästa dag,
+      osv, osv tills dess alla fått fullt lag. Deadline för att hinna få med sina byten
+      varje bytesdag är kl 22.00 den dagen.</li>
+  <li>Om en omgång i Premier League har hunnit börja innan alla har hunnit få fullt
+      lag så spelar de olyckliga deltagarna med försvagat manskap i den omgången. Vi kommer att
+      försöka välja listningsdatum och budgivningsdatum så att det finns tillräckligt många
+      dagar för att de som vill ha fullt lag skall kunna få det.</li>
+  <li>Om du köpt en spelare till t ex omgång 30 och hans lag har spelat
+      matchen i omgång 30 tidigare, så kommer den nya spelarens
+      poäng att räknas.</li>
 </ul>
 <p>
-    Fråga gärna om det är något du funderar över!
+  Don't be afraid to ask if something is unclear!
 </p>
-</div>
+
         
