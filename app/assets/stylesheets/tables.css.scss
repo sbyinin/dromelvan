@@ -6,7 +6,13 @@ main {
     table {
 	@extend .table;
 	td {
-//	    vertical-align: middle !important;    
+//	    vertical-align: middle !important;
+	    ul,
+	    ol {
+		list-style: none;
+		padding-left: 0px;
+	    }
+
 	}
 	
 	// Default column widths

@@ -83,13 +83,7 @@ body {
     div.section {
         @extend .row;
     }
-    
-    ul.simple,
-    ol.simple {
-        list-style: none;
-        padding-left: 0px;
-    }
-    
+        
     ul.related {
         @extend .list-inline;
     }
