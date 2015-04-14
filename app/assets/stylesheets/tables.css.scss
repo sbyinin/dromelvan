@@ -5,8 +5,6 @@ main {
     
     table {
 	@extend .table;
-	width: 100%;
-
 	td {
 //	    vertical-align: middle !important;    
 	}
@@ -42,8 +40,8 @@ main {
 	}	
     }
     
-    table.data {
-//	@extend .table-condensed;    
+    table.data {	
+//	@extend .table-condensed;	
 	@extend .table-striped;
 	@extend .table-hover;
 	@extend .table-bordered;
@@ -69,7 +67,11 @@ main {
 		background-color: $table-relegation-color;
 	    }
 	}
-    }    
+    }
+    
+    table.simple {
+	width: 0%;
+    }
 }
 
 /* Bootstrap overrides ------------------------------------------------------ */
@@ -194,6 +196,14 @@ table.league-table {
     .matches-lost-column {
 	@extend .hidden-lg;
 	@extend .hidden-md;
+    }
+}
+
+table.rules-table {
+    col,
+    th,
+    td {
+	width: 100px;
     }
 }
 

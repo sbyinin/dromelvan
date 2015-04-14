@@ -84,7 +84,8 @@ body {
         @extend .row;
     }
     
-    ul,ol {
+    ul.simple,
+    ol.simple {
         list-style: none;
         padding-left: 0px;
     }

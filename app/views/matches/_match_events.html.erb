@@ -1,20 +1,20 @@
 <div class="match-details events">
 <% if match.goals.where(team: team).any? then %>
-  <ul class="match-events goals">
+  <ul class="match-events goals simple">
     <% match.goals.where(team: team).each do |goal| %>
     <li><%= render goal %></li>
     <% end %>
   </ul>
 <% end %>
 <% if match.cards.where(team: team).any? then %>
-  <ul class="match-events cards">
+  <ul class="match-events cards simple">
     <% match.cards.where(team: team).each do |card| %>
     <li><%= render card %></li>
     <% end %>
   </ul>
 <% end %>
 <% if match.substitutions.where(team: team).any? then %>  
-  <ul class="match-events substitutions">
+  <ul class="match-events substitutions simple">
     <% match.substitutions.where(team: team).each do |substitution| %>
     <li><%= render substitution %></li>
     <% end %>
