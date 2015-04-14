@@ -8,7 +8,8 @@ describe "TODO", type: :view do
   
   pending "home > rules"
   
-  pending "home > about"
+  # pending "home > about"
+  # /about
   
   pending "home > seasons"
   
