@@ -206,10 +206,12 @@ table.league-table {
 }
 
 table.rules-table {
+    @extend .table-striped;
+    
     col,
     th,
     td {
-	width: 100px;
+	width: 130px;
     }
 }
 

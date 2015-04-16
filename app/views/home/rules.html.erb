@@ -108,89 +108,89 @@
     <col id="points-all-column"/>
   </colgroup>
   <tr>
-    <th class="event">Match event</th>
-    <th>Points</th>
+    <th>Match event</th>
+    <th class="points-column number-column">Points</th>
   </tr>
   <tr>
-    <td class="event">Rating 10</td>
-    <td>5</td>
+    <td>Rating 9.50 - 10.0</td>
+    <td class="points-column number-column">5</td>
   </tr>
   <tr>
-    <td class="event">Rating 9</td>
-    <td>3</td>
+    <td>Rating 8.50 - 9.49</td>
+    <td class="points-column number-column">3</td>
   </tr>
   <tr>
-    <td class="event">Rating 8</td>
-    <td>2</td>
+    <td>Rating 7.50 - 8.49</td>
+    <td class="points-column number-column">2</td>
   </tr>
   <tr>
-    <td class="event">Rating 7</td>
-    <td>1</td>
+    <td>Rating 6.50 - 7.49</td>
+    <td class="points-column number-column">1</td>
   </tr>
   <tr>
-    <td class="event">No rating</td>
-    <td>0</td>
+    <td>No rating</td>
+    <td class="points-column number-column">0</td>
   </tr>
   <tr>
-    <td class="event">Rating 6</td>
-    <td>0</td>
+    <td>Rating 5.50 - 6.49</td>
+    <td class="points-column number-column">0</td>
   </tr>
   <tr>
-    <td class="event">Rating 5</td>
-    <td>-1</td>
+    <td>Rating 4.50 - 5.49</td>
+    <td class="points-column number-column">-1</td>
   </tr>
   <tr>
-    <td class="event">Rating 4</td>
-    <td>-2</td>
+    <td>Rating 3.50 - 4.49</td>
+    <td class="points-column number-column">-2</td>
   </tr>
   <tr>
-    <td class="event">Rating 3</td>
-    <td>-3</td>
+    <td>Rating 2.50 - 3.49</td>
+    <td class="points-column number-column">-3</td>
   </tr>
   <tr>
-    <td class="event">Rating 2</td>
-    <td>-4</td>
+    <td>Rating 1.50 - 2.49</td>
+    <td class="points-column number-column">-4</td>
   </tr>
   <tr>
-    <td class="event">Rating 1</td>
-    <td>-5</td>
+    <td>Rating 0.50 - 1.49</td>
+    <td class="points-column number-column">-5</td>
   </tr>
   <tr>
-    <td class="event">Rating 0</td>
-    <td>-6</td>
+    <td>Rating 0.00 - 0.49</td>
+    <td class="points-column number-column">-6</td>
   </tr>                
   <tr>
-    <td class="event">MoM</td>
-    <td>4</td>
+    <td>MoM <%= image_tag "match-events/mom.png", alt: "MoM.", class: "match-event-icon" %></td>
+    <td class="points-column number-column">4</td>
   </tr>
   <tr>
-    <td class="event">Shared MoM</td>
-    <td>2</td>
+    <td>Shared MoM <%= image_tag "match-events/shared-mom.png", alt: "Shared MoM.", class: "match-event-icon" %></td>
+    <td class="points-column number-column">2</td>
   </tr>
   <tr>
-    <td class="event">Goal</td>
-    <td>4</td>
+    <td>Goal <%= image_tag "match-events/goal.png", alt: "Goal.", class: "match-event-icon" %></td>
+    <td class="points-column number-column">4</td>
   </tr>
   <tr>
-    <td class="event">Assist</td>
-    <td>2</td>
+    <td>Assist <%= image_tag "match-events/assist.png", alt: "Assist.", class: "match-event-icon" %></td>
+    <td class="points-column number-column">2</td>
   </tr>                    
   <tr>
-    <td class="event">Own goal</td>
-    <td>-4</td>
+    <td>Own goal <%= image_tag "match-events/own-goal.png", alt: "Own goal.", class: "match-event-icon" %></td>
+    <td class="points-column number-column">-4</td>
   </tr>
   <tr>
-    <td class="event">Yellow card</td>
-    <td>-1</td>
+    <td>Yellow card <%= image_tag "match-events/yellow-card.png", alt: "Yellow card.", class: "match-event-icon" %></td>
+    <td class="points-column number-column">-1</td>
   </tr>
   <tr>
-    <td class="event">Red card</td>
-    <td>-4</td>
+    <td>Red card <%= image_tag "match-events/red-card.png", alt: "Red card.", class: "match-event-icon" %></td>
+    <td class="points-column number-column">-4</td>
   </tr>
 </table>
 
 <p>
-  Additionally, goalkeepers and defenders will receive bonus or negative points based on the number of goals their team concede if
+  Additionally, goalkeepers and defenders will receive bonus points or negative points based on the number of goals their team concedes if
   the players participate in the match. Goalkeepers and defenders who do not participate in their teams match for a match day will
   receive one minus point.
 </p>
@@ -201,36 +201,36 @@
     <col id="points-defender-column"/>
   </colgroup>
   <tr>
-    <th class="event">Conceded</th>
-    <th>Points</th>
+    <th>Conceded</th>
+    <th class="points-column number-column">Points</th>
   </tr>
   <tr>
-    <td class="event">Clean sheet</td>
+    <td>Clean sheet</td>
+    <td class="points-column number-column">4</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td class="points-column number-column">0</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td class="points-column number-column">-1</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td class="points-column number-column">-2</td>
+  </tr>
+  <tr>
     <td>4</td>
+    <td class="points-column number-column">-3</td>
   </tr>
   <tr>
-    <td class="event">1</td>
-    <td>0</td>
-  </tr>
-  <tr>
-    <td class="event">2</td>
-    <td>-1</td>
-  </tr>
-  <tr>
-    <td class="event">3</td>
-    <td>-2</td>
-  </tr>
-  <tr>
-    <td class="event">4</td>
-    <td>-3</td>
-  </tr>
-  <tr>
-    <td class="event">Etc.</td>
     <td>Etc.</td>
+    <td class="points-column number-column">Etc.</td>
   </tr>
   <tr>
-    <td class="event">Didn't play</td>
-    <td>-1</td>
+    <td>Did not play</td>
+    <td class="points-column number-column">-1</td>
   </tr>
   
 </table>
@@ -273,7 +273,7 @@
     All teams will have £50 million to spend on players for their squads.
   </li>
   <li>
-    There are no limitations on how many players from the same Premier League team a D11 team can have.
+    There are no limitations on how many players from the same Premier League team can play for the same D11 team.
   </li>
   <li>
     There are no predetermined fees for any player. The minimum fee for all players is 0,5. A new high bid also has to be
@@ -295,7 +295,7 @@
     to the actual date.
   </li>
   <li>
-    At any time before the transfer window opens the owners will be able to log in to the web site and transfer list the players
+    At any time before the transfer window opens owners will be able to log in to the web site and transfer list the players
     in their teams. The players will remain in the teams until the transfer window has opened and the owners will
     be able to remove players from the transfer list during this time. Before the deadline each owner will only be able to see
     which players his own team has transfer listed.
@@ -303,68 +303,63 @@
   <li>
     When the transfer window opens all transfer listed players will be removed from their teams. Once this deadline has passed
     it is too late for owners to regret transfer listing any players. Make sure all the players you want to get rid of and only
-    players you want to get rid of are transfer listed when the transfer window opens!
-  </li>
-  
-  
-  <li>
-      Alla spelare du transferlistat är fr.o.m transferlistningen borta ur ditt lag.
-      För att få behålla en listad spelare måste du alltså vinna budgivningen på honom igen.
-  </li>                
-  <li>
-      OBS! Nyhet: Då transferfönstret öppnar kommer du att kunna logga in och ge bud på tillgängliga spelare. Tillgängliga
-      spelare är de spelare som inte tillhörde någon deltagare före transferfönstret öppnade samt alla transferlistade spelare.
-      Du kan alltså även bjuda på de spelare du själv transferlistat.
-  </li>                
-  <li>Precis som vid budgivningen kan man bjuda och "höja" minst 0.5. Alla bud skall således
-      sluta på .0 eller .5. Observera att det högsta bud du kan ge på en spelare måste ta i
-      beaktande att man måste betala minst 0.5 på varje position. Om man har listat tre
-      spelare och har 10.0 att spendera är alltså det högsta budet på en enskild spelare
-      som kan lyckas 9.0. OBS! Nyhet: Maxbudet kommer att visas på sidan där du skickar in dina bud.</li>                                
-  <li>
-      OBS! Nyhet: Före deadline för bud passerat kan du ändra och/eller ta bort inskickade bud. Efter att deadline för bud
-      passerat är det för sent att ändra eller lägga till. Se till att dina bud ser ut som du har tänkt före deadline för
-      bud passeras.
-  </li>                                
-  <li>
-      OBS! Nyhet: Alla bud läggs i en hög och om man t.ex behöver två mittfältare så får du de två första mittfältarna
-      du först lyckas få lyckade bud på.
-  </li>                
-  <li>
-      OBS! Nyhet: Du får bara lägga ett bud på varje spelare. Detta bud är ett "upp till" bud, dvs maxbudet du vill ge för spelaren. 
-      Om du har det högsta budet blir summan du till slut får betala 0.5 högre än det näst högsta budet. Ex: Deltagare A bjuder 15.0 för 
-      spelare S. Det näst högsta budet är deltagare B som bjuder 10.0. Deltagare A får spelare S för 10.5.                    
+    players you want to get rid of are transfer listed when the transfer window opens! If you want to keep a player that
+    has been removed from your team you will have to have the high bid for that player in the bidding.
   </li>
   <li>
-      OBS! Nyhet: Spelarna "bjuds ut" i poängordning. Den tillgängliga spelare som har mest poäng på buddagen går som första spelare 
-      till den deltagare som hade högsta budet på honom. Sedan går den spelaren som hade näst mest poäng till den deltagare som hade 
-      högsta budet på honom, osv, osv. Om två spelare har lika många poäng bjuds de ut i bokstavsordning. Listan på tillgängliga spelare
-      för varje transferfönster är sorterad enligt den ordning spelarna kommer att bjudas ut.
+    After the transfer window has opened owners will be able to log in and place bids on available players. Available players
+    are those who did not belong to a D11 team before the transfer window opened and all those who were transfer listed by
+    owners before the window opened. Owners will be able to bid on players they've transfer listed.
   </li>
-  <li>Vem får spelaren? Den som har högsta budet på en spelare får honom.
-      Om budet är lika får den deltagare som ligger sämre till i
-      tävlingen spelaren.</li>                
   <li>
-      OBS! Nyhet: Pengar som spenderats på lyckade bud tas bort från bud som inte hanteras än. Ex: Deltagare A har 15.0 som maxbud och 
-      bjuder 15.0 på spelare S och 15.0 på spelare P. Spelare S har mer poäng än spelare P och går först och deltagare A får honom för 10.5. 
-      Efter det är deltagare As maxbud 4.5, så budet på spelare P justeras ner till 4.5.
+    Just like in the draft, all bids must end in .0 or 0.5. Note that you must take into consideration that you have to
+    be able to bid 0.5 for each position in your team that you have to fill. If you've transfer listed three players and
+    you have 10.0 to spend then the highest bid for each player will be 9.0. The web site will not let you enter bids that
+    are too high.
   </li>
-  <li>Om man inte lyckats få ett enda av de alternativ man bjudit på så
-      får man försöka igen nästa dag. Då får alla som inte fått ersättare skicka
-      in nya bud på spelare för de positioner de fortfarande behöver spelare på. Om
-      man fortfarande inte fått ersättare upprepas produren en gång till nästa dag,
-      osv, osv tills dess alla fått fullt lag. Deadline för att hinna få med sina byten
-      varje bytesdag är kl 22.00 den dagen.</li>
-  <li>Om en omgång i Premier League har hunnit börja innan alla har hunnit få fullt
-      lag så spelar de olyckliga deltagarna med försvagat manskap i den omgången. Vi kommer att
-      försöka välja listningsdatum och budgivningsdatum så att det finns tillräckligt många
-      dagar för att de som vill ha fullt lag skall kunna få det.</li>
-  <li>Om du köpt en spelare till t ex omgång 30 och hans lag har spelat
-      matchen i omgång 30 tidigare, så kommer den nya spelarens
-      poäng att räknas.</li>
+  <li>
+    Before the deadline for placing bids has passed you will be able to change and/or remove your placed bids. After the
+    deadline has passed it is too late to change, add or remove bids. Make sure all your bids are in order before the
+    deadline passes.
+  </li>
+  <li>
+    You can place bids on any number of players. If your team, for example, needs two midfielders it will get the first two
+    midfielders you have the highest bid on.
+  </li>
+  <li>
+    You can only place one bid on each individual player. This bid is the max fee you're prepared to pay for the player. If your
+    placed bid is the highest bid the actual fee you'll pay for the player will be adjusted so that is 0.5 higher than the second
+    highest bid. Example: Team A bids 15.0 for player P. The second highest bid is 10.0 from team B. Team A will get the player
+    for a fee of 10.5.
+  </li>
+  <li>
+    Bids are handled in player season points order. Bids for the available player that has the most points of all the available
+    players on the day of the bidding will be handled first. Bids for the player with the second most points will be handled second and so on.
+    If two players have the same number of points their bids will be handled in alphabetical order.
+  </li>
+  <li>
+    The player will join the team with the highest bid. If two or more teams have the same highest bid then the player will join
+    the team that is lowest in the table.
+  </li>
+  <li>
+    Funds spent on successful bids will be subtracted from bids that have not yet been handled. Example: Team A can spend 15.0 and bids
+    15.0 for player P and 15.0 for player L. Player P has more points than player L so bids on player P are handled first. Team A gets
+    player P for 10.5. The highest bid team A can place now is 4.5 so the bid from Team A on player L is adjusted to 4.5.
+  </li>
+  <li>
+    If a team does not manage to fill all its empty positions the owner can try again the next day. The transfer window will remain open
+    and the bidding procedure repeated every day until all teams have full squads again.
+  </li>
+  <li>
+    If a Premier League match day starts before all teams are full, the unlucky ones will have to play with reduced squads in that
+    match day. The competition management will try to make sure there are enough days in a transfer window before the next match day
+    so that everyone will have time to fill their squads again.
+  </li>
+  <li>
+    If a match is moved so it's played earlier than the rest of the match day it belongs to and the transfer window, and a D11 team buys a
+    player that played in that match then the points for that player in that match will be added to the points of the D11 team for that match day.
+  </li>
 </ul>
 <p>
   Don't be afraid to ask if something is unclear!
 </p>
-
-        

@@ -1,9 +1,9 @@
 <li>
-  <%= image_tag('/assets/match-events/substitution_off.png', alt: "Substitution off", title: "Substitution off") %>
+  <%= image_tag "match-events/substitution-off.png", alt: "Substitution off", title: "Substitution off", class: "match-event-icon" %>  
   <%= render substitution.player %> (<%= substitution.time %><% if substitution.added_time > 0 then %>+<%= substitution.added_time %><% end %>)
 </li>  
 <li>
-  <%= image_tag('/assets/match-events/substitution_on.png', alt: "Substitution", title: "Substitution") %>
+  <%= image_tag "match-events/substitution-on.png", alt: "Substitution on", title: "Substitution on", class: "match-event-icon" %>  
   <%= render substitution.player_in %> (<%= substitution.time %><% if substitution.added_time > 0 then %>+<%= substitution.added_time %><% end %>)
 </li>
 
