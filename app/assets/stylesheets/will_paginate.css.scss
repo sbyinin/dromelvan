@@ -1,0 +1,35 @@
+main {
+    div.pagination {
+        border: 1px solid #dddddd;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        
+        a,
+        em.current,
+        span {
+            margin-left: -4px;
+            padding: 8px 12px 8px 12px;
+            font-style: normal;
+            border-right: 1px solid #dddddd;
+        }
+        
+        a:hover {
+            background-color: #eeeeee;
+            text-decoration: none;
+        }
+        
+        a:last-child {
+            border-right: none;
+        }
+        
+        em.current {
+            background-color: $d11-blue;
+            color: white;
+        }
+
+        span.disabled {
+            cursor: not-allowed;
+        }
+    }
+}
+    
