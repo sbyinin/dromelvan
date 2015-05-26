@@ -1,6 +1,7 @@
 <% provide :title, @post.title
-   provide :breadcrumbs, breadcrumbs([ :index, :id ]) %> 
+   provide :breadcrumbs, breadcrumbs([ :index, @post.title ]) %> 
   
 <h1><%= @post.title %></h1>
-<%= render 'layouts/administration_links', resource: @post %>
+
+<%= render @post %>
 

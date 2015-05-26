@@ -1,0 +1,20 @@
+<div class="context-menu dropdown">
+  <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
+    <span class="glyphicon glyphicon-menu-down"></span>
+  </button>
+  <% alignment ||= 'right' %>
+  <ul class="dropdown-menu dropdown-menu-<%= alignment %>" role="menu">
+    <%= yield %>
+    <% if administrator_signed_in? %>            
+      <% if route_exists?( { controller: controller_name, action: 'edit' }) %>
+      <li><%= link_to "Edit", edit_polymorphic_path(resource) %></li>
+      <% else %>
+      <li><%= link_to "Edit", rails_admin.edit_path(model_name: resource.class.name, id: resource.id) %></li>
+      <% end %>
+      
+      <% if !resource.has_dependents? %>
+        <li><%= link_to "Delete", rails_admin.delete_path(model_name: resource.class.name.tableize.singularize, id: resource.id), class: "delete_link" %></li>
+      <% end %>          
+    <% end %>
+  </ul>
+</div>

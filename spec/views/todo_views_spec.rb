@@ -4,7 +4,8 @@ describe "TODO", type: :view do
   
   pending "home"
   
-  pending "home > posts"
+  # pending "home > posts"
+  # /posts
   
   # pending "home > rules"
   # /rules

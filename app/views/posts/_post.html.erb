@@ -1,0 +1,23 @@
+<div class="post standard-panel" id="<%= post.id %>">
+  <div class="panel-heading">
+    <h2><%= post.title %></h2>
+
+    <% if administrator_signed_in? %>
+      <%= render 'layouts/context_menu_dropdown', resource: post %>
+    <% end %>
+  </div>
+  <div class="panel-body">
+    <% post.content.lines.each do |line| %>
+    <div>
+      <% if line.strip.empty? %>
+        <br>
+      <% else %>
+        <%= line %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+  <div class="panel-footer">
+    Posted by <%= post.user.name %> on <%= post.updated_at.to_formatted_s(:post_time) %>.
+  </div>
+</div>

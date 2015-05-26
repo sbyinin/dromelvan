@@ -6,6 +6,10 @@
   
   <div class="form-context">
     <p>Edit the topic and/or content to correct the knowledge you shared with the D11 world.</p>
+    <ul class="form-context-links">
+      <li>Need more in-depth options? <%= link_to "Edit in Rails Admin", rails_admin.edit_path(model_name: 'post', id: @post.id) %>.</li>
+      <li>Tired of this stupid post? <%= link_to "Delete it", rails_admin.delete_path(model_name: 'post', id: @post.id) %>.</li>
+    </ul>
   </div> 
 
   <%= render "form" %>

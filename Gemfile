@@ -67,8 +67,8 @@ gem "omniauth-google-oauth2"
 gem 'rails_admin', '~> 0.6.2'
 
 # Bootstrap styling
-gem 'bootstrap-sass', '~> 3.2.0'
-gem 'autoprefixer-rails'
+gem 'autoprefixer-rails', '5.0.0.1'
+gem 'bootstrap-sass', '3.3.3'
 
 # Pagination
 gem 'will_paginate', '3.0.4'

@@ -1,0 +1,36 @@
+div.context-menu.dropdown {
+    button.dropdown-toggle {
+        padding: 0px;
+        margin: 0px;
+        width: 22px;
+        height: 22px;
+        background-color: transparent;
+        // style="background-color: transparent; margin-top: -5px; margin-right: -8px;"
+    }
+    
+    ul.dropdown-menu {
+        margin-top: -2px;
+        margin-right: -5px;
+        min-width: 0px;        
+    }
+}
+
+div.panel-heading {
+    div.context-menu.dropdown {
+        float: right;
+        
+        button.dropdown-toggle {
+            margin-top: 2px;
+            margin-right: -5px;
+            
+        }
+        
+        button.dropdown-toggle:focus {
+            outline: 0;
+        }
+        
+        button.dropdown-toggle:active {
+            box-shadow: none;
+        }
+    }
+}
