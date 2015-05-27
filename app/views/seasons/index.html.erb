@@ -3,13 +3,19 @@
  
 <h1>Seasons</h1>
 
+<p>Winners and runners up of the current and previous seasons.</p>
+
 <% Season.all.each do |season| %>
-<% cache(season) do %>
 <div class="section">
+  <% cache(season) do %>
   <div class="season-summary-container">
     <div class="season-summary standard-panel">
       <div class="panel-heading">
         <h2><%= render season %></h2>
+
+        <% if administrator_signed_in? %>
+            <%= render 'layouts/context_menu_dropdown', resource: season %>
+        <% end %>
       </div>
 
       <div class="panel-body">
@@ -72,6 +78,6 @@
       </div>      
     </div>
   </div>
+  <% end %>
 </div>
-<% end %>
 <% end %>

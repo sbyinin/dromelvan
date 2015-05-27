@@ -13,56 +13,56 @@ describe "TODO", type: :view do
   # pending "home > about"
   # /about
   
-  pending "home > seasons"
+  # pending "home > seasons"
   # /seasons
 
   pending "home > seasons > <season>"
   # /seasons/<id>
 
   pending "home > season > premier_league"
-  # /premier-league/<id>
+  # /premier-leagues/<id>
 
   pending "home > season > premier_league > team_table_stats > <season>"
-  # /premier-league/<id>/table
+  # /premier-leagues/<id>/table
 
   pending "home > season > premier_league > <match_day>"
-  # /match-day/<id>
+  # /match-days/<id>
 
   pending "home > season > premier_league > match_day > <match>"
-  # /match/<id>
+  # /matches/<id>
 
   pending "home > season > d11_league"
-  # /d11-league/<id>
+  # /d11-leagues/<id>
 
   pending "home > season > d11_league > d11_team_table_stats > <season>"
-  # /d11-league/<id>/table
+  # /d11-leagues/<id>/table
 
   pending "home > season > d11_league > transfer_windows"
-  # /d11-league/<id>/transfer-windows
+  # /d11-leagues/<id>/transfer-windows
 
   pending "home > season > d11_league > <d11_match_day>"
-  # /d11-match-day/<id>
+  # /d11-match-days/<id>
 
   pending "home > season > d11_league > d11_match_day > <d11_match>"
-  # /d11-match/<id>
+  # /d11-matches/<id>
 
   pending "home > season > d11_league > transfer_windows > <transfer_window>"
   # /transfer-windows/<id>
 
   pending "home > season > d11_league > transfer_window > transfers > <transfer_day>"
-  # /transfer-day/<id>
+  # /transfer-days/<id>
   
   pending "home > season > d11_league > transfer_window > transfer_listings > <transfer_day>"
-  # /transfer-day/<id>/transfer-listings
+  # /transfer-days/<id>/transfer-listings
   
   pending "home > season > d11_league > transfer_window > transfer_bids > <transfer_day>"
-  # /transfer-day/<id>/bids
+  # /transfer-days/<id>/bids
 
   pending "home > teams"
   # /teams
   
   pending "home > teams > team > (team_season_squad_stats) > <season>"
-  # /teams/<id>/squad/<id>
+  # /teams/<id>/<id>
   
   pending "home > teams > team > matches > <season>"
   # /teams/<id>/matches/<id>
@@ -71,10 +71,11 @@ describe "TODO", type: :view do
   # /d11-teams
   
   pending "home > d11_teams > <season>"
-  # /season/<id>/d11-teams
+  # /seasons/<id>/d11-teams
+  # Do this on season/<id>?
 
   pending "home > d11_teams > d11_team > (d11_team_season_squad_stats) > <season>"
-  # /d11-teams/<id>/squad/<id>
+  # /d11-teams/<id>/<id>
 
   pending "home > d11_teams > d11_team > d11_matches > <season>"
   # /d11-teams/<id>/matches/<id>
@@ -83,11 +84,13 @@ describe "TODO", type: :view do
   # /players
 
   pending "home > players > player > (matches) > <season>"
-  # /player/<id>
-  
+  # /players/<id>/<id>
+
   pending "home > players > player > transfers"
+  # /players/<id>/transfers
 
   pending "home > players > player_season_stats > <season>"
+  # /seasons/<id>/player-stats
 
   pending "player tooltip"
   

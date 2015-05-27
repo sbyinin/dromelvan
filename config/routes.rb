@@ -38,18 +38,18 @@ Rails.application.routes.draw do
   end
 
   resources :countries, only: [:index, :show], concerns: [:players]
-  resources :d11_teams, only: [:index, :show], concerns: [:select_season, :select] #, path: 'd11-teams'
-  resources :players, only: [:index, :show], concerns: [:select_season]
-  resources :teams, only: [:index, :show], concerns: [:select_season, :select]
   resources :seasons, only: [:index, :show], concerns: [:select]
-  resources :premier_leagues, only: [:show], concerns: [:select]
-  resources :match_days, only: [:show], concerns: [:select]
+  resources :teams, only: [:index, :show], concerns: [:select_season, :select]
+  resources :players, only: [:index, :show], concerns: [:select_season]
+  resources :premier_leagues, only: [:show], concerns: [:select], path: 'premier-leagues'
+  resources :match_days, only: [:show], concerns: [:select], path: 'match-days'
   resources :matches, only: [:show], concerns: [:select]
-  resources :d11_leagues, only: [:show], concerns: [:select]
-  resources :d11_match_days, only: [:show], concerns: [:select]
-  resources :d11_matches, only: [:show], concerns: [:select]
-  resources :transfer_windows, only: [:show], concerns: [:select]
-  resources :transfer_days, only: [:show], concerns: [:select]
+  resources :d11_leagues, only: [:show], concerns: [:select], path: 'd11-leagues'
+  resources :d11_match_days, only: [:show], concerns: [:select], path: 'd11-match-days'
+  resources :d11_matches, only: [:show], concerns: [:select], path: 'd11-matches'
+  resources :d11_teams, only: [:index, :show], concerns: [:select_season, :select], path: 'd11-teams'
+  resources :transfer_windows, only: [:show], concerns: [:select], path: 'transfer-windows'
+  resources :transfer_days, only: [:show], concerns: [:select], path: 'transfer-days'
   resources :posts, except: [:destroy]
     
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
