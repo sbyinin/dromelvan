@@ -17,6 +17,7 @@
           <%= render 'layouts/dropdown_toggle', text: "Home" %>
           <ul class="dropdown-menu" id="main-menu" role="menu">
             <li><%= link_to "Home", main_app.root_path %></li>
+            <li><%= link_to "News", main_app.posts_path %></li>
             <li><%= link_to "Rules", main_app.rules_path %></li>
             <li><%= link_to "About Drömelvan", main_app.about_path %></li>
           </ul>
@@ -30,7 +31,6 @@
             <li><%= link_to "Table", main_app.d11_league_path(D11League.current, anchor: "table") %></li>
             <% end %>            
             <li><%= link_to "D11 Teams", main_app.d11_teams_path %></li>
-            <li><%= link_to "Seasons", main_app.seasons_path %></li>
             <li class="dropdown-header">Web Design</li>
             <li><a href="#">HTML</a></li>
             <li><a href="#">CSS</a></li>            
@@ -46,7 +46,6 @@
             <% end %>
             <li><%= link_to "Players", main_app.players_path %></li>
             <li><%= link_to "Teams", main_app.teams_path %></li>
-            <li><%= link_to "Seasons", main_app.seasons_path %></li>
           </ul>          
         </li>
                 
