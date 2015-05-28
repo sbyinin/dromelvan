@@ -41,7 +41,9 @@ Rails.application.routes.draw do
   resources :seasons, only: [:index, :show], concerns: [:select]
   resources :teams, only: [:index, :show], concerns: [:select_season, :select]
   resources :players, only: [:index, :show], concerns: [:select_season]
-  resources :premier_leagues, only: [:show], concerns: [:select], path: 'premier-leagues'
+  resources :premier_leagues, only: [:show], concerns: [:select], path: 'premier-leagues' do
+    get 'table', on: :member
+  end
   resources :match_days, only: [:show], concerns: [:select], path: 'match-days'
   resources :matches, only: [:show], concerns: [:select]
   resources :d11_leagues, only: [:show], concerns: [:select], path: 'd11-leagues'
