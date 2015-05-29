@@ -8,4 +8,8 @@ describe "PremierLeague", type: :view do
     let(:h1_text) { resource.name }
   end
 
+  it_should_behave_like "league table view", PremierLeague do
+    let(:h1_text) { resource.name }
+  end
+
 end
