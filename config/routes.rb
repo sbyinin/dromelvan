@@ -32,6 +32,15 @@ Rails.application.routes.draw do
       get '/:season_id', action: :show, as: 'show_season'
     end    
   end
+
+  concern :table do
+    collection do
+      post :select_table
+    end
+    member do
+      get :show_table, path: 'table'      
+    end
+  end
   
   concern :players do
     resources :players, only: [:index]
@@ -41,9 +50,7 @@ Rails.application.routes.draw do
   resources :seasons, only: [:index, :show], concerns: [:select]
   resources :teams, only: [:index, :show], concerns: [:select_season, :select]
   resources :players, only: [:index, :show], concerns: [:select_season]
-  resources :premier_leagues, only: [:show], concerns: [:select], path: 'premier-leagues' do
-    get 'table', on: :member
-  end
+  resources :premier_leagues, only: [:show], concerns: [:select, :table], path: 'premier-leagues'
   resources :match_days, only: [:show], concerns: [:select], path: 'match-days'
   resources :matches, only: [:show], concerns: [:select]
   resources :d11_leagues, only: [:show], concerns: [:select], path: 'd11-leagues'

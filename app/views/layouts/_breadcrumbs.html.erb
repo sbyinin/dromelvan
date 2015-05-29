@@ -38,6 +38,14 @@
               controller_name.classify.constantize.unique_name_ordered.where(select_where), :id, :unique_name, {}, { onchange: 'this.form.submit()' } %>
         <% end %>              
       </li>
+
+    <% elsif breadcrumb == :select_table then %>
+      <li>
+        <%= form_tag public_send("select_table_#{controller_name.tableize}_path"), class: "onchange-submit-form" do %>        
+          <%= collection_select controller_name.singularize, :id,
+              controller_name.classify.constantize.unique_name_ordered.where({}), :id, :unique_name, {}, { onchange: 'this.form.submit()' } %>
+        <% end %>              
+      </li>
       
     <% elsif breadcrumb == :class then %>
       <li><%= controller_name.classify.titleize %></li>
