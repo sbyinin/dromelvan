@@ -12,6 +12,10 @@ jQuery ->
         #processing: true
         pagingType: "simple_numbers"
         autoWidth: false
+        filter: !tableElement.data("hide-controls")? || !tableElement.data("hide-controls")
+        info: !tableElement.data("hide-controls")? || !tableElement.data("hide-controls")
+        lengthChange: !tableElement.data("hide-controls")? || !tableElement.data("hide-controls")
+        #paginate: !tableElement.data("hide-controls")? || !tableElement.data("hide-controls")
         oLanguage: {
           "sLengthMenu": "Display _MENU_ " + tableElement.data("objects") + " per page.",
           "sZeroRecords": "No matching " + tableElement.data("objects") + " found."
@@ -79,18 +83,18 @@ jQuery ->
         #}]
   
 
-  tableElement = $(".data-table-dom")
-  tableElement.dataTable
+  domTableElement = $(".data-table-dom")
+  domTableElement.dataTable
         # Uncomment this to show 'Processing' message when processing.
         processing: true
         pagingType: "simple_numbers"
         autoWidth: false
         oLanguage: {
-          "sLengthMenu": "Display _MENU_ " + tableElement.data("objects") + " per page.",
-          "sZeroRecords": "No matching " + tableElement.data("objects") + " found."
-          "sInfo": "Showing _START_ to _END_ of _TOTAL_ " + tableElement.data("objects") + ".",
-          "sInfoFiltered": "(Filtered from _MAX_ total " + tableElement.data("objects") + ")"
-          "sInfoEmpty": "Showing 0 " + tableElement.data("objects") + ".",
+          "sLengthMenu": "Display _MENU_ " + domTableElement.data("objects") + " per page.",
+          "sZeroRecords": "No matching " + domTableElement.data("objects") + " found."
+          "sInfo": "Showing _START_ to _END_ of _TOTAL_ " + domTableElement.data("objects") + ".",
+          "sInfoFiltered": "(Filtered from _MAX_ total " + domTableElement.data("objects") + ")"
+          "sInfoEmpty": "Showing 0 " + domTableElement.data("objects") + ".",
           "sSearch": "Filter:",
           
           "oPaginate": {
@@ -112,7 +116,7 @@ jQuery ->
              
         preDrawCallback: ->      
           # Initialize the responsive datatables helper once.
-          responsiveHelper = new ResponsiveDatatablesHelper(tableElement, breakpointDefinition)  unless responsiveHelper
+          responsiveHelper = new ResponsiveDatatablesHelper(domTableElement, breakpointDefinition)  unless responsiveHelper
           responsiveHelper.respond()
           return
       

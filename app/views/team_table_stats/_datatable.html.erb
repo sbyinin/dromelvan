@@ -2,7 +2,7 @@
    url ||= team_table_stats_path
    match_day = @premier_league.match_days.current
 %>
-<%= render layout: 'layouts/datatable_ajax', locals: { url: url, objects: 'teams', ajax_params: { match_day_id: match_day.id }, number_columns: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19] } do %>
+<%= render layout: 'layouts/datatable_ajax', locals: { url: url, objects: 'teams', ajax_params: { match_day_id: match_day.id }, hide_controls: 'true', number_columns: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19] } do %>
   <thead>
     <tr>
       <th class="ranking-column number-column" data-hide="phone, phone_landscape, tablet">#</th>
