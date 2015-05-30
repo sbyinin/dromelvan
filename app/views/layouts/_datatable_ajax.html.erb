@@ -7,7 +7,12 @@
        <% end %>
        <% if defined?(number_columns) then %>
        data-number-columns="<%= number_columns %>" 
-       <% end %>        
+       <% end %>
+
+       <% if defined?(ajax_params) then %>
+       data-ajax-params="<%= ajax_params.to_json.html_safe.gsub("\"","'") %>"
+       <% end %>
+       
        data-url="<%= url %>"
        data-objects="<%= objects %>">
   <%= yield %>

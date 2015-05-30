@@ -38,7 +38,7 @@ Rails.application.routes.draw do
       post :select_table
     end
     member do
-      get :show_table, path: 'table'      
+      get :show_table, path: 'table'
     end
   end
   
@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   resources :d11_teams, only: [:index, :show], concerns: [:select_season, :select], path: 'd11-teams'
   resources :transfer_windows, only: [:show], concerns: [:select], path: 'transfer-windows'
   resources :transfer_days, only: [:show], concerns: [:select], path: 'transfer-days'
+  resources :team_table_stats, only: [:index]
   resources :posts, except: [:destroy]
     
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

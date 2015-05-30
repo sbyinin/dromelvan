@@ -1,0 +1,33 @@
+<%
+   url ||= team_table_stats_path
+   match_day = @premier_league.match_days.current
+%>
+<%= render layout: 'layouts/datatable_ajax', locals: { url: url, objects: 'teams', ajax_params: { match_day_id: match_day.id }, number_columns: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19] } do %>
+  <thead>
+    <tr>
+      <th class="ranking-column number-column" data-hide="phone, phone_landscape, tablet">#</th>
+      <th class="main-column name-column" data-class="expand">Team</th>
+      
+      <th class="matches-played-column number-column" data-hide="phone, phone_landscape, tablet">PH</th>
+      <th class="goals-for-column number-column" data-hide="phone, phone_landscape, tablet">FH</th>
+      <th class="goals-against-column number-column" data-hide="phone, phone_landscape, tablet">AH</th>
+      <th class="goal-difference-column number-column">DH</th>      
+      <th class="points-column number-column">PH</th>      
+
+      <th class="matches-played-column number-column" data-hide="phone, phone_landscape, tablet">PA</th>
+      <th class="goals-for-column number-column" data-hide="phone, phone_landscape, tablet">FA</th>
+      <th class="goals-against-column number-column" data-hide="phone, phone_landscape, tablet">AA</th>
+      <th class="goal-difference-column number-column">DA</th>      
+      <th class="points-column number-column">PA</th>      
+      
+      <th class="matches-played-column number-column" data-hide="phone, phone_landscape, tablet">P</th>
+      <th class="matches-won-column number-column" data-hide="phone, phone_landscape, tablet">W</th>      
+      <th class="matches-drawn-column number-column" data-hide="phone, phone_landscape, tablet">D</th>      
+      <th class="matches-lost-column number-column" data-hide="phone, phone_landscape, tablet">L</th>
+      <th class="goals-for-column number-column" data-hide="phone, phone_landscape, tablet">F</th>
+      <th class="goals-against-column number-column" data-hide="phone, phone_landscape, tablet">A</th>
+      <th class="goal-difference-column number-column">GD</th>      
+      <th class="points-column number-column">P</th>      
+    </tr>
+  </thead>  
+<% end %>
