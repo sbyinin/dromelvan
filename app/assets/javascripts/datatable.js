@@ -35,14 +35,12 @@ jQuery(function() {
         ajax: {
             url: tableElement.data("url"),
             data: function(d) {
-                var ajax_params;
                 // Avoid RequestURITooLarge error with too many columns. Keeping this in the request makes it huge and I haven't noticed a reason to keep it yet.
                 d.columns = {};
-                if (tableElement.dataTable().fnSettings().kek === void 0) {
-                    tableElement.dataTable().fnSettings().kek = tableElement.data("ajax-params");
+                if (typeof tableElement.dataTable().fnSettings().ajax_params === 'undefined') {
+                    tableElement.dataTable().fnSettings().ajax_params = tableElement.data("ajax-params");
                 }
-                ajax_params = tableElement.dataTable().fnSettings().kek;
-                console.log(ajax_params);
+                var ajax_params = tableElement.dataTable().fnSettings().ajax_params;
                 // eval turns a string "{ foo: "bar" }" into an object { "foo": "bar" }
                 ajax_params = eval("(" + ajax_params + ")");
                 d.ajax_params = ajax_params;
@@ -127,3 +125,9 @@ jQuery(function() {
         }
     });
 });
+
+function filterDatatable(property, value, selector) {
+    selector = typeof selector !== 'undefined' ? selector : ".data-table-ajax";
+    $(selector).dataTable().fnSettings().ajax_params = "{'" + property + "':" + value + "}"
+    $(selector).DataTable().ajax.reload();
+}

@@ -4,19 +4,12 @@
 <h1><%= @premier_league.name %> <%= @premier_league.season.name %></h1>
 
 <h2>League table</h2>
-<% @match_day = @premier_league.match_days.current %>
+
 <p>
-Standings after match day 
+Standings after match day
+<% @match_day = @premier_league.match_days.current %>
 <%= collection_select :match_day, :id,
-      @premier_league.match_days, :id, :match_day_number, {}, { onchange: 'foo()', id: 'foo' } %>
+      @premier_league.match_days, :id, :match_day_number, {}, { onchange: 'filterDatatable("match_day_id",this.value)'} %>
 </p>
 
 <%= render 'team_table_stats/datatable' %>
-
-<script>
-function foo() {
-  var id = $('#foo').val()
-  $(".data-table-ajax").dataTable().fnSettings().kek = "{'match_day_id':" + id + "}"
-  $(".data-table-ajax").DataTable().ajax.reload();  
-}
-</script>
