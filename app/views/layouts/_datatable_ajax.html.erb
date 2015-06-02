@@ -1,6 +1,7 @@
-<% url ||= controller_name
-   objects ||= controller_name.gsub('_',' ') %>
-<table class="data data-table data-table-ajax <%= objects %>"
+<% url ||= controller_name.gsub('_','-')
+   objects ||= controller_name.gsub('_',' ')
+   table_class ||= "" %>
+<table class="data data-table data-table-ajax <%= objects %> <%= table_class %>"
        id="data-table"
        <% if defined?(icon_columns) then %>
        data-icon-columns="<%= icon_columns %>" 

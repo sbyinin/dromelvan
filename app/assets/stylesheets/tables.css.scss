@@ -45,38 +45,53 @@ main {
 	    text-align: right;
 	}	
     }
-    
-    table.data {	
-//	@extend .table-condensed;	
-	@extend .table-striped;
-	@extend .table-hover;
-	@extend .table-bordered;
-  		
+
+    table.data {
+        //	@extend .table-condensed;
+        //@extend .table-striped;
+        //@extend .table-hover;
+        @extend .table-bordered;
+
         // Remove this if we remove .table-bordered.
-	th, td  {
-	    border-bottom: 0 !important;
-	    border-left: 0 !important;
-	}			
+        th, td  {
+            border-bottom: 0 !important;
+            border-left: 0 !important;
+        }
     }
-    
-    table.league-table {
-	tbody {
-	    tr:nth-child(n+1):nth-child(-n+4) {
-		background-color: $table-champions-league-color;
-	    }        
-	
-	    tr:nth-child(n+5):nth-child(-n+5) {
-		background-color: $table-europa-league-color;
-	    }        
-	
-	    tr:nth-child(n+18) {
-		background-color: $table-relegation-color;
-	    }
-	}
+
+    table.list {
+        @extend .table-striped;
+        @extend .table-hover;
+    }
+
+    table.league-table.detailed {
+        thead {
+            tr.grouping {
+                th {
+                    border: none;
+                }
+            }
+        }
+    }
+
+    table.premier-league-table {
+        tbody {
+            tr:nth-child(n+1):nth-child(-n+4) {
+            background-color: $table-champions-league-color;
+            }
+
+            tr:nth-child(n+5):nth-child(-n+5) {
+            background-color: $table-europa-league-color;
+            }
+
+            tr:nth-child(n+18) {
+            background-color: $table-relegation-color;
+            }
+        }
     }
     
     table.simple {
-	width: 0%;
+	    width: 0%;
     }
 }
 
@@ -119,17 +134,17 @@ main {
 body {
     // Popup tooltip styling.
     div.tooltip {
-	div.tooltip-inner {
-	    table {
-		td {
-		    padding: $table-condensed-cell-padding;
-		}
-		
-		td.name-column {
-		    text-align: left;
-		}
-	    }
-	}
+        div.tooltip-inner {
+            table {
+                td {
+                    padding: $table-condensed-cell-padding;
+                }
+
+                td.name-column {
+                    text-align: left;
+                }
+            }
+        }
     }
 }
 
@@ -195,7 +210,7 @@ table.match-date-fixtures {
     }
 }
 
-table.league-table {
+table.league-table.simple {
     .matches-played-column,
     .matches-won-column,
     .matches-drawn-column,
