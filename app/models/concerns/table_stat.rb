@@ -234,7 +234,7 @@ module TableStat
         my_match_day = read_association("([a-z0-9]*_)?match_day")
         my_league = my_match_day.read_association("([a-z0-9]*_)?league")
         self.form_points = 0
-        my_team.form_matches(my_league.season).each do |form_match|          
+        my_team.form_matches(my_match_day).each do |form_match|
           self.form_points += form_match.points(my_team)
         end
       end

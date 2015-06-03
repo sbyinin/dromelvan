@@ -43,7 +43,7 @@ private
         team_table_stat.goals_for,
         team_table_stat.goals_against,
         (team_table_stat.goal_difference > 0 ? "+#{team_table_stat.goal_difference}" : team_table_stat.goal_difference),
-        render_partial('teams/team_form', { team: team_table_stat.team, season: team_table_stat.premier_league.season, team_table_stat: team_table_stat}),
+        render_partial('teams/team_form', { team: team_table_stat.team, match_day: team_table_stat.match_day}),
         team_table_stat.points
       ] 
     end

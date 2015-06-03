@@ -3,7 +3,7 @@
   <ul class="match-preview">
     <li class="match-preview-label">Form:</li>
     <li>
-      <%= render 'teams/team_form', team: team, season: season %>
+      <%= render 'teams/team_form', team: team, match_day: match.match_day %>
     </li>
     <% top_scorer = team.top_scorer(season) %>
     <li class="match-preview-label">Top scorer:</li>    

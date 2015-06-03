@@ -3,15 +3,20 @@ var openTooltip, toggledTooltips;
 toggledTooltips = [];
 
 $(function() {
+    initTooltip();
+});
+
+initTooltip = function() {
     $('[data-toggle="tooltip"]').on('mouseover', function() {
         toggledTooltips.push($(this).attr('href'));
         openTooltip($(this));
     });
+    
     return $('[data-toggle="tooltip"]').on('mouseout', function() {
         $(this).tooltip('destroy');
         toggledTooltips.splice(toggledTooltips.indexOf($(this).attr('href'), 1));
-    });
-});
+    });    
+}
 
 openTooltip = function(element) {
     $.ajax({

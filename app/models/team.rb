@@ -43,17 +43,17 @@ class Team < ActiveRecord::Base
   validates_attachment_size :club_crest, less_than: 5.megabytes
   validates_attachment_content_type :club_crest, content_type: [ "image/jpeg", "image/jpg", "image/gif", "image/png" ]
 
-  def form_matches(season, count = 5)
-    matches = Match.by_team(self).by_season(season).where(status: 2)
+  def form_matches(match_day, count = 5)
+    matches = Match.joins(:match_day).by_team(self).by_season(match_day.premier_league.season).where(status: 2).where('match_day_number <= ?', match_day.match_day_number)
     if matches.nil?
       matches = []
     end
     if matches.size > count
       matches = matches[-count..-1]
-    end    
+    end
     matches
   end
-  
+
   def form(season, count = 5)
     form = []
     matches = Match.by_team(self).by_season(season)

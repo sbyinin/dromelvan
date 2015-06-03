@@ -50,11 +50,12 @@ jQuery(function() {
         displayLength: 25,
         fnDrawCallback: function(oSettings) {
             responsiveHelper.respond();
+            initTooltip();
             if (oSettings._iDisplayLength > oSettings.fnRecordsDisplay()) {
                 return $(oSettings.nTableWrapper).find(".dataTables_paginate").hide();
             } else {
                 return $(oSettings.nTableWrapper).find(".dataTables_paginate").show();
-            }
+            }            
         },
         preDrawCallback: function() {
             // Initialize the responsive datatables helper only once.
@@ -129,5 +130,5 @@ jQuery(function() {
 function filterDatatable(property, value, selector) {
     selector = typeof selector !== 'undefined' ? selector : ".data-table-ajax";
     $(selector).dataTable().fnSettings().ajax_params = "{'" + property + "':" + value + "}"
-    $(selector).DataTable().ajax.reload();
+    $(selector).DataTable().ajax.reload();    
 }
