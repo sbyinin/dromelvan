@@ -13,9 +13,9 @@ private
 
   def sort_columns
     %w[ranking teams.name
-       away_matches_played away_goals_for away_goals_against away_goal_difference away_points
        home_matches_played home_goals_for home_goals_against home_goal_difference home_points
-      matches_played matches_won matches_drawn matches_lost goals_for goals_against goal_difference points]
+       away_matches_played away_goals_for away_goals_against away_goal_difference away_points
+       matches_played matches_won matches_drawn matches_lost goals_for goals_against goal_difference form_points points]
   end
   
   def data
@@ -43,6 +43,7 @@ private
         team_table_stat.goals_for,
         team_table_stat.goals_against,
         (team_table_stat.goal_difference > 0 ? "+#{team_table_stat.goal_difference}" : team_table_stat.goal_difference),
+        render_partial('teams/team_form', { team: team_table_stat.team, season: team_table_stat.premier_league.season, team_table_stat: team_table_stat}),
         team_table_stat.points
       ] 
     end

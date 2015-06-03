@@ -17,37 +17,34 @@
 </p>
 
 <div class="section">
-  <div class="main">
-    <h2>Fixtures</h2>
-    
-    <% cache(@match_day) do %>
+  <% cache(@match_day) do %>
+    <div class="main">
+      <h2>Fixtures</h2>
       <% if @match_day.matches.any? %>
         <% @match_day.match_dates.each do |match_date| %>
         <div class="match-date-fixtures standard-panel" id="<%= match_date %>">
           <div class="panel-heading">
             <a data-toggle="collapse" href=<%= ".match-date-details-#{match_date.to_formatted_s(:number)}" %>>
               <h2 class="panel-title"><%= match_date.to_formatted_s(:match_date) %></h2>
-            </a>                    
+            </a>
           </div>
           <%= render 'match_date_fixtures', match_day: @match_day, match_date: match_date %>
-        </div>      
+        </div>
         <% end %>
       <% else %>
         <div class="match-date-fixtures">
           There are no fixtures for this match day yet. Stay tuned.
         </div>
       <% end %>
-    <% end %>
-  </div>
-  <div class="related">
-    <h2>League table</h2>
-    <% cache(@match_day) do %>
+    </div>
+    <div class="related">
+      <h2>League table</h2>
       <div class="league-table-container standard-panel">
         <div class="panel-heading">
           <h2 class="panel-title">Standings after match day <%= @match_day.match_day_number %></h2>
         </div>
-        <%= render 'team_table_stats/league_table_simple', team_table_stats: @match_day.team_table_stats %>              
+        <%= render 'team_table_stats/league_table_simple', team_table_stats: @match_day.team_table_stats %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
