@@ -46,6 +46,46 @@ describe D11Team, type: :model do
   describe '#form_matches' do
     let!(:season) { FactoryGirl.create(:season) }
     let!(:d11_league) { FactoryGirl.create(:d11_league, season: season) }
+    let!(:d11_match_day1) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 1) }
+    let!(:d11_match_day2) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 2) }
+    let!(:d11_match_day3) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 3) }
+    let!(:d11_match_day4) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 4) }
+    let!(:d11_match_day5) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 5) }
+    let!(:d11_match_day6) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 6) }
+    let!(:d11_match_day7) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 7) }
+    let!(:d11_match_day8) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, match_day_number: 8) }
+    let!(:d11_match1) { FactoryGirl.create(:d11_match, status: :finished, d11_match_day: d11_match_day1, home_d11_team: @d11_team) }
+    let!(:d11_match2) { FactoryGirl.create(:d11_match, status: :finished, d11_match_day: d11_match_day2, home_d11_team: @d11_team, home_team_points: 1) }
+    let!(:d11_match3) { FactoryGirl.create(:d11_match, status: :finished, d11_match_day: d11_match_day3, home_d11_team: @d11_team) }
+    let!(:d11_match4) { FactoryGirl.create(:d11_match, status: :finished, d11_match_day: d11_match_day4, home_d11_team: @d11_team, away_team_points: 1) }
+    let!(:d11_match5) { FactoryGirl.create(:d11_match, status: :finished, d11_match_day: d11_match_day5, home_d11_team: @d11_team) }
+    let!(:d11_match6) { FactoryGirl.create(:d11_match, status: :finished, d11_match_day: d11_match_day6, home_d11_team: @d11_team, home_team_points: 1) }
+    let!(:d11_match7) { FactoryGirl.create(:d11_match, status: :pending, d11_match_day: d11_match_day7, home_d11_team: @d11_team) }
+    let!(:d11_match8) { FactoryGirl.create(:d11_match, status: :pending, d11_match_day: d11_match_day7, home_d11_team: @d11_team) }
+
+    specify { expect(@d11_team.form_matches(d11_match_day1)).to eq [d11_match1] }
+    specify { expect(@d11_team.form_matches(d11_match_day2)).to eq [d11_match1, d11_match2] }
+    specify { expect(@d11_team.form_matches(d11_match_day3)).to eq [d11_match1, d11_match2, d11_match3] }
+    specify { expect(@d11_team.form_matches(d11_match_day4)).to eq [d11_match1, d11_match2, d11_match3, d11_match4] }
+    specify { expect(@d11_team.form_matches(d11_match_day5)).to eq [d11_match1, d11_match2, d11_match3, d11_match4, d11_match5] }
+    specify { expect(@d11_team.form_matches(d11_match_day6)).to eq [d11_match2, d11_match3, d11_match4, d11_match5, d11_match6] }
+    specify { expect(@d11_team.form_matches(d11_match_day7)).to eq [d11_match2, d11_match3, d11_match4, d11_match5, d11_match6] }
+    specify { expect(@d11_team.form_matches(d11_match_day8)).to eq [d11_match2, d11_match3, d11_match4, d11_match5, d11_match6] }
+    specify { expect(@d11_team.form_matches(d11_match_day6, 4)).to eq [d11_match3, d11_match4, d11_match5, d11_match6] }
+    specify { expect(@d11_team.form_matches(d11_match_day6, 6)).to eq [d11_match1, d11_match2, d11_match3, d11_match4, d11_match5, d11_match6] }
+    specify { expect(d11_match1.result(@d11_team)).to eq :draw }
+    specify { expect(d11_match2.result(@d11_team)).to eq :win }
+    specify { expect(d11_match3.result(@d11_team)).to eq :draw }
+    specify { expect(d11_match4.result(@d11_team)).to eq :loss }
+    specify { expect(d11_match5.result(@d11_team)).to eq :draw }
+    specify { expect(d11_match6.result(@d11_team)).to eq :win }
+    specify { expect(d11_match7.result(@d11_team)).to eq nil }
+    specify { expect(d11_match8.result(@d11_team)).to eq nil }
+  end
+=begin
+  describe '#form_matchess' do
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:d11_league) { FactoryGirl.create(:d11_league, season: season) }
     let!(:d11_match_day1) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, date: Date.today - 5.days) }
     let!(:d11_match_day2) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, date: Date.today - 4.days) }
     let!(:d11_match_day3) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, date: Date.today - 3.days) }
@@ -75,7 +115,7 @@ describe D11Team, type: :model do
     specify { expect(d11_match7.result(@d11_team)).to eq nil }
     specify { expect(@d11_team.form_matches(d11_match8.d11_match_day.d11_league.season)).to eq [d11_match8] }
   end
-  
+=end  
   it_should_behave_like "named scope"
   it_should_behave_like "name ordered"
   it_should_behave_like "team players"

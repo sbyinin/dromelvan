@@ -103,7 +103,7 @@ describe Team, type: :model do
     specify { expect(match5.result(@team)).to eq :draw }
     specify { expect(match6.result(@team)).to eq :win }
     specify { expect(match7.result(@team)).to eq nil }
-#    specify { expect(@team.form_matches(match_day.premier_league.season)).to eq [match8] }
+    specify { expect(match8.result(@team)).to eq nil }
   end
   
   it_should_behave_like "named scope"

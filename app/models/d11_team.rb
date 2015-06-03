@@ -36,8 +36,9 @@ class D11Team < ActiveRecord::Base
   validates_attachment_size :club_crest, less_than: 5.megabytes
   validates_attachment_content_type :club_crest, content_type: [ "image/jpeg", "image/jpg", "image/gif", "image/png" ]
 
-  def form_matches(season, count = 5)
-    d11_matches = D11Match.by_d11_team(self).by_season(season).where(status: 2)
+  def form_matches(d11_match_day, count = 5)
+    #d11_matches = D11Match.by_d11_team(self).by_season(season).where(status: 2)
+    d11_matches = D11Match.joins(:d11_match_day).by_d11_team(self).by_season(d11_match_day.d11_league.season).where(status: 2).where('match_day_number <= ?', d11_match_day.match_day_number)
     if d11_matches.nil?
       d11_matches = []
     end
