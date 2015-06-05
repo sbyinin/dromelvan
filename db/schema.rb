@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324085535) do
+ActiveRecord::Schema.define(version: 20150604082833) do
 
   create_table "cards", force: true do |t|
     t.integer  "match_id"
@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(version: 20150324085535) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "form_points"
+    t.integer  "previous_ranking"
   end
 
   create_table "d11_teams", force: true do |t|
@@ -510,6 +511,7 @@ ActiveRecord::Schema.define(version: 20150324085535) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "form_points"
+    t.integer  "previous_ranking"
   end
 
   create_table "teams", force: true do |t|

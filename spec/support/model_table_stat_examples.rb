@@ -10,6 +10,7 @@ shared_examples_for "table stat" do
   it { is_expected.to respond_to(:points) }
   it { is_expected.to respond_to(:form_points) }
   it { is_expected.to respond_to(:ranking) }
+  it { is_expected.to respond_to(:previous_ranking) }
   it { is_expected.to respond_to(:home_matches_played) }
   it { is_expected.to respond_to(:home_matches_won) }
   it { is_expected.to respond_to(:home_matches_drawn) }
@@ -70,6 +71,10 @@ shared_examples_for "table stat" do
 
   describe '#ranking' do
     specify { expect(subject.ranking).to eq 0 } 
+  end
+
+  describe '#previous_ranking' do
+    specify { expect(subject.previous_ranking).to eq 0 }
   end
 
   describe '#home_matches_played' do
@@ -242,6 +247,16 @@ shared_examples_for "table stat" do
 
   context "when ranking is invalid" do
     before { subject.ranking = -1 }
+    it { is_expected.not_to be_valid }
+  end
+
+  context "when previous_ranking is nil" do
+    before { subject.previous_ranking = nil }
+    it { is_expected.to be_valid }
+  end
+
+  context "when previous_ranking is invalid" do
+    before { subject.previous_ranking = -1 }
     it { is_expected.not_to be_valid }
   end
 

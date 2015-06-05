@@ -746,5 +746,5 @@ describe D11TeamTableStat, type: :model do
     specify { expect(D11TeamTableStat.date_ordered).to eq [ d11_team_table_stat3, d11_team_table_stat4, d11_team_table_stat1, d11_team_table_stat2 ] }
 
   end
-  
+
 end

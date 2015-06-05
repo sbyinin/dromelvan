@@ -25,11 +25,15 @@ module TableStat
       end
     end    
     
-    def update_rankings_from(first)
-      first.class.reflections.keys.each do |key|
+    def update_rankings_from(match_day)
+      match_day.class.reflections.keys.each do |key|
         if key.to_s.include?("_league")
-          first.class.where("#{key.to_s}_id = ?", first.read_attribute("#{key.to_s}_id")).where("date >= ?", first.date).each do |current|          
+          match_days = match_day.class.where("#{key.to_s}_id = ?", match_day.read_attribute("#{key.to_s}_id")).where("date >= ?", match_day.date)
+          match_days.each do |current|
             update_rankings(current)          
+          end
+          match_days.each do |current|
+            update_previous_rankings(current)
           end
           break
         end
@@ -59,6 +63,15 @@ module TableStat
       end    
     end
 
+    def update_previous_rankings(match_day)
+      where("#{match_day.class.name.underscore}_id = ?",match_day.id).each do |table_stat|
+        previous_table_stat = table_stat.previous
+        if !previous_table_stat.nil?
+          table_stat.previous_ranking = previous_table_stat.ranking
+          table_stat.save
+        end
+      end
+    end
   end
   
   included do
@@ -76,7 +89,8 @@ module TableStat
     validates :goal_difference, presence: true, numericality: { only_integer: true }
     validates :points, numericality: { greater_than_or_equal_to: 0 }
     validates :form_points, numericality: { greater_than_or_equal_to: 0 }
-    validates :ranking, presence: true, inclusion: 0..20 
+    validates :ranking, presence: true, inclusion: 0..20
+    validates :previous_ranking, presence: true, inclusion: 0..20
     validates :home_matches_played, numericality: { greater_than_or_equal_to: 0 }
     validates :home_matches_won, numericality: { greater_than_or_equal_to: 0 }
     validates :home_matches_drawn, numericality: { greater_than_or_equal_to: 0 }
@@ -100,7 +114,17 @@ module TableStat
     def date
       read_association("([a-z0-9]*_)?match_day").date
     end
-    
+
+    def previous
+      previous_match_day = read_association("([a-z0-9]*_)?match_day").previous
+      if !previous_match_day.nil?
+        my_team = read_association("([a-z0-9]*_)?team")
+        self.class.where(my_team.class.name.underscore.to_sym => my_team, previous_match_day.class.name.underscore.to_sym => previous_match_day).first
+      else
+        nil
+      end
+    end
+
     def update_stats
       my_team = read_association("([a-z0-9]*_)?team")
       my_match_day = read_association("([a-z0-9]*_)?match_day")
@@ -133,7 +157,8 @@ module TableStat
         self.goal_difference ||= 0
         self.points ||= 0
         self.form_points ||= 0
-        self.ranking ||= 0        
+        self.ranking ||= 0
+        self.previous_ranking ||= 0
         self.home_matches_played ||= 0
         self.home_matches_won ||= 0
         self.home_matches_drawn ||= 0
@@ -152,18 +177,8 @@ module TableStat
         self.away_goal_difference ||= 0
         self.away_points ||= 0
         self.away_ranking ||= 0        
-      end      
-
-      def previous
-        previous_match_day = read_association("([a-z0-9]*_)?match_day").previous        
-        if !previous_match_day.nil?
-          my_team = read_association("([a-z0-9]*_)?team")
-          self.class.where(my_team.class.name.underscore.to_sym => my_team, previous_match_day.class.name.underscore.to_sym => previous_match_day).first        
-        else
-          nil
-        end
       end
-      
+
       def init_from_previous
         previous_table_stat = previous
 
