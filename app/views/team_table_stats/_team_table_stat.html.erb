@@ -1,0 +1,9 @@
+<% cache(team_table_stat) do %>
+<%= render 'teams/club_crest', team: team_table_stat.team, style: :icon  %><%= render team_table_stat.team %>
+<% difference = (team_table_stat.previous_ranking > 0 ? team_table_stat.previous_ranking - team_table_stat.ranking : 0) %>
+<% if difference > 0 %>
+  <span class="glyphicon glyphicon-arrow-up position-difference-indicator-up" data-toggle="tooltip" title="Up <%= pluralize(difference, 'place') %> from <%= team_table_stat.previous_ranking %>"></span>
+<% elsif difference < 0 %>
+  <span class="glyphicon glyphicon-arrow-down position-difference-indicator-down" data-toggle="tooltip" title="Down <%= pluralize(difference.abs, 'place') %> from <%= team_table_stat.previous_ranking %>"></span>
+<% end %>
+<% end %>

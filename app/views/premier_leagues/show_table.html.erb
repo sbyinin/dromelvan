@@ -5,11 +5,20 @@
 
 <h2>League table</h2>
 
-<p>
-Standings after match day
 <% @match_day = @premier_league.match_days.current %>
-<%= collection_select :match_day, :id,
-      @premier_league.match_days, :id, :match_day_number, {}, { onchange: 'filterDatatable("match_day_id",this.value)'} %>
-</p>
+<div class="league-table-filter" data-max-index="<%= @match_day.match_day_number - 1 %>">
+  <p>
+  Standings after match day
+  <%= collection_select :match_day, :id,
+        @premier_league.match_days.where('match_day_number <= ?', @match_day.match_day_number), :id, :match_day_number, {}, { onchange: 'selectMatchDay(this.value)'} %>
+  </p>
+  <p>
+    Show standings after <span class="ajax-selector ajax-match-day-selector">
+                            <a href="#" <% if @match_day.previous.nil? %>class="disabled"<% end %> id="previous" onclick="traverse(-1);return false;">previous</a>
+                            <span id="separator" <% if @match_day.previous.nil? || @match_day.next.nil? %>class="disabled"<% end %>> or </span>
+                            <a href="#" <% if @match_day.next.nil? %>class="disabled"<% end %> id="next" onclick="traverse(1);return false;">next</a>
+                         </span> match day.
+  </p>
+</div>
 
 <%= render 'team_table_stats/datatable' %>

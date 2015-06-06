@@ -78,6 +78,12 @@ body {
                 @include make-lg-column(3);
             }
         }
+        
+        span.ajax-selector {
+            .disabled {
+                display: none;
+            }
+        }
     }
     
     div.section {

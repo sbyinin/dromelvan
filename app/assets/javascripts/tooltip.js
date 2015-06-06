@@ -7,12 +7,18 @@ $(function() {
 });
 
 initTooltip = function() {
-    $('[data-toggle="tooltip"]').on('mouseover', function() {
+    $('[data-toggle="tooltip"]').each(function(index) {
+        $(this).tooltip({
+            animation: false
+        });
+    });    
+        
+    $('[data-toggle="tooltip-ajax"]').on('mouseover', function() {
         toggledTooltips.push($(this).attr('href'));
         openTooltip($(this));
     });
     
-    return $('[data-toggle="tooltip"]').on('mouseout', function() {
+    return $('[data-toggle="tooltip-ajax"]').on('mouseout', function() {
         $(this).tooltip('destroy');
         toggledTooltips.splice(toggledTooltips.indexOf($(this).attr('href'), 1));
     });    

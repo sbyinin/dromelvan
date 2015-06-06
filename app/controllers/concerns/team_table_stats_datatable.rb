@@ -22,7 +22,7 @@ private
     objects.map do |team_table_stat|
       [
         team_table_stat.ranking,
-        object_name_link(team_table_stat.team),
+        render_partial('team_table_stats/team_table_stat', { team_table_stat: team_table_stat }),
         
         team_table_stat.home_matches_played,
         team_table_stat.home_goals_for,

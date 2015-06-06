@@ -37,6 +37,7 @@ class MatchDay < ActiveRecord::Base
   end
   
   def MatchDay.current
+    # TODO: Make this work for off season as well.
     where("date <= ?", Date.today).last
   end
 

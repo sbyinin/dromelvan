@@ -68,6 +68,25 @@ main {
         @extend .table-hover;
     }
 
+    table.league-table {
+	span.position-difference-indicator-up {
+	    color: green;
+	}	
+	span.position-difference-indicator-down {
+	    color: red;
+	}
+    }
+    
+    table.league-table.simple {
+	.matches-played-column,
+	.matches-won-column,
+	.matches-drawn-column,
+	.matches-lost-column {
+	    @extend .hidden-lg;
+	    @extend .hidden-md;
+	}
+    }
+    
     table.league-table.detailed {
         thead {
             tr.grouping {
@@ -276,16 +295,6 @@ table.match-date-fixtures {
     ul.match-events {
         padding-top: 6px;
 	margin-bottom: 0px;
-    }
-}
-
-table.league-table.simple {
-    .matches-played-column,
-    .matches-won-column,
-    .matches-drawn-column,
-    .matches-lost-column {
-	@extend .hidden-lg;
-	@extend .hidden-md;
     }
 }
 
