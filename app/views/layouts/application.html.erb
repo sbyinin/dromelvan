@@ -20,7 +20,7 @@
 
 <main role="main">
   <%= yield(:hero_unit) %>
-  <div class="content <%= controller_name.dasherize %> <%= action_name %>"
+  <div class="content <%= controller_name.dasherize %> <%= action_name.dasherize %>"
        <% resource = self.instance_variable_get "@#{controller_name.tableize.singularize}"
           if !resource.nil? %>
        id="<%= resource.id %>"

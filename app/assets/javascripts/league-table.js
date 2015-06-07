@@ -1,6 +1,6 @@
 var maxIndex = 0;
 
-$(document).ready(function() {
+$(".content.show-table").ready(function() {    
     maxIndex = $("div.league-table-filter").data("max-index");
     updateLinks();
 });
@@ -32,5 +32,13 @@ function updateLinks() {
     $('.ajax-match-day-selector a#previous').show();+
     $('.ajax-match-day-selector a#next').hide();
     $('.ajax-match-day-selector span#separator').hide();
-  }    
+  }
+  
+  var id = $('div.league-table-filter select').val();
+  var href = $('div.league-table-filter p#match-day-link a').attr('href');
+  var text = $('div.league-table-filter p#match-day-link a').text();
+  var oldId = href.split("/").pop();
+  
+  $('div.league-table-filter p#match-day-link a').text(text.replace(/\d+/i, index + 1));
+  $('div.league-table-filter p#match-day-link a').attr('href', href.replace(oldId,id))
 }
