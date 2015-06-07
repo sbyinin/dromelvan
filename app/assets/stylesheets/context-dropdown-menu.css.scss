@@ -1,4 +1,6 @@
 div.context-menu.dropdown {
+    display: inline;
+    
     button.dropdown-toggle {
         padding: 0px;
         margin: 0px;
@@ -13,6 +15,14 @@ div.context-menu.dropdown {
         margin-right: -5px;
         min-width: 0px;        
     }
+    
+    button.dropdown-toggle:focus {
+        outline: 0;
+    }
+    
+    button.dropdown-toggle:active {
+        box-shadow: none;
+    }    
 }
 
 div.panel-heading {
@@ -23,14 +33,6 @@ div.panel-heading {
             margin-top: 2px;
             margin-right: -5px;
             
-        }
-        
-        button.dropdown-toggle:focus {
-            outline: 0;
-        }
-        
-        button.dropdown-toggle:active {
-            box-shadow: none;
-        }
+        }        
     }
 }
