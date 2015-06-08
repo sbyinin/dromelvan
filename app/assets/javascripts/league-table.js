@@ -35,10 +35,10 @@ function updateLinks() {
   }
   
   var id = $('div.league-table-filter select').val();
-  var href = $('div.league-table-filter p#match-day-link a').attr('href');
-  var text = $('div.league-table-filter p#match-day-link a').text();
+  var href = $('div.league-table-filter li#match-day-link a').attr('href');
+  var text = $('div.league-table-filter li#match-day-link a').text();
   var oldId = href.split("/").pop();
   
-  $('div.league-table-filter p#match-day-link a').text(text.replace(/\d+/i, index + 1));
-  $('div.league-table-filter p#match-day-link a').attr('href', href.replace(oldId,id))
+  $('div.league-table-filter li#match-day-link a').text(text.replace(/\d+/i, index + 1));
+  $('div.league-table-filter li#match-day-link a').attr('href', href.replace(oldId,id))
 }
