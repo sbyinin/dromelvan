@@ -69,12 +69,15 @@ main {
     }
 
     table.league-table {
-	span.position-difference-indicator-up {
-	    color: green;
-	}	
-	span.position-difference-indicator-down {
-	    color: red;
-	}
+      border-top: none;
+      border-left: none;
+      border-right: none;
+        span.position-difference-indicator-up {
+            color: green;
+        }
+        span.position-difference-indicator-down {
+            color: red;
+        }
     }
     
     table.league-table.simple {
@@ -91,7 +94,7 @@ main {
         thead {
             tr.grouping {
                 th {
-                    #border: none;
+                    border: none;
                 }
             }
         }
