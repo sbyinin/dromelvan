@@ -14,7 +14,7 @@
         <h2><%= render season %></h2>
 
         <% if administrator_signed_in? %>
-            <%= render 'layouts/context_menu_dropdown', resource: season %>
+            <%= render 'layouts/context_menu_dropdown', resource: season, alignment: :right %>
         <% end %>
       </div>
 

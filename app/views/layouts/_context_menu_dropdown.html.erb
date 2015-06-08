@@ -2,7 +2,7 @@
   <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
     <span class="glyphicon glyphicon-menu-down"></span>
   </button>
-  <% alignment ||= 'right' %>
+  <% alignment ||= 'left' %>
   <ul class="dropdown-menu dropdown-menu-<%= alignment %>" role="menu">
     <%= yield %>
     <% if administrator_signed_in? %>            
