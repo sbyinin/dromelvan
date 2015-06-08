@@ -78,6 +78,11 @@ body {
                 @include make-lg-column(3);
             }
         }
+
+        ul.context-links {
+            list-style: none;
+            padding-left: 0px;                        
+        }
         
         span.ajax-selector {
             .disabled {

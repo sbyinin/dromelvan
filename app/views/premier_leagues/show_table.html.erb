@@ -11,7 +11,6 @@
 
 <% @match_day = @premier_league.match_days.current %>
 <div class="league-table-filter" data-max-index="<%= @match_day.match_day_number - 1 %>">
-  <h3 style="margin-top: -6px"><%= render @match_day %></h3>
   <p id="match-day-link">Standings after <%= render @match_day %>.</p>
   <p id="traverse-links">
     Show standings after <span class="ajax-selector ajax-match-day-selector">

@@ -7,12 +7,7 @@
   <thead>
     <tr class="grouping">
       <th colspan="2">
-        Select match day <%= collection_select :match_day, :id,
-                              @premier_league.match_days.where('match_day_number <= ?', @match_day.match_day_number), :id, :match_day_number, {}, { onchange: 'selectMatchDay(this.value)'} %>
-        <span class="ajax-selector ajax-match-day-selector" style="float: right">
-                            <a href="#" <% if @match_day.previous.nil? %>class="disabled"<% end %> id="previous" onclick="traverse(-1);return false;"><span class="glyphicon glyphicon-menu-left"></span></a>
-                            <a href="#" <% if @match_day.next.nil? %>class="disabled"<% end %> id="next" onclick="traverse(1);return false;"><span class="glyphicon glyphicon-menu-right"></span></a>
-                         </span>
+        &nbsp;
       </th>
       <th colspan="5" style="text-align: center">
         Home
