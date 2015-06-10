@@ -6,23 +6,22 @@ span.form-result {
   text-align: center;
   vertical-align: middle;
   color: white;
-  border-radius: $result-border-radius;
-  @include gradient-vertical($start-color: $dropdown-link-hover-bg, $end-color: darken($dropdown-link-hover-bg, 5%));
+
   a {
     color: white;
   }
 }
 
 span.form-result.win {
-  @include gradient-vertical($start-color: $win-color, $end-color: darken($win-color, 15%));
+  background-color: $win-color;
 }
 
 span.form-result.draw {
-  @include gradient-vertical($start-color: $draw-color, $end-color: darken($draw-color, 15%));
+  background-color: $draw-color;
 }
 
 span.form-result.loss {
-  @include gradient-vertical($start-color: $loss-color, $end-color: darken($loss-color, 15%));
+  background-color: $loss-color;
 }
 
 div.preview {

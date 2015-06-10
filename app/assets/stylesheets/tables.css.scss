@@ -4,15 +4,21 @@
 main {
     
     table {
-	@extend .table;
+        @extend .table;
+        border-color: #717984 !important;
+        th {
+            background-color: #717984 !important;
+            color: white;
+            font-size: 13px !important;
+        }
+
 	td {
 //	    vertical-align: middle !important;
 	    ul,
 	    ol {
-		list-style: none;
-		padding-left: 0px;
+            list-style: none;
+            padding-left: 0px;
 	    }
-
 	}
 	
 	// Default column widths
@@ -112,7 +118,7 @@ main {
                 }
 
                 td:nth-child(n+13) {
-                    background-color: darken($table-champions-league-color, 5%);
+                    //background-color: darken($table-champions-league-color, 5%);
                 }
             }
 
@@ -141,20 +147,12 @@ main {
             }
 
             tr:nth-child(n+7):nth-child(-n+17) {
-                td:nth-child(n+8):nth-child(-n+10) {
-                    background-color: darken($table-midtable-color, 10%);
-                }
-
                 td:nth-child(n+3):nth-child(-n+7) {
-                    background-color: darken($table-midtable-color, 10%);
+                    background-color: darken($table-midtable-color, 5%);
                 }
 
                 td:nth-child(n+8):nth-child(-n+12) {
-                    background-color: darken($table-midtable-color, 20%);
-                }
-
-                td:nth-child(n+13) {
-                    background-color: darken($table-midtable-color, 5%);
+                    background-color: darken($table-midtable-color, 10%);
                 }
             }
 

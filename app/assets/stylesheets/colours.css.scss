@@ -1,0 +1,18 @@
+// Colours
+
+$d11-blue: #061958;
+$d11-blue-gray: #597090;
+
+$win-color: darkgreen;
+$draw-color: gray;
+$loss-color: firebrick;
+
+//#8397B2 -> #647C9F -> #4F6480
+//#A3B1C6 -> #8397B2 -> #647C9F
+//#C2CCD9 -> #A3B1C6 -> #8397B2
+
+$table-champions-league-color: lighten($d11-blue-gray, 10%);
+$table-champions-league-qualifier-color: lighten($table-champions-league-color, 10%);
+$table-europa-league-color: lighten($table-champions-league-color, 20%);
+$table-midtable-color: white;
+$table-relegation-color: lighten($table-champions-league-color, 10%);
