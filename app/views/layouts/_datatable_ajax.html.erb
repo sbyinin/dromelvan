@@ -14,6 +14,9 @@
        <% end %>
        <% if defined?(hide_controls) && hide_controls then %>
        data-hide-controls="<%= hide_controls %>"
+       <% end %>
+       <% if defined?(responsive) && responsive then %>
+       data-responsive="<%= responsive %>"
        <% end %>     
        data-url="<%= url %>"
        data-objects="<%= objects %>">

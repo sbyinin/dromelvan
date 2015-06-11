@@ -49,7 +49,9 @@ jQuery(function() {
         serverSide: true,
         displayLength: 25,
         fnDrawCallback: function(oSettings) {
-            responsiveHelper.respond();
+            if(responsiveHelper) {
+                responsiveHelper.respond();
+            }
             initTooltip();
             if (oSettings._iDisplayLength > oSettings.fnRecordsDisplay()) {
                 return $(oSettings.nTableWrapper).find(".dataTables_paginate").hide();
@@ -57,15 +59,10 @@ jQuery(function() {
                 return $(oSettings.nTableWrapper).find(".dataTables_paginate").show();
             }            
         },
-        preDrawCallback: function() {
-            // Initialize the responsive datatables helper only once.
-            if (!responsiveHelper) {
-                responsiveHelper = new ResponsiveDatatablesHelper(tableElement, breakpointDefinition);
-            }
-            responsiveHelper.respond();
-        },
         rowCallback: function(nRow) {
-            responsiveHelper.createExpandIcon(nRow);
+            if(responsiveHelper) {
+                responsiveHelper.createExpandIcon(nRow);
+            }
         },
         aoColumnDefs: [
             {
@@ -85,6 +82,10 @@ jQuery(function() {
         //           $(this).data "unsortable-columns"
         // }]
     });
+
+    if(tableElement.data("responsive")) {
+        responsiveHelper = new ResponsiveDatatablesHelper(tableElement, breakpointDefinition);
+    }
 
 
     domTableElement = $(".data-table-dom");
