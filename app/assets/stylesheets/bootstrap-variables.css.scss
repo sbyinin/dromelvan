@@ -1,6 +1,6 @@
 // Overrides of Bootstrap variables. These need to be imported before Bootstrap to take effect.
 
-$brand-primary: $d11-blue;
+$brand-primary: #061958; // d11-blue. Duplicated here since colour file wants to use Bootstrap variables and therefore needs to be imported after Bootstrap.
 $btn-primary-bg: lighten($brand-primary, 5.0%);
 $link-color: #428bca;  // Default $brand-primary in Bootstrap
 

@@ -7,6 +7,7 @@ $d11-gray: #717984;
 $table-header-colour: white;
 $table-header-background-colour: $d11-gray;
 $table-border-colour: $d11-gray;
+$table-class-link-colour: $text-color;
 
 
 $win-color: darkgreen;
@@ -20,5 +21,5 @@ $loss-color: firebrick;
 $table-champions-league-color: lighten($d11-blue-gray, 10%);
 $table-champions-league-qualifier-color: lighten($table-champions-league-color, 10%);
 $table-europa-league-color: lighten($table-champions-league-color, 20%);
-$table-midtable-color: white;
+$table-midtable-color: $body-bg;
 $table-relegation-color: lighten($table-champions-league-color, 10%);
