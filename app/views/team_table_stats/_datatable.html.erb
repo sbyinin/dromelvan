@@ -9,44 +9,51 @@
                                                        hide_controls: 'true',
                                                        number_columns: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20] } do %>
   <thead>
+    <!-- TODO: Deal with colspan issue without multiple headers -->
     <tr class="grouping">
       <th colspan="2">
         &nbsp;
       </th>
-      <th colspan="5" style="text-align: center">
+      <th colspan="5" class="wide">
         Home
       </th>
-      <th colspan="5" style="text-align: center">
+      <th colspan="3" class="medium">
+        Home
+      </th>      
+      <th colspan="5" class="wide">
         Away
       </th>
-      <th colspan="9" style="text-align: center">
+      <th colspan="3" class="medium">
+        Away
+      </th>      
+      <th colspan="9" class="widest">
         Total
       </th>
     </tr>
     <tr>
-      <th class="ranking-column number-column" data-hide="phone, phone_landscape, tablet">#</th>
-      <th class="main-column name-column" data-class="expand">Team</th>
+      <th class="ranking-column number-column">#</th>
+      <th class="main-column name-column">Team</th>
       
-      <th class="matches-played-column number-column" title="Matches played" data-hide="phone, phone_landscape, tablet">P</th>
-      <th class="goals-for-column number-column" title="Goals for" data-hide="phone, phone_landscape, tablet">F</th>
-      <th class="goals-against-column number-column" title="Goals against" data-hide="phone, phone_landscape, tablet">A</th>
-      <th class="goal-difference-column number-column" title="Goal difference">D</th>
-      <th class="points-column number-column" title="Points">P</th>
+      <th class="home-column matches-played-column number-column" title="Matches played">P</th>
+      <th class="home-column goals-for-column number-column" title="Goals for">F</th>
+      <th class="home-column goals-against-column number-column" title="Goals against">A</th>
+      <th class="home-column goal-difference-column number-column" title="Goal difference">D</th>
+      <th class="home-column points-column number-column" title="Points">P</th>
 
-      <th class="matches-played-column number-column" title="Matches played" data-hide="phone, phone_landscape, tablet">P</th>
-      <th class="goals-for-column number-column" title="Goals for" data-hide="phone, phone_landscape, tablet">F</th>
-      <th class="goals-against-column number-column" title="Goals against" data-hide="phone, phone_landscape, tablet">A</th>
-      <th class="goal-difference-column number-column" title="Goal difference">D</th>
-      <th class="points-column number-column" title="Points">P</th>
+      <th class="away-column matches-played-column number-column" title="Matches played">P</th>
+      <th class="away-column goals-for-column number-column" title="Goals for">F</th>
+      <th class="away-column goals-against-column number-column" title="Goals against">A</th>
+      <th class="away-column goal-difference-column number-column" title="Goal difference">D</th>
+      <th class="away-column points-column number-column" title="Points">P</th>
       
-      <th class="matches-played-column number-column" title="Matches played" data-hide="phone, phone_landscape, tablet">P</th>
-      <th class="matches-won-column number-column" title="Wins" data-hide="phone, phone_landscape, tablet">W</th>
-      <th class="matches-drawn-column number-column" title="Drawns" data-hide="phone, phone_landscape, tablet">D</th>
-      <th class="matches-lost-column number-column" title="Losses" data-hide="phone, phone_landscape, tablet">L</th>
-      <th class="goals-for-column number-column" title="Goals for" data-hide="phone, phone_landscape, tablet">F</th>
-      <th class="goals-against-column number-column" title="Goals against" data-hide="phone, phone_landscape, tablet">A</th>
+      <th class="matches-played-column number-column" title="Matches played">P</th>
+      <th class="matches-won-column number-column" title="Wins">W</th>
+      <th class="matches-drawn-column number-column" title="Drawns">D</th>
+      <th class="matches-lost-column number-column" title="Losses">L</th>
+      <th class="goals-for-column number-column" title="Goals for">F</th>
+      <th class="goals-against-column number-column" title="Goals against">A</th>
       <th class="goal-difference-column number-column" title="Goal difference">D</th>
-      <th class="form-column" title="Form" data-hide="phone, phone_landscape, tablet">Form</th>
+      <th class="form-column" title="Form">Form</th>
       <th class="points-column number-column" title="Points">P</th>
     </tr>
   </thead>  

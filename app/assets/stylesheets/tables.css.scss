@@ -6,7 +6,7 @@ main {
     table {
         @extend .table;
         border-color: $table-border-colour !important;
-		
+
         th {
             background-color: $table-header-background-colour !important;
             color: $table-header-colour;
@@ -17,12 +17,19 @@ main {
             a.model-link {
                 color: $table-model-link-colour;
             }
+	    
             ul,
             ol {
                 list-style: none;
                 padding-left: 0px;
             }
         }
+
+	tr.grouping {
+	    th {
+		text-align: center;
+	    }
+	}
 	
         // Default column widths
         .main-column {
@@ -76,108 +83,6 @@ main {
     table.list {
         @extend .table-striped;
         @extend .table-hover;
-    }
-
-    table.league-table {
-	span.position-difference-indicator-up {
-	    color: green;
-	}	
-	span.position-difference-indicator-down {
-	    color: red;
-	}
-    }
-    
-    table.league-table.simple {
-	.matches-played-column,
-	.matches-won-column,
-	.matches-drawn-column,
-	.matches-lost-column {
-	    @extend .hidden-lg;
-	    @extend .hidden-md;
-	}
-    }
-    
-    table.league-table.detailed {
-        thead {
-            tr.grouping {
-                th {
-                    #border: none;
-                }
-            }
-        }
-    }
-
-    table.premier-league-table {
-        tbody {
-
-            tr:nth-child(n+1):nth-child(-n+3) {
-                background-color: $table-champions-league-color;
-
-                td:nth-child(n+3):nth-child(-n+7) {
-                    background-color: darken($table-champions-league-color, 10%);
-                }
-
-                td:nth-child(n+8):nth-child(-n+12) {
-                    background-color: darken($table-champions-league-color, 20%);
-                }
-
-                td:nth-child(n+13) {
-                    //background-color: darken($table-champions-league-color, 5%);
-                }
-            }
-
-            tr:nth-child(n+4):nth-child(-n+4) {
-                background-color: $table-champions-league-qualifier-color;
-
-                td:nth-child(n+3):nth-child(-n+7) {
-                    background-color: darken($table-champions-league-qualifier-color, 10%);
-                }
-
-                td:nth-child(n+8):nth-child(-n+12) {
-                    background-color: darken($table-champions-league-qualifier-color, 20%);
-                }
-            }
-
-            tr:nth-child(n+5):nth-child(-n+6) {
-                background-color: $table-europa-league-color;
-
-                td:nth-child(n+3):nth-child(-n+7) {
-                    background-color: darken($table-europa-league-color, 10%);
-                }
-
-                td:nth-child(n+8):nth-child(-n+12) {
-                    background-color: darken($table-europa-league-color, 20%);
-                }
-            }
-
-            tr:nth-child(n+7):nth-child(-n+17) {
-                td:nth-child(n+3):nth-child(-n+7) {
-                    background-color: darken($table-midtable-color, 5%);
-                }
-
-                td:nth-child(n+8):nth-child(-n+12) {
-                    background-color: darken($table-midtable-color, 10%);
-                }
-            }
-
-            tr:nth-child(n+18) {
-                background-color: $table-relegation-color;
-
-                td:nth-child(n+3):nth-child(-n+7) {
-                    background-color: darken($table-relegation-color, 10%);
-                }
-
-                td:nth-child(n+8):nth-child(-n+12) {
-                    background-color: darken($table-relegation-color, 20%);
-                }
-            }
-
-            td:nth-child(7),
-            td:nth-child(12),
-            td:nth-child(21) {
-                font-weight: bold;
-            }
-        }
     }
     
     table.simple {
@@ -239,6 +144,107 @@ body {
 }
 
 /* Specific tables ---------------------------------------------------------- */
+
+table.league-table {
+    span.position-difference-indicator-up {
+	color: green;
+    }	
+    span.position-difference-indicator-down {
+	color: red;
+    }
+}
+
+table.league-table.simple {
+    .matches-played-column,
+    .matches-won-column,
+    .matches-drawn-column,
+    .matches-lost-column {
+	@extend .hidden-lg;
+	@extend .hidden-md;
+    }
+}
+
+table.league-table.detailed {
+    thead {
+	tr.grouping {
+	    th {
+		border-top: none;
+	    }
+	}
+    }
+}
+
+table.premier-league-table.detailed {
+    tbody {
+	tr:nth-child(n+1):nth-child(-n+3) {
+	    background-color: $table-champions-league-color;
+
+	    td:nth-child(n+3):nth-child(-n+7) {
+		background-color: darken($table-champions-league-color, 10%);
+	    }
+
+	    td:nth-child(n+8):nth-child(-n+12) {
+		background-color: darken($table-champions-league-color, 20%);
+	    }
+
+	    td:nth-child(n+13) {
+		//background-color: darken($table-champions-league-color, 5%);
+	    }
+	}
+
+	tr:nth-child(n+4):nth-child(-n+4) {
+	    background-color: $table-champions-league-qualifier-color;
+
+	    td:nth-child(n+3):nth-child(-n+7) {
+		background-color: darken($table-champions-league-qualifier-color, 10%);
+	    }
+
+	    td:nth-child(n+8):nth-child(-n+12) {
+		background-color: darken($table-champions-league-qualifier-color, 20%);
+	    }
+	}
+
+	tr:nth-child(n+5):nth-child(-n+6) {
+	    background-color: $table-europa-league-color;
+
+	    td:nth-child(n+3):nth-child(-n+7) {
+		background-color: darken($table-europa-league-color, 10%);
+	    }
+
+	    td:nth-child(n+8):nth-child(-n+12) {
+		background-color: darken($table-europa-league-color, 20%);
+	    }
+	}
+
+	tr:nth-child(n+7):nth-child(-n+17) {
+	    td:nth-child(n+3):nth-child(-n+7) {
+		background-color: darken($table-midtable-color, 5%);
+	    }
+
+	    td:nth-child(n+8):nth-child(-n+12) {
+		background-color: darken($table-midtable-color, 10%);
+	    }
+	}
+
+	tr:nth-child(n+18) {
+	    background-color: $table-relegation-color;
+
+	    td:nth-child(n+3):nth-child(-n+7) {
+		background-color: darken($table-relegation-color, 10%);
+	    }
+
+	    td:nth-child(n+8):nth-child(-n+12) {
+		background-color: darken($table-relegation-color, 20%);
+	    }
+	}
+
+	td:nth-child(7),
+	td:nth-child(12),
+	td:nth-child(21) {
+	    font-weight: bold;
+	}
+    }
+}
 
 table.match-date-fixtures {
     .time-column {
@@ -309,8 +315,61 @@ table.rules-table {
 	width: 130px;
     }
 }
+/* Tablet screen overrides -------------------------------------------------- */
+
+@media only screen and (min-width: $screen-tablet-landscape-min) and (max-width: $screen-tablet-landscape-max) {
+    table.premier-league-table.detailed {
+	thead {
+	    tr.grouping {
+		th.wide {
+                    display: none;
+		}
+	    }
+	    th.home-column.goals-for-column,
+	    th.home-column.goals-against-column,
+	    th.away-column.goals-for-column,
+	    th.away-column.goals-against-column {
+		display: none;
+	    }
+	}
+	
+	tbody {
+	    td:nth-child(4),
+	    td:nth-child(5),
+	    td:nth-child(9),
+	    td:nth-child(10) {
+		display: none;
+	    }
+	}
+    }
+}    
+
+@media only screen and (max-width: $screen-tablet-portrait-max) {
+    table.premier-league-table.detailed {
+	thead {
+	    tr.grouping {
+		display: none;		
+	    }
+	    
+	    th {
+		border-top: none;
+	    }
+	    th.home-column,
+	    th.away-column {
+		display: none;
+	    }			    
+	}
+	
+	tbody {
+	    td:nth-child(n+3):nth-child(-n+12) {
+		display: none;
+	    }	    
+	}	
+    }    
+}
 
 /* Phone screen overrides --------------------------------------------------- */
+
 @media only screen and (max-width: 767px) {
     main {    
 	div.dataTables_wrapper {
@@ -340,6 +399,18 @@ table.rules-table {
 	    }
 	}
     }
+}
+
+@media only screen and (min-width: $screen-desktop-min) {
+    table.premier-league-table.detailed {
+	thead {
+	    tr.grouping {
+	        th.medium {
+		    display: none;
+		}
+	    }
+	}
+    }    
 }
 
 @media only screen and (min-width: $screen-phone-landscape-min) {
