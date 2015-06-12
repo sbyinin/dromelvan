@@ -413,6 +413,25 @@ table.rules-table {
     }    
 }
 
+@media only screen and (max-width: $screen-phone-landscape-max) {
+    table.premier-league-table.detailed {
+	thead {
+	    th.goals-for-column,
+	    th.goals-against-column,
+	    th.form-column {
+		display: none;
+	    }
+	}
+	tbody {
+	    td:nth-child(18),
+	    td:nth-child(17),
+	    td:nth-child(20) {
+		display: none;
+	    }
+	}	
+    }    
+}
+
 @media only screen and (min-width: $screen-phone-landscape-min) {
     table.match-date-fixtures {
 	.team-simple-column,
@@ -423,6 +442,26 @@ table.rules-table {
 }
 
 @media only screen and (max-width: $screen-phone-portrait-max) {
+    table.premier-league-table.detailed {
+	thead {
+	    th.matches-played-column,
+	    th.matches-won-column,
+	    th.matches-drawn-column,
+	    th.matches-lost-column {
+		display: none;
+	    }
+	}
+	tbody {
+	    td:nth-child(13),
+	    td:nth-child(14),
+	    td:nth-child(15),
+	    td:nth-child(16) {
+		display: none;
+	    }
+	}	
+    }    
+
+	    
     table.match-date-fixtures {
 	.team-column,
 	.result-column {
@@ -435,7 +474,7 @@ table.rules-table {
 	.matches-won-column,
 	.matches-drawn-column,
 	.matches-lost-column {
-	    display: none;
+//	    display: none;
 	}
     }
 }
