@@ -81,7 +81,11 @@ body {
 
         ul.context-links {
             list-style: none;
-            padding-left: 0px;                        
+            padding-left: 0px;
+            
+            form.onchange-submit-form {
+                display: inline;
+            }
         }
         
         span.ajax-selector {

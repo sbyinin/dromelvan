@@ -36,3 +36,14 @@ div.panel-heading {
         }        
     }
 }
+
+@media only screen and (min-width: $screen-phone-landscape-min) and (max-width: $screen-phone-landscape-max) {
+    div.premier-leagues {
+        // In phone landscape size a left aligned menu will go outside the screen so align it to the right instead.
+        ul.dropdown-menu-left {
+            // Don't actually need it as long as we're display: blocking the season name span.
+            //left: auto;
+            //right: 0;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+@media only screen and (min-width: $screen-tablet-portrait-min) {
+    div.premier-leagues {
+        ul.context-links {
+            li#premier-league-select {
+                display: none;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: $screen-phone-landscape-max) {
+    div.premier-leagues {
+        span.season-name {
+            display: block;
+        }
+        ul.context-links {
+            li#premier-league-select {
+                margin-top: 4px;
+            }
+        }
+    }    
+}

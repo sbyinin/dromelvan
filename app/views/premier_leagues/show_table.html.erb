@@ -2,9 +2,7 @@
    provide :breadcrumbs, breadcrumbs([ @premier_league.season, @premier_league , "Table", :select_table ]) %> 
   
 <h1>
-  <%= @premier_league.name %> <%= @premier_league.season.name %>
-
-  <%= render 'context_menu' %>
+  <%= @premier_league.name %> <span class="season-name"><%= @premier_league.season.name %> <%= render 'context_menu' %></span>
 </h1>
 
 <h2>League table</h2>
@@ -21,9 +19,16 @@
                            </span> match day.
     </li>  
     <li id="match-day-select">
-    Show standings after match day
-    <%= collection_select :match_day, :id,
-          @premier_league.match_days.where('match_day_number <= ?', @match_day.match_day_number), :id, :match_day_number, {}, { onchange: 'selectMatchDay(this.value)'} %>
+      Show standings after match day
+      <%= collection_select :match_day, :id,
+            @premier_league.match_days.where('match_day_number <= ?', @match_day.match_day_number), :id, :match_day_number, {}, { onchange: 'selectMatchDay(this.value)'} %>
+    </li>
+    <li id="premier-league-select">
+      Show table for season
+      <%= form_tag public_send("select_table_#{controller_name.tableize}_path"), class: "onchange-submit-form" do %>        
+        <%= collection_select controller_name.singularize, :id,
+            controller_name.classify.constantize.unique_name_ordered.where({}), :id, :unique_name, {}, { onchange: 'this.form.submit()' } %>
+      <% end %>              
     </li>
   </ul>
 </div>
