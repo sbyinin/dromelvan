@@ -1,0 +1,22 @@
+@media only screen and (min-width: $screen-tablet-portrait-min) {
+    div.d11-leagues {
+        ul.context-links {
+            li#d11-league-select {
+                display: none;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: $screen-phone-landscape-max) {
+    div.d11-leagues {
+        span.season-name {
+            display: block;
+        }
+        ul.context-links {
+            li#d11-league-select {
+                margin-top: 4px;
+            }
+        }
+    }    
+}

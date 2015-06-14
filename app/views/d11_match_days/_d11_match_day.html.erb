@@ -1,1 +1,2 @@
-<%= link_to d11_match_day.name, d11_match_day, class: "model-link" %>
+<% downcase ||= true %>
+<%= link_to (downcase ? d11_match_day.name.downcase : d11_match_day.name), d11_match_day, class: "model-link" %>

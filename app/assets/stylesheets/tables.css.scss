@@ -174,6 +174,16 @@ table.league-table.detailed {
     }
 }
 
+table.league-table.detailed {
+    tbody {
+	td:nth-child(7),
+	td:nth-child(12),
+	td:nth-child(21) {
+	    font-weight: bold;
+	}	
+    }    
+}
+    
 table.premier-league-table.detailed {
     tbody {
 	tr:nth-child(n+1):nth-child(-n+3) {
@@ -237,11 +247,55 @@ table.premier-league-table.detailed {
 		background-color: darken($table-relegation-color, 20%);
 	    }
 	}
+    }
+}
 
-	td:nth-child(7),
-	td:nth-child(12),
-	td:nth-child(21) {
-	    font-weight: bold;
+table.d11-league-table.detailed {
+    tbody {
+	tr:nth-child(1) {
+	    background-color: $table-champions-league-color;
+
+	    td:nth-child(n+3):nth-child(-n+7) {
+		background-color: darken($table-champions-league-color, 10%);
+	    }
+
+	    td:nth-child(n+8):nth-child(-n+12) {
+		background-color: darken($table-champions-league-color, 20%);
+	    }
+	}
+
+	tr:nth-child(2) {
+	    background-color: $table-champions-league-qualifier-color;
+
+	    td:nth-child(n+3):nth-child(-n+7) {
+		background-color: darken($table-champions-league-qualifier-color, 10%);
+	    }
+
+	    td:nth-child(n+8):nth-child(-n+12) {
+		background-color: darken($table-champions-league-qualifier-color, 20%);
+	    }
+	}
+
+	tr:nth-child(3) {
+	    background-color: $table-europa-league-color;
+
+	    td:nth-child(n+3):nth-child(-n+7) {
+		background-color: darken($table-europa-league-color, 10%);
+	    }
+
+	    td:nth-child(n+8):nth-child(-n+12) {
+		background-color: darken($table-europa-league-color, 20%);
+	    }
+	}
+
+	tr:nth-child(n+4) {
+	    td:nth-child(n+3):nth-child(-n+7) {
+		background-color: darken($table-midtable-color, 5%);
+	    }
+
+	    td:nth-child(n+8):nth-child(-n+12) {
+		background-color: darken($table-midtable-color, 10%);
+	    }
 	}
     }
 }
@@ -318,7 +372,7 @@ table.rules-table {
 /* Tablet screen overrides -------------------------------------------------- */
 
 @media only screen and (min-width: $screen-tablet-landscape-min) and (max-width: $screen-tablet-landscape-max) {
-    table.premier-league-table.detailed {
+    table.league-table.detailed {
 	thead {
 	    tr.grouping {
 		th.wide {
@@ -345,7 +399,7 @@ table.rules-table {
 }    
 
 @media only screen and (max-width: $screen-tablet-portrait-max) {
-    table.premier-league-table.detailed {
+    table.league-table.detailed {
 	thead {
 	    tr.grouping {
 		display: none;		
@@ -402,7 +456,7 @@ table.rules-table {
 }
 
 @media only screen and (min-width: $screen-desktop-min) {
-    table.premier-league-table.detailed {
+    table.league-table.detailed {
 	thead {
 	    tr.grouping {
 	        th.medium {
@@ -414,7 +468,7 @@ table.rules-table {
 }
 
 @media only screen and (max-width: $screen-phone-landscape-max) {
-    table.premier-league-table.detailed {
+    table.league-table.detailed {
 	thead {
 	    th.goals-for-column,
 	    th.goals-against-column,
@@ -442,7 +496,7 @@ table.rules-table {
 }
 
 @media only screen and (max-width: $screen-phone-portrait-max) {
-    table.premier-league-table.detailed {
+    table.league-table.detailed {
 	thead {
 	    th.matches-played-column,
 	    th.matches-won-column,

@@ -1,4 +1,4 @@
 class D11LeaguesController < ApplicationController
-  include Select
+  include Select, LeagueTable
   
 end

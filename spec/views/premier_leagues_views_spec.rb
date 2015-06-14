@@ -21,6 +21,6 @@ describe "PremierLeague", type: :view do
     it { is_expected.to have_selector('h2', text: "League table") }
     it { is_expected.to have_selector("div.league-table-filter[data-max-index='0']") }
     it { is_expected.to have_selector("table.premier-league-table.detailed") }
-
   end
+  
 end

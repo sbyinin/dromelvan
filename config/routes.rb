@@ -53,13 +53,14 @@ Rails.application.routes.draw do
   resources :premier_leagues, only: [:show], concerns: [:select, :table], path: 'premier-leagues'
   resources :match_days, only: [:show], concerns: [:select], path: 'match-days'
   resources :matches, only: [:show], concerns: [:select]
-  resources :d11_leagues, only: [:show], concerns: [:select], path: 'd11-leagues'
+  resources :d11_leagues, only: [:show], concerns: [:select, :table], path: 'd11-leagues'
   resources :d11_match_days, only: [:show], concerns: [:select], path: 'd11-match-days'
   resources :d11_matches, only: [:show], concerns: [:select], path: 'd11-matches'
   resources :d11_teams, only: [:index, :show], concerns: [:select_season, :select], path: 'd11-teams'
   resources :transfer_windows, only: [:show], concerns: [:select], path: 'transfer-windows'
   resources :transfer_days, only: [:show], concerns: [:select], path: 'transfer-days'
   resources :team_table_stats, only: [:index]
+  resources :d11_team_table_stats, only: [:index]
   resources :posts, except: [:destroy]
     
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
