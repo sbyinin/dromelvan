@@ -11,13 +11,13 @@
       <% end %>
 
     <% elsif breadcrumb == :id then %>
-      <li><%= instance_variable_get("@#{controller_name.singularize}").id %></li>
+      <li class="active"><%= instance_variable_get("@#{controller_name.singularize}").id %></li>
       
     <% elsif breadcrumb == :name then %>
-      <li><%= instance_variable_get("@#{controller_name.singularize}").name %></li>
+      <li class="active"><%= instance_variable_get("@#{controller_name.singularize}").name %></li>
 
     <% elsif breadcrumb == :title then %>
-      <li><%= yield :title %></li>
+      <li class="active"><%= yield :title %></li>
             
     <% elsif breadcrumb == :select_season then %>
       <li>
@@ -48,13 +48,13 @@
       </li>
       
     <% elsif breadcrumb == :class then %>
-      <li><%= controller_name.classify.titleize %></li>
+      <li class="active"><%= controller_name.classify.titleize %></li>
       
     <% elsif breadcrumb.is_a?(ActiveRecord::Base) then %>
       <li><%= render breadcrumb %></li>
       
     <% else %>
-      <li><%= breadcrumb %></li>
+      <li class="active"><%= breadcrumb %></li>
     <% end %>
     
   <% end %>

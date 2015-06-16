@@ -7,16 +7,17 @@ $link-color: #428bca;  // Default $brand-primary in Bootstrap
 $input-border-radius: 0px;
 
 $navbar-height: 40px;
-//$navbar-inverse-link-color: #fff;
-//$navbar-inverse-link-hover-bg: darken(#597090, 20%);
-//$navbar-inverse-link-active-bg: darken(#597090, 20%);
+
 $dropdown-bg: #222;
-//$dropdown-bg: darken(#597090, 20%);
 $dropdown-link-hover-bg: #597090;
 $dropdown-link-color: #9d9d9d;
-//$dropdown-link-color: #fff;
 $dropdown-link-hover-color: #fff;
 $dropdown-header-color: lighten($dropdown-link-color, 20%);
+
+$breadcrumb-bg: #fff;
+$breadcrumb-padding-horizontal: 0px;
+$breadcrumb-padding-vertical: 0px;
+$breadcrumb-separator: ">";
 
 $font-size-h1: 24px;
 $font-size-h2: 20px;

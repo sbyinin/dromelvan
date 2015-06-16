@@ -1,6 +1,7 @@
 body {
     main {
-        
+
+        // TODO: why are context links handled i this file?
         ol.context-links {
             margin-top: -12px;
         }
@@ -15,7 +16,18 @@ body {
                 margin-top: $padding-base-vertical;
             }
         }
-        
+
+        ol.breadcrumb {
+            font-family: $breadcrumb-font-family;
+            font-weight: $breadcrumb-font-weight;
+            font-size: $breadcrumb-font-size;
+
+            li:before {
+                padding-left: 3px;
+                padding-right: 0px;
+            }
+        }
+
         ol.breadcrumb,
         ol.context-links {                        
             form.onchange-submit-form {
