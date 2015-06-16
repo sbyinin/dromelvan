@@ -45,6 +45,9 @@ nav.application-navbar {
             
             ul.user-menubar {
                 @extend .navbar-right;
+                a.dropdown-toggle {
+                    text-transform: none;
+                }
             }
             
             ul.dropdown-menu {
