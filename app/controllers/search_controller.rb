@@ -25,6 +25,7 @@ class SearchController < ApplicationController
         json.category object.class.name.titleize.pluralize
         # Not using the icon in the view at the moment but sending it back anyway for now.
         json.icon icon_url(object)
+        json.id object.id
       end      
     end
     

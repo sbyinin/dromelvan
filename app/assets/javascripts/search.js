@@ -13,7 +13,11 @@ $.widget("custom.catcomplete", $.ui.autocomplete, {
         });
     },
     _renderItem: function(ul, item) {
-        return $("<li></li>").data("ui-autocomplete-item", item).append("<a href='" + item.path + "'>" + item.name + "</a>").appendTo(ul);
+        if (item.id !== null) {
+            return $("<li></li>").data("ui-autocomplete-item", item).append("<a href='" + item.path + "'>" + item.name + "</a>").appendTo(ul);
+        } else {
+            return $("<li class='ui-autocomplete-category additional'></li>").data("ui-autocomplete-item", item).append(item.name).appendTo(ul);
+        }
     }
 });
 

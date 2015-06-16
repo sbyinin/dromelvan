@@ -2,25 +2,42 @@ ul.ui-autocomplete {
     @extend .dropdown-menu;
     border-radius: 0px;
 
+    font-family: $dropdown-font-family;
+    font-weight: $dropdown-font-weight;
+
     li.ui-autocomplete-category {
-	@extend .dropdown-header;
+	    @extend .dropdown-header;
+
+        font-family: $dropdown-header-font-family;
+        font-weight: $dropdown-header-font-weight;
+        font-size: $dropdown-header-font-size;
+        text-transform: uppercase;
+    }
+
+    li.ui-autocomplete-category.additional {
+        font-size: $dropdown-font-size;
+        text-transform: lowercase;
     }
 
     // Unfortunately there's no class to extend for this so we're copy pasting from
     // Bootstrap _dropdown.scss
     > li > a {
+        font-family: $dropdown-font-family;
+        font-weight: $dropdown-font-weight;
+        font-size: $dropdown-font-size;
+
         display: block;
         padding: 3px 20px;
         clear: both;
-        font-weight: normal;
         line-height: $line-height-base;
         color: $dropdown-link-color;
         white-space: nowrap; // prevent links from randomly breaking onto new lines
     }
 
     a.ui-state-focus {
-	@include gradient-vertical($start-color: $dropdown-link-hover-bg, $end-color: darken($dropdown-link-hover-bg, 5%));
-	background-color: darken($dropdown-link-hover-bg, 5%);    
+        @include gradient-vertical($start-color: $dropdown-link-hover-bg, $end-color: darken($dropdown-link-hover-bg, 5%));
+        color: $dropdown-link-hover-color;
+        background-color: $dropdown-link-hover-bg;
     }        
 }
 

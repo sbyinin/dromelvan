@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- TODO: Fonts
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-  -->
+<head>  
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
   <title><%= content_for?(:title) ? "Drömelvan | #{yield(:title)}" : "Drömelvan" %></title>
 
   <%= split_stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>

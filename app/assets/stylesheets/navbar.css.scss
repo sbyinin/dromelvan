@@ -1,12 +1,16 @@
 nav.application-navbar {
     @extend .navbar;
     @extend .navbar-inverse;
-  
+    
+    background-repeat: no-repeat;
+    background-image: none;
+    
+    min-height: 0px;
     border-radius: 0px;
     margin-bottom: 0px;
     
     div.navbar-container {
-        @extend .container;
+        @extend .container;        
         
         div.navbar-header {
             @extend .visible-xs;
@@ -19,16 +23,45 @@ nav.application-navbar {
         div.navbar {
             @extend .collapse;
             @extend .navbar-collapse;
+
+            font-family: $navbar-font-family;
+            font-size: $navbar-font-size;
+            font-weight: $navbar-font-weight;
+
+            min-height: 0px;
+            padding-left: 0px;
             margin-bottom: 0px;
             border: none;
-            
+
+            a.dropdown-toggle,
+            a.navbar-link {
+                text-transform: uppercase;
+            }
+
             ul.navbar-menubar {
                 @extend .nav;
-                @extend .navbar-nav;
+                @extend .navbar-nav;                
             }
             
             ul.user-menubar {
                 @extend .navbar-right;
+            }
+            
+            ul.dropdown-menu {
+                li {
+                    a {
+                        font-family: $dropdown-font-family;
+                        font-weight: $dropdown-font-weight;
+                        font-size: $dropdown-font-size;
+                    }
+                }
+
+                li.dropdown-header {
+                    font-family: $dropdown-header-font-family;
+                    font-weight: $dropdown-header-font-weight;
+                    font-size: $dropdown-header-font-size;
+                    text-transform: uppercase;
+                }
             }
         }        
     }
