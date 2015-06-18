@@ -11,12 +11,12 @@ ul.ui-autocomplete {
         font-family: $dropdown-header-font-family;
         font-weight: $dropdown-header-font-weight;
         font-size: $dropdown-header-font-size;
-        text-transform: uppercase;
+        //text-transform: uppercase;
     }
 
     li.ui-autocomplete-category.additional {
         font-size: $dropdown-font-size;
-        text-transform: lowercase;
+        //text-transform: lowercase;
     }
 
     // Unfortunately there's no class to extend for this so we're copy pasting from

@@ -66,6 +66,9 @@
         <li class="dropdown">
           <%= render 'layouts/dropdown_toggle', text: "#{current_user.name}" %>
           <ul class="dropdown-menu" id="user-menu">
+            <% if !current_user.active_d11_team.nil? && !params[:controller].include?('rails_admin') %>
+            <li><%= link_to "My Team", current_user.active_d11_team %></li>
+            <% end %>
             <% if administrator_signed_in? %>
             <li><%= link_to "Administration", rails_admin.dashboard_path %></li>            
             <% end %>
