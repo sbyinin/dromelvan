@@ -9,6 +9,19 @@ class User < ActiveRecord::Base
   has_many :co_owned_d11_teams, class_name: :D11Team, foreign_key: :co_owner_id, dependent: :restrict_with_exception
   has_many :posts, dependent: :restrict_with_exception
 
+  def active_d11_team
+    season = Season.current
+    d11_team = nil
+    if !season.nil?
+      season.d11_team_registrations.each do |d11_team_registration|
+        if d11_team_registration.approved? && (d11_team_registration.d11_team.owner == self || d11_team_registration.d11_team.co_owner == self)
+          d11_team = d11_team_registration.d11_team
+        end
+      end
+    end
+    d11_team
+  end
+
   def self.new_with_session(params, session)
     # This adds the email to the email field in the signup page if a user tries to sign up with an
     # account with an email that is already in use.
