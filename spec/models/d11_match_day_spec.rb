@@ -64,6 +64,28 @@ describe D11MatchDay, type: :model do
     specify { expect(d11_match_day2.next).to be_nil }
   end
   
+  describe '#match_dates' do    
+    let!(:match_day1) { FactoryGirl.create(:match_day) }
+    let!(:match_day2) { FactoryGirl.create(:match_day) }
+    let!(:d11_match_day1) { FactoryGirl.create(:d11_match_day, match_day: match_day1) }
+    let!(:d11_match_day2) { FactoryGirl.create(:d11_match_day, match_day: match_day2) }
+    let!(:match1) { FactoryGirl.create(:match, match_day: match_day1, datetime: DateTime.now - 4.days) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day1, datetime: DateTime.now - 3.days) }
+    let!(:match3) { FactoryGirl.create(:match, match_day: match_day2, datetime: DateTime.now - 2.days) }
+    let!(:match4) { FactoryGirl.create(:match, match_day: match_day2, datetime: DateTime.now - 2.days) }    
+    let!(:d11_match1) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day1) }
+    let!(:d11_match2) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day1) }
+    let!(:d11_match3) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day2) }
+    let!(:d11_match4) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day2) }    
+    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, match: match1, d11_team: d11_match1.home_d11_team) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match2, d11_team: d11_match2.away_d11_team) }
+    let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, match: match3, d11_team: d11_match3.home_d11_team) }
+    let!(:player_match_stat4) { FactoryGirl.create(:player_match_stat, match: match4, d11_team: d11_match4.away_d11_team) }
+    
+    specify { expect(d11_match_day1.match_dates).to eq [ match1.datetime.to_date, match2.datetime.to_date ] }
+    specify { expect(d11_match_day2.match_dates).to eq [ match3.datetime.to_date ] }
+  end
+  
   describe '.current' do
     before { D11MatchDay.destroy_all }
     

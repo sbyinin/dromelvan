@@ -1,0 +1,32 @@
+<div class="league-table d11-league-table simple">
+  <table class="league-table d11-league-table simple">
+    <thead>
+      <tr class="header">
+        <th class="ranking-column">#</th>
+        <th class="team-column main-column">Team</th>
+        <th class="matches-played-column number-column" title="Matches played">Pl</th>
+        <th class="matches-won-column number-column">W</th>
+        <th class="matches-drawn-column number-column">D</th>
+        <th class="matches-lost-column number-column">L</th>
+        <th class="goal-difference-column number-column">GD</th>
+        <th class="form-column">Form</th>
+        <th class="points-column number-column">P.</th>          
+      </tr>
+    </thead>
+    <tbody>
+      <% d11_team_table_stats.each do |d11_team_table_stat| %>
+      <tr class="d11-team-league-table-row">
+        <td class="ranking-column"><%= d11_team_table_stat.ranking %></td>
+        <td class="team-column main-column"><%= render d11_team_table_stat %></td>
+        <td class="matches-played-column number-column"><%= d11_team_table_stat.matches_played %></td>
+        <td class="matches-won-column number-column"><%= d11_team_table_stat.matches_won %></td>
+        <td class="matches-drawn-column number-column"><%= d11_team_table_stat.matches_drawn %></td>
+        <td class="matches-lost-column number-column"><%= d11_team_table_stat.matches_lost %></td>        
+        <td class="goal-difference-column number-column"><%= (d11_team_table_stat.goal_difference > 0 ? "+#{d11_team_table_stat.goal_difference}" : d11_team_table_stat.goal_difference) %></td>
+        <td class="form-column"><%= render 'd11_teams/d11_team_form', { d11_team: d11_team_table_stat.d11_team, d11_match_day: d11_team_table_stat.d11_match_day} %></td>
+        <td class="points-column number-column"><%= d11_team_table_stat.points %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

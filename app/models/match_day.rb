@@ -33,7 +33,7 @@ class MatchDay < ActiveRecord::Base
     matches.pluck(:datetime).each do |match_date|
       match_dates += [ match_date.to_date ]
     end
-    match_dates.uniq
+    match_dates.uniq.sort
   end
 
   # For rails_admin. TODO: Figure out how to move this to StatusEnum.

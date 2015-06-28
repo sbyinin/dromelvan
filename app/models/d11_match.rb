@@ -76,13 +76,20 @@ class D11Match < ActiveRecord::Base
       0
     end
   end
-    
+  
   def D11Match.by_season(season)
     by_seasons.where(seasons: {id: season.id})
   end
   
   def D11Match.by_d11_team(d11_team)
     D11Match.where("d11_matches.home_d11_team_id = ? OR d11_matches.away_d11_team_id = ?", d11_team.id, d11_team.id)
+  end
+
+  def D11Match.by_date(date)
+    all.reject { |d11_match|
+      datetime = Match.by_d11_match(d11_match).pluck(:datetime).last
+      datetime.nil? || datetime.to_date != date
+    }
   end
   
   private

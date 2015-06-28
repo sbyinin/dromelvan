@@ -9,10 +9,10 @@
 
 <p class="navigation-links">
   <% if !@match_day.previous.nil? then %>
-  <%= link_to "Previous", match_day_path(@match_day.previous) %>
+  <%= link_to "Previous", @match_day.previous %>
   <% end %>
   <% if !@match_day.next.nil? then %>
-  <%= link_to "Next", match_day_path(@match_day.next) %>
+  <%= link_to "Next", @match_day.next %>
   <% end %>
 </p>
 

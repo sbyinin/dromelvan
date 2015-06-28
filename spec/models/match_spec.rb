@@ -237,7 +237,27 @@ describe Match, type: :model do
     it { is_expected.to eq [ @match ] }
   end
 
-
+  describe '.by_d11_match' do
+    let!(:match_day) { FactoryGirl.create(:match_day) }
+    let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, match_day: match_day) }
+    let!(:match1) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:match2) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:match3) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:match4) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:match5) { FactoryGirl.create(:match, match_day: match_day) }
+    let!(:d11_match1) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day) }
+    let!(:d11_match2) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day) }
+    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, match: match1, d11_team: d11_match1.home_d11_team) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, match: match2, d11_team: d11_match1.away_d11_team) }
+    let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, match: match3, d11_team: d11_match1.home_d11_team) }
+    let!(:player_match_stat4) { FactoryGirl.create(:player_match_stat, match: match3, d11_team: d11_match2.away_d11_team) }
+    let!(:player_match_stat5) { FactoryGirl.create(:player_match_stat, match: match4, d11_team: d11_match2.home_d11_team) }
+    let!(:player_match_stat6) { FactoryGirl.create(:player_match_stat, match: match5, d11_team: d11_match2.away_d11_team) }
+    
+    specify { expect(Match.by_d11_match(d11_match1)).to eq [ match1, match2, match3 ] }
+    specify { expect(Match.by_d11_match(d11_match2)).to eq [ match3, match4, match5 ] }
+  end
+  
   context "when home_team is nil" do
     before { @match.home_team = nil }
     it { is_expected.not_to be_valid }

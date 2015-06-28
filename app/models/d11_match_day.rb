@@ -28,6 +28,18 @@ class D11MatchDay < ActiveRecord::Base
   def next
     d11_league.d11_match_days.where(match_day_number: match_day_number + 1).first
   end
+
+  def match_dates
+    match_dates = []
+    d11_matches.each do |d11_match|
+      datetime = Match.by_d11_match(d11_match).pluck(:datetime).last
+      if !datetime.nil?
+        # Datetime shouldn't be nil if the database is set up right but check just in case.
+        match_dates += [ Match.by_d11_match(d11_match).pluck(:datetime).last.to_date ]
+      end      
+    end
+    match_dates.uniq.sort
+  end
   
   def D11MatchDay.current
     where("date <= ?", Date.today).last

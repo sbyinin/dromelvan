@@ -123,6 +123,13 @@ class Match < ActiveRecord::Base
     Match.where(datetime: date.beginning_of_day..date.end_of_day)
   end
   
+  def Match.by_d11_match(d11_match)
+    Match.joins(:player_match_stats, match_day: [d11_match_day: :d11_matches])
+         .where(d11_matches: { id: d11_match.id })
+         .where("player_match_stats.d11_team_id = d11_matches.home_d11_team_id OR player_match_stats.d11_team_id = d11_matches.away_d11_team_id")
+         .distinct
+  end
+  
   private  
     def init
       self.status ||= :pending

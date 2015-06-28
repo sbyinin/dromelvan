@@ -26,7 +26,7 @@ describe "TODO", type: :view do
   # /premier-leagues/<id>/table
   pending "Check that /premier-leagues/<id>/table works before season starts"
 
-  pending "home > season > premier_league > <match_day>"
+  # pending "home > season > premier_league > <match_day>"
   # /match-days/<id>
 
   pending "home > season > premier_league > match_day > <match>"

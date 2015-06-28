@@ -17,7 +17,7 @@
       <% match_day.matches.by_date(match_date).each do |match| %>
         <% cache(match) do %>    
           <tr class="match-details">
-            <td class="action-column" style="text-align: center">
+            <td class="action-column">
               <a id="toggle-match-id-details-<%= match.id %>" class="toggle" data-toggle="collapse" href=".match-id-details-<%= match.id %>">
                 <%= fa_icon "angle-down" %> 
               </a>
