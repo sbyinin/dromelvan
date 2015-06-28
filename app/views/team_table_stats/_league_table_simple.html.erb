@@ -1,4 +1,4 @@
-<div class="league-table simple">
+<div class="league-table premier-league-table simple">
   <table class="league-table premier-league-table simple">
     <thead>
       <tr class="header">
@@ -9,6 +9,7 @@
         <th class="matches-drawn-column number-column">D</th>
         <th class="matches-lost-column number-column">L</th>
         <th class="goal-difference-column number-column">GD</th>
+        <th class="form-column">Form</th>
         <th class="points-column number-column">P.</th>          
       </tr>
     </thead>
@@ -16,12 +17,13 @@
       <% team_table_stats.each do |team_table_stat| %>
       <tr class="team-league-table-row">
         <td class="ranking-column"><%= team_table_stat.ranking %></td>
-        <td class="team-column main-column"><%= render team_table_stat.team %></td>
+        <td class="team-column main-column"><%= render team_table_stat %></td>
         <td class="matches-played-column number-column"><%= team_table_stat.matches_played %></td>
         <td class="matches-won-column number-column"><%= team_table_stat.matches_won %></td>
         <td class="matches-drawn-column number-column"><%= team_table_stat.matches_drawn %></td>
         <td class="matches-lost-column number-column"><%= team_table_stat.matches_lost %></td>        
-        <td class="goal-difference-column number-column"><%= team_table_stat.goal_difference %></td>
+        <td class="goal-difference-column number-column"><%= (team_table_stat.goal_difference > 0 ? "+#{team_table_stat.goal_difference}" : team_table_stat.goal_difference) %></td>
+        <td class="form-column"><%= render 'teams/team_form', { team: team_table_stat.team, match_day: team_table_stat.match_day} %></td>
         <td class="points-column number-column"><%= team_table_stat.points %></td>
       </tr>
       <% end %>

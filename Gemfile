@@ -9,6 +9,9 @@ gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 
+# Use FontAwesome glyphicons
+gem "font-awesome-rails"
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
@@ -69,6 +72,10 @@ gem 'rails_admin', '~> 0.6.2'
 # Bootstrap styling
 gem 'autoprefixer-rails', '5.0.0.1'
 gem 'bootstrap-sass', '3.3.3'
+
+# Datepicker
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
 
 # Pagination
 gem 'will_paginate', '3.0.4'

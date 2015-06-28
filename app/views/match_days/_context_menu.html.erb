@@ -1,0 +1,24 @@
+<% match_day ||= @match_day %>
+<%= render layout: 'layouts/context_menu_dropdown', locals: { resource: match_day } do  %>
+    <li class="dropdown-header"><%= match_day.name %></li>
+    <% if !match_day.d11_match_day.nil? %>
+        <li><%= link_to "D11 Match Day #{match_day.d11_match_day.match_day_number}", match_day.d11_match_day %></li>
+    <% end %>
+    <% if administrator_signed_in? %>
+        <li class="dropdown-header">Date</li>
+        <li>
+            <%= form_for(match_day) do |f| %>
+                <% default_datetime = (match_day.date.postponed? ? match_day.matches.first.datetime.to_date : match_day.date) %>
+                <%= render 'layouts/inline_datetimepicker', f: f, resource: match_day, field: :date, default_datetime: default_datetime, format: "YYYY-MM-DD", button_text: "Change" %>                
+            <% end %>
+        </li>        
+        <li class="dropdown-header">Status</li>
+        <li><%= link_to "Pend", pend_match_day_path(match_day) %></li>
+        <li><%= link_to "Activate", activate_match_day_path(match_day) %></li>
+        <li><%= link_to "Finish", finish_match_day_path(match_day) %></li>
+        <li class="dropdown-header">Statistics</li>
+        <li><a href="TODO">Insert Player Stats</a></li>
+        <li><a href="TODO">Update Table Stats</a></li>
+        
+    <% end %>
+<% end %>

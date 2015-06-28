@@ -47,5 +47,5 @@ RailsAdmin.config do |config|
   config.model Player do
     exclude_fields :player_match_stats, :goals, :cards, :substitutions, :in_substitutions, :player_season_infos, :player_season_stats, :transfer_listings
   end
-  
+
 end

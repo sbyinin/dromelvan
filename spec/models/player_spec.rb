@@ -61,18 +61,66 @@ describe Player, type: :model do
     it { is_expected.to eq 30 }
   end
 
-  describe ".season_info" do
+  describe "#season_info" do
     let!(:season) { FactoryGirl.create(:season) }
     let!(:player_season_info) { FactoryGirl.create(:player_season_info, player: @player, season: season) }
     
     specify { expect(@player.season_info(season)).to eq player_season_info }      
   end
     
-  describe ".season_stat" do
+  describe "#season_stat" do
     let!(:season) { FactoryGirl.create(:season) }
     let!(:player_season_stat) { FactoryGirl.create(:player_season_stat, player: @player, season: season) }
     
     specify { expect(@player.season_stat(season)).to eq player_season_stat }      
+  end
+  
+  describe '#form_player_match_stats' do
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:player_season_stat) { FactoryGirl.create(:player_season_stat, player: @player, season: season) }
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+    let!(:match_day1) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match_day2) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match_day3) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match_day4) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match_day5) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match_day6) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match_day7) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match_day8) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+    let!(:match1) { FactoryGirl.create(:match, status: :finished, match_day: match_day1, datetime: DateTime.now - 6.days) }
+    let!(:match2) { FactoryGirl.create(:match, status: :finished, match_day: match_day2, datetime: DateTime.now - 5.days) }
+    let!(:match3) { FactoryGirl.create(:match, status: :finished, match_day: match_day3, datetime: DateTime.now - 4.days) }
+    let!(:match4) { FactoryGirl.create(:match, status: :finished, match_day: match_day4, datetime: DateTime.now - 3.days) }
+    let!(:match5) { FactoryGirl.create(:match, status: :finished, match_day: match_day5, datetime: DateTime.now - 2.days) }
+    let!(:match6) { FactoryGirl.create(:match, status: :finished, match_day: match_day6, datetime: DateTime.now - 1.days) }
+    let!(:match7) { FactoryGirl.create(:match, status: :pending, match_day: match_day7, datetime: DateTime.now + 1.days) }
+    
+    let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, player: @player, match: match1) }
+    let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: @player, match: match2) }
+    let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, player: @player, match: match3) }
+    let!(:player_match_stat4) { FactoryGirl.create(:player_match_stat, player: @player, match: match4) }
+    let!(:player_match_stat5) { FactoryGirl.create(:player_match_stat, player: @player, match: match5) }
+    let!(:player_match_stat6) { FactoryGirl.create(:player_match_stat, player: @player, match: match6) }
+    let!(:player_match_stat7) { FactoryGirl.create(:player_match_stat, player: @player, match: match7) }
+    
+    specify { expect(@player.form_player_match_stats(season)).to eq [player_match_stat2, player_match_stat3, player_match_stat4, player_match_stat5, player_match_stat6] }
+    specify { expect(@player.form_player_match_stats(season, 4)).to eq [player_match_stat3, player_match_stat4, player_match_stat5, player_match_stat6] }
+    specify { expect(@player.form_player_match_stats(season, 6)).to eq [player_match_stat1, player_match_stat2, player_match_stat3, player_match_stat4, player_match_stat5, player_match_stat6] }
+    specify { expect(@player.form_player_match_stats(season, 7)).to eq [player_match_stat1, player_match_stat2, player_match_stat3, player_match_stat4, player_match_stat5, player_match_stat6] }
+    specify { expect(@player.form_player_match_stats(season, 8)).to eq [player_match_stat1, player_match_stat2, player_match_stat3, player_match_stat4, player_match_stat5, player_match_stat6] }
+
+    context "after pending match is finished" do
+      before do
+        match7.status = 2
+        match7.save
+      end
+      
+      specify { expect(@player.form_player_match_stats(season)).to eq [player_match_stat3, player_match_stat4, player_match_stat5, player_match_stat6, player_match_stat7] }
+      specify { expect(@player.form_player_match_stats(season, 4)).to eq [player_match_stat4, player_match_stat5, player_match_stat6, player_match_stat7] }
+      specify { expect(@player.form_player_match_stats(season, 6)).to eq [player_match_stat2, player_match_stat3, player_match_stat4, player_match_stat5, player_match_stat6, player_match_stat7] }
+      specify { expect(@player.form_player_match_stats(season, 7)).to eq [player_match_stat1, player_match_stat2, player_match_stat3, player_match_stat4, player_match_stat5, player_match_stat6, player_match_stat7] }
+      specify { expect(@player.form_player_match_stats(season, 8)).to eq [player_match_stat1, player_match_stat2, player_match_stat3, player_match_stat4, player_match_stat5, player_match_stat6, player_match_stat7] }
+    end
   end
   
   context "when full_name is blank" do

@@ -12,7 +12,6 @@ describe MatchDay, type: :model do
   it { is_expected.to respond_to(:d11_match_day) }
   it { is_expected.to respond_to(:date) }
   it { is_expected.to respond_to(:match_day_number) }
-  it { is_expected.to respond_to(:status) }
   it { is_expected.to respond_to(:name) }
   
   it { is_expected.to be_valid }
@@ -30,11 +29,6 @@ describe MatchDay, type: :model do
   describe '#match_day_number' do
     subject { @match_day.match_day_number }
     it { is_expected.to eq 1 }
-  end
-
-  describe '#status' do
-    subject { @match_day.status }
-    it { is_expected.to eq :finished.to_s }
   end
   
   describe '#name' do
@@ -83,6 +77,11 @@ describe MatchDay, type: :model do
     specify { expect(MatchDay.current).to eq match_day2 }
   end
 
+
+  it_should_behave_like "status enum" do
+    let(:resource) { @match_day }
+  end
+  
     
   context "when premier_league is nil" do
     before { @match_day.premier_league = nil }
@@ -103,12 +102,7 @@ describe MatchDay, type: :model do
     before { @match_day.match_day_number = -1 }
     it { is_expected.not_to be_valid }
   end
-    
-  context "when status is nil" do
-    before { @match_day.status = nil }
-    it { is_expected.not_to be_valid }
-  end
-  
+      
   describe "default scope order" do
     before { MatchDay.destroy_all }
     

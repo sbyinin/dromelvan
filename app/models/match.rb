@@ -35,7 +35,29 @@ class Match < ActiveRecord::Base
   validates :elapsed, presence: true
   validates :status, presence: true
   validates :whoscored_id, numericality: { greater_than: 0 }
+
+  def postponed?
+    # Have to do a to_datetime here since the datetime might be a TimeWithZone.
+    datetime == nil || datetime.to_datetime.postponed?
+  end
   
+  def postpone
+    # Have to do a to_datetime here since the datetime might be a TimeWithZone.
+    self.datetime = datetime.to_datetime.postpone
+  end
+
+  def date_s
+    (postponed? ? "Postponed" : datetime.to_date.to_formatted_s(:match_date))
+  end
+  
+  def short_date_s
+    (postponed? ? "Postponed" : datetime.to_date.to_formatted_s(:match_date_short))
+  end
+  
+  def kickoff_time_s
+    (postponed? ? "PP" : datetime.to_formatted_s(:kickoff_time))
+  end
+    
   def name
     "#{home_team.name} vs #{away_team.name}"
   end

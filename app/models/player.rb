@@ -57,6 +57,15 @@ class Player < ActiveRecord::Base
   def season_stat(season)
     player_season_stats.where(season: season).first
   end
+
+  def form_player_match_stats(season, count = 5)
+    form_player_match_stats = season_stat(season).player_match_stats.joins(:match).where("matches.status = 2")
+    
+    if form_player_match_stats.size > count
+      form_player_match_stats = form_player_match_stats[-count..-1]
+    end
+    form_player_match_stats
+  end
   
   def Player.named(name)
     if !name.blank? then

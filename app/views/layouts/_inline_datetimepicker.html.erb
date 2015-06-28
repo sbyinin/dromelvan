@@ -1,0 +1,22 @@
+<% default_datetime ||= DateTime.now
+   format ||= 'YYYY-MM-DD HH:mm'
+   button_text ||= 'Save' %>
+<div class="datetimepicker-container">
+  <div class="datetimepicker" id="<%= "#{resource.class.name.tableize.singularize}_#{resource.id}" %>">
+      <%= f.text_field field, required: false, value: default_datetime, class: "datetimepicker" %>    
+      <script type="text/javascript">
+          $(function () {
+              $('.datetimepicker#<%= "#{resource.class.name.tableize.singularize}_#{resource.id}" %>').datetimepicker({
+                  inline: true,
+                  sideBySide: false,
+                  showTodayButton: true,
+                  showClear: true,
+                  format: '<%= format %>'
+              });
+          });
+      </script>    
+  </div>
+  <div class="button-panel">
+      <%= f.button button_text, class: "form-button", name: "submit-button" %>
+  </div>
+</div>

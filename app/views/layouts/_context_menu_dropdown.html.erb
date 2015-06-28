@@ -1,12 +1,14 @@
-<div class="context-menu dropdown">
-  <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
-    <span class="glyphicon glyphicon-menu-down"></span>
+<div class="context-menu dropdown <%= resource.class.name.tableize.singularize.dasherize %>">
+  <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true" title="Show dropdown menu">
+    <%= fa_icon "chevron-circle-down" %>
   </button>
+  
   <% alignment ||= 'left' %>
   <ul class="dropdown-menu dropdown-menu-<%= alignment %>" role="menu">
     <%= yield %>
-    <% if administrator_signed_in? %>            
-      <% if route_exists?( { controller: controller_name, action: 'edit' }) %>
+    <% if administrator_signed_in? %>
+      <li class="dropdown-header">Administration</li>
+      <% if route_exists?( { controller: resource.class.name.tableize, action: 'edit' }) %>
       <li><%= link_to "Edit", edit_polymorphic_path(resource) %></li>
       <% else %>
       <li><%= link_to "Edit", rails_admin.edit_path(model_name: resource.class.name, id: resource.id) %></li>

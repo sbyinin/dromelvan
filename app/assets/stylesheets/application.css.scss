@@ -3,6 +3,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap/theme";
+@import 'bootstrap-datetimepicker';
 
 @import "colours";
 @import "variables";
@@ -18,7 +19,8 @@
 @import "panels";
 @import "tables";
 @import "tooltip";
-@import "context-dropdown-menu";
+@import "context-menu-dropdown";
+@import "datetimepicker";
 
 @import "search";
 @import "about";
@@ -30,8 +32,9 @@
 @import "match_days";
 
 @import "team_form";
+@import "player_form";
 
 @import "devise";
 @import "rails_admin";
 @import "will_paginate";
-
+@import "font-awesome";

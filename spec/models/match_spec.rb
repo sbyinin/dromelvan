@@ -19,6 +19,11 @@ describe Match, type: :model do
   it { is_expected.to respond_to(:home_team_goals) }
   it { is_expected.to respond_to(:away_team_goals) }
   it { is_expected.to respond_to(:datetime) }
+  it { is_expected.to respond_to(:postponed?) }
+  it { is_expected.to respond_to(:postpone) }
+  it { is_expected.to respond_to(:date_s) }
+  it { is_expected.to respond_to(:short_date_s) }
+  it { is_expected.to respond_to(:kickoff_time_s) }
   it { is_expected.to respond_to(:elapsed) }
   it { is_expected.to respond_to(:status) }
   it { is_expected.to respond_to(:pending?) }
@@ -63,12 +68,49 @@ describe Match, type: :model do
   end
 
   describe '#datetime' do
-    specify { expect(@match.datetime).to eq datetime }
-    specify { expect(@match.datetime.to_time.to_formatted_s(:kickoff_time)).to eq "02:00" }
-    specify { expect(@match.datetime.to_date.to_formatted_s(:match_date)).to eq "Thursday, January 01 1970" }
-    specify { expect(@match.datetime.to_date.to_formatted_s(:match_date_short)).to eq "Thursday,  1.1 1970" }
+    subject { @match.datetime }
+    it { is_expected.to eq datetime }
   end
 
+  describe '#postponed?' do
+    subject { @match.postponed? }
+    it { is_expected.to eq false }
+    
+    context 'when match is postponed' do
+      before { @match.postpone }
+
+      subject { @match.postponed? }
+      it { is_expected.to eq true }
+    end
+  end
+
+  describe '#date_s' do
+    specify { expect(@match.date_s).to eq "Thursday, January 01 1970" }
+    
+    context 'when postponed' do
+      before { @match.postpone }
+      specify { expect(@match.date_s).to eq "Postponed" }
+    end    
+  end
+
+  describe '#short_date_s' do
+    specify { expect(@match.short_date_s).to eq "Thursday, 1.1 1970" }
+    
+    context 'when postponed' do
+      before { @match.postpone }
+      specify { expect(@match.short_date_s).to eq "Postponed" }
+    end        
+  end
+  
+  describe '#kickoff_time_s' do
+    specify { expect(@match.kickoff_time_s).to eq "00:00" }
+    
+    context 'when postponed' do
+      before { @match.postpone }
+      specify { expect(@match.kickoff_time_s).to eq "PP" }
+    end        
+  end
+  
   describe '#elapsed' do
     subject { @match.elapsed }
     it { is_expected.to eq "FT" }

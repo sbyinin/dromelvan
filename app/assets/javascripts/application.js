@@ -19,5 +19,7 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/extras/dataTables.responsive
 //= require jquery-readyselector
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .
 //= require turbolinks

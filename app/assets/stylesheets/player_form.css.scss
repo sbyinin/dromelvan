@@ -1,0 +1,26 @@
+span.form-points {
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+
+  a {
+    color: white;
+  }
+}
+
+span.form-points.positive {
+  background-color: $positive-color;
+}
+
+span.form-points.neutral {
+  background-color: $neutral-color;
+}
+
+span.form-points.negative {
+  background-color: $negative-color;
+}

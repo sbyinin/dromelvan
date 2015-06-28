@@ -108,7 +108,7 @@ FactoryGirl.define do
     status 0
     datetime Time.now
     elapsed "N/A"
-    stadium { home_team.stadium }
+    stadium
     whoscored_id 1
   end
 

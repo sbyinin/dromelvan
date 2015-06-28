@@ -35,7 +35,7 @@ describe "TODO", type: :view do
   pending "home > season > d11_league"
   # /d11-leagues/<id>
 
-  pending "home > season > d11_league > d11_team_table_stats > <season>"
+  # pending "home > season > d11_league > d11_team_table_stats > <season>"
   # /d11-leagues/<id>/table
   pending "Check that /d11-leagues/<id>/table works before season starts"
 

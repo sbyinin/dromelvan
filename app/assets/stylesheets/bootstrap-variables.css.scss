@@ -4,8 +4,6 @@ $brand-primary: #061958; // d11-blue. Duplicated here since colour file wants to
 $btn-primary-bg: lighten($brand-primary, 5.0%);
 $link-color: #428bca;  // Default $brand-primary in Bootstrap
 
-$input-border-radius: 0px;
-
 $navbar-height: 35px;
 
 $dropdown-bg: #222;
@@ -35,5 +33,7 @@ $breadcrumb-separator: ">";
 $font-size-h1: 24px;
 $font-size-h2: 20px;
 $font-size-h3: 18px;
-$font-size-h4: 16px;
+$font-size-h4: 14px;
 
+$input-border-radius: 0px;
+$panel-border-radius: 0px;

@@ -14,7 +14,7 @@ class MatchDay < ActiveRecord::Base
   validates :premier_league, presence: true
   validates :date, presence: true
   validates :match_day_number, presence: true, inclusion: 1..38
-  validates :status, presence: true
+  validates :status, presence: true    
 
   def name
     "Match Day #{match_day_number}"
@@ -35,6 +35,11 @@ class MatchDay < ActiveRecord::Base
     end
     match_dates.uniq
   end
+
+  # For rails_admin. TODO: Figure out how to move this to StatusEnum.
+  def status_enum
+    ['pending', 'active', 'finished']
+  end    
   
   def MatchDay.current
     # TODO: Make this work for off season as well.

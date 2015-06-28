@@ -9,10 +9,21 @@ $table-header-background-colour: $d11-gray;
 $table-border-colour: $d11-gray;
 $table-model-link-colour: $text-color;
 
+$dropdown-button-colour: $d11-gray;
+$dropdown-divider-bg: $d11-gray;
 
-$win-color: darkgreen;
-$draw-color: gray;
-$loss-color: firebrick;
+$tooltip-header-colour: $dropdown-header-color;
+$tooltip-photo-bg-colour: $tooltip-bg;
+$tooltip-photo-border-colour: $tooltip-bg;
+
+
+$positive-color: darkgreen;
+$neutral-color: gray;
+$negative-color: firebrick;
+
+$win-color: $positive-color;
+$draw-color: $neutral-color;
+$loss-color: $negative-color;
 
 //#8397B2 -> #647C9F -> #4F6480
 //#A3B1C6 -> #8397B2 -> #647C9F

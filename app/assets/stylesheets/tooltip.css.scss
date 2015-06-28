@@ -1,5 +1,73 @@
 div.tooltip {
     div.tooltip-inner {
-        // Nothing here yet. Eventually there will be.
+        padding: 5px 20px 5px 20px;
+        text-align: left;
+        
+        h4 {
+            margin-top: 0px;
+            color: $dropdown-header-color;
+            white-space: nowrap;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0px;
+            
+            li {
+                padding-left: 0px;
+                white-space: nowrap;
+            }
+        }
+        
+        p {
+            white-space: nowrap;
+        }
+        
+        table {
+            width: 100%;
+        }
+        
+        div.tooltip-player {
+            //min-width: 150px;
+            //min-height: 160px;
+            
+            a.image-link {                
+                img {
+                    float: left;
+                    position: relative;
+                    left: -90px;
+                    top: -5px;
+                    margin-right: -90px;
+                    z-index: 99;
+                    
+                    background-color: $tooltip-photo-bg-colour;
+                    border: 1px solid $tooltip-photo-border-colour;
+                }
+            }
+            
+            table.points-ranking {                
+                th {
+                    padding-bottom: 0px;   
+                }
+                
+                td {
+                    padding-top: 0px;
+                    padding-bottom: 0px;
+                    font-size: 24px;
+                    font-weight: 100;                                        
+                }
+                
+                th, td {
+                    text-align: center;
+                }                
+            }
+            
+            dl.player-form {
+                dt {
+                    padding-bottom: 5px;
+                }
+                margin-bottom: 5px;
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-shared_examples_for "show view" do |resource_class|  
+shared_examples_for "show view" do |resource_class, selector|  
 
   let(:resource) { FactoryGirl.create(resource_class.table_name.singularize.to_sym) }
   edit_route_exists = Rails.application.routes.routes.map{|route| route.defaults}.include?( { controller: resource_class.name.underscore.pluralize, action: 'edit' } )

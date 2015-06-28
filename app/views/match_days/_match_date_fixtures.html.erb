@@ -1,7 +1,8 @@
-<div class="match-date-fixtures">
-  <table class="match-date-fixtures">
+<div id="<%= match_date.to_formatted_s %>" class="match-date-fixtures">
+  <table class="match-date-fixtures outer-bordered">
     <thead>
       <tr class="header">
+        <th class="action-column"></th>
         <th class="time-column">Kick off</th>
         <th class="time-elapsed-column">Time</th>
         <th class="home-team-column team-column">Home team</th>          
@@ -16,17 +17,25 @@
       <% match_day.matches.by_date(match_date).each do |match| %>
         <% cache(match) do %>    
           <tr class="match-details">
-            <td class="time-column"><%= match.datetime.to_formatted_s(:kickoff_time) %></td>
-            <td class="time-elapsed-column">
-              <a data-toggle="collapse" href=".match-id-details-<%= match.id %>">
-              <%= match.elapsed %>
+            <td class="action-column" style="text-align: center">
+              <a id="toggle-match-id-details-<%= match.id %>" class="toggle" data-toggle="collapse" href=".match-id-details-<%= match.id %>">
+                <%= fa_icon "angle-down" %> 
               </a>
+            </td>
+            <td class="time-column">
+              <%= match.kickoff_time_s %>
+              <% if administrator_signed_in? %>
+                <%= render 'matches/context_menu', match: match %>
+              <% end %>                                          
+            </td>
+            <td class="time-elapsed-column">
+              <%= match.elapsed %>
             </td>
             <td class="team-column home-team-column">
               <%= image_tag(match.home_team.club_crest.url(:icon), alt: match.home_team.name, title: match.home_team.name, class: "club-crest") %><%= render match.home_team %>
-              <div class="match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">                          
+              <div class="match-details match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">                          
                 <%= render 'matches/match_team_details', match: match, team: match.home_team %>
-              </div>
+              </div>              
             </td>
             <td class="result-column">
               <%= render match %>
@@ -43,7 +52,7 @@
                 <li id="home-team"><%= render match.home_team %></li>
                 <li id="away-team"><%= render match.away_team %></li>
               </ol>
-              <div class="match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">
+              <div class="match-details match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">
                 <div class="team-name" id="home-team-name"><%= match.home_team.name %></div>
                 <%= render 'matches/match_team_details', match: match, team: match.home_team %>
                 

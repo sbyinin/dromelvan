@@ -1,4 +1,57 @@
-<div style="min-height: 60px">
+<div class="tooltip-player">
   <%= render 'player_photo', style: :small, player: @player %>
-  <%= @player.name %>
+  
+  <h4><%= @player.name %></h4>
+  <%
+    player_season_info = @player.season_info(@season)
+    player_season_stat = @player.season_stat(@season)
+  %>
+  <ul>
+    <li><%= render @player.country %>, age <%= @player.age %></li>
+    <li><%= @player.height %> cm, <%= @player.weight %> kg</li>    
+  </ul>  
+  <ul>
+    <li class="dropdown-header">Season <%= @season.name %></li>
+    <% if !player_season_info.nil? %>
+      <li><%= player_season_info.position.name %></li>
+      <% if player_season_info.value > 0 %>
+        <li>£<%= player_value player_season_info.value %> million</li>
+      <% end %>      
+      <% if !player_season_info.team.dummy? %>
+        <li><%= image_tag(player_season_info.team.club_crest.url(:icon), alt: player_season_info.team.name, title: player_season_info.team.name, class: "club-crest") %><%= player_season_info.team.name %></li>
+      <% else %>
+        <li>No Team</li>
+      <% end %>
+      <% if !player_season_info.d11_team.dummy? %>
+        <li><%= image_tag(player_season_info.d11_team.club_crest.url(:icon), alt: player_season_info.d11_team.name, title: player_season_info.d11_team.name, class: "club-crest") %><%= player_season_info.d11_team.name %></li>
+      <% else %>
+        <li>No D11 Team</li>
+      <% end %>
+    <% else %>
+      <li>No info for season <%= @season.name %></li>
+    <% end %>    
+  </ul>
+  
+  <% if !player_season_stat.nil? %>
+    <table class="points-ranking">
+      <thead>
+        <tr>
+          <th>Points</th>
+          <th>Ranking</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= player_season_stat.points %></td>
+          <td><%= player_season_stat.ranking %></td>
+        </tr>
+      </tbody>
+    </table>
+    <dl class="player-form">
+      <dt>Form</dt>
+      <dd><%= render 'players/player_form', player: @player, season: @season %></dd>
+    </dl>
+  <% else %>
+    <p>No stats for season <%= @season.name %></p>
+  <% end %>
 </div>  

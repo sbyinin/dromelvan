@@ -42,6 +42,14 @@ Rails.application.routes.draw do
     end
   end
   
+  concern :status_enum do
+    member do
+      get :pend
+      get :activate
+      get :finish
+    end    
+  end
+  
   concern :players do
     resources :players, only: [:index]
   end
@@ -51,8 +59,8 @@ Rails.application.routes.draw do
   resources :teams, only: [:index, :show], concerns: [:select_season, :select]
   resources :players, only: [:index, :show], concerns: [:select_season]
   resources :premier_leagues, only: [:show], concerns: [:select, :table], path: 'premier-leagues'
-  resources :match_days, only: [:show], concerns: [:select], path: 'match-days'
-  resources :matches, only: [:show], concerns: [:select]
+  resources :match_days, only: [:show, :update], concerns: [:select, :status_enum], path: 'match-days'
+  resources :matches, only: [:show, :update], concerns: [:select, :status_enum]
   resources :d11_leagues, only: [:show], concerns: [:select, :table], path: 'd11-leagues'
   resources :d11_match_days, only: [:show], concerns: [:select], path: 'd11-match-days'
   resources :d11_matches, only: [:show], concerns: [:select], path: 'd11-matches'

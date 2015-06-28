@@ -1,0 +1,21 @@
+<% match ||= @match %>
+<%= render layout: 'layouts/context_menu_dropdown', locals: { resource: match} do  %>
+    <li class="dropdown-header"><%= match.home_team.code %> vs <%= match.away_team.code %></li>
+    <li><%= link_to match.match_day.name, match.match_day %></li>
+    <% if administrator_signed_in? %>
+        <li class="dropdown-header">Date & Time</li>
+        <li>
+            <%= form_for(match) do |f| %>
+                <% default_datetime = (match.postponed? ? match.match_day.date.to_datetime : match.datetime) %>
+                <%= render 'layouts/inline_datetimepicker', f: f, resource: match, field: :datetime, default_datetime: default_datetime, button_text: "Change" %>                
+            <% end %>
+        </li>        
+    <% end %>
+    <li class="dropdown-header">Status</li>
+    <li><%= link_to "Pend", pend_match_path(match) %></li>
+    <li><%= link_to "Activate", activate_match_path(match) %></li>
+    <li><%= link_to "Finish", finish_match_path(match) %></li>    
+    <li class="dropdown-header">Statistics</li>
+    <li><a href="TODO">Update Match Stats</a></li>
+<% end %>
+
