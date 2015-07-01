@@ -1,4 +1,4 @@
-<% if !d11_match.pending? %>
+<% if d11_match.pending? %>
 <%= render 'd11_matches/d11_match_preview', d11_match: d11_match, d11_team: d11_team %>
 <% else %>
 <%= render 'd11_matches/d11_match_events', d11_match: d11_match, d11_team: d11_team %>

@@ -1,1 +1,53 @@
-Events!
+<% # TODO: Clean this shit up %>
+<div class="match-details events">
+<% goals = Goal.by_d11_match_day_and_d11_team(d11_match.d11_match_day, d11_team)
+   if goals.any? then %>
+  <ul class="match-events goals">
+    <li class="match-event-label">Goals:</li>    
+    <% goals.each do |goal| %>
+    <li><%= render goal %></li>
+    <% end %>
+  </ul>
+<% end %>
+<% assists = d11_match.d11_team_match_squad_stats.where(d11_team: d11_team).first.player_match_stats.where("goal_assists > 0")
+   if assists.any? %>
+  <ul class="match-events assists">
+    <li class="match-event-label">Assists:</li>    
+    <% assists.each do |player_match_stat| %>
+      <li><% (0..player_match_stat.goal_assists - 1).each do |i| %><%= image_tag "match-events/assist.png", alt: "Assist", title: "Assist", class: "match-event-icon" %><% end %> <%= render player_match_stat.player %></li>
+    <% end %>
+  </ul>   
+<% end %>   
+<% cards = Card.by_d11_match_day_and_d11_team(d11_match.d11_match_day, d11_team)
+   if cards.any? then %>
+  <ul class="match-events cards">
+    <li class="match-event-label">Cards:</li>    
+    <% cards.each do |card| %>
+    <li><%= render card %></li>
+    <% end %>
+  </ul>
+<% end %>
+<% moms = d11_match.d11_team_match_squad_stats.where(d11_team: d11_team).first.player_match_stats.where(man_of_the_match: true)
+   shared_moms = d11_match.d11_team_match_squad_stats.where(d11_team: d11_team).first.player_match_stats.where(shared_man_of_the_match: true)
+   if moms.any? || shared_moms.any?
+   %>
+  <ul class="match-events moms">
+    <li class="match-event-label">MoMs:</li>    
+    <% moms.each do |player_match_stat| %>
+      <li><%= image_tag "match-events/mom.png", alt: "Man of the match", title: "Man of the match", class: "match-event-icon" %> <%= render player_match_stat.player %></li>
+    <% end %>
+    <% shared_moms.each do |player_match_stat| %>
+      <li><%= image_tag "match-events/shared-mom.png", alt: "Shared man of the match", title: "Shared man of the match", class: "match-event-icon" %> <%= render player_match_stat.player %></li>
+    <% end %>
+  </ul>
+<% end %>
+<% clean_sheets = d11_match.d11_team_match_squad_stats.where(d11_team: d11_team).first.player_match_stats.where("goals_conceded = 0 and position_id <= 3 and (lineup = 2 or substitution_on_time > 0)")
+   if clean_sheets.any? %>   
+  <ul class="match-events clean-sheets">
+    <li class="match-event-label">Clean sheets:</li>    
+    <% clean_sheets.each do |player_match_stat| %>
+      <li><%= image_tag "match-events/clean-sheet.png", alt: "Clean sheet", title: "Clean sheet", class: "match-event-icon" %> <%= render player_match_stat.player %></li>
+    <% end %>
+  </ul>   
+<% end %>   
+</div>

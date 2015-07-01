@@ -1,1 +1,27 @@
-Preview!
+<div class="match-details preview">
+  <% season = d11_match.d11_match_day.d11_league.season %>
+  <ul class="match-preview">
+    <li class="match-preview-label">Form:</li>
+    <li>
+      <%= render 'd11_teams/d11_team_form', d11_team: d11_team, d11_match_day: d11_match.d11_match_day %>
+    </li>
+    <% top_scorer = d11_team.top_scorer(season) %>
+    <li class="match-preview-label">Top scorer:</li>    
+    <li>
+      <% if !top_scorer.nil? %>
+        <%= render top_scorer.player %>, <%= top_scorer.goals %> goals
+      <% else %>
+        No goals scored.
+      <% end %>      
+    </li>
+    <% most_valuable_player = d11_team.most_valuable_player(season) %>
+    <li class="match-preview-label">Most valuable player:</li>  
+    <li>
+      <% if !most_valuable_player.nil? %>
+        <%= render most_valuable_player.player %>, <%= most_valuable_player.points %> pts
+      <% else %>
+        No points scored.
+      <% end %>
+    </li>
+  </ul>
+</div>

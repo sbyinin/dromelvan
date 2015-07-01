@@ -27,8 +27,7 @@
 #require File.expand_path('../seed/d11_match_days', __FILE__)
 #require File.expand_path('../seed/d11_matches', __FILE__)
 #require File.expand_path('../seed/player_match_stats', __FILE__)
-##The below is not needed since goals conceded are set in update_points for PlayerMatchStats.
-##require File.expand_path('../seed/player_match_stats_goals_conceded', __FILE__)
+#require File.expand_path('../seed/player_match_stats_goals_conceded', __FILE__)
 #require File.expand_path('../seed/player_season_infos', __FILE__)
 #require File.expand_path('../seed/player_season_stats', __FILE__)
 #require File.expand_path('../seed/transfer_windows', __FILE__)

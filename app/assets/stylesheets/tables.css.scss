@@ -368,12 +368,21 @@ table.match-date-fixtures {
     }
     
     .team-column {
+	min-width: 150px;
         width: 240px;
     }
     
-    .result-column {
+    .result-column,
+    .result-points-column {
         text-align: center;
+    }
+
+    .result-column {
         width: 60px;
+    }
+
+    .result-points-column {
+        width: 70px;
     }
 
     .home-team-column {
@@ -413,7 +422,18 @@ table.match-date-fixtures {
     ul.match-events {
         padding-top: 6px;
 	margin-bottom: 0px;
+	
+	li.match-event-label {
+	    font-weight: bold;
+	}
     }
+    
+    ul.match-preview {
+	li.match-preview-label {
+	    font-weight: bold;
+	}
+    }
+    
 }
 
 table.rules-table {
@@ -539,6 +559,12 @@ table.rules-table {
 		display: none;
 	    }
 	}	
+    }
+    
+    table.match-date-fixtures {
+	.result-points-column {
+	    display: none;    
+	}
     }    
 }
 
@@ -570,7 +596,6 @@ table.rules-table {
 	    }
 	}	
     }    
-
 	    
     table.match-date-fixtures {
 	.team-column,
