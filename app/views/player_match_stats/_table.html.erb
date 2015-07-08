@@ -1,0 +1,10 @@
+<table class="player-match-stats data table-bordered table-striped table-hover">
+  <thead>
+    <%= render 'player_match_stats/table_header', title: title %>
+  </thead>
+  <tbody>    
+    <% player_match_stats.each do |player_match_stat| %>
+      <%= render 'player_match_stats/table_row', player_match_stat: player_match_stat %>
+    <% end %>
+  </tbody>
+</table>

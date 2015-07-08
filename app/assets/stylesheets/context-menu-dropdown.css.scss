@@ -10,6 +10,14 @@ h2 {
     }
 }
 
+h3 {
+    div.context-menu {
+        button.dropdown-toggle {
+            margin-top: -3px;
+        }
+    }
+}
+
 td {
     button.dropdown-toggle {
         font-size: 14px;
@@ -86,5 +94,11 @@ div.panel-heading {
             //left: auto;
             //right: 0;
         }
+    }
+}
+
+@media only print {
+    div.context-menu.dropdown {
+        display: none !important;    
     }
 }

@@ -59,7 +59,7 @@ class Match < ActiveRecord::Base
   end
     
   def name
-    "#{home_team.name} vs #{away_team.name}"
+    "#{home_team.code} vs #{away_team.code}"
   end
 
   def result(team)

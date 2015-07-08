@@ -106,6 +106,14 @@ body {
                 display: none;
             }
         }
+        
+        div.photo-caption {
+            h3 {
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                padding: 7px 15px;
+            }
+        }
     }
     
     div.section {
@@ -152,5 +160,9 @@ body {
         div.related-section {
             page-break-before: always;
         }
+    }
+    
+    footer {
+        display: none;
     }
 }

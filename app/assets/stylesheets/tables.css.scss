@@ -419,21 +419,10 @@ table.match-date-fixtures {
 	}
     }
     
-    ul.match-events {
+    dl.match-events {
         padding-top: 6px;
 	margin-bottom: 0px;
-	
-	li.match-event-label {
-	    font-weight: bold;
-	}
-    }
-    
-    ul.match-preview {
-	li.match-preview-label {
-	    font-weight: bold;
-	}
-    }
-    
+    }        
 }
 
 table.rules-table {
@@ -591,7 +580,8 @@ table.rules-table {
 	    td:nth-child(13),
 	    td:nth-child(14),
 	    td:nth-child(15),
-	    td:nth-child(16) {
+	    td:nth-child(16),
+	    td:nth-child(19){
 		display: none;
 	    }
 	}	

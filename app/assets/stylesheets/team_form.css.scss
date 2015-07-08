@@ -25,7 +25,13 @@ span.form-result.loss {
 }
 
 div.preview {
-    ul.match-preview {
+    dl.match-preview {        
+        margin-bottom: 0px;
+    }
+}
+
+table.match-date-fixtures {
+    dl.match-preview {        
         padding-top: $padding-base-vertical;
     }
 }

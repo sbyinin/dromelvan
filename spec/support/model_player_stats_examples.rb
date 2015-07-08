@@ -5,6 +5,7 @@ shared_examples_for "player stats" do |reset|
   it { is_expected.to respond_to(:own_goals) }
   it { is_expected.to respond_to(:goals_conceded) }
   it { is_expected.to respond_to(:rating) }
+  it { is_expected.to respond_to(:rating_s) }
   it { is_expected.to respond_to(:points) }
 
   describe '#goals' do
@@ -25,6 +26,16 @@ shared_examples_for "player stats" do |reset|
 
   describe '#rating' do
     specify { expect(subject.rating).to eq 0 }
+  end
+
+  describe '#rating_s' do
+    specify { expect(subject.rating_s).to eq '0.00' }
+    
+    context 'when rating > 0' do
+      before { subject.rating = 123 }
+      
+      specify { expect(subject.rating_s).to eq '1.23' }
+    end    
   end
 
   # TODO make this work if we can be bothered. We do test points properly elsewhere.

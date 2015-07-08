@@ -1,5 +1,140 @@
-<% provide :title, @match.name
+<% provide :title, "#{@match.home_team.name} vs #{@match.away_team.name}"
    provide :breadcrumbs, breadcrumbs([ @match.match_day.premier_league.season, @match.match_day.premier_league, @match.match_day, :select_name ],  match_day: @match.match_day ) %> 
   
-<h1><%= @match.name %></h1>
-<%= render 'layouts/administration_links', resource: @match %>
+<h1>
+  <%= @match.match_day.premier_league.name %> <span class="season-name"><%= @match.match_day.premier_league.season.name %></span><%= render 'premier_leagues/context_menu', premier_league: @match.match_day.premier_league %>
+</h1>
+
+<h2><%= @match.match_day.name %> <%= render 'match_days/context_menu', match_day: @match.match_day %></h2>
+
+<% if administrator_signed_in? %>
+<h3><%= @match.name %> <%= render 'matches/context_menu', match: @match %></h3>
+<% end %>                                
+
+<div class="match-header-container section">
+  <div class="match-header detailed">
+    <table class="match-header detailed">
+      <tbody>
+        <tr>
+          <td class="team-name-column home-team" colspan="2"><%= render @match.home_team %></td>
+          <% if !@match.pending? %>
+            <td class="goal-column home-team"><%= @match.home_team_goals %></td>
+            <td class="goal-column separator">-</td>
+            <td class="goal-column away-team"><%= @match.away_team_goals %></td>            
+          <% else %>
+            <td colspan="3">&nbsp;</td>
+          <% end %>
+          <td class="team-name-column away-team" colspan="2"><%= render @match.away_team %></td>          
+        </tr>
+        <tr>
+          <td class="club-crest-column home-team">
+            <%= render 'teams/club_crest', team: @match.home_team %>
+          </td>
+          <td class="team-match-details home-team">
+            <%= render 'matches/match_team_details', match: @match, team: @match.home_team %>
+          </td>
+          <td class="match-details-column detailed" colspan="3">
+            <dl class="match-details detailed">
+              <dt>Date:</dt>
+              <dd><%= (@match.datetime.to_date.postponed? ? "Postponed" : @match.datetime.to_date) %></dd>
+              <dt>Kick off:</dt>
+              <dd><%= (@match.datetime.to_date.postponed? ? "Postponed" : @match.datetime.to_formatted_s(:kickoff_time)) %></dd>
+              <% if !@match.pending? %>
+              <dt>Elapsed:</dt>
+              <dd><%= (@match.elapsed == 'FT' ? 'Full Time' : @match.elapsed) %></dd>
+              <% end %>
+            </dl>
+          </td>
+          <td class="team-match-details away-team">
+            <%= render 'matches/match_team_details', match: @match, team: @match.away_team %>
+          </td>
+          <td class="club-crest-column away-team">
+            <%= render 'teams/club_crest', team: @match.away_team %>
+          </td>          
+        </tr>        
+      </tbody>
+    </table>
+  </div>
+  <div class="stadium-photo-container">
+    <div class="stadium-photo">
+      <%= render 'stadia/stadium_photo', stadium: @match.stadium %>
+      <div class="photo-caption">
+        <h3><%= @match.stadium.name %></h3>
+      </div>
+    </div>
+  </div>
+  <div class="match-header simple">
+    <table class="match-header simple">
+      <tbody>
+        <tr>
+          <td class="team-name-column home-team"><%= render 'teams/club_crest', team: @match.home_team, style: :icon %> <%= render @match.home_team %></td>
+          <td class="goal-column"><%= (@match.pending? ? '&nbsp;'.html_safe : @match.home_team_goals) %></td>
+        </tr>
+        <tr>
+          <td class="match-events home-team" colspan="2">
+            <%= render 'matches/match_team_details', match: @match, team: @match.home_team %>
+          </td>
+        </tr>        
+        <tr>
+          <td class="team-name-column away-team"><%= render 'teams/club_crest', team: @match.away_team, style: :icon %> <%= render @match.away_team %></td>
+          <td class="goal-column"><%= (@match.pending? ? '&nbsp;'.html_safe : @match.away_team_goals) %></td>
+        </tr>
+        <tr>
+          <td class="match-events away-team" colspan="2">
+            <%= render 'matches/match_team_details', match: @match, team: @match.away_team %>
+          </td>
+        </tr>
+        <tr>
+          <td class="match-details-column simple" colspan="2">
+            <dl class="match-details simple">
+              <dt>Date:</dt>
+              <dd><%= (@match.datetime.to_date.postponed? ? "Postponed" : @match.datetime.to_date) %></dd>
+              <dt>K/O:</dt>
+              <dd><%= (@match.datetime.to_date.postponed? ? "Postponed" : @match.datetime.to_formatted_s(:kickoff_time)) %></dd>
+              <% if !@match.pending? %>
+              <dt>Elapsed:</dt>
+              <dd><%= @match.elapsed %></dd>
+              <% end %>
+            </dl>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<% if !@match.pending? %>
+  <div class="section">
+    <div class="player-statistics">  
+      <h3>Lineups and Player Statistics</h3>
+  
+      <div class="player-match-stats home-team">
+        <h3><%= render 'teams/club_crest', team: @match.home_team, style: :icon %> <%= render @match.home_team %></h3>
+        <%= render 'player_match_stats_table', player_match_stats: @match.player_match_stats.by_team(@match.home_team) %>
+      </div>
+      
+      <div class="player-match-stats away-team">
+        <h3><%= render 'teams/club_crest', team: @match.away_team, style: :icon %> <%= render @match.away_team %></h3>
+        <%= render 'player_match_stats_table', player_match_stats: @match.player_match_stats.by_team(@match.away_team) %>
+      </div>    
+      
+    </div>
+    
+    <div class="player-statistics-summary">
+      <h3>Player Match Stats Summary</h3>
+      
+      <div class="section">
+        <div class="player-match-stats-summary home-team">
+          <h3><%= render 'teams/club_crest', team: @match.home_team, style: :icon %> <%= render @match.home_team %></h3>
+          <%= render 'team_match_squad_stats/table_simple', team_match_squad_stat: @match.team_match_squad_stats.where(team: @match.home_team).first %>
+        </div>
+        
+        <div class="player-match-stats-summary away-team">
+          <h3><%= render 'teams/club_crest', team: @match.away_team, style: :icon %> <%= render @match.away_team %></h3>
+          <%= render 'team_match_squad_stats/table_simple', team_match_squad_stat: @match.team_match_squad_stats.where(team: @match.away_team).first %>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<% end %>

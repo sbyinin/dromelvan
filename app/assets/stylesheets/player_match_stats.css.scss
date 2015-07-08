@@ -1,0 +1,50 @@
+table.player-match-stats {
+    @extend .table-bordered;
+    @extend .table-striped;
+    @extend .table-hover;
+    
+    .position-column,
+    .team-column,
+    .match-column,
+    .goals-column,
+    .own-goals-column,
+    .assists-column,
+    .goals-conceded-column,
+    .yellow-card-column,
+    .red-card-column,
+    .substitution-time-column,
+    .substitution-time-column,
+    .mom-column,
+    .rating-column,
+    .unused-substitute-column,
+    .did-not-participate-column,
+    th.points-column {
+        text-align: center;
+    }
+    
+    .goals-column,
+    .own-goals-column,
+    .assists-column,
+    .goals-conceded-column,
+    .yellow-card-column,
+    .red-card-column,
+    .substitution-time-column,
+    .substitution-time-column,
+    .mom-column,
+    .rating-column,
+    .points-column {
+        min-width: 37px
+    }
+    
+    .d11-team-column {
+        min-width: 150px;
+    }
+    
+    td.points-column {
+        font-weight: bold;
+    }
+    
+    td.match-column {
+        white-space: nowrap;
+    }
+}

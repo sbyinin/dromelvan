@@ -1,0 +1,230 @@
+div.matches.show {
+    div.match-header-container {
+        padding-bottom: 12px;
+        
+        div.match-header {
+            table.match-header {
+                dl.match-events {
+                    margin-bottom: 0px;
+                    
+                    dt {
+                        display: none;
+                    }
+                    
+                    dt.cards,
+                    dd.cards,
+                    dt.substitutions,
+                    dd.substitutions {
+                        display: none;
+                    }            
+                }
+                
+                dl.match-details {
+                    margin-bottom: 0px;
+                }
+            }
+        }
+        div.match-header.detailed {            
+            @include make-md-column(12);
+            @include make-lg-column(9);
+            @extend .hidden-xs;
+            
+            table.match-header.detailed {
+                margin-top: $padding-base-vertical;            
+                
+                td.team-name-column,
+                td.goal-column {
+                    font-size: 24px;
+                }                
+                
+                td.team-name-column {
+                    width: 50%;
+                }
+                td.team-name-column.away-team {
+                    text-align: right;
+                }
+          
+                td.goal-column.home-team {
+                    text-align: right;
+                }
+                td.goal-column.separator {
+                    text-align: center;
+                }        
+                td.goal-column.away-team {
+                    text-align: left;
+                }
+                
+                td.team-match-details {
+                    width: 50%;    
+                }
+                td.team-match-details.away-team {
+                    text-align: right;
+                }
+                
+                td.match-details-column {
+                    min-width: 100px;                    
+                }
+                
+                div.image-container {
+                    @include make-sm-column(2);
+                }
+            
+                div.team-details {
+                    @include make-sm-column(4);        
+                }
+                
+                div.team-details.away-team {
+                    text-align: right;
+                }                
+            }           
+        }
+
+        div.match-header.simple {            
+            @include make-xs-column(12);
+            @extend .visible-xs;
+            
+            table.match-header.simple {
+                border-top: 1px solid $table-border-color;
+                border-bottom: 1px solid $table-border-color;
+                margin-bottom: 0px;
+                
+                width: 100%;
+
+                td.team-name-column,
+                td.goal-column {
+                    font-size: 20px;
+                }                
+                
+                td.match-events {
+                    padding-top: 0px;
+                    ul {
+                        margin-bottom: 0px;
+                    }
+                }
+                
+                td.match-events.home-team {
+                    padding-bottom: 0px;
+                }
+                
+                td.match-details-column.simple {
+                    padding-top: 0px;
+                    dl.match-details.simple {
+                        dt,
+                        dd {
+                            display: inline !important;                            
+                        }
+                    }                    
+                }
+                
+                td {
+                    border: none;                    
+                }
+            }
+
+        }
+        
+        div.stadium-photo {
+            @include make-lg-column(3);
+            @extend .visible-lg;
+            
+            img.stadium-photo {
+                border: 1px solid black;
+                margin-top: $padding-base-vertical;
+            }
+            
+            div.photo-caption {
+                h3 {
+                    position: absolute;
+                    top: 194px;
+                    left: 16px;
+                    width: 260px;
+                }
+            }
+        }
+    }
+    
+    div.player-match-stats,
+    div.player-match-stats-summary {
+        h3 {
+            padding-top: $padding-base-vertical;
+        }
+    }
+    
+    div.player-match-stats-summary {
+        h3:first-child {
+            // TODO: Figure out why this is needed.
+            margin-top: 0px;
+        }
+    }
+    
+    div.player-statistics {
+        @include make-lg-column(9);
+        
+        div.player-match-stats {
+            table.player-match-stats {
+                .team-column,
+                .match-column {
+                    display: none;
+                }
+                
+                .position-column {
+                    @extend .hidden-sm;
+                }
+                
+                .goals-column,
+                .assists-column,
+                .own-goals-column,
+                .goals-conceded-column,
+                .mom-column,
+                .d11-team-column {
+                    @extend .hidden-xs;
+                }
+                
+                td.unused-substitute-column.wide {
+                    @extend .hidden-xs;
+                }
+            }            
+        }
+    }
+    
+    div.player-statistics-summary {
+        @include make-lg-column(3);
+        
+        div.player-match-stats-summary {
+            @include make-sm-column(6);
+            @include make-lg-column(12);
+        }
+    }
+}
+
+@media only screen and (min-width: $screen-sm-min) {
+    div.player-statistics {        
+        div.player-match-stats {
+            table.player-match-stats {
+                td.unused-substitute-column.narrow {
+                    display: none;
+                }                                
+            }
+        }
+    }    
+}
+    
+@media only screen and (max-width: $screen-phone-portrait-max) {
+
+    div.player-statistics {        
+        div.player-match-stats {
+            table.player-match-stats {
+                .yellow-card-column,
+                .red-card-column,
+                .substitution-time-column,
+                .rating-column {
+                    display: none;
+                }
+
+                td.unused-substitute-column.narrow {
+                    display: none;
+                }                                
+            }
+        }
+    }
+}

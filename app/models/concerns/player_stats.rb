@@ -11,6 +11,10 @@ module PlayerStats
     validates :rating, inclusion: 0..1000
     validates :points, presence: true, numericality: { only_integer: true }
     
+    def rating_s
+      '%.2f' % (rating.to_f / 100)
+    end
+    
     private
       def init_stats
         self.goals ||= 0

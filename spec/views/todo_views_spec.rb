@@ -29,7 +29,7 @@ describe "TODO", type: :view do
   # pending "home > season > premier_league > <match_day>"
   # /match-days/<id>
 
-  pending "home > season > premier_league > match_day > <match>"
+  # pending "home > season > premier_league > match_day > <match>"
   # /matches/<id>
 
   pending "home > season > d11_league"
@@ -98,5 +98,7 @@ describe "TODO", type: :view do
   
   pending "home > search results"
   # /search
+  
+  pending "responsive datatables everywhere"
   
 end

@@ -1,29 +1,37 @@
 <div class="match-details events">
-<% goals = match.goals.where(team: team)
-   if goals.any? then %>
-  <ul class="match-events goals">
-    <li class="match-event-label">Goals:</li>    
-    <% goals.each do |goal| %>
-    <li><%= render goal %></li>
+  <dl class="match-events">
+    <% goals = match.goals.where(team: team)
+       if goals.any? then %>
+        <dt class="goals">Goals:</dt>
+        <dd class="goals">
+          <ul>
+            <% goals.each do |goal| %>
+            <li><%= render goal %></li>
+            <% end %>
+          </ul>
+        </dd>      
     <% end %>
-  </ul>
-<% end %>
-<% cards = match.cards.where(team: team)
-   if cards.any? then %>
-  <ul class="match-events cards">
-    <li class="match-event-label">Cards:</li>    
-    <% cards.each do |card| %>
-    <li><%= render card %></li>
+    <% cards = match.cards.where(team: team)
+       if cards.any? then %>
+      <dt class="cards">Cards:</li>
+      <dd class="cards">
+        <ul>
+          <% cards.each do |card| %>
+          <li><%= render card %></li>
+          <% end %>
+        </ul>
+      </dd>
     <% end %>
-  </ul>
-<% end %>
-<% substitutions = match.substitutions.where(team: team)
-   if substitutions.any? then %>  
-  <ul class="match-events substitutions">
-    <li class="match-event-label">Substitutions:</li>    
-    <% substitutions.each do |substitution| %>
-    <li><%= render substitution %></li>
-    <% end %>
-  </ul>    
-<% end %>
+    <% substitutions = match.substitutions.where(team: team)
+       if substitutions.any? then %>
+      <dt class="substitutions">Substitutions:</dt>
+      <dd class="substitutions">
+        <ul>
+          <% substitutions.each do |substitution| %>
+          <li><%= render substitution %></li>
+          <% end %>
+        </ul>
+      </dd>
+    <% end %>    
+  </dl>
 </div>

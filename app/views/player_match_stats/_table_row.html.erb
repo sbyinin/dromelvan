@@ -1,0 +1,54 @@
+<tr>
+  <td class="player-column main-column"><%= render player_match_stat.player %></td>
+  <td class="position-column"><%= player_match_stat.position.code %></td>
+  <td class="team-column"><%= render 'teams/club_crest', team: player_match_stat.team, style: :icon %></td>
+  <td class="match-column"><%= render 'teams/club_crest', team: player_match_stat.match.home_team, style: :icon %> <%= render player_match_stat.match %> <%= render 'teams/club_crest', team: player_match_stat.match.away_team, style: :icon %></td>
+  <% if player_match_stat.participated? %>
+    <td class="goals-column"><%= (player_match_stat.goals > 0 ? player_match_stat.goals : '&nbsp;'.html_safe) %></td>  
+    <td class="own-goals-column"><%= (player_match_stat.own_goals > 0 ? player_match_stat.own_goals : '&nbsp;'.html_safe) %></td>  
+    <td class="assists-column"><%= (player_match_stat.goal_assists > 0 ? player_match_stat.goal_assists : '&nbsp;'.html_safe) %></td>
+    <td class="goals-conceded-column"><%= (player_match_stat.position.defender? ? player_match_stat.goals_conceded : '&nbsp;'.html_safe) %></td>  
+    <td class="yellow-card-column">
+      <% if player_match_stat.yellow_card_time > 0 %>
+        <%= image_tag "match-events/yellow-card.png", alt: "Yellow card (#{player_match_stat.yellow_card_time})", title: "Yellow card (#{player_match_stat.yellow_card_time})", class: "match-event-icon" %>  
+      <% else %>
+        &nbsp;
+      <% end %>          
+    </td>  
+    <td class="red-card-column">
+      <% if player_match_stat.red_card_time > 0 %>
+        <%= image_tag "match-events/red-card.png", alt: "Red card (#{player_match_stat.red_card_time})", title: "Red card (#{player_match_stat.red_card_time})", class: "match-event-icon" %>  
+      <% else %>
+        &nbsp;
+      <% end %>          
+    </td>  
+    <td class="substitution-time-column"><%= (player_match_stat.substitution_on_time > 0 ? player_match_stat.substitution_on_time : '&nbsp;'.html_safe) %></td>
+    <td class="substitution-time-column"><%= (player_match_stat.substitution_off_time > 0 ? player_match_stat.substitution_off_time : '&nbsp;'.html_safe) %></td>
+    <td class="mom-column">
+      <% if player_match_stat.man_of_the_match %>
+        <%= image_tag "match-events/mom.png", alt: "Man of the Match", title: "Man of the Match", class: "match-event-icon" %>      
+      <% elsif player_match_stat.shared_man_of_the_match %>
+        <%= image_tag "match-events/shared-mom.png", alt: "Shared Man of the Match", title: "Shared Man of the Match", class: "match-event-icon" %>      
+      <% else %>
+        &nbsp;
+      <% end %>          
+    </td>
+    <td class="rating-column"><%= player_match_stat.rating_s %></td>
+  <% elsif player_match_stat.substitute? %>
+    <td class="unused-substitute-column wide" colspan="10">
+      Unused substitute
+    </td>
+    <td class="unused-substitute-column narrow" colspan="5">
+      Unused substitute
+    </td>    
+  <% else %>
+    <td class="did-not-participate-column wide" colspan="10">
+      Did not participate
+    </td>
+    <td class="did-not-participate-column narrow" colspan="5">
+      Did not participate
+    </td>        
+  <% end %>
+  <td class="points-column number-column"><%= player_match_stat.points %></td>
+  <td class="d11-team-column"><%= render player_match_stat.d11_team %></td>
+</tr>

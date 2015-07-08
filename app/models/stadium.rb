@@ -6,7 +6,7 @@ class Stadium < ActiveRecord::Base
 
   default_scope -> { order(name: :asc) }
   
-  has_attached_file :photo, styles: { icon: [ "32x100>", :png], thumbnail: [ "100x100>", :png], original: ["960x610#", :png] },                                      
+  has_attached_file :photo, styles: { icon: [ "32x100>", :png], thumbnail: [ "100x100>", :png], original: [:png] },                                      
                             default_url: "/assets/missing/stadium-:style.png",
                             url: "/images/stadium/:style/:id.:extension",
                             path: ":rails_root/public/images/stadium/:style/:id.:extension"

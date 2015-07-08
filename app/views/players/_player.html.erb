@@ -1,7 +1,9 @@
 <%
    @match_day ||= nil
    @d11_match_day ||= nil
-   if !@match_day.nil?
+   if !@match.nil?
+     @season ||= @match.match_day.premier_league.season
+   elsif !@match_day.nil?
      @season ||= @match_day.premier_league.season
    elsif !@d11_match_day.nil?
      @season ||= @d11_match_day.d11_league.season
@@ -10,5 +12,4 @@
 <% if @season.nil? %>
 <%= link_to player.name, player, class: "model-link", data: { toggle: "tooltip-ajax" } %>
 <% else %>
-<%= link_to player.name, show_season_player_path(player, @season), class: "model-link", data: { toggle: "tooltip-ajax" } %>
-<% end %>
+<%= link_to player.name, show_season_player_path(player, @season), class: "model-link", data: { toggle: "tooltip-ajax" } %><% end %>

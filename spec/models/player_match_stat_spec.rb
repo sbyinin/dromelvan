@@ -566,5 +566,21 @@ describe PlayerMatchStat, type: :model do
    
     specify { expect(PlayerMatchStat.all).to eq [ player_match_stat2, player_match_stat1 ] }
   end
+
+  describe "position_ordered scope order" do
+    before { PlayerMatchStat.destroy_all }
     
+    let(:position1) { FactoryGirl.create(:position, sort_order: 1) }
+    let(:position2) { FactoryGirl.create(:position, sort_order: 2) }
+    let(:position3) { FactoryGirl.create(:position, sort_order: 3) }
+    let(:position4) { FactoryGirl.create(:position, sort_order: 4) }
+    let(:position5) { FactoryGirl.create(:position, sort_order: 5) }
+    let(:player_match_stat1) { FactoryGirl.create(:player_match_stat, position: position3) }
+    let(:player_match_stat2) { FactoryGirl.create(:player_match_stat, position: position2) }
+    let(:player_match_stat3) { FactoryGirl.create(:player_match_stat, position: position5) }
+    let(:player_match_stat4) { FactoryGirl.create(:player_match_stat, position: position4) }
+    let(:player_match_stat5) { FactoryGirl.create(:player_match_stat, position: position1) }
+    
+    specify { expect(PlayerMatchStat.position_ordered).to eq [ player_match_stat5, player_match_stat2, player_match_stat1, player_match_stat4, player_match_stat3 ] }
+  end
 end
