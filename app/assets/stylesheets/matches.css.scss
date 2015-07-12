@@ -1,4 +1,5 @@
-div.matches.show {
+div.matches.show,
+div.d11-matches.show {
     div.match-header-container {
         padding-bottom: 12px;
         
@@ -11,10 +12,16 @@ div.matches.show {
                         display: none;
                     }
                     
+                    dt.assists,
+                    dd.assists,                    
                     dt.cards,
                     dd.cards,
                     dt.substitutions,
-                    dd.substitutions {
+                    dd.substitutions,                    
+                    dt.moms,
+                    dd.moms,
+                    dt.clean-sheets,
+                    dd.clean-sheets {
                         display: none;
                     }            
                 }
@@ -43,7 +50,11 @@ div.matches.show {
                 td.team-name-column.away-team {
                     text-align: right;
                 }
-          
+            
+                td.goal-column {
+                    white-space: nowrap;
+                }
+                
                 td.goal-column.home-team {
                     text-align: right;
                 }
@@ -90,6 +101,14 @@ div.matches.show {
                 
                 width: 100%;
 
+                td.team-name-column {
+                    width: 95%;
+                }
+                
+                td.goal-column {
+                    white-space: nowrap;
+                }
+                
                 td.team-name-column,
                 td.goal-column {
                     font-size: 20px;
@@ -161,16 +180,12 @@ div.matches.show {
         @include make-lg-column(9);
         
         div.player-match-stats {
-            table.player-match-stats {
-                .team-column,
-                .match-column {
-                    display: none;
-                }
-                
+            table.player-match-stats {                
                 .position-column {
                     @extend .hidden-sm;
                 }
                 
+                .match-column,
                 .goals-column,
                 .assists-column,
                 .own-goals-column,
@@ -180,7 +195,8 @@ div.matches.show {
                     @extend .hidden-xs;
                 }
                 
-                td.unused-substitute-column.wide {
+                td.unused-substitute-column.wide,
+                td.did-not-participate-column.wide {
                     @extend .hidden-xs;
                 }
             }            
@@ -197,11 +213,29 @@ div.matches.show {
     }
 }
 
+div.matches.show {
+    table.player-match-stats {
+        .team-column,
+        .match-column {
+            display: none;
+        }        
+    }
+}
+
+div.d11-matches.show {
+    table.player-match-stats {
+        .d11-team-column {
+            display: none;
+        }
+    }
+}
+
 @media only screen and (min-width: $screen-sm-min) {
     div.player-statistics {        
         div.player-match-stats {
             table.player-match-stats {
-                td.unused-substitute-column.narrow {
+                td.unused-substitute-column.narrow,
+                td.did-not-participate-column.narrow {
                     display: none;
                 }                                
             }
@@ -221,7 +255,8 @@ div.matches.show {
                     display: none;
                 }
 
-                td.unused-substitute-column.narrow {
+                td.unused-substitute-column.narrow,
+                td.did-not-participate-column.narrow {
                     display: none;
                 }                                
             }

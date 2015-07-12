@@ -7,6 +7,8 @@
      @season ||= @match_day.premier_league.season
    elsif !@d11_match_day.nil?
      @season ||= @d11_match_day.d11_league.season
+   elsif !@d11_match.nil?
+     @season ||= @d11_match.d11_match_day.d11_league.season
    end
 %>
 <% if @season.nil? %>

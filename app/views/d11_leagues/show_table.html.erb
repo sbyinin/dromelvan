@@ -10,7 +10,7 @@
 <% @d11_match_day = @d11_league.d11_match_days.current %>
 <div class="league-table-filter" data-max-index="<%= @d11_match_day.match_day_number - 1 %>">
   <ul class="context-links">
-    <li id="match-day-link">Standings after <%= render @d11_match_day %>.</li>
+    <li id="match-day-link">Standings after <%= render @d11_match_day, downcase: true %>.</li>
     <li id="traverse-links">
       Show standings after <span class="ajax-selector ajax-match-day-selector">
                               <a href="#" <% if @d11_match_day.previous.nil? %>class="disabled"<% end %> id="previous" onclick="traverse(-1);return false;">previous</a>

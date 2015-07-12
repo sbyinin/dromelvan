@@ -10,7 +10,7 @@ class PlayerMatchStat < ActiveRecord::Base
   enum lineup: [ :did_not_participate, :substitute, :starting_lineup ]
   
   default_scope -> { joins(:match).order('matches.datetime').readonly(false) }
-  scope :position_ordered, -> { joins(:position).order('positions.sort_order') }
+  scope :position_ordered, -> { joins(:position).reorder('positions.sort_order') }
   
   after_initialize :init
   before_validation :update_played_position, :update_points

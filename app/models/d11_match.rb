@@ -24,7 +24,7 @@ class D11Match < ActiveRecord::Base
   validates :status, presence: true
 
   def name
-    "#{home_d11_team.name} vs #{away_d11_team.name}"
+    "#{home_d11_team.code} vs #{away_d11_team.code}"
   end
   
   def result(d11_team)
