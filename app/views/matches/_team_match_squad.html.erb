@@ -1,0 +1,19 @@
+<div class="player-match-stats">
+  <h3><%= render 'teams/club_crest', team: team, style: :icon %> <%= render team %></h3>
+  <% player_match_stats = match.player_match_stats.by_team(team) %>  
+  <table class="player-match-stats">
+    <tbody>
+      <%= render 'player_match_stats/table_header', title: "Starting Lineup" %>
+      <% player_match_stats.position_ordered.where(lineup: 2).each do |player_match_stat| %>
+        <%= render 'player_match_stats/table_row', player_match_stat: player_match_stat %>
+      <% end %>
+      <%= render 'player_match_stats/table_header', title: "Substitutes" %>
+      <% player_match_stats.position_ordered.where(lineup: 1).each do |player_match_stat| %>
+        <%= render 'player_match_stats/table_row', player_match_stat: player_match_stat %>
+      <% end %>    
+    </tbody>
+  </table>  
+</div>
+
+
+

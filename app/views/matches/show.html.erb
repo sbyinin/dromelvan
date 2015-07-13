@@ -108,16 +108,10 @@
     <div class="player-statistics">  
       <h3>Lineups and Player Statistics</h3>
   
-      <div class="player-match-stats home-team">
-        <h3><%= render 'teams/club_crest', team: @match.home_team, style: :icon %> <%= render @match.home_team %></h3>
-        <%= render 'player_match_stats_table', player_match_stats: @match.player_match_stats.by_team(@match.home_team) %>
-      </div>
+      <%= render 'team_match_squad', team: @match.home_team, match: @match %>
       
-      <div class="player-match-stats away-team">
-        <h3><%= render 'teams/club_crest', team: @match.away_team, style: :icon %> <%= render @match.away_team %></h3>
-        <%= render 'player_match_stats_table', player_match_stats: @match.player_match_stats.by_team(@match.away_team) %>
-      </div>    
-      
+      <%= render 'team_match_squad', team: @match.away_team, match: @match %>
+            
     </div>
     
     <div class="player-statistics-summary">
