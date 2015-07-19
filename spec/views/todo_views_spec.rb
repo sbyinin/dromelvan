@@ -60,7 +60,7 @@ describe "TODO", type: :view do
   pending "home > season > d11_league > transfer_window > transfer_bids > <transfer_day>"
   # /transfer-days/<id>/bids
 
-  pending "home > teams"
+  # pending "home > teams"
   # /teams
   
   pending "home > teams > team > (team_season_squad_stats) > <season>"
@@ -69,12 +69,13 @@ describe "TODO", type: :view do
   pending "home > teams > team > matches > <season>"
   # /teams/<id>/matches/<id>
   
-  pending "home > d11_teams"
+  # pending "home > d11_teams"
   # /d11-teams
   
-  pending "home > d11_teams > <season>"
+  # pending "home > d11_teams > <season>"
   # /seasons/<id>/d11-teams
   # Do this on season/<id>?
+  # If we do it at all.
 
   pending "home > d11_teams > d11_team > (d11_team_season_squad_stats) > <season>"
   # /d11-teams/<id>/<id>
@@ -82,7 +83,7 @@ describe "TODO", type: :view do
   pending "home > d11_teams > d11_team > d11_matches > <season>"
   # /d11-teams/<id>/matches/<id>
   
-  pending "home > players"
+  # pending "home > players"
   # /players
 
   pending "home > players > player > (matches) > <season>"
@@ -94,11 +95,11 @@ describe "TODO", type: :view do
   pending "home > players > player_season_stats > <season>"
   # /seasons/<id>/player-stats
 
-  pending "player tooltip"
+  # pending "player tooltip"
   
   pending "home > search results"
   # /search
   
-  pending "responsive datatables everywhere"
+  # pending "responsive datatables everywhere"
   
 end
