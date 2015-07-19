@@ -12,7 +12,7 @@ describe "Player", type: :view do
   let!(:season) { FactoryGirl.create(:season) }
 
   
-  it_should_behave_like "index view", Player
+  #it_should_behave_like "index view", Player
 
   it_should_behave_like "show view", Player do
     let(:h1_text) { resource.name }

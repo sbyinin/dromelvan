@@ -50,21 +50,21 @@ Rails.application.routes.draw do
     end    
   end
   
-  concern :players do
-    resources :players, only: [:index]
-  end
+  #concern :players do
+  #  resources :players, only: [:index]
+  #end
 
-  resources :countries, only: [:index, :show], concerns: [:players]
+  #resources :countries, only: [:index, :show], concerns: [:players]
   resources :seasons, only: [:index, :show], concerns: [:select]
-  resources :teams, only: [:index, :show], concerns: [:select_season, :select]
-  resources :players, only: [:index, :show], concerns: [:select_season]
+  resources :teams, only: [:show], concerns: [:select_season, :select]
+  resources :players, only: [:show], concerns: [:select_season]
   resources :premier_leagues, only: [:show], concerns: [:select, :table], path: 'premier-leagues'
   resources :match_days, only: [:show, :update], concerns: [:select, :status_enum], path: 'match-days'
   resources :matches, only: [:show, :update], concerns: [:select, :status_enum]
   resources :d11_leagues, only: [:show], concerns: [:select, :table], path: 'd11-leagues'
   resources :d11_match_days, only: [:show, :update], concerns: [:select], path: 'd11-match-days'
   resources :d11_matches, only: [:show], concerns: [:select], path: 'd11-matches'
-  resources :d11_teams, only: [:index, :show], concerns: [:select_season, :select], path: 'd11-teams'
+  resources :d11_teams, only: [:show], concerns: [:select_season, :select], path: 'd11-teams'
   resources :transfer_windows, only: [:show], concerns: [:select], path: 'transfer-windows'
   resources :transfer_days, only: [:show], concerns: [:select], path: 'transfer-days'
   resources :team_table_stats, only: [:index]

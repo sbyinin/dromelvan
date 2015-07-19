@@ -1,5 +1,5 @@
 <% provide :title, @player.name
-   provide :breadcrumbs, breadcrumbs([ :index , :name, :select_season ])
+   provide :breadcrumbs, breadcrumbs([ :class, :name, :select_season ])
    player_season_info = PlayerSeasonInfo.by_player_and_season(@player, @season) %> 
   
 <h1><%= @player.name %></h1>

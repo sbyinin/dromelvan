@@ -19,7 +19,7 @@ private
     objects.map do |player|
       [
         object_name_link(player),        
-        object_name_link(player.country),
+        render_partial('countries/flag_image_tag', { country: player.country }),
         if !player.whoscored_id.nil?
           link_to(player.whoscored_id, "http://www.whoscored.com/Players/#{player.whoscored_id}", target: "blank", class: "model-link")
         else
