@@ -5,7 +5,7 @@ $screen-tablet-landscape-min: $screen-md-min;
 $screen-tablet-portrait-max: $screen-tablet-landscape-min - 1;
 $screen-tablet-portrait-min: 481px;
 $screen-phone-landscape-max: $screen-tablet-portrait-min - 1;
-$screen-phone-landscape-min: 321px;
+$screen-phone-landscape-min: 376px; // iPhone 5 321px, iPhone 6 376px
 $screen-phone-portrait-max: $screen-phone-landscape-min - 1;
 
 // Fonts

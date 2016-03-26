@@ -101,13 +101,14 @@
       <%= render 'player_season_stats/table', player_season_stats: @player.player_season_stats %>
     </div>      
   </div>
-  <div id="player-history" class="related-section">
-    <div id="player-career-stats">
+  
+  <div id="player-history">
+    <div id="player-career-stats" class="related-section">
       <h3>Career Statistics</h3>
       <%= render 'player_career_stats/simple_table', player_career_stat: PlayerCareerStat.by_player(@player) %>
     </div>    
     
-    <div id="player-transfer-history">
+    <div id="player-transfer-history" class="related-section">
       <h3>Transfer History</h3>
       <%= render 'transfers/table', transfers: Transfer.where(player: @player), total: Transfer.where(player: @player).sum(:fee) %>
     </div>

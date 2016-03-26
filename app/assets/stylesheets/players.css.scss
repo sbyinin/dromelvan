@@ -1,116 +1,110 @@
 main {
-    div#player-profile-container {
-//        @include make-lg-column(12);
-    }
-    
-    div#player-profile {        
-        div.image-container {
-            @include make-sm-column(3);
-        }
+    div.players.show {
         
-        div.personal-information-container,
-        div.season-information-container {
-            @include make-sm-column(3);
-
-            table {                
-                td {
-                    border-top: none;
-                    padding-top: 0px;
-                    padding-bottom: 5px;
-                }
-            }
-        }
-        
-        dl {
-            @include make-sm-column(3);
-            padding: 0px;
-            min-width: 280px;
-            dt {
-                float: left;
-                white-space: nowrap;
+        div.section {
+            div.main-section {
+                @include make-md-column(12);
+                @include make-lg-column(9);                
             }
             
-            dd {
-                margin-left: 105px;
-                
+            div.related-section {
+                @include make-sm-column(6);
+                @include make-md-column(4);
+                @include make-lg-column(3);
             }
         }
-                
-        div.player-photo {
-            img.club-crest {
-                @extend .hidden-sm;
-                @extend .hidden-md;
-                @extend .hidden-lg;
+        
+        div#player-profile-container {
+            @include make-lg-column(12);
+        }
+        
+        div#player-profile {        
+            div.image-container {
+                @include make-sm-column(3);
+                @include make-md-column(3);
             }
-        }
-        div.club-crest {
-            @extend .hidden-xs;
-        }        
-    }
-}
-
-div.players.show {
-    table.player-season-stats {
-        .player-column,
-        .team-column {
-            display: none;
-        }
-    }
+            
+            div.personal-information-container,
+            div.season-information-container {
+                @include make-sm-column(4);
+                @include make-md-column(3);
     
-    table.player-match-stats {
-        .player-column,
-        .position-column {
-            display: none;
-        }
-    }
-}
-/*
-@media only screen and (min-width: $screen-tablet-landscape-min) {
-    main {
-        div.player-profile {    
-            dl.data {
+                table {                
+                    td {
+                        border-top: none;
+                        padding-top: 0px;
+                        padding-bottom: 5px;
+                    }
+                }
+            }
+            
+            dl {
+                padding: 0px;
+                min-width: 280px;
                 dt {
-                    width: 100px;
-                    display: block;
                     float: left;
+                    white-space: nowrap;
                 }
                 
                 dd {
                     margin-left: 105px;
-                }            
-            }            
+                    
+                }
+            }
+                    
+            div.player-photo {
+                img.club-crest {
+                    @extend .hidden-sm;
+                    @extend .hidden-md;
+                    @extend .hidden-lg;
+                }
+            }
+            div.club-crest {
+                @extend .hidden-xs;
+                @extend .hidden-sm;
+            }        
         }
-    }
-}
-    
-@media only screen and (min-width: $screen-tablet-portrait-max) {
-    main {
-        div.player-profile {    
-            span.points {
-                display: block;
+        
+
+        table.player-season-stats {
+            .player-column,
+            .team-column {
+                display: none;
+            }
+            
+            .form-column {
+                @extend .hidden-xs;
+                @extend .hidden-sm;                
+            }
+            
+            .yellow-cards-column,
+            .red-cards-column {
+                @extend .hidden-xs;
+            }
+        }
+        
+        table.player-match-stats {
+            .player-column,
+            .position-column {
+                display: none;
+            }
+            
+            .d11-team-column {
+                @extend .hidden-sm;
             }
         }
     }
 }
 
-@media only screen and (max-width: $screen-phone-landscape-max)  {
+@media only screen and (max-width: $screen-phone-portrait-max)  {
     main {
-        div.player-profile {                    
-            dt {
-                width: 100px;
-                display: block;
-                float: left;
-            }
-            
-            dd {
-                margin-left: 105px;
-            }    
-        
-            div.player-photo {
-                padding-left: 0px;
-                padding-right: 0px;
+        div.players.show {    
+            table.player-season-stats {
+                .position-column,
+                .appearances-column {
+                    display: none;
+                }
             }
         }
     }
 }
-*/

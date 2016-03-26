@@ -22,9 +22,15 @@ table.player-career-stats {
     td.did-not-participate-column.wide {
         @extend .hidden-xs;
     }
-    
+
+    td.unused-substitute-column.tiny,
+    td.did-not-participate-column.tiny {
+        display: none;
+    }                                
+        
     .position-column,
     .team-column,
+    .team-simple-column,
     .match-column,
     .appearances-column,
     .minutes-played-column,
@@ -98,15 +104,18 @@ table.player-career-stats {
     table.player-match-stats {
         .yellow-card-column,
         .red-card-column,
-        .substitution-time-column,
-        .rating-column,
-        .date-column {
+        .substitution-time-column {
             display: none;
         }
 
         td.unused-substitute-column.narrow,
         td.did-not-participate-column.narrow {
             display: none;
-        }                                
+        }
+        
+        td.unused-substitute-column.tiny,
+        td.did-not-participate-column.tiny{
+            display: table-cell;
+        }                                        
     }
 }

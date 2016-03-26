@@ -195,7 +195,7 @@ div.matches.show {
         .team-column,
         .date-column,
         .match-column {
-            display: none;
+            display: none !important;
         }        
     }
 }
