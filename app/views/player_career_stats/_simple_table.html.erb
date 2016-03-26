@@ -11,8 +11,8 @@
       <td class="number-column"><%= PlayerSeasonStat.where(player: player_career_stat.player).size %></td>
     </tr>        
     <tr>
-      <td class="main-column">Matches played</td>
-      <td class="number-column"><%= player_career_stat.games_started + player_career_stat.games_substitute %></td>
+      <td class="main-column">Appearances</td>
+      <td class="number-column"><%= player_career_stat.games_started %>/<%= player_career_stat.games_substitute %></td>
     </tr>    
     <tr>
       <td class="main-column">Points</td>
@@ -22,11 +22,20 @@
       <td class="main-column">Points per season</td>
       <% seasons = PlayerSeasonStat.where(player: player_career_stat.player).size
          if seasons > 0 then %>
-      <td class="number-column"><%= player_career_stat.points / PlayerSeasonStat.where(player: player_career_stat.player).size %></td>
+      <td class="number-column"><%= player_career_stat.points / seasons %></td>
       <% else %>
         <td class="number-column"><%= player_career_stat.points %></td>
       <% end %>
     </tr>    
+    <tr>
+      <td class="main-column">Points per appearance</td>
+      <% appearances = player_career_stat.games_started + player_career_stat.games_substitute
+         if appearances > 0 then %>
+      <td class="number-column"><%= player_career_stat.points / appearances %></td>
+      <% else %>
+        <td class="number-column"><%= player_career_stat.points %></td>
+      <% end %>
+    </tr>        
     <tr>
       <td class="main-column">Ranking</td>
       <td class="number-column"><%= player_career_stat.ranking.ordinalize %></td>

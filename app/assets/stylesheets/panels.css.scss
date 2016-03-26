@@ -6,11 +6,11 @@ main {
         }
         
         // border-bottom: none;
-        //background-image: none !important;
+        background-image: none !important;
         // TODO: styling work in progress
-        //background-color: $d11-blue !important;
-        //color: white;
-        //background-image: none !important;    
+        background-color: $panel-heading-background-colour !important;
+        color: white !important;
+        background-image: none !important;    
     }
     
     div.panel-body {
