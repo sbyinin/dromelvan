@@ -1,0 +1,5 @@
+<tr>
+  <td class="date-column medium"><%= transfer.transfer_day.datetime.to_date.to_s(:shortest_date) %></td>
+  <td class="d11-team-column main-column"><%= render transfer.d11_team %></td>
+  <td class="number-column"><%= player_value transfer.fee %></td>
+</tr>

@@ -1,6 +1,8 @@
 <tr>
   <td class="player-column main-column"><%= render player_match_stat.player %></td>
   <td class="position-column"><%= player_match_stat.position.code %></td>
+  <td class="date-column short"><%= player_match_stat.match.shortest_date_s %></td>
+  <td class="date-column long"><%= player_match_stat.match.short_date_no_weekday_s %></td>
   <td class="team-column"><%= render 'teams/club_crest', team: player_match_stat.team, style: :icon %></td>
   <td class="match-column"><%= render 'teams/club_crest', team: player_match_stat.match.home_team, style: :icon %> <%= render player_match_stat.match %> <%= render 'teams/club_crest', team: player_match_stat.match.away_team, style: :icon %></td>
   <% if player_match_stat.participated? %>

@@ -11,14 +11,10 @@ body {
     main {
         background-color: white;
                 
-        h1, h2 {
+        h1, h2, h3 {
             margin-top: 10px;
         }
-        
-        h3 {
-            margin-top: 5px;            
-        }
-        
+                
         h4 {
             min-height: 20px;
             margin-top: 0px;
@@ -75,6 +71,10 @@ body {
         padding-bottom: 20px;
                 
         div.section {
+            div.top-section {
+                @include make-lg-column(12);
+            }
+            
             div.main-section {
                 @include make-md-column(8);
                 @include make-lg-column(9);

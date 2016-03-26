@@ -93,6 +93,13 @@ describe PlayerCareerStat, type: :model do
     end
     
   end
+
+  describe ".by_player" do
+    let!(:player) { FactoryGirl.create(:player) }
+    
+    specify { expect(PlayerCareerStat.by_player(player)).not_to be_nil }
+    specify { expect(PlayerCareerStat.by_player(player).player).to eq player }               
+  end
   
   describe ".update_rankings" do
 

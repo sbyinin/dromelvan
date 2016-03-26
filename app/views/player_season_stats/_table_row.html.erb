@@ -1,0 +1,19 @@
+<% player_season_info = PlayerSeasonInfo.by_player_and_season(player_season_stat.player, player_season_stat.season) %>
+<tr>
+  <td class="season-column"><%= render player_season_stat.season %></td>  
+  <td class="number-column"><%= player_season_stat.ranking %></td>
+  <td class="player-column main-column"><%= render player_season_stat.player %></td>  
+  <td class="team-simple-column"><%= render 'teams/club_crest', team: player_season_info.team, style: :icon %></td>
+  <td class="team-column"><%= render 'teams/club_crest', team: player_season_info.team, style: :icon %> <%= render player_season_info.team %></td>
+  <td class="position-column" title="<%= player_season_info.position.name %>"><%= player_season_info.position.code %></td>
+  <td class="appearances-column"><%= player_season_stat.games_started %>/<%= player_season_stat.games_substitute %></td>  
+  <td class="goals-column"><%= player_season_stat.goals %></td>  
+  <td class="assists-column"><%= player_season_stat.goal_assists %></td>
+  <td class="yellow-cards-column"><%= player_season_stat.yellow_cards %></td>  
+  <td class="red-cards-column"><%= player_season_stat.red_cards %></td>    
+  <td class="mom-column"><%= player_season_stat.man_of_the_match %>/<%= player_season_stat.shared_man_of_the_match %></td>  
+  <td class="rating-column"><%= player_season_stat.rating_s %></td>
+  <td class="form-column"><%= render 'players/player_form', player: player_season_stat.player, season: player_season_stat.season %></td>
+  <td class="points-column number-column"><%= player_season_stat.points %></td>  
+  <td class="d11-team-column"><%= render player_season_info.d11_team %></td>
+</tr>

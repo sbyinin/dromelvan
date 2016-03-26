@@ -1,14 +1,39 @@
 main {
-    div.player-profile-container {
-        @include make-lg-column(9);
+    div#player-profile-container {
+//        @include make-lg-column(12);
     }
     
-    div.player-profile {        
+    div#player-profile {        
         div.image-container {
             @include make-sm-column(3);
         }
+        
+        div.personal-information-container,
+        div.season-information-container {
+            @include make-sm-column(3);
+
+            table {                
+                td {
+                    border-top: none;
+                    padding-top: 0px;
+                    padding-bottom: 5px;
+                }
+            }
+        }
+        
         dl {
             @include make-sm-column(3);
+            padding: 0px;
+            min-width: 280px;
+            dt {
+                float: left;
+                white-space: nowrap;
+            }
+            
+            dd {
+                margin-left: 105px;
+                
+            }
         }
                 
         div.player-photo {
@@ -23,7 +48,51 @@ main {
         }        
     }
 }
+
+div.players.show {
+    table.player-season-stats {
+        .player-column,
+        .team-column {
+            display: none;
+        }
+    }
     
+    table.player-match-stats {
+        .player-column,
+        .position-column {
+            display: none;
+        }
+    }
+}
+/*
+@media only screen and (min-width: $screen-tablet-landscape-min) {
+    main {
+        div.player-profile {    
+            dl.data {
+                dt {
+                    width: 100px;
+                    display: block;
+                    float: left;
+                }
+                
+                dd {
+                    margin-left: 105px;
+                }            
+            }            
+        }
+    }
+}
+    
+@media only screen and (min-width: $screen-tablet-portrait-max) {
+    main {
+        div.player-profile {    
+            span.points {
+                display: block;
+            }
+        }
+    }
+}
+
 @media only screen and (max-width: $screen-phone-landscape-max)  {
     main {
         div.player-profile {                    
@@ -44,31 +113,4 @@ main {
         }
     }
 }
-
-@media only screen and (min-width: $screen-tablet-portrait-max) {
-    main {
-        div.player-profile {    
-            span.points {
-                display: block;
-            }
-        }
-    }
-}
-
-@media only screen and (min-width: $screen-tablet-landscape-min) {
-    main {
-        div.player-profile {    
-            dl.data {
-                dt {
-                    width: 100px;
-                    display: block;
-                    float: left;
-                }
-                
-                dd {
-                    margin-left: 105px;
-                }            
-            }            
-        }
-    }
-}
+*/

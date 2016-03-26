@@ -4,6 +4,14 @@ class PlayerCareerStat < ActiveRecord::Base
   def player_match_stats
     PlayerMatchStat.by_player(player)
   end
+
+  def PlayerCareerStat.by_player(player)
+    player_career_stat = where(player: player).first
+    if player_career_stat.nil?
+      player_career_stat = create(player: player)      
+    end
+    player_career_stat
+  end
   
   def PlayerCareerStat.update_rankings
     ranking = 1

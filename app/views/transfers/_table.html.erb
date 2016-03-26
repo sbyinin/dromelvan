@@ -1,0 +1,16 @@
+<table class="transfers data table-striped table-hover">
+  <thead>
+    <%= render 'transfers/table_header' %>
+  </thead>
+  <tbody>    
+    <% transfers.each do |transfer| %>
+      <%= render 'transfers/table_row', transfer: transfer %>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="2" style="text-align: right; border-right: none"><b>Total:</b></td>
+      <td><%= player_value total %></td>
+    </tr>
+  </tfoot>         
+</table>

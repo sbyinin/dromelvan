@@ -1,0 +1,13 @@
+div.d11-matches.show {
+    table.player-match-stats {
+        .d11-team-column,
+        .date-column,
+        .date-column.short {
+            display: none !important;
+        }
+        
+        .match-column {
+            @extend .hidden-xs;
+        }        
+    }
+}

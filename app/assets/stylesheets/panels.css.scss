@@ -1,9 +1,12 @@
 main {
     div.panel-heading {
-        h2 {
+        h2,h3 {
             margin: 0px;
             display: inline;
         }
+        
+        // border-bottom: none;
+        //background-image: none !important;
         // TODO: styling work in progress
         //background-color: $d11-blue !important;
         //color: white;
@@ -19,7 +22,8 @@ main {
     div.standard-panel {
         @extend .panel;
         @extend .panel-default;
-        
+
+        margin-top: 10px;        
         // TODO: styling work in progress
         //border-radius: 0px;
         //border-color: black;        

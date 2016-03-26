@@ -47,15 +47,23 @@ class Match < ActiveRecord::Base
   end
 
   def date_s
-    (postponed? ? "Postponed" : datetime.to_date.to_formatted_s(:match_date))
+    (postponed? ? "Postponed" : datetime.to_date.to_s(:match_date))
   end
   
   def short_date_s
-    (postponed? ? "Postponed" : datetime.to_date.to_formatted_s(:match_date_short))
+    (postponed? ? "Postponed" : datetime.to_date.to_s(:match_date_short))
+  end
+
+  def short_date_no_weekday_s
+    (postponed? ? "PP" : datetime.to_date.to_s(:match_date_short_no_weekday))
+  end
+
+  def shortest_date_s
+    (postponed? ? "PP" : datetime.to_date.to_s(:match_date_shortest))
   end
   
   def kickoff_time_s
-    (postponed? ? "PP" : datetime.to_formatted_s(:kickoff_time))
+    (postponed? ? "PP" : datetime.to_s(:kickoff_time))
   end
     
   def name

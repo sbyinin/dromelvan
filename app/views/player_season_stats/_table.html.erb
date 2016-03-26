@@ -1,0 +1,10 @@
+<table class="player-season-stats data table-bordered table-striped table-hover">
+  <thead>
+    <%= render 'player_season_stats/table_header' %>
+  </thead>
+  <tbody>    
+    <% player_season_stats.each do |player_season_stat| %>
+      <%= render 'player_season_stats/table_row', player_season_stat: player_season_stat %>
+    <% end %>
+  </tbody>
+</table>

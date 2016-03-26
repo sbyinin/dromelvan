@@ -1,0 +1,68 @@
+<table class="player-career-stat data table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="main-column">Stat</th>
+      <th class="number-column">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="main-column">Seasons</td>
+      <td class="number-column"><%= PlayerSeasonStat.where(player: player_career_stat.player).size %></td>
+    </tr>        
+    <tr>
+      <td class="main-column">Matches played</td>
+      <td class="number-column"><%= player_career_stat.games_started + player_career_stat.games_substitute %></td>
+    </tr>    
+    <tr>
+      <td class="main-column">Points</td>
+      <td class="number-column"><%= player_career_stat.points %></td>
+    </tr>    
+    <tr>
+      <td class="main-column">Points per season</td>
+      <% seasons = PlayerSeasonStat.where(player: player_career_stat.player).size
+         if seasons > 0 then %>
+      <td class="number-column"><%= player_career_stat.points / PlayerSeasonStat.where(player: player_career_stat.player).size %></td>
+      <% else %>
+        <td class="number-column"><%= player_career_stat.points %></td>
+      <% end %>
+    </tr>    
+    <tr>
+      <td class="main-column">Ranking</td>
+      <td class="number-column"><%= player_career_stat.ranking.ordinalize %></td>
+    </tr>    
+    <tr>
+      <td class="main-column">Average rating</td>
+      <td class="number-column"><%= player_career_stat.rating_s %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Goals</td>
+      <td class="number-column"><%= player_career_stat.goals %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Assists</td>
+      <td class="number-column"><%= player_career_stat.goal_assists %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Own goals</td>
+      <td class="number-column"><%= player_career_stat.own_goals %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Yellow cards</td>
+      <td class="number-column"><%= player_career_stat.yellow_cards %></td>
+    </tr>    
+    <tr>
+      <td class="main-column">Red cards</td>
+      <td class="number-column"><%= player_career_stat.red_cards %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Man of the match</td>
+      <td class="number-column"><%= player_career_stat.man_of_the_match %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Shared man of the match</td>
+      <td class="number-column"><%= player_career_stat.shared_man_of_the_match %></td>
+    </tr>
+    
+  </tbody>
+</table>
