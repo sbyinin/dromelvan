@@ -4,5 +4,5 @@
     <li><%= render premier_league %></li>
     <li><%= link_to "Current Match Day", premier_league.match_days.current, class: "model-link" %></li>
     <li><%= link_to "League Table", show_table_premier_league_path(premier_league), class: "model-link" %></li>
-    <li><a href="#">Player stats</a></li>
+    <li><%= link_to "Player Statistics", show_stats_premier_league_path(premier_league), class: "model-link" %></li>
 <% end %>

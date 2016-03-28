@@ -3,7 +3,12 @@ class PlayerSeasonStat < ActiveRecord::Base
   
   belongs_to :season
   
+  after_initialize :init_form_points
+  before_validation :summarize_form_points
+  
   validates :season, presence: true
+  validates :form_points, presence: true, numericality: { only_integer: true }
+
 
   def player_match_stats
     PlayerMatchStat.by_player(player).by_season(season)
@@ -25,4 +30,21 @@ class PlayerSeasonStat < ActiveRecord::Base
     ranking
   end
   
+  def summarize_form_points
+    reset_form_points
+    if !player.nil? then
+      player.form_player_match_stats(season).each do |player_match_stat|
+        self.form_points += player_match_stat.points
+      end
+    end    
+  end
+  
+  private  
+    def reset_form_points
+        self.form_points = 0
+    end    
+  
+    def init_form_points
+      self.form_points ||= 0
+    end    
 end

@@ -7,7 +7,7 @@ module Datatable
 
   def initialize(view, scope_params)
     @view = view
-    @scope_params = scope_params
+    @scope_params = filter_scope_params(scope_params)
   end
 
   def as_json(options = {})
@@ -26,7 +26,7 @@ private
   end
 
   def fetch_objects    
-    objects = params[:order].present? ? table_scope.reorder("#{sort_column} #{sort_direction}") : table_scope
+    objects = params[:order].present? ? table_scope.reorder("#{sort_params(sort_column.to_s)}") : table_scope
     objects = objects.page(page).per_page(per_page)
     if params[:search].present?
       puts(params[:search])
@@ -71,7 +71,7 @@ private
   end
 
   def sort_column
-    columns = sort_columns
+    columns = sort_columns    
     columns[params[:order]["0"]["column"].to_i]
   end
 
@@ -79,6 +79,23 @@ private
     params[:order]["0"]["dir"] == "desc" ? "desc" : "asc"
   end
 
+  def sort_params(sort_column)
+    # Turn 'first_name,last_name' into 'first_name desc,last_name desc"
+    sort_params = ""
+    split = sort_column.split(",")
+    split.each do |param|
+      sort_params += param + " " + sort_direction
+      if param != split.last then
+        sort_params += ","
+      end
+    end    
+    sort_params
+  end
+  
+  def filter_scope_params(scope_params)
+    scope_params
+  end
+  
   def table_scope
     where_clause = []
     @scope_params.keys.each do |key|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604082833) do
+ActiveRecord::Schema.define(version: 20160328091820) do
 
   create_table "cards", force: true do |t|
     t.integer  "match_id"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20150604082833) do
     t.integer  "minutes_played"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "points_per_appearance"
   end
 
   create_table "d11_team_match_squad_stats", force: true do |t|
@@ -109,6 +110,7 @@ ActiveRecord::Schema.define(version: 20150604082833) do
     t.integer  "minutes_played"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "points_per_appearance"
   end
 
   create_table "d11_team_registrations", force: true do |t|
@@ -143,6 +145,7 @@ ActiveRecord::Schema.define(version: 20150604082833) do
     t.integer  "minutes_played"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "points_per_appearance"
   end
 
   create_table "d11_team_table_stats", force: true do |t|
@@ -254,6 +257,9 @@ ActiveRecord::Schema.define(version: 20150604082833) do
     t.integer  "ranking"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "points_per_appearance"
+    t.integer  "seasons"
+    t.integer  "points_per_season"
   end
 
   create_table "player_match_stats", force: true do |t|
@@ -320,6 +326,8 @@ ActiveRecord::Schema.define(version: 20150604082833) do
     t.integer  "ranking"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "form_points"
+    t.integer  "points_per_appearance"
   end
 
   create_table "players", force: true do |t|
@@ -418,6 +426,7 @@ ActiveRecord::Schema.define(version: 20150604082833) do
     t.integer  "minutes_played"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "points_per_appearance"
   end
 
   create_table "team_match_squad_stats", force: true do |t|
@@ -443,6 +452,7 @@ ActiveRecord::Schema.define(version: 20150604082833) do
     t.integer  "minutes_played"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "points_per_appearance"
   end
 
   create_table "team_registrations", force: true do |t|
@@ -475,6 +485,7 @@ ActiveRecord::Schema.define(version: 20150604082833) do
     t.integer  "minutes_played"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "points_per_appearance"
   end
 
   create_table "team_table_stats", force: true do |t|
@@ -581,6 +592,7 @@ ActiveRecord::Schema.define(version: 20150604082833) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "d11_team_id"
+    t.integer  "points_per_appearance"
   end
 
   create_table "transfer_windows", force: true do |t|

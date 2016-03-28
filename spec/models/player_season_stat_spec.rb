@@ -10,6 +10,7 @@ describe PlayerSeasonStat, type: :model do
 
   it { is_expected.to respond_to(:player) }
   it { is_expected.to respond_to(:season) }
+  it { is_expected.to respond_to(:form_points) }
   it { is_expected.to respond_to(:ranking) }
 
   it { is_expected.to be_valid }
@@ -22,6 +23,11 @@ describe PlayerSeasonStat, type: :model do
   describe '#season' do
     subject { @player_season_stat.season }
     it { is_expected.to eq season }
+  end
+
+  describe '#form_points' do
+    subject { @player_season_stat.form_points }
+    it { is_expected.to eq 0 }
   end
 
   describe '#ranking' do
@@ -70,13 +76,14 @@ describe PlayerSeasonStat, type: :model do
       specify { expect(player_season_stats.goals_conceded).to eq 3 }
       specify { expect(player_season_stats.clean_sheets).to eq 1 }
       specify { expect(player_season_stats.rating).to eq 700 }
-      specify { expect(player_season_stats.points).to eq 9 }                    
+      specify { expect(player_season_stats.points).to eq 9 }      
       specify { expect(player_season_stats.yellow_cards).to eq 2 }
       specify { expect(player_season_stats.red_cards).to eq 2 }
       specify { expect(player_season_stats.man_of_the_match).to eq 1 }
       specify { expect(player_season_stats.shared_man_of_the_match).to eq 1 }
       specify { expect(player_season_stats.games_started).to eq 2 }
       specify { expect(player_season_stats.games_substitute).to eq 1 }
+      specify { expect(player_season_stats.appearances).to eq 3 }
       specify { expect(player_season_stats.games_did_not_participate).to eq 1 }
       specify { expect(player_season_stats.substitutions_on).to eq 1 }
       specify { expect(player_season_stats.substitutions_off).to eq 1 }
@@ -97,13 +104,14 @@ describe PlayerSeasonStat, type: :model do
       specify { expect(player_season_stats.goals_conceded).to eq 0 }
       specify { expect(player_season_stats.clean_sheets).to eq 0 }
       specify { expect(player_season_stats.rating).to eq 700 }
-      specify { expect(player_season_stats.points).to eq 7 }                    
+      specify { expect(player_season_stats.points).to eq 7 }
       specify { expect(player_season_stats.yellow_cards).to eq 2 }
       specify { expect(player_season_stats.red_cards).to eq 2 }
       specify { expect(player_season_stats.man_of_the_match).to eq 1 }
       specify { expect(player_season_stats.shared_man_of_the_match).to eq 1 }
       specify { expect(player_season_stats.games_started).to eq 2 }
       specify { expect(player_season_stats.games_substitute).to eq 1 }
+      specify { expect(player_season_stats.appearances).to eq 3 }
       specify { expect(player_season_stats.games_did_not_participate).to eq 1 }
       specify { expect(player_season_stats.substitutions_on).to eq 1 }
       specify { expect(player_season_stats.substitutions_off).to eq 1 }
@@ -154,6 +162,11 @@ describe PlayerSeasonStat, type: :model do
   context "when season is nil" do
     before { @player_season_stat.season = nil }
     it { is_expected.not_to be_valid }
+  end
+  
+  context "when form_points is nil" do
+    before { @player_season_stat.form_points = nil }
+    it { is_expected.to be_valid }
   end
   
   context "when ranking is nil" do

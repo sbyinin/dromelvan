@@ -9,6 +9,9 @@
        <% if defined?(number_columns) then %>
        data-number-columns="<%= number_columns %>" 
        <% end %>
+       <% if defined?(column_classes) then %>
+       data-column-classes="<%= column_classes %>" 
+       <% end %>     
        <% if defined?(ajax_params) then %>
        data-ajax-params="<%= ajax_params.to_json.html_safe.gsub("\"","'") %>"
        <% end %>

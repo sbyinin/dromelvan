@@ -63,6 +63,11 @@ jQuery(function() {
             if(responsiveHelper) {
                 responsiveHelper.createExpandIcon(nRow);
             }
+            if(undefined != tableElement.data("column-classes")) {
+                for (var i = 0; i < tableElement.data("column-classes").length; i++) {
+                    $('td:eq(' + i + ')', nRow).addClass(tableElement.data("column-classes")[i]);
+                }
+            }
         },
         aoColumnDefs: [
             {
@@ -72,8 +77,7 @@ jQuery(function() {
                 aTargets: tableElement.data("icon-columns"),
                 sClass: "icon-column"
             }
-        ]
-
+        ],
         // aoColumnDefs: [{
         //   bSortable: false,
         //   aTargets: if $(this).data("unsortable-columns") is `undefined`

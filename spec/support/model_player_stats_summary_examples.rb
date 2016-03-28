@@ -10,6 +10,9 @@ shared_examples_for "player stats summary" do
   it { is_expected.to respond_to(:games_started) }
   it { is_expected.to respond_to(:games_substitute) }
   it { is_expected.to respond_to(:games_did_not_participate) }
+  it { is_expected.to respond_to(:appearances) }
+  it { is_expected.to respond_to(:points_per_appearance) }
+  it { is_expected.to respond_to(:points_per_appearance_s) }
   it { is_expected.to respond_to(:substitutions_on) }
   it { is_expected.to respond_to(:substitutions_off) }
   it { is_expected.to respond_to(:minutes_played) }
@@ -48,6 +51,14 @@ shared_examples_for "player stats summary" do
     specify { expect(subject.games_did_not_participate).to eq 0 }
   end
 
+  describe '#appearances' do
+    specify { expect(subject.appearances).to eq 0 }
+  end
+
+  describe '#points_per_appearance' do
+    specify { expect(subject.points_per_appearance).to eq 0 }
+  end
+
   describe '#substitutions_on' do
     specify { expect(subject.substitutions_on).to eq 0 }
   end
@@ -76,6 +87,7 @@ shared_examples_for "player stats summary" do
       subject.games_started = 1
       subject.games_substitute = 1
       subject.games_did_not_participate = 1
+      subject.points_per_appearance = 1
       subject.substitutions_on = 1
       subject.substitutions_off = 1
       subject.minutes_played = 1
@@ -96,12 +108,22 @@ shared_examples_for "player stats summary" do
     specify { expect(subject.games_started).to eq 0 }
     specify { expect(subject.games_substitute).to eq 0 }
     specify { expect(subject.games_did_not_participate).to eq 0 }
+    specify { expect(subject.appearances).to eq 0 }
+    specify { expect(subject.points_per_appearance).to eq 0 }
     specify { expect(subject.substitutions_on).to eq 0 }
     specify { expect(subject.substitutions_off).to eq 0 }
     specify { expect(subject.minutes_played).to eq 0 }                        
   end
 
-
+  describe '#points_per_appearance_s' do
+    specify { expect(subject.points_per_appearance_s).to eq '0.00' }
+    
+    context 'when points_per_appearance > 0' do
+      before { subject.points_per_appearance = 123 }
+      
+      specify { expect(subject.points_per_appearance_s).to eq '1.23' }
+    end    
+  end
 
   # All these should be valid since a reset and summary should be done in before_validation
   context "when clean_sheets is nil" do
@@ -181,6 +203,11 @@ shared_examples_for "player stats summary" do
 
   context "when games_did_not_participate is invalid" do
     before { subject.games_did_not_participate = -1 }
+    it { is_expected.to be_valid }
+  end
+
+  context "when points_per_appearance is nil" do
+    before { subject.points_per_appearance = nil }
     it { is_expected.to be_valid }
   end
 

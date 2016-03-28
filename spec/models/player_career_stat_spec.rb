@@ -9,6 +9,9 @@ describe PlayerCareerStat, type: :model do
 
   it { is_expected.to respond_to(:player) }
   it { is_expected.to respond_to(:ranking) }
+  it { is_expected.to respond_to(:seasons) }
+  it { is_expected.to respond_to(:points_per_season) }
+  it { is_expected.to respond_to(:points_per_season_s) }
 
   it { is_expected.to be_valid }
 
@@ -20,6 +23,26 @@ describe PlayerCareerStat, type: :model do
   describe '#ranking' do
     subject { @player_career_stat.ranking }
     it { is_expected.to eq 0 }
+  end
+  
+  describe '#seasons' do
+    subject { @player_career_stat.seasons }
+    it { is_expected.to eq 0 }
+  end
+
+  describe '#points_per_season' do
+    subject { @player_career_stat.points_per_season }
+    it { is_expected.to eq 0 }
+  end
+  
+  describe '#points_per_season_s' do
+    specify { expect(subject.points_per_season_s).to eq '0.00' }
+    
+    context 'when points_per_season > 0' do
+      before { subject.points_per_season = 123 }
+      
+      specify { expect(subject.points_per_season_s).to eq '1.23' }
+    end    
   end
   
   describe "#player_match_stats" do
@@ -144,6 +167,21 @@ describe PlayerCareerStat, type: :model do
   context "when ranking is invalid" do
     before { @player_career_stat.ranking = -1 }
     it { is_expected.not_to be_valid }
+  end
+
+  context "when seasons is nil" do
+    before { @player_career_stat.seasons = nil }
+    it { is_expected.to be_valid }
+  end
+
+  context "when seasons is invalid" do
+    before { @player_career_stat.seasons = -1 }
+    it { is_expected.to be_valid }
+  end
+
+  context "when points_per_season is nil" do
+    before { @player_career_stat.points_per_season = nil }
+    it { is_expected.to be_valid }
   end
   
 end

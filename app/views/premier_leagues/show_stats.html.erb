@@ -1,0 +1,10 @@
+<% provide :title, "#{@premier_league.name} table"
+   provide :breadcrumbs, breadcrumbs([ @premier_league.season, @premier_league , "Stats", :select_stats ]) %> 
+  
+<h1>
+  <%= @premier_league.name %> <span class="season-name"><%= @premier_league.season.name %> <%= render 'context_menu' %></span>
+</h1>
+
+<h2>Player statistics</h2>
+
+<%= render 'player_season_stats/datatable' %>

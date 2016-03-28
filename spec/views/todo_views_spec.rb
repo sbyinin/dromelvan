@@ -86,10 +86,13 @@ describe "TODO", type: :view do
   # pending "home > players"
   # /players
 
-  pending "home > players > player > <season>"
+  # pending "home > players > player > <season>"
   # /players/<id>/<id>
 
   # pending "player tooltip"
+  
+  # pending "home > player_season_stats > <season>"
+  # /premier-leagues/<id>/stats
   
   pending "home > search results"
   # /search

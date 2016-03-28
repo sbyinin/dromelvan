@@ -4,7 +4,7 @@ table.player-career-stats {
     @extend .table-bordered;
     @extend .table-striped;
     @extend .table-hover;
-    
+
     .position-column {
         @extend .hidden-sm;
     }
@@ -29,7 +29,6 @@ table.player-career-stats {
     }                                
         
     .position-column,
-    .team-column,
     .team-simple-column,
     .match-column,
     .appearances-column,
@@ -65,17 +64,21 @@ table.player-career-stats {
     .mom-column,
     .rating-column,
     .points-column {
-        min-width: 37px
+        min-width: 25px
     }
     
     .d11-team-column {
         min-width: 150px;
     }
     
+    .season-column {
+        min-width: 65px;
+    }
+
     td.points-column {
         font-weight: bold;
     }
-    
+        
     td.match-column {
         white-space: nowrap;
     }
@@ -84,10 +87,35 @@ table.player-career-stats {
         @extend .hidden-xs;
     }
     
-    .date-column.short {
-        @extend .visible-xs;
+    .date-column.short,
+    .team-simple-column {
+        @extend .visible-sm;
     }
-    
+
+    .team-simple-column {
+        @extend .visible-xs;
+    }    
+}
+
+table.player-season-stats {
+    .team-column {
+        min-width: 45px;
+    }
+}
+
+div.premier-leagues.show-stats {
+    table.player-season-stats {
+        .form-column {
+            @extend .visible-lg;
+        }
+        .team-column,
+        .points-per-appearance-column,
+        .yellow-cards-column,
+        .red-cards-column {
+            @extend .hidden-xs;
+            @extend .hidden-sm;
+        }
+    }
 }
 
 @media only screen and (min-width: $screen-sm-min) {
@@ -117,5 +145,15 @@ table.player-career-stats {
         td.did-not-participate-column.tiny{
             display: table-cell;
         }                                        
+    }
+    
+    div.premier-leagues.show-stats {
+        table.player-season-stats {
+            .position-column,
+            .appearances-column,
+            .rating-column {
+                display: none;
+            }
+        }
     }
 }

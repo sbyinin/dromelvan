@@ -1,4 +1,4 @@
 class PremierLeaguesController < ApplicationController
-  include Select, LeagueTable
+  include Select, LeagueTable, Stats
     
 end

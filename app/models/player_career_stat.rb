@@ -1,8 +1,18 @@
 class PlayerCareerStat < ActiveRecord::Base
   include PlayerRanking
-    
+
+  after_initialize :init_career_stats
+  before_validation :summarize_career_stats
+
+  validates :seasons, numericality: { greater_than_or_equal_to: 0 }
+  validates :points_per_season, presence: true, numericality: { only_integer: true }
+
   def player_match_stats
     PlayerMatchStat.by_player(player)
+  end
+
+  def points_per_season_s
+    '%.2f' % (points_per_season.to_f / 100)
   end
 
   def PlayerCareerStat.by_player(player)
@@ -25,4 +35,26 @@ class PlayerCareerStat < ActiveRecord::Base
     ranking
   end
   
+  def summarize_career_stats
+    reset_career_stats
+    PlayerSeasonStat.where(player: player).each do |player_season_stat|
+      self.seasons += 1
+      self.points_per_season += player_season_stat.points
+    end
+    if self.seasons > 0 then
+      self.points_per_season = ((self.points_per_season.to_f / self.seasons.to_f).round(2) * 100).to_i
+    end
+  end
+  
+  def reset_career_stats
+    self.seasons = 0
+    self.points_per_season = 0
+  end
+  
+  private
+    def init_career_stats
+      self.seasons ||= 0
+      self.points_per_season ||= 0
+    end
+      
 end

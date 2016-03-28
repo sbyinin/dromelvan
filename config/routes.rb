@@ -42,6 +42,15 @@ Rails.application.routes.draw do
     end
   end
   
+  concern :stats do
+    collection do
+      post :select_stats
+    end
+    member do
+      get :show_stats, path: 'stats'
+    end
+  end
+  
   concern :status_enum do
     member do
       get :pend
@@ -58,7 +67,7 @@ Rails.application.routes.draw do
   resources :seasons, only: [:index, :show], concerns: [:select]
   resources :teams, only: [:show], concerns: [:select_season, :select]
   resources :players, only: [:show], concerns: [:select_season]
-  resources :premier_leagues, only: [:show], concerns: [:select, :table], path: 'premier-leagues'
+  resources :premier_leagues, only: [:show], concerns: [:select, :table, :stats], path: 'premier-leagues'
   resources :match_days, only: [:show, :update], concerns: [:select, :status_enum], path: 'match-days'
   resources :matches, only: [:show, :update], concerns: [:select, :status_enum]
   resources :d11_leagues, only: [:show], concerns: [:select, :table], path: 'd11-leagues'
@@ -68,6 +77,7 @@ Rails.application.routes.draw do
   resources :transfer_windows, only: [:show], concerns: [:select], path: 'transfer-windows'
   resources :transfer_days, only: [:show], concerns: [:select], path: 'transfer-days'
   resources :team_table_stats, only: [:index]
+  resources :player_season_stats, only: [:index]
   resources :d11_team_table_stats, only: [:index]
   resources :posts, except: [:destroy]
     

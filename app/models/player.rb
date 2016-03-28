@@ -59,7 +59,7 @@ class Player < ActiveRecord::Base
   end
 
   def form_player_match_stats(season, count = 5)
-    form_player_match_stats = season_stat(season).player_match_stats.joins(:match).where("matches.status = 2")
+    form_player_match_stats = (season_stat(season).nil? ? [] : season_stat(season).player_match_stats.joins(:match).where("matches.status = 2"))
     
     if form_player_match_stats.size > count
       form_player_match_stats = form_player_match_stats[-count..-1]

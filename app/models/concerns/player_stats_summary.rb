@@ -14,9 +14,18 @@ module PlayerStatsSummary
     validates :games_started, numericality: { greater_than_or_equal_to: 0 }
     validates :games_substitute, numericality: { greater_than_or_equal_to: 0 }
     validates :games_did_not_participate, numericality: { greater_than_or_equal_to: 0 }
+    validates :points_per_appearance, presence: true, numericality: { only_integer: true }
     validates :substitutions_on, numericality: { greater_than_or_equal_to: 0 }
     validates :substitutions_off, numericality: { greater_than_or_equal_to: 0 }
-    validates :minutes_played, numericality: { greater_than_or_equal_to: 0 }    
+    validates :minutes_played, numericality: { greater_than_or_equal_to: 0 }
+    
+    def appearances
+      games_started + games_substitute
+    end
+    
+    def points_per_appearance_s
+      '%.2f' % (points_per_appearance.to_f / 100)
+    end
     
     def summarize_stats
       reset_stats_summary
@@ -84,7 +93,11 @@ module PlayerStatsSummary
             
       if games_rated > 0 then
         self.rating = (self.rating.to_f / games_rated.to_f).round
-      end      
+      end
+      
+      if appearances > 0 then
+        self.points_per_appearance = ((self.points.to_f / appearances.to_f).round(2) * 100).to_i
+      end
     end
     
     def reset_stats_summary
@@ -93,7 +106,7 @@ module PlayerStatsSummary
         self.own_goals = 0
         self.goals_conceded = 0
         self.rating = 0
-        self.points = 0                    
+        self.points = 0
         self.clean_sheets = 0
         self.yellow_cards = 0
         self.red_cards = 0
@@ -102,6 +115,7 @@ module PlayerStatsSummary
         self.games_started = 0
         self.games_substitute = 0
         self.games_did_not_participate = 0
+        self.points_per_appearance = 0
         self.substitutions_on = 0
         self.substitutions_off = 0
         self.minutes_played = 0              
@@ -117,9 +131,10 @@ module PlayerStatsSummary
         self.games_started ||= 0
         self.games_substitute ||= 0
         self.games_did_not_participate ||= 0
+        self.points_per_appearance ||= 0
         self.substitutions_on ||= 0
         self.substitutions_off ||= 0
-        self.minutes_played ||= 0        
+        self.minutes_played ||= 0
       end      
   end
   
