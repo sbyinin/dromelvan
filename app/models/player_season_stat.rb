@@ -15,7 +15,8 @@ class PlayerSeasonStat < ActiveRecord::Base
   end
 
   def PlayerSeasonStat.by_team(team)
-    joins("player_season_infos").where("player_season_stats.player_id = player_season_infos.player_id", team: team)
+    joins("join player_season_infos on player_season_stats.player_id = player_season_infos.player_id and player_season_stats.season_id = player_season_infos.season_id")
+    .where(player_season_infos: {team_id: team.id})    
   end
   
   def PlayerSeasonStat.update_rankings(season)
