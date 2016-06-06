@@ -3,6 +3,9 @@ class PlayerSeasonStat < ActiveRecord::Base
   
   belongs_to :season
   
+  scope :by_player_season_infos, -> { joins("JOIN player_season_infos ON player_season_stats.player_id = player_season_infos.player_id AND player_season_stats.season_id = player_season_infos.season_id") }
+  scope :position_order, -> { by_player_season_infos.joins("JOIN positions ON player_season_infos.position_id = positions.id").order("positions.sort_order").ranking_order }
+ 
   after_initialize :init_form_points
   before_validation :summarize_form_points
   
@@ -15,8 +18,7 @@ class PlayerSeasonStat < ActiveRecord::Base
   end
 
   def PlayerSeasonStat.by_team(team)
-    joins("join player_season_infos on player_season_stats.player_id = player_season_infos.player_id and player_season_stats.season_id = player_season_infos.season_id")
-    .where(player_season_infos: {team_id: team.id})    
+    position_order.where(player_season_infos: { team_id: team.id })
   end
   
   def PlayerSeasonStat.update_rankings(season)

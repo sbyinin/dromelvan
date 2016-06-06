@@ -4,7 +4,7 @@ main {
         div.section {
             div.main-section {
                 @include make-md-column(12);
-                @include make-lg-column(9);                
+                @include make-lg-column(9);
             }
             
             div.related-section {
@@ -91,6 +91,19 @@ main {
             
             .d11-team-column {
                 @extend .hidden-sm;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: $screen-desktop-min)  {
+    main {
+        div.players.show {            
+            div.section {
+                div.main-section {
+                    // TODO: Maybe find a more elegant way to do this.
+                    min-height: 700px;
+                }
             }
         }
     }

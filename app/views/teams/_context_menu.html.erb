@@ -1,0 +1,6 @@
+<% team ||= @team %>
+<%= render layout: 'layouts/context_menu_dropdown', locals: { resource: team } do  %>
+    <li class="dropdown-header"><%= team.name %></li>
+    <li><%= link_to "Team squad #{@season.name}", show_season_team_path(team, @season), class: "model-link" %></li>
+    <li><a href="#">Fixtures and results <%= @season.name %></a></li>
+<% end %>

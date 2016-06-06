@@ -1,5 +1,95 @@
 <% provide :title, @team.name
-   provide :breadcrumbs, breadcrumbs([ :class , :select_name, :select_season ]) %> 
+   provide :breadcrumbs, breadcrumbs([ :class , :select_name, :select_season ])
+   team_season_squad_stat = @team.team_season_squad_stats.where(season: @season).first
+   %> 
 
-<h1><%= @team.name %></h1>
-<%= render 'layouts/administration_links', resource: @team %>
+<div class="header-container">
+  <h1><%= @team.name %> <%= render 'context_menu' %></h1>
+</div>
+
+<div class="widget-container">
+  <div class="main-widget">
+    <div id="team-profile" class="standard-panel">
+      <div class="panel-heading">
+        <h2>Team profile</h2>
+      </div>
+      
+      <div class="section panel-body">
+        <div class="image-container club-crest">
+          <%= render 'teams/club_crest', team: @team %>
+        </div>
+
+        <div class="team-information-container">
+          <h3>Team information</h3>
+          <dl class="data">
+            <dt>Code:</dt>
+            <dd><%= @team.code %></dd>
+            <dt>Nickname:</dt>
+            <dd><%= @team.nickname %></dd>
+            <dt>Established:</dt>
+            <dd><%= @team.established %></dd>
+            <dt>Stadium:</dt>
+            <dd><%= @team.stadium.name %></dd>
+            <% if !@team.motto.blank? %>
+            <dt id="motto">Motto:</dt>
+            <dd id="motto"><%= @team.motto %></dd>
+            <% end %>
+          </dl>          
+        </div>
+        
+        
+        <div class="season-information-container">
+          <h3>Season <%= @season.name %></h3>
+          <% if !team_season_squad_stat.nil? %>
+          <dl class="data">
+            <dt>Points:</dt>
+            <dd><%= team_season_squad_stat.points %></dd>
+            <dt>Avg. rating:</dt>
+            <dd><%= team_season_squad_stat.rating_s %></dd>          
+            <dt>Goals/assists:</dt>
+            <dd><%= image_tag "match-events/goal.png", alt: "Goals", title: "Goals", class: "match-event-icon" %> <%= team_season_squad_stat.goals %> <%= image_tag "match-events/assist.png", alt: "Assists", title: "Assists", class: "match-event-icon" %>  <%= team_season_squad_stat.goal_assists %></dd>            
+            <dt>Cards:</dt>
+            <dd><%= image_tag "match-events/yellow-card.png", alt: "Yellow Cards", title: "Yellow Cards", class: "match-event-icon" %> <%= team_season_squad_stat.yellow_cards %> <%= image_tag "match-events/red-card.png", alt: "Red Cards", title: "Red Cards", class: "match-event-icon" %>  <%= team_season_squad_stat.red_cards %></dd>
+            <dt>MoM:</dt>
+            <dd><%= image_tag "match-events/mom.png", alt: "Man of the Match", title: "Man of the Match", class: "match-event-icon" %> <%= team_season_squad_stat.man_of_the_match %> <%= image_tag "match-events/shared-mom.png", alt: "Shared Man of the Match", title: "Shared Man of the Match", class: "match-event-icon" %>  <%= team_season_squad_stat.shared_man_of_the_match %></dd>                        
+            <dt>Form:</dt>
+            <dd><%= render 'teams/team_points_form', team: @team, season: @season %></dd>            
+          </dl>          
+          <% else %>
+          <p>Did not participate.</p>  
+          <% end %>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="related-widget">
+    <div class="stadium-photo">
+      <%= render 'stadia/stadium_photo', stadium: @team.stadium %>
+      <div class="photo-caption">
+        <h3><%= @team.stadium.name %></h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="widget-container">
+  <% player_season_stats = PlayerSeasonStat.by_team(@team).where(season: @season)
+    if !player_season_stats.empty? then
+  %>  
+  <div id="team-season-squad-stats" class="main-widget">
+    <h3>Team squad <%= @season.name %></h2>
+    <%= render 'player_season_stats/table', player_season_stats: player_season_stats %>
+  </div>
+  <% else %>
+  <div class="main-widget">
+  </div>
+  <% end %>
+      
+  <div id="team-career-squad-stats" class="related-widget">
+    <h3>All time squad stats</h2>
+    <%= render 'team_career_squad_stats/simple_table', team_career_squad_stat: TeamCareerSquadStat.where(team: @team).first %>
+  </div>
+  
+</div>

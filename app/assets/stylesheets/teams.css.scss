@@ -1,0 +1,84 @@
+div.teams.show {
+
+    div.image-container {
+        @include make-sm-column(3);
+        @include make-md-column(3);
+    }
+
+    div.season-information-container,
+    div.team-information-container {
+        @include make-sm-column(4);
+        @include make-md-column(4);
+        
+        dl {
+            padding: 0px;
+            min-width: 280px;
+            dt {
+                float: left;
+                white-space: nowrap;
+            }
+            
+            dd {
+                margin-left: 105px;
+            }
+            
+            dt#motto,
+            dd#motto {
+                @extend .visible-lg;
+                @extend .visible-md;                
+            }
+        }
+        
+    }
+
+    div.stadium-photo {
+        @extend .visible-lg;
+        
+        img.stadium-photo {
+            border: 1px solid black;
+            margin-top: 10px;
+        }
+        
+        div.photo-caption {
+            h3 {
+                position: relative;
+                top: -44px;
+                left: 1px;
+                width: 260px;
+            }
+        }
+    }
+    
+    div.main-widget {
+        table.player-season-stats {
+            .season-column,
+            .team-simple-column,
+            .team-column {
+                display: none !important;
+            }
+        
+            .form-column {
+                min-width: 140px;
+                @extend .hidden-sm;
+            }
+        }
+    }    
+}
+
+@media only screen and (max-width: $screen-phone-landscape-max) {
+    table.player-season-stats {
+        .yellow-cards-column,
+        .red-cards-column,
+        .form-column {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: $screen-phone-portrait-max) {
+    table.player-season-stats {
+        .appearances-column {
+            display: none;
+        }
+    }
+}

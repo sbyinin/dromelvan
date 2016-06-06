@@ -71,6 +71,22 @@ class Team < ActiveRecord::Base
     end
     form[-count..-1]
   end
+
+  def form_d11_points(season, count = 5)
+    form_d11_points = []
+    matches = Match.by_team(self).by_season(season)
+    matches.each do |match|
+      if match.finished?
+        team_match_squad_stat = match.team_match_squad_stats.where(team: self).first
+        if !team_match_squad_stat.nil?
+          points = team_match_squad_stat.points
+          form_d11_points << points
+        end
+        form_d11_points << 4
+      end
+    end
+    form_d11_points[-count..-1]
+  end
   
   private  
     def init

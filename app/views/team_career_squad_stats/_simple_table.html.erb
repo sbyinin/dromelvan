@@ -1,0 +1,55 @@
+<table class="team-career-squad-stat data table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="main-column">Stat</th>
+      <th class="number-column">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="main-column">Appearances</td>
+      <td class="number-column"><%= team_career_squad_stat.games_started %>/<%= team_career_squad_stat.games_substitute %></td>
+    </tr>    
+    <tr>
+      <td class="main-column">Points</td>
+      <td class="number-column"><%= team_career_squad_stat.points %></td>
+    </tr>    
+    <tr>
+      <td class="main-column">Points per appearance</td>
+      <td class="number-column"><%= team_career_squad_stat.points_per_appearance_s %></td>
+    </tr>        
+    <tr>
+      <td class="main-column">Average rating</td>
+      <td class="number-column"><%= team_career_squad_stat.rating_s %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Goals</td>
+      <td class="number-column"><%= team_career_squad_stat.goals %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Assists</td>
+      <td class="number-column"><%= team_career_squad_stat.goal_assists %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Own goals</td>
+      <td class="number-column"><%= team_career_squad_stat.own_goals %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Yellow cards</td>
+      <td class="number-column"><%= team_career_squad_stat.yellow_cards %></td>
+    </tr>    
+    <tr>
+      <td class="main-column">Red cards</td>
+      <td class="number-column"><%= team_career_squad_stat.red_cards %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Man of the match</td>
+      <td class="number-column"><%= team_career_squad_stat.man_of_the_match %></td>
+    </tr>
+    <tr>
+      <td class="main-column">Shared MoM</td>
+      <td class="number-column"><%= team_career_squad_stat.shared_man_of_the_match %></td>
+    </tr>
+    
+  </tbody>
+</table>
