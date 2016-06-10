@@ -68,7 +68,8 @@ main {
             min-width: 200px;
         }
 
-        .icon-column {
+        .icon-column,
+	.match-day-number-column {
             text-align: center;
         }
 
@@ -367,7 +368,9 @@ table.d11-league-table.detailed {
     }
 }
 
-table.match-date-fixtures {
+table.match-date-fixtures,
+table.matches
+{
     .time-column {
         width: 80px;
 	@extend .hidden-xs;
@@ -409,11 +412,7 @@ table.match-date-fixtures {
             padding-left: 4px;
         }        
     }
-    
-    .stadium-column {
-        @extend .visible-lg;
-    }
-    
+        
     .team-simple-column {
 	div.team-name {
 	    font-weight: bold;
@@ -435,6 +434,19 @@ table.match-date-fixtures {
         padding-top: 6px;
 	margin-bottom: 0px;
     }        
+}
+
+table.match-date-fixtures {
+    .stadium-column {
+        @extend .visible-lg;
+    }    
+}
+
+table.matches {
+    .stadium-column {
+        @extend .visible-lg;
+	@extend .visible-md;
+    }    
 }
 
 table.rules-table {

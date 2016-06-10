@@ -3,12 +3,7 @@ module SelectSeason
 
   included do
     def show
-      season_id = params[:season_id]
-      if season_id.blank?
-        @season = Season.current
-      else
-        @season = Season.find(season_id)
-      end
+      find_season
       super
     end
     
@@ -19,8 +14,28 @@ module SelectSeason
   end
   
   private
+    def find_season
+      season_id = show_params[:season_id]
+      if season_id.nil?
+        season_id = select_season_params[:id]
+      end
+      if season_id.blank?
+        @season = Season.current
+      else
+        @season = Season.find(season_id)
+      end
+    end
+    
+    def show_params
+      params.permit(:season_id)  
+    end
+    
     def select_season_params
-      params.require(:season).permit(:id)
+      if !params[:season].nil?
+        params.require(:season).permit(:id)
+      else
+        {}
+      end
     end
   
 end

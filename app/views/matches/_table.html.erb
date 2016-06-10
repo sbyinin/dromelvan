@@ -1,0 +1,10 @@
+<table class="matches outer-bordered">
+  <thead>
+    <%= render 'matches/table_header' %>
+  </thead>
+  <tbody>    
+    <% matches.each do |match| %>
+      <%= render 'matches/table_row', match: match %>
+    <% end %>
+  </tbody>
+</table>

@@ -28,7 +28,7 @@
       
     <% elsif breadcrumb == :select_name then %>
       <li>
-        <%= render '/layouts/select_name', select_where: select_where %>
+        <%= render '/layouts/select_name', select_name_action: options[:select_name_action], select_where: select_where %>
       </li>
 
     <% elsif breadcrumb == :select_unique_name then %>
@@ -52,6 +52,14 @@
         <%= form_tag public_send("select_stats_#{controller_name.tableize}_path"), class: "onchange-submit-form" do %>        
           <%= collection_select controller_name.singularize, :id,
               controller_name.classify.constantize.unique_name_ordered.where({}), :id, :unique_name, {}, { onchange: 'this.form.submit()' } %>
+        <% end %>              
+      </li>
+      
+    <% elsif breadcrumb == :select_fixtures then %>
+      <li>
+        <%= form_tag public_send("select_fixtures_#{controller_name.tableize}_path"), class: "onchange-submit-form" do %>
+          <%= hidden_field_tag "#{controller_name.singularize}[id]", "#{eval("@#{controller_name.tableize.singularize}").id}" %>
+          <%= collection_select :season, :id, Season.all, :id, :name, {}, { onchange: 'this.form.submit()' } %>
         <% end %>              
       </li>
       

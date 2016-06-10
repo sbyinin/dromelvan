@@ -1,6 +1,7 @@
 table.player-match-stats,
 table.player-season-stats,
-table.player-career-stats {
+table.player-career-stats,
+table.team-table-stats {
     @extend .table-bordered;
     @extend .table-striped;
     @extend .table-hover;
@@ -62,6 +63,7 @@ table.player-career-stats {
     .substitution-time-column,
     .substitution-time-column,
     .mom-column,
+    .ranking-column,
     .rating-column,
     .points-column {
         min-width: 25px

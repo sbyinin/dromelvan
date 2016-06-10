@@ -1,5 +1,7 @@
-<% select_where ||= {} %>
-<%= form_tag url_for(action: :select), class: "onchange-submit-form" do %>        
+<% select_where ||= {}
+   select_name_action ||= :select
+   %>
+<%= form_tag url_for(action: select_name_action), class: "onchange-submit-form" do %>        
   <%= collection_select controller_name.singularize, :id,
       controller_name.classify.constantize.where(select_where), :id, :name, {}, { onchange: 'this.form.submit()' } %>
 <% end %>              

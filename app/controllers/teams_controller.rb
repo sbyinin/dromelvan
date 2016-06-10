@@ -1,3 +1,4 @@
 class TeamsController < ApplicationController
-  include SelectSeason, Select
+  include SelectSeason, Select, Fixtures
+    
 end

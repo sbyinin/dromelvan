@@ -1,0 +1,115 @@
+<% provide :title, @team.name
+   provide :breadcrumbs, breadcrumbs([ :class , "Fixtures", :select_name, :select_fixtures ], { select_name_action: :select_fixtures})
+   team_season_squad_stat = @team.team_season_squad_stats.where(season: @season).first
+   team_table_stat = @team.team_table_stats.where(match_day: @season.premier_league.match_days.current).first
+   %> 
+
+<div class="header-container">
+  <h1><%= @team.name %> <%= render 'context_menu' %></h1>
+</div>
+
+<div class="widget-container">
+  <div class="main-widget">
+    <div id="team-profile" class="standard-panel">
+      <div class="panel-heading">
+        <h2>Team profile</h2>
+      </div>
+      
+      <div class="section panel-body">
+        <div class="image-container club-crest">
+          <%= render 'teams/club_crest', team: @team %>
+        </div>
+
+        <div class="team-information-container">
+          <h3>Team information</h3>
+          <dl class="data">
+            <dt>Code:</dt>
+            <dd><%= @team.code %></dd>
+            <dt>Nickname:</dt>
+            <dd><%= @team.nickname %></dd>
+            <dt>Established:</dt>
+            <dd><%= @team.established %></dd>
+            <dt>Stadium:</dt>
+            <dd><%= @team.stadium.name %></dd>
+            <% if !@team.motto.blank? %>
+            <dt id="motto">Motto:</dt>
+            <dd id="motto"><%= @team.motto %></dd>
+            <% end %>
+          </dl>          
+        </div>        
+        
+        <div class="season-information-container">
+          <h3>Season <%= @season.name %></h3>
+          <% if !team_table_stat.nil? %>
+          <dl class="data">
+            <dt>Position:</dt>
+            <dd><%= team_table_stat.ranking %></dd>                        
+            <dt>Games won:</dt>
+            <dd><%= team_table_stat.matches_won %></dd>
+            <dt>Games drawn:</dt>
+            <dd><%= team_table_stat.matches_drawn %></dd>
+            <dt>Games lost:</dt>
+            <dd><%= team_table_stat.matches_lost %></dd>
+            <dt>Goals for:</dt>
+            <dd><%= team_table_stat.goals_for %></dd>
+            <dt>Goals against:</dt>
+            <dd><%= team_table_stat.goals_against %></dd>
+            <dt>Points:</dt>
+            <dd><%= team_table_stat.points %></dd>            
+
+            <dt>Form:</dt>
+            <dd><%= render 'teams/team_form', { team: @team, match_day: team_table_stat.match_day} %></dd>            
+          </dl>          
+          <% else %>
+          <p>Did not participate.</p>  
+          <% end %>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="related-widget">
+    <div class="stadium-photo">
+      <%= render 'stadia/stadium_photo', stadium: @team.stadium %>
+      <div class="photo-caption">
+        <h3><%= @team.stadium.name %></h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="widget-container">
+  <div id="team-fixtures-and-results" class="main-widget">
+    <h3>Fixtures and results <%= @season.name %></h2>
+    <%= render 'matches/table', matches: Match.by_season(@season).by_team(@team) %>                
+  </div>
+      
+  <div id="team-season-history" class="related-widget">
+    <h3>Season history</h2>
+    <%
+      team_table_stats = TeamTableStat.joins(:match_day).where(team: @team).where(match_days: {match_day_number: 38 }).date_ordered.reverse
+    %>
+    <table class="team-table-stats data table-bordered table-striped table-hover">
+      <thead>
+        <tr class="header">
+          <th class="season-column main-column">Season</th>
+          <th class="ranking-column" title="Position">#</th>
+          <th class="goal-difference-column" title="Goal difference">GD</th> 
+          <th class="points-column" title="Points">P.</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <% team_table_stats.each do |team_table_stat| %>
+        <tr>
+          <td class="season-column main-column"><%= team_table_stat.match_day.premier_league.season.name %></td>
+          <td class="ranking-column"><%= team_table_stat.ranking %></td>
+          <td class="goal-difference-column number-column"><%= (team_table_stat.goal_difference > 0 ? "+#{team_table_stat.goal_difference}" : team_table_stat.goal_difference) %></td> 
+          <td class="points-column"><%= team_table_stat.points %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+</div>

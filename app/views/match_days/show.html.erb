@@ -16,20 +16,7 @@
   <% end %>
 </p>
 
-<script>
-function toggleMatchDetails(e) {
-    $(e.target).parent().parent().find('i').toggleClass('fa-angle-up fa-angle-down')
-}
-
-$(function() {
-    $('td.home-team-column div.match-details').on('shown.bs.collapse', function(e) {
-        toggleMatchDetails(e);
-    });  
-    $('td.home-team-column div.match-details').on('hidden.bs.collapse', function(e) {
-        toggleMatchDetails(e);
-    });
-});
-</script>
+<%= render 'toggle_all_match_details_script' %>
 
 <div class="section">  
   <% cache(@match_day) do %>

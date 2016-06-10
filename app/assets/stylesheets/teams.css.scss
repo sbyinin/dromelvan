@@ -1,4 +1,5 @@
-div.teams.show {
+div.teams.show,
+div.teams.show-fixtures {
 
     div.image-container {
         @include make-sm-column(3);
@@ -62,8 +63,36 @@ div.teams.show {
                 @extend .hidden-sm;
             }
         }
-    }    
+    }
+    
+    table.matches {
+        .time-column,
+        .time-elapsed-column {
+            display: none;   
+        }
+        
+        th.date-column {
+            text-align: center;
+        }
+        
+        .date-column.long {
+            @extend .hidden-xs;
+            @extend .hidden-sm;
+        }
+        
+        .date-column.short {
+            @extend .visible-sm;
+        }        
+    }
+    
+    table.team-table-stats {
+        .ranking-column {
+            text-align: center;
+            min-width: 35px;
+        }
+    }
 }
+
 
 @media only screen and (max-width: $screen-phone-landscape-max) {
     table.player-season-stats {
@@ -82,3 +111,24 @@ div.teams.show {
         }
     }
 }
+
+@media only screen and (min-width: $screen-phone-landscape-min) {
+    div.teams.show-fixtures {
+        table.matches {
+            .team-simple-column,
+            .result-simple-column {
+                display: none;    
+            }            
+        }
+    }
+}
+
+@media only screen and (max-width: $screen-phone-portrait-max) {
+    table.matches {
+        .match-day-number-column,
+        .team-column,
+        .result-column {
+            display: none;    
+        }            
+    }
+} 

@@ -50,6 +50,15 @@ Rails.application.routes.draw do
       get :show_stats, path: 'stats'
     end
   end
+
+  concern :fixtures do
+    collection do
+      post :select_fixtures
+    end
+    member do
+      get '/:season_id/fixtures', action: :show_fixtures, as: 'show_fixtures'
+    end
+  end
   
   concern :status_enum do
     member do
@@ -65,7 +74,7 @@ Rails.application.routes.draw do
 
   #resources :countries, only: [:index, :show], concerns: [:players]
   resources :seasons, only: [:index, :show], concerns: [:select]
-  resources :teams, only: [:show], concerns: [:select_season, :select]
+  resources :teams, only: [:show], concerns: [:select_season, :select, :fixtures]
   resources :players, only: [:show], concerns: [:select_season]
   resources :premier_leagues, only: [:show], concerns: [:select, :table, :stats], path: 'premier-leagues'
   resources :match_days, only: [:show, :update], concerns: [:select, :status_enum], path: 'match-days'
