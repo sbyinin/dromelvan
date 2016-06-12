@@ -66,6 +66,22 @@ class D11Team < ActiveRecord::Base
     form[-count..-1]
   end
 
+  def form_d11_points(season, count = 5)
+    form_d11_points = []
+    d11_matches = D11Match.by_d11_team(self).by_season(season)
+    d11_matches.each do |d11_match|
+      if d11_match.finished?
+        d11_team_match_squad_stat = d11_match.d11_team_match_squad_stats.where(d11_team: self).first
+        if !d11_team_match_squad_stat.nil?
+          points = d11_team_match_squad_stat.points
+          form_d11_points << points
+        end
+        form_d11_points << 4
+      end
+    end
+    form_d11_points[-count..-1]
+  end
+
   private  
     def init
       self.dummy ||= false

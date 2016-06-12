@@ -21,6 +21,10 @@ class PlayerSeasonStat < ActiveRecord::Base
     position_order.where(player_season_infos: { team_id: team.id })
   end
   
+  def PlayerSeasonStat.by_d11_team(d11_team)
+    position_order.where(player_season_infos: { d11_team_id: d11_team.id })
+  end
+  
   def PlayerSeasonStat.update_rankings(season)
     ranking = 1
     PlayerSeasonStat.transaction do

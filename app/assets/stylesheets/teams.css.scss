@@ -1,5 +1,7 @@
 div.teams.show,
-div.teams.show-fixtures {
+div.teams.show-fixtures,
+div.d11-teams.show,
+div.d11-teams.show-fixtures {
 
     div.image-container {
         @include make-sm-column(3);
@@ -7,7 +9,8 @@ div.teams.show-fixtures {
     }
 
     div.season-information-container,
-    div.team-information-container {
+    div.team-information-container,
+    div.d11-team-information-container {
         @include make-sm-column(4);
         @include make-md-column(4);
         

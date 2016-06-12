@@ -66,8 +66,8 @@ describe "TODO", type: :view do
   # pending "home > teams > team > (team_season_squad_stats) > <season>"
   # /teams/<id>/<id>
   
-  pending "home > fixtures > <team> > <season>"
-  # /teams/<id>/fixtures/<id>
+  # pending "home > fixtures > <team> > <season>"
+  # /teams/<id>/<id>/fixtures
   
   # pending "home > d11_teams"
   # /d11-teams
