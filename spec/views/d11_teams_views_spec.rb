@@ -33,8 +33,19 @@ describe "D11Team", type: :view do
         
         it { is_expected.to have_selector("div#d11-team-season-squad-stats") }
       end    
-    end
+    end    
+  end
+  
+  describe "fixtures view" do
+    let!(:d11_team) { FactoryGirl.create(:d11_team) }
+    let!(:d11_league) { FactoryGirl.create(:d11_league, season: season)}
     
+    before { visit show_fixtures_d11_team_path(d11_team, season) }
+    
+    it { is_expected.to have_selector("div.d11-teams.show-fixtures") }
+    it { is_expected.to have_selector("div#d11-team-profile") }
+    it { is_expected.to have_selector("div#d11-team-fixtures-and-results") }
+    it { is_expected.to have_selector("div#d11-team-season-history") } 
   end
   
 end

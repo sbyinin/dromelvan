@@ -1,0 +1,101 @@
+<% provide :title, @d11_team.name
+   provide :breadcrumbs, breadcrumbs([ :class , "Fixtures", :select_name, :select_fixtures ], { select_name_action: :select_fixtures})
+   d11_team_table_stat = @d11_team.d11_team_table_stats.where(d11_match_day: @season.d11_league.d11_match_days.current).first
+   %> 
+
+<div class="header-container">
+  <h1><%= @d11_team.name %> <%= render 'context_menu' %></h1>
+</div>
+
+<div class="widget-container">
+  <div class="main-widget">
+    <div id="d11-team-profile" class="standard-panel">
+      <div class="panel-heading">
+        <h2>D11 team profile</h2>
+      </div>
+      
+      <div class="section panel-body">
+        <div class="image-container club-crest">
+          <%= render 'd11_teams/club_crest', d11_team: @d11_team %>
+        </div>
+        
+        <div class="d11-team-information-container">
+          <h3>D11 team information</h3>
+          <dl class="data">
+            <dt>Owner:</dt>
+            <dd><%= @d11_team.owner.name %></dd>
+            <dt>Co owner:</dt>
+            <dd><%= (@d11_team.co_owner.nil? ? 'None' : @d11_team.co_owner.name) %></dd>            
+            <dt>Code:</dt>
+            <dd><%= @d11_team.code %></dd>            
+          </dl>
+        </div>        
+
+        <div class="season-information-container">
+          <h3>Season <%= @season.name %></h3>
+          <% if !d11_team_table_stat.nil? %>
+          <dl class="data">
+            <dt>Position:</dt>
+            <dd><%= d11_team_table_stat.ranking %></dd>                        
+            <dt>Games won:</dt>
+            <dd><%= d11_team_table_stat.matches_won %></dd>
+            <dt>Games drawn:</dt>
+            <dd><%= d11_team_table_stat.matches_drawn %></dd>
+            <dt>Games lost:</dt>
+            <dd><%= d11_team_table_stat.matches_lost %></dd>
+            <dt>Goals for:</dt>
+            <dd><%= d11_team_table_stat.goals_for %></dd>
+            <dt>Goals against:</dt>
+            <dd><%= d11_team_table_stat.goals_against %></dd>
+            <dt>Points:</dt>
+            <dd><%= d11_team_table_stat.points %></dd>            
+
+            <dt>Form:</dt>
+            <dd><%= render 'd11_teams/d11_team_form', { d11_team: @d11_team, d11_match_day: d11_team_table_stat.d11_match_day} %></dd>            
+          </dl>          
+          <% else %>
+          <p>Did not participate.</p>  
+          <% end %>
+        </div>
+        
+      </div>
+    </div>  
+  </div>
+  
+</div>
+
+<div class="widget-container">
+  <div id="d11-team-fixtures-and-results" class="main-widget">
+    <h3>Fixtures and results <%= @season.name %></h2>
+    <%= render 'd11_matches/table', d11_matches: D11Match.by_season(@season).by_d11_team(@d11_team) %>                
+  </div>
+  
+  
+  <div id="d11-team-season-history" class="related-widget">
+    <h3>Season history</h2>
+    <%
+      d11_team_table_stats = D11TeamTableStat.joins(:d11_match_day).where(d11_team: @d11_team).where(d11_match_days: {match_day_number: 38 }).date_ordered.reverse
+    %>
+    <table class="d11-team-table-stats data table-bordered table-striped table-hover">
+      <thead>
+        <tr class="header">
+          <th class="season-column main-column">Season</th>
+          <th class="ranking-column" title="Position">#</th>
+          <th class="goal-difference-column" title="Goal difference">GD</th> 
+          <th class="points-column" title="Points">P.</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <% d11_team_table_stats.each do |d11_team_table_stat| %>
+        <tr>
+          <td class="season-column main-column"><%= d11_team_table_stat.d11_match_day.d11_league.season.name %></td>
+          <td class="ranking-column"><%= d11_team_table_stat.ranking %></td>
+          <td class="goal-difference-column number-column"><%= (d11_team_table_stat.goal_difference > 0 ? "+#{d11_team_table_stat.goal_difference}" : d11_team_table_stat.goal_difference) %></td> 
+          <td class="points-column"><%= d11_team_table_stat.points %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+</div>

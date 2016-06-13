@@ -68,7 +68,8 @@ div.d11-teams.show-fixtures {
         }
     }
     
-    table.matches {
+    table.matches,
+    table.d11-matches {
         .time-column,
         .time-elapsed-column {
             display: none;   
@@ -85,10 +86,15 @@ div.d11-teams.show-fixtures {
         
         .date-column.short {
             @extend .visible-sm;
-        }        
+        }
+        
+        .match-day-number-column {
+            width: 20px !important;
+        }
     }
     
-    table.team-table-stats {
+    table.team-table-stats,
+    table.d11-team-table-stats{
         .ranking-column {
             text-align: center;
             min-width: 35px;
@@ -116,8 +122,10 @@ div.d11-teams.show-fixtures {
 }
 
 @media only screen and (min-width: $screen-phone-landscape-min) {
-    div.teams.show-fixtures {
-        table.matches {
+    div.teams.show-fixtures,
+    div.d11-teams.show-fixtures {
+        table.matches,
+        table.d11-matches {
             .team-simple-column,
             .result-simple-column {
                 display: none;    
@@ -127,9 +135,11 @@ div.d11-teams.show-fixtures {
 }
 
 @media only screen and (max-width: $screen-phone-portrait-max) {
-    table.matches {
+    table.matches,
+    table.d11-matches {
         .match-day-number-column,
         .team-column,
+        .result-points-column,
         .result-column {
             display: none;    
         }            

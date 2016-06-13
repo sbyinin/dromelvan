@@ -1,0 +1,10 @@
+<table class="d11-matches outer-bordered">
+  <thead>
+    <%= render 'd11_matches/table_header' %>
+  </thead>
+  <tbody>    
+    <% d11_matches.each do |d11_match| %>
+      <%= render 'd11_matches/table_row', d11_match: d11_match %>
+    <% end %>
+  </tbody>
+</table>

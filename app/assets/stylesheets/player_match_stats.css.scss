@@ -1,7 +1,8 @@
 table.player-match-stats,
 table.player-season-stats,
 table.player-career-stats,
-table.team-table-stats {
+table.team-table-stats,
+table.d11-team-table-stats {
     @extend .table-bordered;
     @extend .table-striped;
     @extend .table-hover;
