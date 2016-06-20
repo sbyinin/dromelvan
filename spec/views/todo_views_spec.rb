@@ -77,10 +77,10 @@ describe "TODO", type: :view do
   # Do this on season/<id>?
   # If we do it at all.
 
-  pending "home > d11_teams > d11_team > (d11_team_season_squad_stats) > <season>"
+  #pending "home > d11_teams > d11_team > (d11_team_season_squad_stats) > <season>"
   # /d11-teams/<id>/<id>
 
-  pending "home > d11_teams > d11_team > d11_matches > <season>"
+  #pending "home > d11_teams > d11_team > d11_matches > <season>"
   # /d11-teams/<id>/matches/<id>
   
   # pending "home > players"
