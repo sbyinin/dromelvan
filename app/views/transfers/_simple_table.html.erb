@@ -1,0 +1,10 @@
+<table class="transfers data table-striped table-hover">
+  <thead>
+    <%= render 'transfers/simple_table_header' %>
+  </thead>
+  <tbody>    
+    <% transfers.each do |transfer| %>    
+      <%= render 'transfers/simple_table_row', transfer: transfer %>
+    <% end %>
+  </tbody>
+</table>

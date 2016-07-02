@@ -1,9 +1,25 @@
 div.transfer-days {
     div.section {
+        div.main-section {
+            min-height: 500px !important; 
+        }
         div.related-section {
             @include make-sm-column(6);
 //            @include make-md-column(4);
 //            @include make-lg-column(3);
+
+            table.transfers {
+                .d11-team-column {
+                    min-width: 0px;
+                }
+                
+                .d11-team-column {
+                    @extend .visible-xs;
+                    @extend .visible-sm;
+                    @extend .visible-md;
+                    @extend .visible-lg;
+                }                
+            }
         }
     }
     
@@ -17,13 +33,49 @@ div.transfer-days {
             @extend .visible-sm;
             @extend .visible-md;
         }
+                
+        .d11-team-simple-column {
+            @extend .visible-xs;
+        }
+    }
+    
+    table.transfer-listings {
+        .ranking-column {
+            display: none;
+        }
+        
+        .mom-column,
+        .position-column,
+        .appearances-colum,
+        .points-per-appearance-column {
+            text-align: center;
+        }
         
         .d11-team-column {
-            
+            min-width: 125px;
+            @extend .hidden-xs;
+        }
+
+        .d11-team-simple-column {
+            min-width: 40px;
+        }
+        
+        .form-column {
+            @extend .hidden-md;
+            @extend .hidden-xs;
         }
         
         .d11-team-simple-column {
             @extend .visible-xs;
+        }
+        
+        .mom-column,
+        .points-per-appearance-column {
+            @extend .visible-lg;
+        }
+        
+        .appearances-column{
+            @extend .hidden-xs;
         }
     }
 }
@@ -36,6 +88,14 @@ div.transfer-days {
                 .team-simple-column,
                 tfoot {
                     display: none !important;
+                }
+            }
+            
+            table.transfer-listings {
+                .team-column,
+                .position-column,
+                .rating-column {
+                    display: none;
                 }
             }
         }

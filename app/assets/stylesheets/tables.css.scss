@@ -12,6 +12,7 @@ main {
             color: $table-header-colour;
             font-size: 13px;
 	    border-bottom: none !important;
+	    white-space: nowrap;
         }
 
         td {	    
@@ -81,6 +82,7 @@ main {
         .form-column {
 	    min-width: 110px;
 	    text-align: center;
+	    white-space: nowrap;
         }
     }
 

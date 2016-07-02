@@ -5,35 +5,19 @@
 <p>Transfer deadline <%= @transfer_day.datetime.to_formatted_s(:post_time) %>.</p>
 
 <div class="section">  
-  <div id="transfer-day-transfers" class="main-section">    
-    <h3>Transfers</h3>
-    <% if !@transfer_day.transfers.empty? %>
-    <%= render 'transfers/table', transfers: @transfer_day.transfers.joins(:d11_team).order("d11_teams.name") %>
+  <div id="transfer-day-transfer-listings" class="main-section">    
+    <h3>Available Players</h3>
+    <% if !@transfer_day.transfer_listings.empty? %>
+    <%= render 'transfer_listings/datatable', transfer_day: @transfer_day %>  
     <% else %>
-    <p>No transfers have yet been registered for this transfer day.</p>
+    <p>No transfer listings have yet been registered for this transfer day.</p>
     <% end %>
   </div>
   
   <div id="transfer-day-statistics">
-    <div id="transfer-day-highest-bids" class="related-section">
-      <h3>Highest Bids</h3>
-      <p>Kek</p>
-      <% if !@transfer_day.transfer_bids.empty? %>
-      <%= render 'transfer_bids/simple_table', transfer_bids: @transfer_day.transfer_bids.reorder(fee: :desc).limit(10) %>
-      <% else %>
-      <p>No bids have yet been registered for this transfer day.</p>
-      <% end %>      
-    </div>
+    <%= render 'transfers/most_expensive_transfers', transfer_day: @transfer_day %>
     
-    <div id="transfer-day-top-transfer-listings" class="related-section">
-      <h3>Top Available Players</h3>
-      <% if !@transfer_day.transfer_listings.empty? %>
-      <%= render 'transfer_listings/simple_table', transfer_listings: @transfer_day.transfer_listings.limit(10) %>
-      <% else %>
-      <p>No transfer listings have yet been registered for this transfer day.</p>
-      <% end %>      
-    </div>
-    
+    <%= render 'transfer_bids/highest_bids', transfer_day: @transfer_day %>
   </div>
     
 </div>

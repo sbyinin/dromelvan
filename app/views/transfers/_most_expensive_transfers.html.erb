@@ -1,0 +1,9 @@
+<div id="transfer-day-most-expensive-transfers" class="related-section">
+  <h3>Most Expensive Transfers</h3>
+  <p>Show <%= link_to "all transfers", transfer_day_path(transfer_day), class: "model-link" %> for this transfer day.</p>
+  <% if !transfer_day.transfers.empty? %>
+  <%= render 'transfers/simple_table', transfers: transfer_day.transfers.reorder(fee: :desc).limit(10) %>
+  <% else %>
+  <p>No transfers have yet been registered for this transfer day.</p>
+  <% end %>      
+</div>
