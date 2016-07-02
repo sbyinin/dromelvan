@@ -1,0 +1,6 @@
+<% transfer_window ||= @transfer_window %>
+<%= render layout: 'layouts/context_menu_dropdown', locals: { resource: transfer_window } do  %>
+    <li class="dropdown-header"><%= transfer_window.name %></li>
+    <li><a href="#">Bids</a></li>
+    <li><a href="#">Transfer listings</a></li>    
+<% end %>

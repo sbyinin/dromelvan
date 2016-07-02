@@ -1,4 +1,6 @@
-<% if !team.dummy?
-   label ||= :name
-   club_crest ||= true %>
-<% if club_crest %><%= render 'teams/club_crest', team: team, style: :icon %><% end %><%= link_to (label == :name ? team.name : team.code), team, class: "model-link" %><% else %>None<% end %>
+<span class="team">
+   <% if !team.dummy?
+      label ||= :name
+      club_crest ||= true %>
+   <% if club_crest %><%= render 'teams/club_crest', team: team, style: :icon %><% end %><%= link_to (label == :name ? team.name : team.code), team, class: "model-link" %><% else %>None<% end %>
+</span>

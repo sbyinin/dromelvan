@@ -111,6 +111,20 @@ describe TransferDay, type: :model do
       let!(:dependent) { FactoryGirl.create(:transfer_listing, transfer_day: owner) }      
     end
   end
+
+  context "with transfer dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:transfer_day) }
+      let!(:dependent) { FactoryGirl.create(:transfer, transfer_day: owner) }      
+    end
+  end
+
+  context "with transfer_bid dependents" do    
+    it_should_behave_like "all dependency owners" do
+      let!(:owner) { FactoryGirl.create(:transfer_day) }
+      let!(:dependent) { FactoryGirl.create(:transfer_bid, transfer_day: owner) }      
+    end
+  end
   
 end
 

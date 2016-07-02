@@ -1,8 +1,19 @@
+table {
+    .points-column {
+        min-width: 25px
+    }
+    
+    td.points-column {
+        font-weight: bold;
+    }
+}
+
 table.player-match-stats,
 table.player-season-stats,
 table.player-career-stats,
 table.team-table-stats,
-table.d11-team-table-stats {
+table.d11-team-table-stats,
+table.transfers {
     @extend .table-bordered;
     @extend .table-striped;
     @extend .table-hover;
@@ -31,7 +42,6 @@ table.d11-team-table-stats {
     }                                
         
     .position-column,
-    .team-simple-column,
     .match-column,
     .appearances-column,
     .minutes-played-column,
@@ -77,11 +87,7 @@ table.d11-team-table-stats {
     .season-column {
         min-width: 65px;
     }
-
-    td.points-column {
-        font-weight: bold;
-    }
-        
+    
     td.match-column {
         white-space: nowrap;
     }

@@ -15,6 +15,7 @@ describe "D11Team", type: :view do
       
       it { is_expected.to have_selector("div#d11-team-profile") }    
       it { is_expected.to have_selector("div#d11-team-career-squad-stats") }
+      
       describe "div#d11-team-season-squad-stats" do
         
         context "when player season stats do not exist" do

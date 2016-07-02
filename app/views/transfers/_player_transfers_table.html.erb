@@ -1,18 +1,18 @@
 <% total ||= 0.0 %>
 <table class="transfers data table-striped table-hover">
   <thead>
-    <%= render 'transfers/table_header' %>
+    <%= render 'transfers/player_transfers_table_header' %>
   </thead>
   <tbody>    
     <% transfers.joins(:d11_team).where(d11_teams: { dummy: false }).each do |transfer|
         total = total + transfer.fee %>    
-      <%= render 'transfers/table_row', transfer: transfer %>
+      <%= render 'transfers/player_transfers_table_row', transfer: transfer %>
     <% end %>
   </tbody>
   <tfoot>
     <tr>
-      <td colspan=5" style="text-align: right; border-right: none"><b>Total fees:</b></td>
-      <td class="fee-column number-column"><%= player_value total %></td>
+      <td colspan="2" style="text-align: right; border-right: none"><b>Total:</b></td>
+      <td><%= player_value total %></td>
     </tr>
   </tfoot>         
 </table>

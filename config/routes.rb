@@ -60,6 +60,24 @@ Rails.application.routes.draw do
     end
   end
   
+  concern :transfer_bids do
+    collection do
+      post :select_transfer_bids
+    end
+    member do
+      get :show_transfer_bids, path: 'transfer-bids'
+    end
+  end
+
+  concern :transfer_listings do
+    collection do
+      post :select_transfer_listings
+    end
+    member do
+      get :show_transfer_listings, path: 'transfer-listings'
+    end
+  end
+
   concern :status_enum do
     member do
       get :pend
@@ -84,7 +102,7 @@ Rails.application.routes.draw do
   resources :d11_matches, only: [:show], concerns: [:select], path: 'd11-matches'
   resources :d11_teams, only: [:show], concerns: [:select_season, :select, :fixtures], path: 'd11-teams'
   resources :transfer_windows, only: [:show], concerns: [:select], path: 'transfer-windows'
-  resources :transfer_days, only: [:show], concerns: [:select], path: 'transfer-days'
+  resources :transfer_days, only: [:show], concerns: [:select, :transfer_bids, :transfer_listings], path: 'transfer-days'
   resources :team_table_stats, only: [:index]
   resources :player_season_stats, only: [:index]
   resources :d11_team_table_stats, only: [:index]

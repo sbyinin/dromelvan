@@ -1,0 +1,43 @@
+div.transfer-days {
+    div.section {
+        div.related-section {
+            @include make-sm-column(6);
+//            @include make-md-column(4);
+//            @include make-lg-column(3);
+        }
+    }
+    
+    table.transfers {
+        .team-column {
+            @extend .visible-lg;
+        }
+        
+        .team-simple-column {
+            @extend .visible-xs;
+            @extend .visible-sm;
+            @extend .visible-md;
+        }
+        
+        .d11-team-column {
+            
+        }
+        
+        .d11-team-simple-column {
+            @extend .visible-xs;
+        }
+    }
+}
+
+@media only screen and (max-width: $screen-phone-portrait-max)  {
+    main {
+        div.transfer-days {
+            table.transfers {
+                .ranking-column,
+                .team-simple-column,
+                tfoot {
+                    display: none !important;
+                }
+            }
+        }
+    }
+}

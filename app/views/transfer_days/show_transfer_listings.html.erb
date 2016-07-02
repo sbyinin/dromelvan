@@ -17,7 +17,7 @@
   <div id="transfer-day-statistics">
     <div id="transfer-day-highest-bids" class="related-section">
       <h3>Highest Bids</h3>
-      <p>Show <%= link_to "all bids", show_transfer_bids_transfer_day_path(@transfer_day), class: "model-link" %> for this transfer day.</p>
+      <p>Kek</p>
       <% if !@transfer_day.transfer_bids.empty? %>
       <%= render 'transfer_bids/simple_table', transfer_bids: @transfer_day.transfer_bids.reorder(fee: :desc).limit(10) %>
       <% else %>
@@ -27,7 +27,6 @@
     
     <div id="transfer-day-top-transfer-listings" class="related-section">
       <h3>Top Available Players</h3>
-      <p>Show <%= link_to "all available players", show_transfer_listings_transfer_day_path(@transfer_day), class: "model-link" %> for this transfer day.</p>
       <% if !@transfer_day.transfer_listings.empty? %>
       <%= render 'transfer_listings/simple_table', transfer_listings: @transfer_day.transfer_listings.limit(10) %>
       <% else %>

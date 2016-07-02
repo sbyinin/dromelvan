@@ -39,27 +39,24 @@ describe "TODO", type: :view do
   # /d11-leagues/<id>/table
   pending "Check that /d11-leagues/<id>/table works before season starts"
 
-  pending "home > season > d11_league > transfer_windows"
-  # /d11-leagues/<id>/transfer-windows
-
   # pending "home > season > d11_league > <d11_match_day>"
   # /d11-match-days/<id>
 
   # pending "home > season > d11_league > d11_match_day > <d11_match>"
   # /d11-matches/<id>
 
-  pending "home > season > d11_league > transfer_windows > <transfer_window>"
+  pending "home > season > d11_league > <transfer_window>"
   # /transfer-windows/<id>
 
-  pending "home > season > d11_league > transfer_window > transfers > <transfer_day>"
+  pending "home > season > d11_league > <transfer_window> > <transfer_day>"
   # /transfer-days/<id>
-  
-  pending "home > season > d11_league > transfer_window > transfer_listings > <transfer_day>"
+
+  pending "home > season > d11_league > <transfer_window> > <transfer_day> > transfer_bids >"
+  # /transfer-days/<id>/transfer-bids
+
+  pending "home > season > d11_league > <transfer_window> > <transfer_day> > transfer_listings >"
   # /transfer-days/<id>/transfer-listings
   
-  pending "home > season > d11_league > transfer_window > transfer_bids > <transfer_day>"
-  # /transfer-days/<id>/bids
-
   # pending "home > teams"
   # /teams
   

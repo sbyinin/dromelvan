@@ -1,0 +1,7 @@
+<% transfer_day ||= @transfer_day %>
+<%= render layout: 'layouts/context_menu_dropdown', locals: { resource: transfer_day } do  %>
+    <li class="dropdown-header"><%= transfer_day.name %></li>
+    <li><%= link_to "Transfers", transfer_day_path(transfer_day), class: "model-link" %></li>
+    <li><%= link_to "Transfer listings", show_transfer_listings_transfer_day_path(transfer_day), class: "model-link" %></li>    
+    <li><%= link_to "Bids", show_transfer_bids_transfer_day_path(transfer_day), class: "model-link" %></li>    
+<% end %>

@@ -1,5 +1,15 @@
 <% provide :title, @transfer_window.name
-   provide :breadcrumbs, breadcrumbs([ @transfer_window.season, @transfer_window.season.d11_league, :select_name ], season: @transfer_window.season ) %> 
+   provide :breadcrumbs, breadcrumbs([ @transfer_window.season, @transfer_window.season.d11_league, :select_name ], { season: @transfer_window.season }, "transfer_windows.season_id = #{@transfer_window.season_id}" ) %> 
 
-<h1><%= @transfer_window.name %></h1>
-<%= render 'layouts/administration_links', resource: @transfer_window %>
+<h1><%= @transfer_window.name %> <%= @transfer_window.season.name %> <%= render 'context_menu' %> NOT CORRECT VERSION</h1>
+
+<div class="section">
+  <div id="transfer-days" class="main-section">
+    <% @transfer_window.transfer_days.each do |transfer_day| %>
+    <div class="transfer-day">
+      <h2><%= transfer_day.name %></h2>
+      <%= render 'transfers/table', transfers: transfer_day.transfers %>
+    </div>
+    <% end %>
+  </div>
+</div>

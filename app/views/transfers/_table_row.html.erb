@@ -1,5 +1,13 @@
+<% player_season_stat = transfer.player.season_stat(transfer.transfer_day.transfer_window.season)
+   player_season_info = transfer.player.season_info(transfer.transfer_day.transfer_window.season)
+%>
 <tr>
-  <td class="date-column medium"><%= transfer.transfer_day.datetime.to_date.to_s(:shortest_date) %></td>
-  <td class="d11-team-column main-column"><%= render transfer.d11_team %></td>
+  <td class="player-column"><%= render transfer.player %></td>
+  <td class="ranking-column number-column"><%= player_season_stat.ranking %></td>
+  <td class="points-column number-column"><%= player_season_stat.points %></td>
+  <td class="team-column"><%= render player_season_info.team %></td>
+  <td class="team-simple-column"><%= render player_season_info.team, label: :code %></td>
+  <td class="d11-team-column"><%= render transfer.d11_team %></td>
+  <td class="d11-team-simple-column"><%= render transfer.d11_team, label: :code %></td>
   <td class="number-column"><%= player_value transfer.fee %></td>
 </tr>

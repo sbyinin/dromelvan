@@ -1,3 +1,3 @@
 class TransferDaysController < ApplicationController
-  include Select
+  include Select, TransferBids, TransferListings
 end

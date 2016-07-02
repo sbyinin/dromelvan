@@ -110,7 +110,7 @@
     
     <div id="player-transfer-history" class="related-section">
       <h3>Transfer History</h3>
-      <%= render 'transfers/table', transfers: Transfer.where(player: @player), total: Transfer.where(player: @player).sum(:fee) %>
+      <%= render 'transfers/player_transfers_table', transfers: Transfer.where(player: @player), total: Transfer.where(player: @player).sum(:fee) %>
     </div>
   </div>
   
