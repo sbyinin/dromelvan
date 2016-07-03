@@ -1,0 +1,10 @@
+<table class="transfer-bids data table-striped table-hover">
+  <thead>
+    <%= render 'transfer_bids/table_header' %>
+  </thead>
+  <tbody>    
+    <% transfer_bids.each do |transfer_bid| %>    
+      <%= render 'transfer_bids/table_row', transfer_bid: transfer_bid %>
+    <% end %>
+  </tbody>
+</table>

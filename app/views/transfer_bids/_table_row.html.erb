@@ -1,0 +1,25 @@
+<%
+  player_season_info = PlayerSeasonInfo.by_player(transfer_bid.player).by_season(transfer_bid.transfer_day.transfer_window.season).first
+  if player_season_info.nil?
+    player_season_info = PlayerSeasonInfo.new
+  end
+%>
+<% if transfer_bid.successful? then %>
+<tr class="successful-bid-row">
+<% elsif transfer_bid.active_fee == 0 then %>
+<tr class="inactive-bid-row">
+<% else %>  
+<tr>
+<% end %>  
+  <td class="player-column main-column"><%= render transfer_bid.player %></td>
+  <td class="team-column"><%= render player_season_info.team %></td>
+  <td class="team-simple-column"><%= render player_season_info.team, label: :code %></td>
+  <td class="position-column"><%= render player_season_info.position, label: :code %></td>
+  <td class="player-ranking-column"><%= transfer_bid.player_ranking %></th>
+  <td class="d11-team-column"><%= render transfer_bid.d11_team %></td>
+  <td class="d11-team-simple-column"><%= render transfer_bid.d11_team, label: :code %></td>
+  <td class="d11-team-ranking-column"><%= transfer_bid.d11_team_ranking %></th>
+  <td class="fee-column number-column"><%= player_value transfer_bid.fee %></td>
+  <td class="active-fee-column number-column"><%= player_value transfer_bid.active_fee %></td>
+  <td class="successful-column"><% if transfer_bid.successful? then %><span class="glyphicon glyphicon-ok"></span><% else %>&nbsp;<% end %></td>
+</tr>

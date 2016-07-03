@@ -1,1 +1,0 @@
-TransferListing data is screwed up (including ranking being calculated wrong).

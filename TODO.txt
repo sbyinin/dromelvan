@@ -1,0 +1,2 @@
+TransferListing data is screwed up (including ranking being calculated wrong).
+TransferBid.active_value = 0 -> 7.0 in view.
