@@ -10,7 +10,7 @@
 <% if @players.any? %>
 <div class="search-results" id="#players-search-results">
   
-  <h2>Players</h2>
+  <h3>Players</h3>
   
   <div class="section">
     <% @players.each do |player|
@@ -19,10 +19,10 @@
         <%= render 'players/player_photo', style: :small, player: player %>
         <div class="search-info name"><%= render player %></div>
         <div class="search-info position"><%= render player_season_info.position %><% if !player.date_of_birth.nil? %>, age <%= player.age %><% end %></div>
-        <div class="search-info team-name"><%= render 'teams/club_crest', style: :icon, team: player_season_info.team %> <%= render player_season_info.team %></div>
-        <div class="search-info team-code"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> <%= render player_season_info.team, label: :code %></div>
-        <div class="search-info d11-team-name"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> <%= render player_season_info.d11_team %></div>
-        <div class="search-info d11-team-code"><%= image_tag '/assets/missing/club-crest-icon.png', class: "club-crest" %> <%= render player_season_info.d11_team, label: :code %></div>
+        <div class="search-info team-name"><%= render player_season_info.team %></div>
+        <div class="search-info team-code"><%= render player_season_info.team, label: :code %></div>
+        <div class="search-info d11-team-name"><%= render player_season_info.d11_team %></div>
+        <div class="search-info d11-team-code"><%= render player_season_info.d11_team, label: :code %></div>
       </div>
     <% end %>
   </div>
@@ -36,7 +36,7 @@
 <% if @teams.any? %>
 <div class="search-results" id="#teams-search-results">
   
-  <h2>Premier League Teams</h2>
+  <h3>Premier League Teams</h3>
   
   <div class="section">
     <% @teams.each do |team| %>
@@ -56,7 +56,7 @@
 <% if @d11_teams.any? %>
 <div class="search-results" id="#d11-teams-search-results">
   
-  <h2>D11 Teams</h2>
+  <h3>D11 Teams</h3>
   
   <div class="section">
     <% @d11_teams.each do |d11_team| %>
