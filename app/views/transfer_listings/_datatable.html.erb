@@ -6,32 +6,32 @@
                                                        objects: 'players',
                                                        ajax_params: { transfer_day_id: transfer_day.id },
                                                        hide_controls: 'false',
-                                                       column_classes: [ "ranking-column number-column",
-                                                                         "player-column main-column",                                                       
-                                                                         "team-column",
+                                                       sort_column: 1,
+                                                       sort_order: 'asc',
+                                                       column_classes: [ "player-column main-column", 
+                                                                         "ranking-column number-column",                                                                         
+                                                                         "team-simple-column",
                                                                          "position-column",
                                                                          "appearances-column",
                                                                          "points-per-appearance-column",
-                                                                         "mom-column",
                                                                          "rating-column",
                                                                          "form-column",
                                                                          "points-column number-column",
                                                                          "d11-team-column",
                                                                          "d11-team-simple-column"] } do %>
   <thead>
-    <tr>
+    <tr>                                                       
+      <th class="player-column main-column">Player</th>  
       <th class="ranking-column number-column" title="Ranking">#</th>
-      <th class="player-column main-column" title="Player">Player</th>
-      <th class="team-column" title="Team">Team</th>
+      <th class="team-simple-column">Team</th>
       <th class="position-column" title="Position">Pos</th>
       <th class="appearances-column" title="Appearances">App</th>
       <th class="points-per-appearance-column" title="Points per Appearance">PpA</th>
-      <th class="mom-column" title="Man of the Match">MoM</th>
       <th class="rating-column" title="Rating">R</th>
-      <th class="form-column" title="Form">Form</th>
-      <th class="points-column" title="Points">P</th>
-      <th class="d11-team-column" title="Listed By">Listed By</th>
-      <th class="d11-team-simple-column" title="Listed By">LB</th>
+      <th class="form-column">Form</th>
+      <th class="points-column number-column" title="Points">P</th>  
+      <th class="d11-team-column">Listed By</th>
+      <th class="d11-team-simple-column" title="Listed Byy">LB</th>
     </tr>
   </thead>  
 <% end %>

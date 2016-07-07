@@ -1,12 +1,13 @@
 <tr>
-  <td class="player-column main-column"><%= render transfer_listing.player %></td>
-  <td class="team-column"><%= render transfer_listing.team, label: :code %></td>
-  <td class="position-column"><%= render transfer_listing.position, label: :code %></th>
-  <td class="appearances-column"><%= transfer_listing.games_started %>/<%= transfer_listing.games_substitute %></th>
-  <td class="points-per-appearance-column"><%= transfer_listing.points_per_appearance_s %></td>
-  <td class="mom-column"><%= transfer_listing.man_of_the_match %>/<%= transfer_listing.shared_man_of_the_match %></td>
-  <td class="rating-column"><%= transfer_listing.rating_s %></td>
-  <td class="form-column"><%= render 'players/player_form', player: transfer_listing.player, season: transfer_listing.transfer_day.transfer_window.season %></td>
+  <td class="player-column main-column"><%= render transfer.player %></td>
+  <td class="ranking-column number-column"><%= transfer_listing.ranking %></td>
+  <td class="team-simple-column"><%= render transfer_listing.team, label: :code %></td>
+  <td class="position-column"><%= render transfer_listing.position, label: :code %></td>  
+  <td class="appearances-column" title="Appearances"><%= transfer_listing.games_started %>/<%= transfer_listing.games_substitute %></td>
+  <td class="points-per-appearance-column" title="Points per Appearance"><%= transfer_listing.points_per_appearance_s %></td>
+  <td class="rating-column" title="Rating"><%= transfer_listing.rating_s %></td>
+  <td class="form-column"><%= render 'players/player_form', player: transfer.player, season: transfer.transfer_day.transfer_window.season %></td>  
   <td class="points-column number-column"><%= transfer_listing.points %></td>
-  <td class="d11-team-column"><%= render transfer_listing.d11_team %></td>
+  <td class="d11-team-column"><%= render transfer.d11_team %></td>
+  <td class="d11-team-simple-column"><%= render transfer.d11_team, label: :code %></td>  
 </tr>

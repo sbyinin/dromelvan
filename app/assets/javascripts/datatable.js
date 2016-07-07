@@ -1,6 +1,6 @@
 // TODO: DRY the datatable intialization for ajax/DOM tables.
 jQuery(function() {
-    var breakpointDefinition, domTableElement, responsiveHelper, tableElement;
+    var breakpointDefinition, domTableElement, responsiveHelper, tableElement;    
     responsiveHelper = undefined;
     breakpointDefinition = {
         tablet: 768,
@@ -9,6 +9,8 @@ jQuery(function() {
     };
 
     tableElement = $(".data-table-ajax");
+    sortColumn = (tableElement.data("sort-column") == null ? 0 : tableElement.data("sort-column"));
+    sortOrder = (tableElement.data("sort-order") == null ? "asc" : tableElement.data("sort-order"));
     tableElement.dataTable({
         // Uncomment this to show 'Processing' message when processing.
         // processing: true,
@@ -48,6 +50,7 @@ jQuery(function() {
         },
         serverSide: true,
         displayLength: 25,
+        order: [[ sortColumn, sortOrder ]],
         fnDrawCallback: function(oSettings) {
             if(responsiveHelper) {
                 responsiveHelper.respond();

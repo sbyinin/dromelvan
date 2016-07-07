@@ -52,7 +52,9 @@ class TransferListing < ActiveRecord::Base
   private
   
     def init
+      self.position_id ||= 6
       self.ranking ||= 0
+      self.team_id ||= 1
     end
   
 end

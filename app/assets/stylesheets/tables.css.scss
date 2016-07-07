@@ -31,6 +31,12 @@ main {
 	
 	tfoot {
 	    background-color: $table-footer-background-colour;
+	    
+	    td.summary {
+		text-align: right;
+		border-right: none !important;
+		font-weight: bold;
+	    }
 	}
 	
         // Default column widths

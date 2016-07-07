@@ -7,7 +7,6 @@ private
     TransferListing.joins(:player)
         .joins(transfer_day: :transfer_window)
         .joins("join player_season_infos on player_season_infos.player_id = players.id and player_season_infos.season_id = transfer_windows.season_id")
-        .joins("join player_season_stats on player_season_stats.player_id = players.id and player_season_stats.season_id = transfer_windows.season_id")
         .joins("join teams on transfer_listings.team_id = teams.id")
         .joins("join positions on player_season_infos.position_id = positions.id")
   end
@@ -17,9 +16,9 @@ private
   end
 
   def sort_columns
-    %w[ranking players.last_name,players.first_name teams.name positions.sort_order
+    %w[players.last_name,players.first_name ranking teams.name positions.sort_order
        games_started,games_substitute points_per_appearance
-       man_of_the_match,shared_man_of_the_match rating form_points points d11_teams.name d11_teams.code]
+       rating form_points points d11_teams.name d11_teams.code]
   end
   
   def data
@@ -30,13 +29,12 @@ private
       team = transfer_listing.team
       d11_team = transfer_listing.d11_team      
       [
-        transfer_listing.ranking,
         render_partial('players/player', { player: transfer_listing.player }),
+        transfer_listing.ranking,
         render_partial('teams/team', { team: team, label: :code }),
         render_partial('positions/position', { position: player_season_info.position, label: :code }),
         "#{transfer_listing.games_started}/#{transfer_listing.games_substitute}",
         transfer_listing.points_per_appearance_s,
-        "#{transfer_listing.man_of_the_match}/#{transfer_listing.shared_man_of_the_match}",
         transfer_listing.rating_s,
         render_partial('players/player_form', { player: transfer_listing.player, season: season }),
         transfer_listing.points,

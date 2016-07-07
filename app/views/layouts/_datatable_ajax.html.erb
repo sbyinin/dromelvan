@@ -4,8 +4,14 @@
 <table class="data data-table data-table-ajax <%= objects %> <%= table_class %>"
        id="data-table"
        <% if defined?(icon_columns) then %>
-       data-icon-columns="<%= icon_columns %>" 
+       data-icon-columns="<%= icon_columns %>"
        <% end %>
+       <% if defined?(sort_column) then %>
+       data-sort-column="<%= sort_column %>"       
+       <% end %>
+       <% if defined?(sort_order) then %>
+       data-sort-order="<%= sort_order %>"       
+       <% end %>     
        <% if defined?(number_columns) then %>
        data-number-columns="<%= number_columns %>" 
        <% end %>
