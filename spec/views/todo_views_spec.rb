@@ -48,13 +48,13 @@ describe "TODO", type: :view do
   pending "home > season > d11_league > <transfer_window>"
   # /transfer-windows/<id>
 
-  pending "home > season > d11_league > <transfer_window> > <transfer_day>"
+  #pending "home > season > d11_league > <transfer_window> > <transfer_day>"
   # /transfer-days/<id>
 
-  pending "home > season > d11_league > <transfer_window> > <transfer_day> > transfer_bids >"
+  #pending "home > season > d11_league > <transfer_window> > <transfer_day> > transfer_bids >"
   # /transfer-days/<id>/transfer-bids
 
-  pending "home > season > d11_league > <transfer_window> > <transfer_day> > transfer_listings >"
+  #pending "home > season > d11_league > <transfer_window> > <transfer_day> > transfer_listings >"
   # /transfer-days/<id>/transfer-listings
   
   # pending "home > teams"
@@ -91,7 +91,7 @@ describe "TODO", type: :view do
   # pending "home > player_season_stats > <season>"
   # /premier-leagues/<id>/stats
   
-  pending "home > search results"
+  #pending "home > search results"
   # /search
   
   # pending "responsive datatables everywhere"
