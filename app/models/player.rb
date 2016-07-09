@@ -38,8 +38,12 @@ class Player < ActiveRecord::Base
   validates_attachment_content_type :player_photo, content_type: [ "image/jpeg", "image/jpg", "image/gif", "image/png" ]
   
   
-  def name
-    "#{first_name} #{last_name}".strip
+  def name(max_length = 1000)
+    name = "#{first_name} #{last_name}".strip
+    if name.length > max_length
+      name = "#{first_name[0]} #{last_name}".strip
+    end
+    name
   end
   
   def reversed_name

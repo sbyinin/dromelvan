@@ -1,3 +1,22 @@
+div.d11-leagues {
+    div.d11-team-season-squad-stat.simple {
+        @include make-sm-column(6);
+        @include make-md-column(4);
+        @include make-lg-column(3);
+        
+        table.player-season-infos.simple {
+            .position-column {
+                min-width: 30px;
+                text-align: center;
+            }
+            tfoot {
+                td.fee-column {
+                    border-left: none;   
+                }
+            }
+        }
+    }
+}
 @media only screen and (min-width: $screen-tablet-portrait-min) {
     div.d11-leagues {
         ul.context-links {

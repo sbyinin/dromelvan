@@ -1,0 +1,14 @@
+<% provide :title, "D11 Teams #{@d11_league.season.name}"
+   provide :breadcrumbs, breadcrumbs([ @d11_league.season, @d11_league , "D11 Teams", :select_d11_teams ]) %> 
+
+<h1>
+  <%= @d11_league.name %> <span class="season-name"><%= @d11_league.season.name %> <%= render 'context_menu' %></span>
+</h1>
+
+<h2>D11 Teams</h2>
+
+<div class="section">
+  <% D11TeamSeasonSquadStat.joins(:d11_team).where(season: @d11_league.season).order("d11_teams.name asc").each do |d11_team_season_squad_stat| %>
+  <%= render 'd11_team_season_squad_stats/table_simple', d11_team_season_squad_stat: d11_team_season_squad_stat %>
+  <% end %>  
+</div>

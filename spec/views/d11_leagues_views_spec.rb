@@ -23,4 +23,17 @@ describe "D11League", type: :view do
     it { is_expected.to have_selector("table.d11-league-table.detailed") }
   end
 
+  describe "d11 teams view" do
+    let!(:d11_league) { FactoryGirl.create(:d11_league) }
+    let!(:d11_team) { FactoryGirl.create(:d11_team) }
+    let!(:d11_team_season_squad_stat) { FactoryGirl.create(:d11_team_season_squad_stat, d11_team: d11_team, season: d11_league.season) }
+    
+    before do
+      visit show_d11_teams_d11_league_path(d11_league)
+    end
+    
+    it { is_expected.to have_selector("div.d11-leagues.show-d11-teams##{d11_league.id}") }
+    it { is_expected.to have_selector("div.d11-team-season-squad-stat") }
+  end
+
 end

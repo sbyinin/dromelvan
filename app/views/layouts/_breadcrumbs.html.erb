@@ -46,6 +46,14 @@
               controller_name.classify.constantize.unique_name_ordered.where({}), :id, :unique_name, {}, { onchange: 'this.form.submit()' } %>
         <% end %>              
       </li>
+
+    <% elsif breadcrumb == :select_d11_teams then %>
+      <li>
+        <%= form_tag public_send("select_d11_teams_#{controller_name.tableize}_path"), class: "onchange-submit-form" do %>        
+          <%= collection_select controller_name.singularize, :id,
+              controller_name.classify.constantize.unique_name_ordered.where({}), :id, :unique_name, {}, { onchange: 'this.form.submit()' } %>
+        <% end %>              
+      </li>
       
     <% elsif breadcrumb == :select_stats then %>
       <li>

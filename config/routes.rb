@@ -41,6 +41,15 @@ Rails.application.routes.draw do
       get :show_table, path: 'table'
     end
   end
+
+  concern :d11_teams do
+    collection do
+      post :select_d11_teams, path: 'd11-teams'
+    end
+    member do
+      get :show_d11_teams, path: 'd11-teams'
+    end
+  end
   
   concern :stats do
     collection do
@@ -97,7 +106,7 @@ Rails.application.routes.draw do
   resources :premier_leagues, only: [:show], concerns: [:select, :table, :stats], path: 'premier-leagues'
   resources :match_days, only: [:show, :update], concerns: [:select, :status_enum], path: 'match-days'
   resources :matches, only: [:show, :update], concerns: [:select, :status_enum]
-  resources :d11_leagues, only: [:show], concerns: [:select, :table], path: 'd11-leagues'
+  resources :d11_leagues, only: [:show], concerns: [:select, :table, :d11_teams], path: 'd11-leagues'
   resources :d11_match_days, only: [:show, :update], concerns: [:select], path: 'd11-match-days'
   resources :d11_matches, only: [:show], concerns: [:select], path: 'd11-matches'
   resources :d11_teams, only: [:show], concerns: [:select_season, :select, :fixtures], path: 'd11-teams'

@@ -10,8 +10,9 @@
    elsif !@d11_match.nil?
      @season ||= @d11_match.d11_match_day.d11_league.season
    end
+   max_length ||= 1000
 %>
 <% if @season.nil? %>
-<%= link_to player.name, player, class: "model-link", data: { toggle: "tooltip-ajax" } %>
+<%= link_to player.name(max_length), player, class: "model-link", data: { toggle: "tooltip-ajax" } %>
 <% else %>
-<%= link_to player.name, show_season_player_path(player, @season), class: "model-link", data: { toggle: "tooltip-ajax" } %><% end %>
+<%= link_to player.name(max_length), show_season_player_path(player, @season), class: "model-link", data: { toggle: "tooltip-ajax" } %><% end %>
