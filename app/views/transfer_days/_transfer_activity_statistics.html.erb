@@ -1,0 +1,55 @@
+<div id="transfer-day-stats">
+  <h3>Activity Statistics</h3>
+  <p>Transfer activity stats for this transfer day.</p>
+  <table class="transfer-day-stats data table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="stat-column main-column">Stat</th>  
+        <th class="value-column number-column">Value</th>
+      </tr>
+    </thead>
+      <tr>
+        <td class="stat-column main-column">Participating D11 teams</td>  
+        <td class="value-column number-column"><%= transfer_day.transfer_bids.pluck(:d11_team_id).uniq.size %></td>
+      </tr>              
+      <tr>
+        <td class="stat-column main-column">Available players</td>  
+        <td class="value-column number-column"><%= transfer_day.transfer_listings.size %></td>
+      </tr>
+      <tr>
+        <td class="stat-column main-column">New available players</td>  
+        <td class="value-column number-column"><%= transfer_day.transfer_listings.where(new_player: true).size %></td>
+      </tr>                                
+      <tr>
+        <td class="stat-column main-column">Avg. available player points</td>  
+        <td class="value-column number-column"><%= '%.2f' % (transfer_day.transfer_listings.pluck(:points).sum.to_f / [transfer_day.transfer_listings.size, 1].max) %></td>
+      </tr>      
+      <tr>
+        <td class="stat-column main-column">Number of transfers</td>  
+        <td class="value-column number-column"><%= transfer_day.transfers.size %></td>
+      </tr>
+      <tr>
+        <td class="stat-column main-column">Total transfer fees</td>  
+        <td class="value-column number-column"><%= player_value transfer_day.transfers.pluck(:fee).sum %></td>
+      </tr>
+      <tr>
+        <td class="stat-column main-column">Average transfer fee</td>  
+        <td class="value-column number-column"><%= player_value transfer_day.transfers.pluck(:fee).sum / [transfer_day.transfers.size, 1].max %></td>
+      </tr>          
+      <tr>
+        <td class="stat-column main-column">Number of bids</td>  
+        <td class="value-column number-column"><%= transfer_day.transfer_bids.size %></td>
+      </tr>
+      <tr>
+        <td class="stat-column main-column">Total bid fees</td>  
+        <td class="value-column number-column"><%= player_value transfer_day.transfer_bids.pluck(:fee).sum %></td>
+      </tr>          
+      <tr>
+        <td class="stat-column main-column">Average bid fee</td>  
+        <td class="value-column number-column"><%= player_value transfer_day.transfer_bids.pluck(:fee).sum / [transfer_day.transfer_bids.size, 1].max %></td>
+      </tr>              
+    <tbody>
+      
+    </tbody>
+  </table>
+</div>

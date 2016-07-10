@@ -19,7 +19,7 @@ class TransferDay < ActiveRecord::Base
   end
   
   def name
-    "Transfer day #{transfer_day_number}"
+    "Transfer Day #{transfer_day_number}"
   end
 
   def previous

@@ -14,10 +14,12 @@
     <% end %>
   </div>
   
-  <div id="transfer-day-statistics">
-    <%= render 'transfers/most_expensive_transfers', transfer_day: @transfer_day %>
-    
-    <%= render 'transfer_listings/top_available_players', transfer_day: @transfer_day %>        
+  <div id="transfer-day-statistics" class="related-section">
+    <div class="section">
+      <%= render 'transfers/most_expensive_transfers', transfer_day: @transfer_day %>
+      
+      <%= render 'transfer_listings/top_available_players', transfer_day: @transfer_day %>
+    </div>
   </div>
     
 </div>

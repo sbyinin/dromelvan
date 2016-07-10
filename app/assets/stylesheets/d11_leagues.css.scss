@@ -39,3 +39,11 @@ div.d11-leagues {
         }
     }    
 }
+
+@media only print {
+    div.d11-leagues {    
+        div.d11-team-season-squad-stat.simple {
+            @include make-xs-column(3);
+        }
+    }
+}

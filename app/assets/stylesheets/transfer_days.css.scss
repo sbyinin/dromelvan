@@ -1,8 +1,5 @@
 div.transfer-days {
-    div.main-section {
-        
-        min-height: 500px !important;
-        
+    div.main-section {        
         table.transfers,
         table.transfer-listings,
         table.transfer-bids {
@@ -90,7 +87,12 @@ div.transfer-days {
     }
     
     div.related-section {
-        @include make-sm-column(6);
+        div.section {
+            div {
+                @include make-sm-column(6);
+                @include make-md-column(12);
+            }
+        }
     }
 }
 

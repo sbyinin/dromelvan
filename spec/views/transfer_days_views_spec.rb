@@ -70,8 +70,6 @@ describe "TransferDay", type: :view do
     end          
   end
 
-
-
   describe "transfer_bids view" do
     let!(:transfer_day) { FactoryGirl.create(:transfer_day) }
     

@@ -26,7 +26,7 @@ class TransferWindow < ActiveRecord::Base
     if transfer_window_number == 0
       "Pre-season"
     else
-      "Transfer window #{transfer_window_number}"
+      "Transfer Window #{transfer_window_number}"
     end
   end
 

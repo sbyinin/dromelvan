@@ -47,4 +47,5 @@
 #require File.expand_path('../seed/team_career_squad_stats', __FILE__)
 #require File.expand_path('../seed/d11_team_career_squad_stats', __FILE__)
 #require File.expand_path('../seed/transfer_days_fix', __FILE__)
-require File.expand_path('../seed/transfer_days_fix2', __FILE__)
+#require File.expand_path('../seed/transfer_days_fix2', __FILE__)
+
