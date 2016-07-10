@@ -37,7 +37,7 @@ describe TransferDay, type: :model do
 
   describe '#name' do
     subject { @transfer_day.name }
-    it { is_expected.to eq "Transfer day 1" }
+    it { is_expected.to eq "Transfer Day 1" }
   end
   
   describe "default scope order" do

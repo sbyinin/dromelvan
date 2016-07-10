@@ -43,7 +43,7 @@
         
         <div class="most-valuable-player brief-info image-container">
           <% player_season_stat = season.winner %>
-          <h3><%= render player_season_stat.player %> (<%= render player_season_stat.player.season_info(season).team, label: :code %>)</h3>
+          <h3><%= render player_season_stat.player %> (<%= render player_season_stat.player.season_info(season).team, label: :code, club_crest: :hide %>)</h3>
           <p class="most-valuable-player">Most Valuable Player</p>
           <%= render "players/player_photo", player: player_season_stat.player %>
           <p class="stats">
@@ -64,14 +64,14 @@
           <h4>Premier League</h4>
           <ul id="premier-league-runners-up">
             <% season.premier_league.runners_up.each do |team_table_stat| %>
-            <li><%= render "teams/club_crest", team: team_table_stat.team, style: :icon %> <%= render team_table_stat.team %> <%= team_table_stat.points %>p</li>
+            <li><%= render team_table_stat.team %> <%= team_table_stat.points %>p</li>
             <% end %>
           </ul>
           
           <h4>Most Valuable Players</h4>
           <ul id="most-valuable-player-runners-up">
             <% season.runners_up.each do |player_season_stat| %>
-            <li><%= render "players/player_photo", player: player_season_stat.player, style: :icon %> <%= render player_season_stat.player %> (<%= render player_season_stat.player.season_info(season).team, label: :code %>) <%= player_season_stat.points %>p</li>
+            <li><%= render "players/player_photo", player: player_season_stat.player, style: :icon %> <%= render player_season_stat.player %> (<%= render player_season_stat.player.season_info(season).team, label: :code, club_crest: :hide %>) <%= player_season_stat.points %>p</li>
             <% end %>            
           </ul>          
         </div>        

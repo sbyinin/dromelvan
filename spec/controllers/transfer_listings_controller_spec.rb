@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe TransferListingsController, type: :controller do
 
+  # Testing the AJAX method
   describe "GET 'index'" do
     specify do
-      season = FactoryGirl.create(:season)
-      get :index, format: :json, ajax_params: {season_id: season.id}
+      transfer_day = FactoryGirl.create(:transfer_day)
+      get :index, format: :json, ajax_params: {transfer_day_id: transfer_day.id}
       expect(response).to be_success
     end
   end

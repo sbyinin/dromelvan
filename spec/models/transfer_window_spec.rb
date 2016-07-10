@@ -45,7 +45,7 @@ describe TransferWindow, type: :model do
   
   describe '#name' do
     subject { @transfer_window.name }
-    it { is_expected.to eq "Transfer window 1" }
+    it { is_expected.to eq "Transfer Window 1" }
   end
   
   describe "default scope order" do

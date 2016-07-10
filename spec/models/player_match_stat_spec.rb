@@ -568,7 +568,10 @@ describe PlayerMatchStat, type: :model do
   end
 
   describe "position_ordered scope order" do
-    before { PlayerMatchStat.destroy_all }
+    before do
+      PlayerMatchStat.destroy_all
+      Position.destroy_all
+    end
     
     let(:position1) { FactoryGirl.create(:position, sort_order: 1) }
     let(:position2) { FactoryGirl.create(:position, sort_order: 2) }

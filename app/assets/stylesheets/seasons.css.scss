@@ -1,5 +1,12 @@
 main {
     div.season-summary-container {
-        @include make-xs-column(12);    
+        @include make-xs-column(12);
+        
+        div.runners-up {
+            ul {
+                list-style-type: none;
+                padding-left: 0px;
+            }
+        }
     }    
 }
