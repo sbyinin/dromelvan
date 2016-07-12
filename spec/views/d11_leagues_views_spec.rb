@@ -4,10 +4,6 @@ describe "D11League", type: :view do
     
   subject { page }  
 
-  it_should_behave_like "show view", D11League do
-    let(:h1_text) { resource.name }
-  end
-
   describe "league table view" do
     let!(:d11_league) { FactoryGirl.create(:d11_league) }
     let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, d11_league: d11_league, date: Date.today - 1.day) }

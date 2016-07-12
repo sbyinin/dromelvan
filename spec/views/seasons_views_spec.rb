@@ -39,7 +39,6 @@ describe "Season", type: :view do
       it_should_behave_like "index view", Season
   
       it { is_expected.to have_selector('div.season-summary h2', text: season.name) }
-      it { is_expected.to within(:css, 'div.season-summary h2') { have_link(season.name, season) } }
       
       it { is_expected.to have_selector('div.d11-winner h3', text: d11_team1.name) }
       it { is_expected.to within(:css, 'div.d11-winner h3') { have_link(d11_team1.name, d11_team1) } }
@@ -77,10 +76,6 @@ describe "Season", type: :view do
       it { is_expected.to have_selector('div.runners-up ul#most-valuable-player-runners-up') }
       it { is_expected.to have_selector('div.runners-up ul#most-valuable-player-runners-up li', text: "#{player2.name} (#{player_season_info2.team.code})" ) }
       it { is_expected.to have_selector('div.runners-up ul#most-valuable-player-runners-up li', text: "#{player3.name} (#{player_season_info3.team.code})" ) }            
-  end
-
-  it_should_behave_like "show view", Season do
-    let(:h1_text) { "Season #{resource.name}" }
   end
 
 end

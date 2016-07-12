@@ -4,10 +4,6 @@ describe "PremierLeague", type: :view do
     
   subject { page }  
 
-  it_should_behave_like "show view", PremierLeague do
-    let(:h1_text) { resource.name }
-  end
-
   describe "league table view" do
     let!(:premier_league) { FactoryGirl.create(:premier_league) }
     let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league, date: Date.today - 1.day) }

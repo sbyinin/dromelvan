@@ -16,10 +16,12 @@ describe "TODO", type: :view do
   # pending "home > seasons"
   # /seasons
 
-  pending "home > seasons > <season>"
+  # TODO: Do this later if we come up with something interesting to put here.
+  # pending "home > seasons > <season>"
   # /seasons/<id>
 
-  pending "home > season > premier_league"
+  # TODO: Do this later if we come up with something interesting to put here.
+  # pending "home > season > premier_league"
   # /premier-leagues/<id>
 
   # pending "home > season > premier_league > team_table_stats > <season>"
@@ -32,7 +34,8 @@ describe "TODO", type: :view do
   # pending "home > season > premier_league > match_day > <match>"
   # /matches/<id>
 
-  pending "home > season > d11_league"
+  # TODO: Do this later if we come up with something interesting to put here.
+  # pending "home > season > d11_league"
   # /d11-leagues/<id>
 
   # pending "home > season > d11_league > d11_team_table_stats > <season>"
