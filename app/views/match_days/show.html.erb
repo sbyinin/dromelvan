@@ -18,26 +18,13 @@
 
 <%= render 'toggle_all_match_details_script' %>
 
-<div class="section">  
+<div class="section">
   <% cache(@match_day) do %>
-    <div class="main-section">
-      <h3>Fixtures</h3>
-      <% if @match_day.matches.any? %>
-        <% @match_day.match_dates.each do |match_date| %>
-            <!--<h4><a data-toggle="collapse" href=<%= ".match-date-details-#{match_date.to_formatted_s(:number)}" %>><%= match_date.to_formatted_s(:match_date) %></a></h4>-->
-            <h4><%= (match_date.to_datetime.postponed? ? "Postponed" : match_date.to_formatted_s(:match_date)) %></h4>
-          <%= render 'match_date_fixtures', match_day: @match_day, match_date: match_date %>                
-        <% end %>
-      <% else %>
-        <div class="match-date-fixtures">
-          There are no fixtures for this match day yet. Stay tuned.
-        </div>
-      <% end %>
-    </div>
-    <div class="related-section league-table-container">
-      <h3>League table</h3>
-      <p>Standings after match day <%= @match_day.match_day_number %>.<p>
-        <%= render 'team_table_stats/league_table_simple', team_table_stats: @match_day.team_table_stats %>
-    </div>
+  <%= render 'match_days/match_day_fixtures', match_day: @match_day %>
+  <div class="related-section league-table-container">
+    <h3>League table</h3>
+    <p>Standings after match day <%= @match_day.match_day_number %>.<p>
+      <%= render 'team_table_stats/league_table_simple', team_table_stats: @match_day.team_table_stats %>
+  </div>  
   <% end %>
 </div>

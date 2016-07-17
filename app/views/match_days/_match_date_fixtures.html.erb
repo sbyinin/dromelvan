@@ -32,7 +32,7 @@
               <%= match.elapsed %>
             </td>
             <td class="team-column home-team-column">
-              <%= image_tag(match.home_team.club_crest.url(:icon), alt: match.home_team.name, title: match.home_team.name, class: "club-crest") %><%= render match.home_team %>
+              <%= render match.home_team %>
               <div class="match-details match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">                          
                 <%= render 'matches/match_team_details', match: match, team: match.home_team %>
               </div>              
@@ -41,7 +41,7 @@
               <%= render match %>
             </td>
             <td class="team-column away-team-column">
-              <%= image_tag(match.away_team.club_crest.url(:icon), alt: match.away_team.name, title: match.away_team.name, class: "club-crest") %><%= render match.away_team %>
+              <%= render match.away_team %>
               <div class="match-details match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">                          
                 <%= render 'matches/match_team_details', match: match, team: match.away_team %>
               </div>

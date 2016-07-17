@@ -1,0 +1,15 @@
+
+<div class="main-section">
+  <h3>Fixtures</h3>
+  <% if match_day.matches.any? %>
+    <% match_day.match_dates.each do |match_date| %>
+        <h4><%= (match_date.to_datetime.postponed? ? "Postponed" : match_date.to_formatted_s(:match_date)) %></h4>
+      <%= render 'match_days/match_date_fixtures', match_day: match_day, match_date: match_date %>                
+    <% end %>
+  <% else %>
+    <div class="match-date-fixtures">
+      There are no fixtures for this match day yet. Stay tuned.
+    </div>
+  <% end %>
+</div>
+

@@ -1,3 +1,51 @@
 <% provide :hero_unit, (render "hero_unit") %>
 
-<h1>Hello World!</h1>
+
+<%
+   d11_match_day = D11MatchDay.current
+   if !d11_match_day.nil?
+%>
+<h1>Current D11 Match Day</h1>
+
+<h2><%= d11_match_day.name %> <%= render 'd11_match_days/context_menu', d11_match_day: d11_match_day %></h2>
+
+<div class="section">
+  <%= render 'd11_match_days/d11_match_day_fixtures', d11_match_day: d11_match_day %>
+  <div class="related-section league-table-container">
+    <h3>D11 League table</h3>
+    <p>Current top 10 standings.<p>
+    <%= render 'd11_team_table_stats/league_table_simple', d11_team_table_stats: d11_match_day.d11_team_table_stats.limit(10) %>
+  </div>  
+</div>
+<% end %>
+
+
+<%
+   match_day = MatchDay.current
+   if !match_day.nil?
+%>
+<h1>Current Match Day</h1>
+
+<h2><%= match_day.name %> <%= render 'match_days/context_menu', match_day: match_day %></h2>
+
+<div class="section">
+  <%= render 'match_days/match_day_fixtures', match_day: match_day %>
+  <div class="related-section league-table-container">
+    <h3>League table</h3>
+    <p>Current top 10 standings.<p>
+    <%= render 'team_table_stats/league_table_simple', team_table_stats: match_day.team_table_stats.limit(10) %>
+  </div>    
+</div>
+<% end %>
+
+<% season = Season.current %>
+
+<h1>Player Statistics</h1>
+
+<p>Top 10 players <%= season.name %>.</p>
+
+<div class="section">
+  <div class="main-section">
+    <%= render 'player_season_stats/table', player_season_stats: PlayerSeasonStat.where(season: season).limit(10).order(points: :desc) %>
+  </div>
+</div>
