@@ -1,0 +1,32 @@
+div.index {
+    table.player-season-stats {
+	.season-column {
+	    display: none;
+	}
+	
+	.team-column {
+	    @extend .visible-lg;
+	}
+	
+	.team-simple-column {
+	    @extend .visible-xs;
+	    @extend .visible-sm;	    
+	    @extend .visible-md;	    
+	}
+	
+	.form-column {
+	    @extend .hidden-xs;
+	    @extend .hidden-sm;	    
+	}
+    }    
+}
+
+@media only screen and (max-width: $screen-phone-portrait-max) {
+    div.home.index {
+	table.player-season-stats {
+	    .team-simple-column {
+		display: none !important;
+	    }
+	}
+    }
+}

@@ -2,7 +2,7 @@ div.transfer-days {
     div.main-section {        
         table.transfers,
         table.transfer-listings,
-        table.transfer-bids {
+        table.transfer-bids {        
             .position-column,
             .appearances-column,
             .points-per-appearance-column,
@@ -96,6 +96,17 @@ div.transfer-days {
     }
 }
 
+@media only screen and (min-width: $screen-tablet-portrait-min)  {
+    div.transfer-day-summary {
+        div#transfer-day-top-transfer-listings,
+        div#transfer-day-highest-bids,
+        div#transfer-day-most-expensive-transfers,
+        div#transfer-day-stats {
+            min-height: 500px;
+        }
+    }
+}
+
 @media only screen and (max-width: $screen-phone-portrait-max)  {
     div.transfer-days {
         div.main-section {
@@ -129,156 +140,3 @@ div.transfer-days {
         }
     }
 }
-
-/*
-div.transfer-daysss {
-    div.section {
-        div.main-section {
-            min-height: 500px !important; 
-        }
-        div.related-section {
-            @include make-sm-column(6);
-//            @include make-md-column(4);
-//            @include make-lg-column(3);
-
-            table.transfers {
-                .d11-team-column {
-                    min-width: 0px;
-                }
-                
-                .d11-team-column {
-                    @extend .visible-xs;
-                    @extend .visible-sm;
-                    @extend .visible-md;
-                    @extend .visible-lg;
-                }                
-            }
-        }
-    }
-    
-    table.transfers {
-        .team-column {
-            @extend .visible-lg;
-        }
-        
-        .team-simple-column {
-            @extend .visible-xs;
-            @extend .visible-sm;
-            @extend .visible-md;
-        }
-                
-        .d11-team-simple-column {
-            @extend .visible-xs;
-        }
-    }
-    
-    table.transfer-listings {
-        .d11-team-simple-column {
-            @extend .visible-xs;
-        }        
-    }
-    
-    table.transfer-bids,
-    table.transfer-listings {
-        .ranking-column {
-            display: none;
-        }
-        
-        .mom-column,
-        .position-column,
-        .appearances-colum,
-        .player-ranking-column,
-        .d11-team-ranking-column,
-        .points-per-appearance-column {
-            text-align: center;
-        }
-        
-        .d11-team-column {
-            min-width: 125px;
-            @extend .hidden-xs;
-        }
-
-        .d11-team-simple-column {
-            min-width: 40px;
-        }
-        
-        .form-column {
-            @extend .hidden-md;
-            @extend .hidden-xs;
-        }
-                
-        .mom-column,
-        .points-per-appearance-column {
-            @extend .visible-lg;
-        }
-        
-        .appearances-column{
-            @extend .hidden-xs;
-        }
-        
-        .successful-column {
-            min-width: 40px;
-            text-align: center;
-        }
-    }
-    
-    table.transfer-bids {
-        .inactive-bid-row {
-            font-style: italic;
-            opacity: 0.5;
-        }
-        
-        .team-simple-column,
-        .d11-team-simple-column {
-            @extend .hidden-lg;
-        }
-        
-        .d11-team-simple-column {
-            @extend .hidden-sm;
-        }
-        
-        .d11-team-column {
-            @extend .hidden-md;
-        }
-        
-        .team-column {
-            @extend .visible-lg;
-        }
-        
-        .position-column,
-        .player-ranking-column,
-        .fee-column,
-        .d11-team-ranking-column {
-            @extend .hidden-xs;
-        }
-    }
-}
-
-@media only screen and (max-width: $screen-phone-portrait-max)  {
-    mainn {
-        div.transfer-days {
-            table.transfers {
-                .ranking-column,
-                .team-simple-column,
-                tfoot {
-                    display: none !important;
-                }
-            }
-            
-            table.transfer-listings {
-                .team-column,
-                .position-column,
-                .rating-column {
-                    display: none;
-                }
-            }
-            
-            table.transfer-bids {
-                .team-simple-column{
-                    display: none;
-                }
-            }
-        }
-    }
-}
-*/

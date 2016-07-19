@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "TODO", type: :view do
   
-  pending "home"
+  # pending "home"
   
   # pending "home > posts"
   # /posts

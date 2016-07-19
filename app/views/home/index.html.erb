@@ -1,5 +1,14 @@
 <% provide :hero_unit, (render "hero_unit") %>
 
+<%
+  transfer_day = TransferDay.current
+  if !transfer_day.nil? && transfer_day.active?
+%>
+<h1>Current Transfer Day</h1>
+
+<%= render 'transfer_days/transfer_day_summary', transfer_day: transfer_day %>
+
+<% end %>
 
 <%
    d11_match_day = D11MatchDay.current
@@ -38,14 +47,16 @@
 </div>
 <% end %>
 
-<% season = Season.current %>
+<%
+  season = Season.current
+  if !season.nil?  
+%>
 
 <h1>Player Statistics</h1>
 
 <p>Top 10 players <%= season.name %>.</p>
 
-<div class="section">
-  <div class="main-section">
-    <%= render 'player_season_stats/table', player_season_stats: PlayerSeasonStat.where(season: season).limit(10).order(points: :desc) %>
-  </div>
-</div>
+
+<%= render 'player_season_stats/table', player_season_stats: PlayerSeasonStat.where(season: season).limit(10).order(points: :desc) %>
+
+<% end %>

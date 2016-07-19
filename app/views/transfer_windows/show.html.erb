@@ -7,18 +7,6 @@
    from <%= @transfer_window.d11_match_day.name.downcase %>.</p>
 
 <% @transfer_window.transfer_days.each do |transfer_day| %>
-<div id="<%= transfer_day.id %>" class="transfer-day-summary">
-  <h3><%= transfer_day.name %></h3>
-  <p>Transfer deadline <%= transfer_day.datetime.to_formatted_s(:post_time) %>.</p>
-  <div class="section">
-    <%= render 'transfer_listings/top_available_players', transfer_day: transfer_day %>
-    
-    <%= render 'transfer_bids/highest_bids', transfer_day: transfer_day %>
-  
-    <%= render 'transfers/most_expensive_transfers', transfer_day: transfer_day %>
-    
-    <%= render 'transfer_days/transfer_activity_statistics', transfer_day: transfer_day %>
-  </div>
-</div>
+   <%= render 'transfer_days/transfer_day_summary', transfer_day: transfer_day %>
 <% end %>
 

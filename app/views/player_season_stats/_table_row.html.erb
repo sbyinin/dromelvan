@@ -4,7 +4,7 @@
   <td class="number-column"><%= player_season_stat.ranking %></td>
   <td class="player-column main-column"><%= render player_season_stat.player %></td>  
   <td class="team-simple-column"><%= render 'teams/club_crest', team: player_season_info.team, style: :icon %></td>
-  <td class="team-column"><%= render 'teams/club_crest', team: player_season_info.team, style: :icon %> <%= render player_season_info.team %></td>
+  <td class="team-column"><%= render player_season_info.team %></td>
   <td class="position-column" title="<%= player_season_info.position.name %>"><%= player_season_info.position.code %></td>
   <td class="appearances-column"><%= player_season_stat.games_started %>/<%= player_season_stat.games_substitute %></td>  
   <td class="goals-column"><%= player_season_stat.goals %></td>  
