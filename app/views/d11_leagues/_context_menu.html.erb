@@ -1,8 +1,8 @@
 <% d11_league ||= @d11_league %>
 <%= render layout: 'layouts/context_menu_dropdown', locals: { resource: d11_league } do  %>
     <li class="dropdown-header">Season <%= d11_league.season.name %></li>
-    <li><%= render d11_league %></li>
     <li><%= link_to "Current Match Day", d11_league.d11_match_days.current, class: "model-link" %></li>
     <li><%= link_to "League Table", show_table_d11_league_path(d11_league), class: "model-link" %></li>
-    <li><%= link_to "D11 Teams", show_d11_teams_d11_league_path(d11_league), class: "model-link" %></li>
+    <li><%= link_to "Current Transfer Day", main_app.transfer_day_path(TransferDay.where(transfer_window: TransferWindow.where(season: d11_league.season).current).current) %></li>
+    <li><%= link_to "D11 Teams", show_d11_teams_d11_league_path(d11_league), class: "model-link" %></li>    
 <% end %>

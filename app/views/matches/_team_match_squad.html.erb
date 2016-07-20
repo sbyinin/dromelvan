@@ -1,5 +1,5 @@
 <div class="player-match-stats">
-  <h3><%= render 'teams/club_crest', team: team, style: :icon %> <%= render team %></h3>
+  <h3><%= render team %></h3>
   <% player_match_stats = match.player_match_stats.by_team(team) %>  
   <table class="player-match-stats">
     <tbody>

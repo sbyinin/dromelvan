@@ -5,7 +5,7 @@
   <%= @d11_match.d11_match_day.d11_league.name %> <span class="season-name"><%= @d11_match.d11_match_day.d11_league.season.name %></span><%= render 'd11_leagues/context_menu', d11_league: @d11_match.d11_match_day.d11_league %>
 </h1>
 
-<h2><%= @d11_match.d11_match_day.name %> <%= render 'd11_match_days/context_menu', d11_match_day: @d11_match.d11_match_day %></h2>
+<h2>D11 <%= @d11_match.d11_match_day.name %> <%= render 'd11_match_days/context_menu', d11_match_day: @d11_match.d11_match_day %></h2>
 
 <% if administrator_signed_in? %>
 <h3><%= @d11_match.name %> <%= render 'd11_matches/context_menu', d11_match: @d11_match %></h3>

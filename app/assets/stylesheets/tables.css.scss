@@ -597,6 +597,10 @@ table.rules-table {
 	    display: none;    
 	}
     }
+        
+    .action-column {
+	white-space: nowrap;
+    }
 }
 
 @media only screen and (max-width: $screen-phone-portrait-max) {
