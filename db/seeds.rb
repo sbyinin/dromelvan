@@ -49,3 +49,6 @@
 #require File.expand_path('../seed/transfer_days_fix', __FILE__)
 #require File.expand_path('../seed/transfer_days_fix2', __FILE__)
 
+#require File.expand_path('../seed/d11_team_table_stats_season_10', __FILE__)
+require File.expand_path('../seed/d11_team_table_stats_season_5', __FILE__)
+
