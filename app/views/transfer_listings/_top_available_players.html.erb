@@ -2,7 +2,7 @@
   <h3>Top Available Players</h3>
   <p>Show <%= link_to "all available ", show_transfer_listings_transfer_day_path(transfer_day), class: "model-link" %> for this transfer day.</p>
   <% if !transfer_day.transfer_listings.empty? %>
-  <%= render 'transfer_listings/simple_table', transfer_listings: transfer_day.transfer_listings.limit(10) %>
+  <%= render 'transfer_listings/simple_table', transfer_listings: transfer_day.transfer_listings.reorder(points: :desc).limit(10) %>
   <% else %>
   <p>No transfer listings have yet been registered for this transfer day.</p>
   <% end %>      

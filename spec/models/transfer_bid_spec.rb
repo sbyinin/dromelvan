@@ -112,7 +112,7 @@ describe TransferBid, type: :model do
   end
 
   context "when active_fee is too small" do
-    before { @transfer_bid.active_fee = 0 }
+    before { @transfer_bid.active_fee = -5 }
     it { is_expected.not_to be_valid }
   end
 

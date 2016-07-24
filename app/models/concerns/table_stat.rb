@@ -125,7 +125,7 @@ module TableStat
       end
     end
 
-    def update_stats
+    def update_stats      
       my_team = read_association("([a-z0-9]*_)?team")
       my_match_day = read_association("([a-z0-9]*_)?match_day")
       match = my_match_day.read_association_class("([a-z0-9]*_)?matches")

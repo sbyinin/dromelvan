@@ -4813,7 +4813,8 @@ transfer_bids = [
 puts("Seeding transfer bids...")
 
 transfer_bids.each do |id, transfer_day_id, d11_team_id, player_id, replaced_player_id, priority, replaced_player_priority, fee, successful|
-    t = TransferBid.new(transfer_day_id: transfer_day_id, d11_team_id: d11_team_id, player_id: player_id, d11_team_ranking: priority, player_ranking: replaced_player_priority, fee: fee, active_fee: fee, successful: successful)
+    t = TransferBid.new(transfer_day_id: transfer_day_id, d11_team_id: d11_team_id, player_id: player_id, d11_team_ranking: priority,
+                        player_ranking: replaced_player_priority, fee: fee, active_fee: fee, successful: successful)
     if !t.valid?
         puts("Invalid transfer bid: #{id}: #{t.errors.full_messages}")
     end

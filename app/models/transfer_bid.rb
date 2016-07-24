@@ -49,8 +49,8 @@ class TransferBid < ActiveRecord::Base
         end        
 
         if !active_fee.nil? then
-          if active_fee < 5 then
-            errors.add(:active_fee, "must be greater than or equal to 5")
+          if active_fee < 0 then
+            errors.add(:active_fee, "must be greater than or equal to 0")
           end
           
           if !active_fee.modulo(5).zero? then
