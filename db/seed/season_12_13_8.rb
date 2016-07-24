@@ -9175,3 +9175,4 @@ TransferDay.where("id >= 50").each do |transfer_day|
     TransferListing.update_rankings(transfer_day)
 end
 
+PlayerCareerStat.update_rankings
