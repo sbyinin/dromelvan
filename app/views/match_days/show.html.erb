@@ -1,5 +1,5 @@
 <% provide :title, "Match Day #{@match_day.match_day_number}"
-   provide :breadcrumbs, breadcrumbs([ @match_day.premier_league.season, @match_day.premier_league, :select_name ],  premier_league: @match_day.premier_league ) %> 
+   provide :breadcrumbs, breadcrumbs([ @match_day.premier_league.season, @match_day.premier_league, :select_name ],  {premier_league: @match_day.premier_league}, "premier_league_id = #{@match_day.premier_league_id}" ) %> 
 
 <h1>
   <%= @match_day.premier_league.name %> <span class="season-name"><%= @match_day.premier_league.season.name %></span><%= render 'premier_leagues/context_menu', premier_league: @match_day.premier_league %>
