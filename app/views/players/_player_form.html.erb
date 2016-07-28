@@ -1,3 +1,4 @@
+<% cache [ season, player] do %>
 <% form_player_match_stats = player.form_player_match_stats(season) %>
 <% if !form_player_match_stats.nil? %>
   <% form_player_match_stats.each do |player_match_stat| %>
@@ -5,4 +6,5 @@
   <% end %>
 <% else %>
   No matches played.
+<% end %>
 <% end %>

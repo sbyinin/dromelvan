@@ -27,6 +27,7 @@
     
         <div class="personal-information-container">
           <h3 style="white-space: nowrap">Personal Information</h2>
+          <% cache @player do %>
           <dl class="information">
             <dt>Nationality:</dt>
             <dd><%= render @player.country %></dd>
@@ -47,10 +48,12 @@
             <dt>WhoScored:</dt>
             <dd><%= render 'players/whoscored_link', player: @player %></dd>          
           </dl>
+        <% end %>
         </div>
         <div class="season-information-container">
           <h3>Season <%= @season.name %></h3>
           <% if !player_season_stat.nil? %>
+          <% cache [ player_season_stat, player_season_info ] do %>
           <dl class="data">
             <dt>Team:</dt>
             <dd><%= render player_season_info.team %></dd>
@@ -74,6 +77,7 @@
             <dt>Form:</dt>
             <dd><%= render 'players/player_form', player: @player, season: @season %></dd>            
           </dl>
+          <% end %>
           <% else %>
           <p>Did not participate.</p>
           <% end %>
@@ -93,7 +97,9 @@
     <% if !player_season_stat.nil? %>
     <div id="player-match-stats">
       <h3>Match Statistics <%= @season.name %></h3>
+      <% cache player_season_stat do %>
       <%= render 'player_match_stats/table', player_match_stats: player_season_stat.player_match_stats, title: "Player" %>
+      <% end %>
     </div>
     <% end %>
     <div id="player-season-stats">
