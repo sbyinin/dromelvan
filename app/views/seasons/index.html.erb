@@ -7,7 +7,6 @@
 
 <% Season.all.each do |season| %>
 <div class="section">
-  <% cache(season) do %>
   <div class="season-summary-container">
     <div class="season-summary standard-panel">
       <div class="panel-heading">
@@ -78,6 +77,5 @@
       </div>      
     </div>
   </div>
-  <% end %>
 </div>
 <% end %>

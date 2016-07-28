@@ -17,12 +17,10 @@
 </p>
 
 <div class="section">  
-  <% cache(@d11_match_day) do %>
-    <%= render 'd11_match_days/d11_match_day_fixtures', d11_match_day: @d11_match_day %>
-    <div class="related-section league-table-container">
-      <h3>League table</h3>
-      <p>Standings after match day <%= @d11_match_day.match_day_number %>.<p>
-      <%= render 'd11_team_table_stats/league_table_simple', d11_team_table_stats: @d11_match_day.d11_team_table_stats %>
-    </div>
-  <% end %>
+  <%= render 'd11_match_days/d11_match_day_fixtures', d11_match_day: @d11_match_day %>
+  <div class="related-section league-table-container">
+    <h3>League table</h3>
+    <p>Standings after match day <%= @d11_match_day.match_day_number %>.<p>
+    <%= render 'd11_team_table_stats/league_table_simple', d11_team_table_stats: @d11_match_day.d11_team_table_stats %>
+  </div>
 </div>
