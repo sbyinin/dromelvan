@@ -1,7 +1,7 @@
 class D11League < ActiveRecord::Base
   include SeasonUniqueName  
   
-  belongs_to :season
+  belongs_to :season, touch: true
   has_many :d11_match_days, dependent: :restrict_with_exception
   has_many :d11_team_table_stats, dependent: :restrict_with_exception
   

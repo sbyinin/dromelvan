@@ -1,6 +1,6 @@
 class TransferBid < ActiveRecord::Base
 
-  belongs_to :transfer_day
+  belongs_to :transfer_day, touch: true
   belongs_to :player
   belongs_to :d11_team
 

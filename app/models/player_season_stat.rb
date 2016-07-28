@@ -1,7 +1,7 @@
 class PlayerSeasonStat < ActiveRecord::Base
   include PlayerRanking
   
-  belongs_to :season
+  belongs_to :season, touch: true
   
   scope :by_player_season_infos, -> { joins("JOIN player_season_infos ON player_season_stats.player_id = player_season_infos.player_id AND player_season_stats.season_id = player_season_infos.season_id") }
   scope :position_order, -> { by_player_season_infos.joins("JOIN positions ON player_season_infos.position_id = positions.id").order("positions.sort_order").ranking_order }

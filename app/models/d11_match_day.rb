@@ -1,6 +1,6 @@
 class D11MatchDay < ActiveRecord::Base
 
-  belongs_to :d11_league
+  belongs_to :d11_league, touch: true
   belongs_to :match_day
   has_many :d11_matches, dependent: :restrict_with_exception
   has_one :transfer_window, dependent: :restrict_with_exception

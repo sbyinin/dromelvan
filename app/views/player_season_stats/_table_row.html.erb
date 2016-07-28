@@ -1,5 +1,4 @@
 <% player_season_info = PlayerSeasonInfo.by_player_and_season(player_season_stat.player, player_season_stat.season) %>
-<% cache [ player_season_info, player_season_stat ] do %>
 <tr>
   <td class="season-column"><%= render player_season_stat.season %></td>  
   <td class="number-column"><%= player_season_stat.ranking %></td>
@@ -18,4 +17,3 @@
   <td class="points-column number-column"><%= player_season_stat.points %></td>  
   <td class="d11-team-column"><%= render player_season_info.d11_team %></td>
 </tr>
-<% end %>

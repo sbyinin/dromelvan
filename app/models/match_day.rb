@@ -1,6 +1,6 @@
 class MatchDay < ActiveRecord::Base
   
-  belongs_to :premier_league
+  belongs_to :premier_league, touch: true
   has_one :d11_match_day, dependent: :restrict_with_exception
   has_many :matches, dependent: :restrict_with_exception
   has_many :team_table_stats, dependent: :restrict_with_exception

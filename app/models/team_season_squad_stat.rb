@@ -1,7 +1,7 @@
 class TeamSeasonSquadStat < ActiveRecord::Base
   include TeamSquadStat
   
-  belongs_to :season
+  belongs_to :season, touch: true
 
   validates :season, presence: true
 

@@ -1,7 +1,7 @@
 class TransferWindow < ActiveRecord::Base
   
   belongs_to :season
-  belongs_to :d11_match_day
+  belongs_to :d11_match_day, touch: true
   has_many :transfer_days, dependent: :restrict_with_exception
   
   enum status: [ :pending, :active, :finished ]
