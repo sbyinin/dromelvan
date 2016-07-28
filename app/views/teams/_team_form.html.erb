@@ -1,3 +1,4 @@
+<% cache [ match_day, team, :team_form ] do %>
 <% form_matches = team.form_matches(match_day) %>
 <% if !form_matches.nil? %>
     <% form_matches.each do |match| %>
@@ -5,4 +6,5 @@
     <% end %>
 <% else %>
     No matches played.
+<% end %>
 <% end %>

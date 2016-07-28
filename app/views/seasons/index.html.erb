@@ -8,6 +8,7 @@
 <% Season.all.each do |season| %>
 <div class="section">
   <div class="season-summary-container">
+    <% cache [ season, :season_summary] do %>
     <div class="season-summary standard-panel">
       <div class="panel-heading">
         <h2><%= render season %></h2>
@@ -76,6 +77,7 @@
         </div>        
       </div>      
     </div>
+    <% end %>
   </div>
 </div>
 <% end %>

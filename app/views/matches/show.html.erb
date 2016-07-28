@@ -1,5 +1,5 @@
 <% provide :title, "#{@match.home_team.name} vs #{@match.away_team.name}"
-   provide :breadcrumbs, breadcrumbs([ @match.match_day.premier_league.season, @match.match_day.premier_league, @match.match_day, :select_name ],  match_day: @match.match_day ) %> 
+   provide :breadcrumbs, breadcrumbs([ @match.match_day.premier_league.season, @match.match_day.premier_league, @match.match_day, :select_name ],  { match_day: @match.match_day }, "match_day_id = #{@match.match_day_id}" ) %> 
   
 <h1>
   <%= @match.match_day.premier_league.name %> <span class="season-name"><%= @match.match_day.premier_league.season.name %></span><%= render 'premier_leagues/context_menu', premier_league: @match.match_day.premier_league %>
@@ -12,6 +12,7 @@
 <% end %>                                
 
 <div class="match-header-container section">
+  <% cache [ @match, :match_header ] do %>
   <div class="match-header detailed">
     <table class="match-header detailed">
       <tbody>
@@ -101,10 +102,12 @@
       </tbody>
     </table>
   </div>
+  <% end %>
 </div>
 
 <% if !@match.pending? %>
   <div class="section">
+    <% cache [ @match, :player_statistics ] do %>
     <div class="player-statistics">  
       <h3>Lineups and Player Statistics</h3>
   
@@ -113,7 +116,9 @@
       <%= render 'team_match_squad', team: @match.away_team, match: @match %>
             
     </div>
+    <% end %>
     
+    <% cache [ @match, :player_statistics_summary ] do %>
     <div class="player-statistics-summary">
       <h3>Team Stat Summaries</h3>
       
@@ -129,6 +134,7 @@
         </div>
       </div>
     </div>
+    <% end %>
     
   </div>
 <% end %>

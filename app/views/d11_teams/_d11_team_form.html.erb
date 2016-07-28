@@ -1,3 +1,4 @@
+<% cache [ d11_match_day, d11_team, :d11_team_form ] do %>
 <% form_d11_matches = d11_team.form_matches(d11_match_day) %>
 <% if !form_d11_matches.nil? %>
     <% form_d11_matches.each do |d11_match| %>
@@ -5,4 +6,5 @@
     <% end %>
 <% else %>
     No matches played.
+<% end %>
 <% end %>
