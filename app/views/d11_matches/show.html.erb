@@ -1,5 +1,5 @@
 <% provide :title, "#{@d11_match.home_d11_team.name} vs #{@d11_match.away_d11_team.name}"
-   provide :breadcrumbs, breadcrumbs([ @d11_match.d11_match_day.d11_league.season, @d11_match.d11_match_day.d11_league, @d11_match.d11_match_day, :select_name ],  d11_match_day: @d11_match.d11_match_day ) %> 
+   provide :breadcrumbs, breadcrumbs([ @d11_match.d11_match_day.d11_league.season, @d11_match.d11_match_day.d11_league, @d11_match.d11_match_day, :select_name ],  { d11_match_day: @d11_match.d11_match_day}, "d11_match_day_id = #{@d11_match.d11_match_day_id}" ) %> 
   
 <h1>
   <%= @d11_match.d11_match_day.d11_league.name %> <span class="season-name"><%= @d11_match.d11_match_day.d11_league.season.name %></span><%= render 'd11_leagues/context_menu', d11_league: @d11_match.d11_match_day.d11_league %>
@@ -12,6 +12,7 @@
 <% end %>                                
 
 <div class="match-header-container section">
+  <% cache [ @d11_match, :d11_match_header ] do %>
   <div class="match-header detailed">
     
     <table class="match-header detailed">
@@ -59,7 +60,7 @@
       </tbody>
     </table>    
   </div>
-  
+    
   <div class="stadium-photo-container">
     <div class="stadium-photo">
       <%= render 'stadia/stadium_photo', stadium: Team.find(1).stadium %>
@@ -109,12 +110,14 @@
         </tr>
       </tbody>
     </table>
-  </div>  
+  </div>
+  <% end %>
 </div>
 
 <% if !@d11_match.pending? %>
   <div class="section">
-    <div class="player-statistics">  
+    <% cache [@d11_match, :player_statistics] do %>
+    <div class="player-statistics">      
       <h3>Lineups and Player Statistics</h3>
       
       <div class="player-match-stats home-team">
@@ -125,10 +128,11 @@
       <div class="player-match-stats away-team">
         <h3><%= render 'd11_teams/club_crest', d11_team: @d11_match.away_d11_team, style: :icon %> <%= render @d11_match.away_d11_team %></h3>
         <%= render 'player_match_stats/table', player_match_stats: @d11_match.d11_team_match_squad_stats.where(d11_team: @d11_match.away_d11_team).first.player_match_stats.position_ordered, title: "Player" %>
-      </div>
-      
+      </div>      
     </div>
+    <% end %>
 
+    <% cache [@d11_match, :player_statistics_summary] do %>    
     <div class="player-statistics-summary">
       <h3>Player Match Stats Summary</h3>
       
@@ -144,6 +148,6 @@
         </div>
       </div>
     </div>
-    
+    <% end %>
   </div>
 <% end %>
