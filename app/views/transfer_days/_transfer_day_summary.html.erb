@@ -1,3 +1,4 @@
+<% cache [ transfer_day, :transfer_day_summary ] do %>
 <div id="<%= transfer_day.id %>" class="transfer-day-summary">
   <h3><%= transfer_day.name %></h3>
   <p>Transfer deadline <%= transfer_day.datetime.to_formatted_s(:post_time) %>.</p>
@@ -11,3 +12,4 @@
     <%= render 'transfer_days/transfer_activity_statistics', transfer_day: transfer_day %>
   </div>
 </div>
+<% end %>

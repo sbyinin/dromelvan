@@ -1,3 +1,4 @@
+<% cache [ transfer_day, :transfer_day_most_expensive_transfers ] do %>
 <div id="transfer-day-most-expensive-transfers">
   <h3>Most Expensive Transfers</h3>
   <p>Show <%= link_to "all transfers", transfer_day_path(transfer_day), class: "model-link" %> for this transfer day.</p>
@@ -7,3 +8,4 @@
   <p>No transfers have yet been registered for this transfer day.</p>
   <% end %>      
 </div>
+<% end %>
