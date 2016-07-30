@@ -10,16 +10,18 @@ class User < ActiveRecord::Base
   has_many :posts, dependent: :restrict_with_exception
 
   def active_d11_team
-    season = Season.current
-    d11_team = nil
-    if !season.nil?
-      season.d11_team_registrations.each do |d11_team_registration|
-        if d11_team_registration.approved? && (d11_team_registration.d11_team.owner == self || d11_team_registration.d11_team.co_owner == self)
-          d11_team = d11_team_registration.d11_team
+    Rails.cache.fetch("#{cache_key}/active_d11_team", expires_in: 12.hours) do
+      season = Season.current    
+      d11_team = nil
+      if !season.nil?
+        season.d11_team_registrations.each do |d11_team_registration|
+          if d11_team_registration.approved? && (d11_team_registration.d11_team.owner == self || d11_team_registration.d11_team.co_owner == self)
+            d11_team = d11_team_registration.d11_team
+          end
         end
       end
+      d11_team
     end
-    d11_team
   end
 
   def self.new_with_session(params, session)

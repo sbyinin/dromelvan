@@ -15,61 +15,59 @@
     </thead>
     <tbody>
       <% match_day.matches.by_date(match_date).each do |match| %>
-        <% cache(match) do %>    
-          <tr class="match-details">
-            <td class="action-column">
-              <a id="toggle-match-id-details-<%= match.id %>" class="toggle" data-toggle="collapse" href=".match-id-details-<%= match.id %>">
-                <%= fa_icon "angle-down" %> 
-              </a>
-            </td>
-            <td class="time-column">
-              <%= match.kickoff_time_s %>
-              <% if administrator_signed_in? %>
-                <%= render 'matches/context_menu', match: match %>
-              <% end %>                                          
-            </td>
-            <td class="time-elapsed-column">
-              <%= match.elapsed %>
-            </td>
-            <td class="team-column home-team-column">
-              <%= render match.home_team %>
-              <div class="match-details match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">                          
-                <%= render 'matches/match_team_details', match: match, team: match.home_team %>
-              </div>              
-            </td>
-            <td class="result-column">
-              <%= render match %>
-            </td>
-            <td class="team-column away-team-column">
-              <%= render match.away_team %>
-              <div class="match-details match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">                          
-                <%= render 'matches/match_team_details', match: match, team: match.away_team %>
-              </div>
-            </td>
-            <td class="stadium-column"><%= match.stadium.name %></td>
-            <td class="team-simple-column">
+        <tr class="match-details">
+          <td class="action-column">
+            <a id="toggle-match-id-details-<%= match.id %>" class="toggle" data-toggle="collapse" href=".match-id-details-<%= match.id %>">
+              <%= fa_icon "angle-down" %> 
+            </a>
+          </td>
+          <td class="time-column">
+            <%= match.kickoff_time_s %>
+            <% if administrator_signed_in? %>
+              <%= render 'matches/context_menu', match: match %>
+            <% end %>                                          
+          </td>
+          <td class="time-elapsed-column">
+            <%= match.elapsed %>
+          </td>
+          <td class="team-column home-team-column">
+            <%= render match.home_team %>
+            <div class="match-details match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">                          
+              <%= render 'matches/match_team_details', match: match, team: match.home_team %>
+            </div>              
+          </td>
+          <td class="result-column">
+            <%= render match %>
+          </td>
+          <td class="team-column away-team-column">
+            <%= render match.away_team %>
+            <div class="match-details match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">                          
+              <%= render 'matches/match_team_details', match: match, team: match.away_team %>
+            </div>
+          </td>
+          <td class="stadium-column"><%= match.stadium.name %></td>
+          <td class="team-simple-column">
+            <ol>
+              <li id="home-team"><%= render match.home_team %></li>
+              <li id="away-team"><%= render match.away_team %></li>
+            </ol>
+            <div class="match-details match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">
+              <div class="team-name" id="home-team-name"><%= match.home_team.name %></div>
+              <%= render 'matches/match_team_details', match: match, team: match.home_team %>
+              
+              <div class="team-name" id="away-team-name"><%= match.away_team.name %></div>
+              <%= render 'matches/match_team_details', match: match, team: match.away_team %>               
+            </div>
+          </td>
+          <td class="result-simple-column number-column">
+            <% if !match.pending? %>
               <ol>
-                <li id="home-team"><%= render match.home_team %></li>
-                <li id="away-team"><%= render match.away_team %></li>
+                <li><%= link_to match.home_team_goals, match %></li>
+                <li><%= link_to match.away_team_goals, match %></li>
               </ol>
-              <div class="match-details match-date-details-<%= match.datetime.to_date.to_formatted_s(:number) %> match-id-details-<%= match.id %> collapse out">
-                <div class="team-name" id="home-team-name"><%= match.home_team.name %></div>
-                <%= render 'matches/match_team_details', match: match, team: match.home_team %>
-                
-                <div class="team-name" id="away-team-name"><%= match.away_team.name %></div>
-                <%= render 'matches/match_team_details', match: match, team: match.away_team %>               
-              </div>
-            </td>
-            <td class="result-simple-column number-column">
-              <% if !match.pending? %>
-                <ol>
-                  <li><%= link_to match.home_team_goals, match %></li>
-                  <li><%= link_to match.away_team_goals, match %></li>
-                </ol>
-              <% end %>
-            </td>            
-          </tr>
-        <% end %>
+            <% end %>
+          </td>            
+        </tr>
       <% end %>
     </tbody>
   </table>

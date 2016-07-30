@@ -9,6 +9,7 @@
 
 <div class="widget-container">
   <div class="main-widget">
+    <% cache [ @d11_team, @season, :d11_team_profile_fixtures ] do %>
     <div id="d11-team-profile" class="standard-panel">
       <div class="panel-heading">
         <h2>D11 team profile</h2>
@@ -59,18 +60,21 @@
         </div>
         
       </div>
-    </div>  
+    </div>
+    <% end %>
   </div>
   
 </div>
 
 <div class="widget-container">
+  <% cache [ @d11_team, @season, :d11_team_fixtures_and_results ] do %>
   <div id="d11-team-fixtures-and-results" class="main-widget">
     <h3>Fixtures and results <%= @season.name %></h2>
     <%= render 'd11_matches/table', d11_matches: D11Match.by_season(@season).by_d11_team(@d11_team) %>                
   </div>
+  <% end %>
   
-  
+  <% cache [ @d11_team, :d11_team_season_history ] do %>
   <div id="d11-team-season-history" class="related-widget">
     <h3>Season history</h2>
     <%
@@ -97,5 +101,5 @@
       </tbody>
     </table>
   </div>
-  
+  <% end %>
 </div>

@@ -2,7 +2,7 @@ class Match < ActiveRecord::Base
   
   belongs_to :home_team, class_name: Team, foreign_key: :home_team_id
   belongs_to :away_team, class_name: Team, foreign_key: :away_team_id
-  belongs_to :match_day
+  belongs_to :match_day, touch: true
   belongs_to :stadium
   has_many :player_match_stats, dependent: :restrict_with_exception
   has_many :goals, dependent: :restrict_with_exception

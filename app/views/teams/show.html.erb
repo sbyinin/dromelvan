@@ -9,6 +9,7 @@
 
 <div class="widget-container">
   <div class="main-widget">
+    <% cache [ @team, :team_profile ] do %>
     <div id="team-profile" class="standard-panel">
       <div class="panel-heading">
         <h2>Team profile</h2>
@@ -62,6 +63,7 @@
         
       </div>
     </div>
+    <% end %>
   </div>
 
   <div class="related-widget">
@@ -75,6 +77,7 @@
 </div>
 
 <div class="widget-container">
+  <% cache [ @team, @season, :team_season_squad_stats ] do %>
   <% player_season_stats = PlayerSeasonStat.by_team(@team).where(season: @season)
     if !player_season_stats.empty? then
   %>  
@@ -86,10 +89,11 @@
   <div class="main-widget">
   </div>
   <% end %>
-      
+  <% end %>
+  <% cache [ @team, :team_career_squad_stats ] do %>
   <div id="team-career-squad-stats" class="related-widget">
     <h3>All time squad stats</h2>
     <%= render 'team_career_squad_stats/simple_table', team_career_squad_stat: TeamCareerSquadStat.where(team: @team).first %>
   </div>
-  
+  <% end %>
 </div>

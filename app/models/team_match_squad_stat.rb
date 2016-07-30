@@ -1,7 +1,7 @@
 class TeamMatchSquadStat < ActiveRecord::Base
   include TeamSquadStat
   
-  belongs_to :match
+  belongs_to :match, touch: true
 
   validates :match, presence: true
 

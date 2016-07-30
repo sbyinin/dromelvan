@@ -4,7 +4,8 @@
 <h1><%= @transfer_day.name %> <%= render 'context_menu' %></h1>
 <p>Transfer deadline <%= @transfer_day.datetime.to_formatted_s(:post_time) %>.</p>
 
-<div class="section">  
+<div class="section">
+  <% cache [ @transfer_day, :transfer_day_bids ] do %>
   <div id="transfer-day-transfer-bids" class="main-section">    
     <h3>Bids</h3>
     <% if !@transfer_day.transfer_bids.empty? %>
@@ -13,6 +14,7 @@
     <p>No bids have yet been registered for this transfer day.</p>
     <% end %>
   </div>
+  <% end %>
   
   <div id="transfer-day-statistics" class="related-section">
     <div class="section">

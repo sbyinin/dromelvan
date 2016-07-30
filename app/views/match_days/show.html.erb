@@ -19,12 +19,14 @@
 <%= render 'toggle_all_match_details_script' %>
 
 <div class="section">
-  <% cache(@match_day) do %>
+  <% cache [ @match_day, :match_day_fixtures ] do %>
   <%= render 'match_days/match_day_fixtures', match_day: @match_day %>
+  <% end %>
   <div class="related-section league-table-container">
     <h3>League table</h3>
     <p>Standings after match day <%= @match_day.match_day_number %>.<p>
+      <% cache [ @match_day, :league_table_simple] do %>
       <%= render 'team_table_stats/league_table_simple', team_table_stats: @match_day.team_table_stats %>
+      <% end %>
   </div>  
-  <% end %>
 </div>

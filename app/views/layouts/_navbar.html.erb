@@ -21,32 +21,41 @@
             <li><%= link_to "About Drömelvan", main_app.about_path %></li>
           </ul>
         </li>
-
+        <% cache [ Season.current, :navbar ] do %>
         <li class="dropdown">
           <%= render 'layouts/dropdown_toggle', text: "D11" %>
           <ul class="dropdown-menu" id="d11-menu">
+            <% if !D11MatchDay.current.nil? %>
+            <li><%= link_to "Current Match Day", main_app.d11_match_day_path(D11MatchDay.current) %></li>
+            <% end %>
             <% if !D11League.current.nil? %>
-            <li><%= link_to "Current Match Day", main_app.d11_match_day_path(D11MatchDay.current) %></li>            
-            <li><%= link_to "League Table", main_app.d11_league_path(D11League.current) %></li>            
+            <li><%= link_to "League Table", main_app.d11_league_path(D11League.current) %></li>
+            <% end %>
+            <% if !TransferDay.current.nil? %>            
             <li><%= link_to "Current Transfer Day", main_app.transfer_day_path(TransferDay.current) %></li>
+            <% end %>
+            <% if !D11League.current.nil? %>
             <li><%= link_to "D11 Teams", main_app.show_d11_teams_d11_league_path(D11League.current) %></li>
-            <li><%= link_to "Season History", main_app.seasons_path %></li>
-            <% end %>                      
+            <% end %>
+            <li><%= link_to "Season History", main_app.seasons_path %></li>                                  
           </ul>
         </li>
-
         <li class="dropdown">
           <%= render 'layouts/dropdown_toggle', text: "Premier League" %>
           <ul class="dropdown-menu" id="premier-league-menu">
-            <% if !PremierLeague.current.nil? %>
+            <% if !MatchDay.current.nil? %>
             <li><%= link_to "Current Match Day", main_app.match_day_path(MatchDay.current) %></li>
+            <% end %>
+            <% if !PremierLeague.current.nil? %>
             <li><%= link_to "League Table", main_app.premier_league_path(PremierLeague.current) %></li>
             <li><%= link_to "Player Statistics", main_app.show_stats_premier_league_path(PremierLeague.current) %></li>
             <% end %>
           </ul>          
         </li>                
-      </ul>
-      
+      </ul>        
+      <% end %>
+    
+      <% cache [ current_user, :navbar ] do %>
       <ul class="navbar-menubar user-menubar">
         <% if user_signed_in? %>
         <li class="dropdown">
@@ -55,7 +64,7 @@
             <% if !current_user.active_d11_team.nil? && !params[:controller].include?('rails_admin') %>
             <li><%= link_to "My Team", current_user.active_d11_team %></li>
             <% end %>
-            <% if administrator_signed_in? %>
+             <% if administrator_signed_in? %>
             <li><%= link_to "Administration", rails_admin.dashboard_path %></li>            
             <% end %>
             <% if current_user.provider.nil? %>
@@ -69,6 +78,7 @@
         <li><%=  link_to "Sign Up", main_app.new_user_registration_path, class: "navbar-link" %></li>
         <% end %>
       </ul>      
+      <% end %>   
     </div>    
   </div>    
 </nav>

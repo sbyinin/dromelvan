@@ -1,11 +1,13 @@
 <% provide :title, @player.name
    provide :breadcrumbs, breadcrumbs([ :class, :name, :select_season ])
    player_season_info = PlayerSeasonInfo.by_player_and_season(@player, @season)
-   player_season_stat = PlayerSeasonStat.where(player: @player, season: @season).first %> 
+   player_season_stat = PlayerSeasonStat.where(player: @player, season: @season).first        
+ %> 
   
 <h1><%= @player.name %> <%= render 'context_menu' %></h1>
 
 <div class="section">
+  <% cache [ @player, @season, :player_profile_container ] do %>
   <div id="player-profile-container" class="top-section">  
     <div id="player-profile" class="standard-panel">
       
@@ -86,32 +88,42 @@
       </div>
     </div>
   </div>
+  <% end %>
 </div>
 
 <div class="section">
   <div id="player-stats" class="main-section">
     <% if !player_season_stat.nil? %>
+    <% cache [ @player, @season, :player_match_stats ] do %>
     <div id="player-match-stats">
       <h3>Match Statistics <%= @season.name %></h3>
+      <% cache player_season_stat do %>
       <%= render 'player_match_stats/table', player_match_stats: player_season_stat.player_match_stats, title: "Player" %>
+      <% end %>
     </div>
     <% end %>
+    <% end %>
+    <% cache [ @player, @season, :player_season_stats ] do %>
     <div id="player-season-stats">
       <h3>Season Statistics</h3>
       <%= render 'player_season_stats/table', player_season_stats: @player.player_season_stats.order(season_id: :desc) %>
-    </div>      
+    </div>
+    <% end %>
   </div>
   
   <div id="player-history">
+    <% cache [ @player, @season, :player_career_stats ] do %>
     <div id="player-career-stats" class="related-section">
       <h3>Career Statistics</h3>
       <%= render 'player_career_stats/simple_table', player_career_stat: PlayerCareerStat.by_player(@player) %>
-    </div>    
-    
+    </div>
+    <% end %>
+    <% cache [ @player, @season, :player_transfer_history ] do %>
     <div id="player-transfer-history" class="related-section">
       <h3>Transfer History</h3>
       <%= render 'transfers/player_transfers_table', transfers: Transfer.where(player: @player), total: Transfer.where(player: @player).sum(:fee) %>
     </div>
+    <% end %>
   </div>
   
 </div>

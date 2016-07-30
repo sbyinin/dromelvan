@@ -1,6 +1,6 @@
 class TransferDay < ActiveRecord::Base
 
-  belongs_to :transfer_window
+  belongs_to :transfer_window, touch: true
   has_many :transfers, dependent: :restrict_with_exception
   has_many :transfer_listings, dependent: :restrict_with_exception
   has_many :transfer_bids, dependent: :restrict_with_exception

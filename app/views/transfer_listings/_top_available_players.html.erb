@@ -1,3 +1,4 @@
+<% cache [ transfer_day, :transfer_day_top_transfer_listings ] do %>
 <div id="transfer-day-top-transfer-listings">
   <h3>Top Available Players</h3>
   <p>Show <%= link_to "all available ", show_transfer_listings_transfer_day_path(transfer_day), class: "model-link" %> for this transfer day.</p>
@@ -7,3 +8,4 @@
   <p>No transfer listings have yet been registered for this transfer day.</p>
   <% end %>      
 </div>
+<% end %>

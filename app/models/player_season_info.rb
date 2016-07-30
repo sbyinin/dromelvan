@@ -1,7 +1,7 @@
 class PlayerSeasonInfo < ActiveRecord::Base
   
   belongs_to :player
-  belongs_to :season
+  belongs_to :season, touch: true
   belongs_to :team
   belongs_to :d11_team
   belongs_to :position

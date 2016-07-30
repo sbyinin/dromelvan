@@ -3,7 +3,7 @@ class TeamTableStat < ActiveRecord::Base
   
   belongs_to :team
   belongs_to :premier_league
-  belongs_to :match_day
+  belongs_to :match_day, touch: true
   
   scope :combined_ordered, -> { joins(:team).reorder('points DESC, goal_difference DESC, goals_for DESC, teams.name ASC').readonly(false) }
   scope :home_ordered, -> { joins(:team).reorder('home_points DESC, home_goal_difference DESC, home_goals_for DESC, teams.name ASC').readonly(false) }
