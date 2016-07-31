@@ -1,5 +1,6 @@
 class PlayerSeasonInfosController < ApplicationController
   layout "modal", only: [ :edit ]
+  before_action :authorize_administrator, only: [:new, :create, :edit, :update, :delete, :create_current]
   
   def update
     if !administrator_signed_in?
@@ -13,6 +14,21 @@ class PlayerSeasonInfosController < ApplicationController
       end    
       redirect_to player_season_info.player
     end
+  end
+
+  def create_current
+    player = Player.find(params[:id])
+    position = Position.find(6)
+    player_season_infos = PlayerSeasonInfo.by_player(player)
+    if player_season_infos.any?
+      position = player_season_infos.first.position
+    end
+    PlayerSeasonInfo.create(player: player, season: Season.current, position: position)
+    if !PlayerSeasonStat.where(player: player, season: Season.current).any? then
+      PlayerSeasonStat.create(player: player, season: Season.current)
+    end
+    flash[:success] = "Successfully created player season info for #{player.name}, season #{Season.current.name}."
+    redirect_to player
   end
   
   private

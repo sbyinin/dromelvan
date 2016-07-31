@@ -52,7 +52,9 @@
         </div>
         <div class="season-information-container">
           <h3>Season <%= @season.name %></h3>
-          <% if !player_season_stat.nil? %>
+          <% if !player_season_info.id.nil?
+               player_season_stat ||= PlayerSeasonStat.new 
+          %>
           <dl class="data">
             <dt>Team:</dt>
             <dd><%= render player_season_info.team %></dd>

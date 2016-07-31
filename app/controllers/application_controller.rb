@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_filter :sanitize_devise_parameters, if: :devise_controller?
+  before_action :authorize_administrator, only: [:new, :create, :edit, :update, :delete]
   
   helper_method :administrator_signed_in?
   
@@ -32,72 +33,52 @@ class ApplicationController < ActionController::Base
   end
     
   def new
-    if !administrator_signed_in?
-      not_found
-    else
-      resource = controller_name.classify.constantize.new
-      self.instance_variable_set "@#{controller_name.tableize.singularize}", resource
-    end
+    resource = controller_name.classify.constantize.new
+    self.instance_variable_set "@#{controller_name.tableize.singularize}", resource
   end
   
   def create
-    if !administrator_signed_in?
-      not_found
-    else  
-      resource = self.instance_variable_get "@#{controller_name.tableize.singularize}"    
-      if !resource.nil?
-        resource.update_attributes(resource_params)
-      else
-        resource = controller_name.classify.constantize.new(resource_params)
-        self.instance_variable_set "@#{controller_name.tableize.singularize}", resource    
-      end
-      
-      if resource.save
-        flash[:success] = "#{resource.class.name.humanize} created."
-        redirect_to resource
-      else
-        flash[:validation_errors] = resource
-        render :new
-      end
+    resource = self.instance_variable_get "@#{controller_name.tableize.singularize}"    
+    if !resource.nil?
+      resource.update_attributes(resource_params)
+    else
+      resource = controller_name.classify.constantize.new(resource_params)
+      self.instance_variable_set "@#{controller_name.tableize.singularize}", resource    
+    end
+    
+    if resource.save
+      flash[:success] = "#{resource.class.name.humanize} created."
+      redirect_to resource
+    else
+      flash[:validation_errors] = resource
+      render :new
     end
   end  
   
   def edit
-    if !administrator_signed_in?
-      not_found
-    else
-      resource = controller_name.classify.constantize.find(params[:id])
-      self.instance_variable_set "@#{controller_name.tableize.singularize}", resource
-    end
+    resource = controller_name.classify.constantize.find(params[:id])
+    self.instance_variable_set "@#{controller_name.tableize.singularize}", resource
   end
   
   def update
-    if !administrator_signed_in?
-      not_found
+    resource = self.instance_variable_get "@#{controller_name.tableize.singularize}"    
+    if resource.nil?
+      resource = controller_name.classify.constantize.find(params[:id])
+    end
+    
+    if resource.update_attributes(resource_params)
+      flash[:success] = "#{resource.class.name.humanize} updated."
+      redirect_to resource
     else
-      resource = self.instance_variable_get "@#{controller_name.tableize.singularize}"    
-      if resource.nil?
-        resource = controller_name.classify.constantize.find(params[:id])
-      end
-      
-      if resource.update_attributes(resource_params)
-        flash[:success] = "#{resource.class.name.humanize} updated."
-        redirect_to resource
-      else
-        flash[:validation_errors] = resource
-        render :edit
-      end
+      flash[:validation_errors] = resource
+      render :edit
     end
   end
   
   def destroy
-    if !administrator_signed_in?
-      not_found
-    else
-      controller_name.classify.constantize.find(params[:id]).destroy
-      flash[:success] = "#{controller_name.singularize.humanize} deleted."
-      redirect_to url_for(action: :index)
-    end
+    controller_name.classify.constantize.find(params[:id]).destroy
+    flash[:success] = "#{controller_name.singularize.humanize} deleted."
+    redirect_to url_for(action: :index)
   end
   
   def administrator_signed_in?
@@ -120,6 +101,6 @@ class ApplicationController < ActionController::Base
     end
     
     def authorize_administrator
-      not_found unless administrator_signed_in?
+      not_found unless administrator_signed_in? || devise_controller?
     end
 end
