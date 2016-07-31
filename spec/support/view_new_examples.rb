@@ -17,7 +17,7 @@ shared_examples_for "new view" do |resource_class|
       
       it { is_expected.to have_selector("form#new_#{resource_class.table_name.singularize}") }
       it { is_expected.to have_selector("div.alert") }
-      it { is_expected.to have_selector("div.validation-errors") }
+      it { is_expected.to have_selector("ul.validation-errors") }
     end
     
     context "with valid data" do

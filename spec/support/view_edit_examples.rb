@@ -22,7 +22,7 @@ shared_examples_for "edit view" do |resource_class|
       
       it { is_expected.to have_selector("form#edit_#{resource_class.table_name.singularize}_#{resource.id}") }
       it { is_expected.to have_selector("div.alert") }
-      it { is_expected.to have_selector("div.validation-errors") }
+      it { is_expected.to have_selector("ul.validation-errors") }
       
       specify do
         resource_attributes.keys.each do |key|
