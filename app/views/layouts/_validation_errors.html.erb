@@ -1,12 +1,13 @@
 <% if defined?(resource) && resource.errors.any? %>
 <div class="alert alert-danger">
-  The form contains <%= pluralize(resource.errors.count, "error") %>.
-</div>
-<div class="validation-errors">
+  <p>
+    The <%= resource.class.name.tableize.singularize.humanize.downcase %> could not be saved.
+    The form contains <%= pluralize(resource.errors.count, "error") %>.
+  </p>
   <ul class="validation-errors">
   <% resource.errors.full_messages.each do |msg| %>
   <li><%= msg %>.</li>          
   <% end %>
-  </ul>
+  </ul>  
 </div>
 <% end %>

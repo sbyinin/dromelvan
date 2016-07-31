@@ -1,0 +1,1 @@
+<%= f.collection_select :position_id, Position.all, :id, :name, { multiple: false, prompt: "Select position (required)"}, { class: "form-control", required: true}  %>

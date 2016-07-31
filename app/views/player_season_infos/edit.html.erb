@@ -1,0 +1,32 @@
+<%
+  provide :title, "Edit Player Season Info #{@player_season_info.season.name}"
+%>
+
+<h2><%= @player_season_info.player.name %></h2>
+<div class="section">
+  <div class="image-container player-photo related-section">
+    <%= render 'players/player_photo', player: @player_season_info.player %>
+  </div>
+  <div class="main-section">
+    <%= form_for @player_season_info, html: { method: :put } do |f| %>
+    <fieldset>      
+      <div class="form-group">
+        <%= f.label :team_id, "Team:" %>
+        <%= render 'teams/select', f: f %>
+      </div>      
+      <div class="form-group">
+        <%= f.label :d11_team_id, "D11 Team:" %>
+        <%= render 'd11_teams/select', f: f %>
+      </div>      
+      <div class="form-group">
+        <%= f.label :value, "Value:" %>
+        <%= f.text_field :value, value: player_value(@player_season_info.value), required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :position, "Position:" %>
+        <%= render 'positions/select', f: f %>
+      </div>      
+    </fieldset>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h2 class="modal-title"><%= yield(:title) %></h2>
+</div>
+<div class="modal-body <%= controller_name.dasherize %> <%= action_name.dasherize %>">
+    <%= yield %>
+</div>
+<div class="modal-footer">
+    <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" id="submit" class="btn btn-primary"><%= content_for?(:save_button_text) ? yield(:save_button_text) : "Save Changes" %></button>
+</div>
+<script>
+  $(".modal-footer #submit").click( function() {
+      $('.modal-body form').submit();
+  });  
+</script>

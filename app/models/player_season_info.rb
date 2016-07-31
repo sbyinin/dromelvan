@@ -15,7 +15,7 @@ class PlayerSeasonInfo < ActiveRecord::Base
   validates :team, presence: true
   validates :d11_team, presence: true
   validates :position, presence: true
-  validates :value, presence: true, inclusion: 0..500
+  validates :value, presence: true, inclusion: { in: 0..500, message: "%{value} is invalid" }
   validates :player_id, uniqueness: {scope: :season_id} 
 
   def PlayerSeasonInfo.by_player(player)

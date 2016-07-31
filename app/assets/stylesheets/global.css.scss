@@ -105,6 +105,14 @@ body {
             }
         }
         
+        ul.validation-errors {
+            padding-top: $alert-padding;
+            padding-left: 20px;
+            li {
+                padding-left: 0px;
+            }
+        }
+        
         span.ajax-selector {
             .disabled {
                 display: none;

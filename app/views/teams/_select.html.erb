@@ -1,0 +1,1 @@
+<%= f.collection_select :team_id, Team.all, :id, :name, { multiple: false, prompt: "Select team (required)"}, { class: "form-control", required: true}  %>

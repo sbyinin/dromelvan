@@ -30,15 +30,33 @@
 
     <% if !devise_controller? %>
       <% flash.each do |key, value| %>
-        <% if key != 'notice' %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
+        <% if key == 'validation_errors' %>
+          <%= render 'layouts/validation_errors', resource: value %>
+        <% elsif key != 'notice' %>
+          <div class="alert alert-<%= key %>">
+            <%= value %>
+          </div>
         <% end %>
-      <% end %>
+      <% end %>      
     <% end %>
-
+    
     <%= yield %>
 
   </div>
+  
+  <div class="modal fade" id="d11-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+          <div class="modal-content">
+          </div>
+      </div>
+  </div>
+  
+  <script>
+  $('#d11-modal').on('hide.bs.modal', function () {
+      $('#d11-modal').removeData('bs.modal'); $('#d11-modal.modal-content').html('');
+  });    
+  </script>
+  
 </main>
 
 <%= render 'layouts/footer' %>

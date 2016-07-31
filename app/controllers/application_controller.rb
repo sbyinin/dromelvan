@@ -49,6 +49,7 @@ class ApplicationController < ActionController::Base
       flash[:success] = "#{resource.class.name.humanize} created."
       redirect_to resource
     else
+      flash[:validation_errors] = resource
       render :new
     end
   end  
@@ -68,6 +69,7 @@ class ApplicationController < ActionController::Base
       flash[:success] = "#{resource.class.name.humanize} updated."
       redirect_to resource
     else
+      flash[:validation_errors] = resource
       render :edit
     end
   end

@@ -103,6 +103,7 @@ Rails.application.routes.draw do
   resources :seasons, only: [:index, :show], concerns: [:select]
   resources :teams, only: [:show], concerns: [:select_season, :select, :fixtures]
   resources :players, only: [:show], concerns: [:select_season]
+  resources :player_season_infos, only: [:edit, :update]
   resources :premier_leagues, only: [:show], concerns: [:select, :table, :stats], path: 'premier-leagues'
   resources :match_days, only: [:show, :update], concerns: [:select, :status_enum], path: 'match-days'
   resources :matches, only: [:show, :update], concerns: [:select, :status_enum]

@@ -1,0 +1,27 @@
+div.modal-dialog {
+    div.section {
+        @extend .row;
+        
+        div.top-section {
+            @include make-lg-column(12);
+        }
+        
+        div.main-section {
+            @include make-md-column(8);
+        }
+        
+        div.related-section {
+            @include make-md-column(4);
+        }
+    }
+
+    
+    div.modal-header {
+        color: $modal-header-colour;
+        background: $modal-header-background-colour;
+    }
+    
+    div.modal-footer {
+        background: $modal-footer-background-colour;        
+    }
+}

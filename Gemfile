@@ -59,6 +59,9 @@ group :test do
   gem 'factory_girl_rails', '4.2.1'
 end
 
+#ActiveRecord session store
+gem 'activerecord-session_store'
+
 # Authentication with Devise
 gem 'devise'
 # and Omniauth
