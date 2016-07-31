@@ -9,12 +9,22 @@ describe D11TeamSeasonSquadStat, type: :model do
   subject { @d11_team_season_squad_stat }
 
   it { is_expected.to respond_to(:season) }
+  it { is_expected.to respond_to(:value) }
+  it { is_expected.to respond_to(:max_bid) }
 
   it { is_expected.to be_valid }
 
   describe '#season' do
     subject { @d11_team_season_squad_stat.season }
     it { is_expected.to eq season }
+  end
+
+  describe '#value' do
+    specify { expect(subject.value).to eq 0 } 
+  end
+
+  describe '#max_bid' do
+    specify { expect(subject.max_bid).to eq 450 } 
   end
 
   describe "#summarize_stats" do
@@ -87,6 +97,18 @@ describe D11TeamSeasonSquadStat, type: :model do
   context "when season is nil" do
     before { @d11_team_season_squad_stat.season = nil }
     it { is_expected.not_to be_valid }
+  end
+
+  context "when player_season_infos exist" do
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:d11_team) { FactoryGirl.create(:d11_team) }      
+    let!(:player1) { FactoryGirl.create(:player) }
+    let!(:player_season_info1) { FactoryGirl.create(:player_season_info, player: player1, season: season, d11_team: d11_team, value: 50) }
+    let!(:player2) { FactoryGirl.create(:player) }
+    let!(:player_season_info2) { FactoryGirl.create(:player_season_info, player: player2, season: season, d11_team: d11_team, value: 155) }
+    
+    specify { expect(subject.value).to eq 205 }
+    specify { expect(subject.max_bid).to eq 255 } 
   end
   
 end

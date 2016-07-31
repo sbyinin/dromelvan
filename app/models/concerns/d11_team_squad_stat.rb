@@ -15,7 +15,7 @@ module D11TeamSquadStat
       reset_stats_summary
       self.team_goals = 0
     end
-        
+    
     private
       def init
         self.team_goals ||= 0

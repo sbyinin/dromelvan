@@ -48,7 +48,8 @@
             <dd><%= image_tag "match-events/mom.png", alt: "Man of the Match", title: "Man of the Match", class: "match-event-icon" %> <%= d11_team_season_squad_stat.man_of_the_match %> <%= image_tag "match-events/shared-mom.png", alt: "Shared Man of the Match", title: "Shared Man of the Match", class: "match-event-icon" %>  <%= d11_team_season_squad_stat.shared_man_of_the_match %></dd>                        
             <dt>Form:</dt>
             <dd><%= render 'd11_teams/d11_team_points_form', d11_team: @d11_team, season: @season %></dd>            
-            
+            <dt>Squad value:</dt>
+            <dd>£<%= player_value d11_team_season_squad_stat.value %>m (max bid: £<%= player_value d11_team_season_squad_stat.max_bid %>m)</dd>
           </dl>
           <% else %>
           <p>Did not participate.</p>  

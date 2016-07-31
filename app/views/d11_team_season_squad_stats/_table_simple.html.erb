@@ -9,12 +9,11 @@
       </tr>
     </thead>
     <tbody>
-      <% total = 0
+      <% 
          player_season_infos = PlayerSeasonInfo
            .where(season: d11_team_season_squad_stat.season, d11_team: d11_team_season_squad_stat.d11_team)
            .order(:position_id)
          player_season_infos.each do |player_season_info|
-           total += player_season_info.value
          %>
       <tr>
         <td class="position-column"><%= render player_season_info.position, label: :code %></th>
@@ -27,7 +26,7 @@
     <tfoot>
       <tr>
         <td colspan=2" class="summary">Total value:</td>
-        <td class="fee-column number-column"><%= player_value total %></td>
+        <td class="fee-column number-column"><%= player_value d11_team_season_squad_stat.value %></td>
       </tr>
     </tfoot>
   </table>

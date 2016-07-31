@@ -6,6 +6,7 @@
   <td class="team-simple-column"><%= render 'teams/club_crest', team: player_season_info.team, style: :icon %></td>
   <td class="team-column"><%= render player_season_info.team %></td>
   <td class="position-column" title="<%= player_season_info.position.name %>"><%= player_season_info.position.code %></td>
+  <td class="fee-column number-column"><%= player_value player_season_info.value %></td>
   <td class="appearances-column"><%= player_season_stat.games_started %>/<%= player_season_stat.games_substitute %></td>  
   <td class="goals-column"><%= player_season_stat.goals %></td>  
   <td class="assists-column"><%= player_season_stat.goal_assists %></td>

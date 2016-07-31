@@ -102,7 +102,11 @@ table.d11-team-table-stats {
 
     .team-simple-column {
         @extend .visible-xs;
-    }    
+    }
+    
+    .fee-column {
+        @extend .hidden-xs;
+    }
 }
 
 table.player-season-stats {
@@ -123,6 +127,30 @@ div.premier-leagues.show-stats {
             @extend .hidden-xs;
             @extend .hidden-sm;
         }
+    }
+}
+
+div.d11-teams.show {
+    table.player-season-stats {
+        .d11-team-column {
+            display: none;
+        }
+        
+        .team-simple-column {
+            @extend .visible-sm;
+            @extend .visible-md;
+            @extend .visible-lg;
+        }            
+    }
+}
+
+div.teams.show {
+    table.player-season-stats {
+        .team-column,
+        .team-simple-column,
+        .fee-column {
+            display: none;
+        }        
     }
 }
 
