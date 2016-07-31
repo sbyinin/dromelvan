@@ -2,13 +2,17 @@ class PlayerSeasonInfosController < ApplicationController
   layout "modal", only: [ :edit ]
   
   def update
-    player_season_info = PlayerSeasonInfo.find(params[:id])
-    if player_season_info.update_attributes(resource_params)
-      flash[:success] = "Player season information updated."
+    if !administrator_signed_in?
+      not_found
     else
-      flash[:validation_errors] = player_season_info
-    end    
-    redirect_to player_season_info.player
+      player_season_info = PlayerSeasonInfo.find(params[:id])
+      if player_season_info.update_attributes(resource_params)
+        flash[:success] = "Player season information updated."
+      else
+        flash[:validation_errors] = player_season_info
+      end    
+      redirect_to player_season_info.player
+    end
   end
   
   private

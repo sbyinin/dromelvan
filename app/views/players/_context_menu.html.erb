@@ -1,15 +1,17 @@
 <% player ||= @player %>
 <%= render layout: 'layouts/context_menu_dropdown', locals: { resource: player } do  %>
     <li class="dropdown-header"><%= player.name %></li>
-    <!--<li><a href="#">Add to shortlist</a></li>-->
+    <li><a href="#">Add to shortlist (coming soon)</a></li>
     <!--<li><a href="#">Remove from shortlist</a></li>-->
     <!--<li><a href="#">Add to transfer list</a></li>-->
     <!--<li><a href="#">Remove from transfer list</a></li>-->
     <!--<li><a href="#">Make transfer bid</a></li>-->
+    <% if administrator_signed_in? %>
     <% player_season_info = @player.player_season_infos.by_season(Season.current).take
        if !player_season_info.nil? %>
     <li><%= link_to "Edit Player Season Info", edit_player_season_info_path(player_season_info), data: { toggle: "modal", target: "#d11-modal" } %></li>
     <% else %>
     <li><a href="#">Insert Player Season Info</a></li>
+    <% end %>
     <% end %>
 <% end %>
