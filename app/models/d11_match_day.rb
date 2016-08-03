@@ -32,7 +32,7 @@ class D11MatchDay < ActiveRecord::Base
   def match_dates
     match_dates = []
     d11_matches.each do |d11_match|
-      datetime = Match.by_d11_match(d11_match).pluck(:datetime).last
+      datetime = Match.by_d11_match(d11_match).pluck(:datetime).last      
       if !datetime.nil?
         # Datetime shouldn't be nil if the database is set up right but check just in case.
         match_dates += [ Match.by_d11_match(d11_match).pluck(:datetime).last.to_date ]
@@ -42,7 +42,11 @@ class D11MatchDay < ActiveRecord::Base
   end
   
   def D11MatchDay.current
-    where("date <= ?", Date.today).last
+    d11_match_day = D11League.current.d11_match_days.where("date <= ?", Date.today).last
+    if d11_match_day.nil?
+      d11_match_day = D11League.current.d11_match_days.first
+    end
+    d11_match_day
   end
 
 end

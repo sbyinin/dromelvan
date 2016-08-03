@@ -70,9 +70,11 @@ describe MatchDay, type: :model do
   describe '.current' do
     before { MatchDay.destroy_all }
     
-    let!(:match_day1) { FactoryGirl.create(:match_day, date: Date.today - 1.day) }
-    let!(:match_day2) { FactoryGirl.create(:match_day, date: Date.today) }
-    let!(:match_day3) { FactoryGirl.create(:match_day, date: Date.today + 1.day) }
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }    
+    let!(:match_day1) { FactoryGirl.create(:match_day, date: Date.today - 1.day, premier_league: premier_league) }
+    let!(:match_day2) { FactoryGirl.create(:match_day, date: Date.today, premier_league: premier_league) }
+    let!(:match_day3) { FactoryGirl.create(:match_day, date: Date.today + 1.day, premier_league: premier_league) }
     
     specify { expect(MatchDay.current).to eq match_day2 }
   end

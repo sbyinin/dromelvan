@@ -4,8 +4,10 @@ module PlayerRanking
 
   included do
     belongs_to :player
-
-    scope :ranking_order, -> { order(points: :desc, goals: :desc, man_of_the_match: :desc, goal_assists: :desc, shared_man_of_the_match: :desc, rating: :desc, red_cards: :asc, yellow_cards: :asc) }
+    # TODO: Do this with symbols
+    scope :ranking_order, -> { joins(:player).order("points desc, goals desc, man_of_the_match desc, goal_assists desc,
+                                                     shared_man_of_the_match desc, rating desc, red_cards asc, yellow_cards asc,
+                                                     last_name asc, first_name asc") }
 
     after_initialize :init
     

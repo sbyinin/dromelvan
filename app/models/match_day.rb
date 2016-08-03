@@ -42,8 +42,11 @@ class MatchDay < ActiveRecord::Base
   end    
   
   def MatchDay.current
-    # TODO: Make this work for off season as well.
-    where("date <= ?", Date.today).last
+    match_day = PremierLeague.current.match_days.where("date <= ?", Date.today).last
+    if match_day.nil?
+      match_day = PremierLeague.current.match_days.first
+    end
+    match_day
   end
 
   private
