@@ -1,12 +1,35 @@
 <%
    url ||= d11_team_table_stats_path
-   d11_match_day = @d11_league.d11_match_days.current
+   d11_match_day ||= @d11_league.current_d11_match_day
 %>
 <%= render layout: 'layouts/datatable_ajax', locals: { table_class: 'league-table d11-league-table detailed',
                                                        url: url,
                                                        objects: 'd11-team-table-stats',
                                                        ajax_params: { d11_match_day_id: d11_match_day.id },
                                                        hide_controls: 'true',
+                                                       column_classes: [                                                                        
+                                                         "ranking-column",
+                                                         "main-column name-column",                                                      
+                                                         "home-column matches-played-column",
+                                                         "home-column goals-for-column",
+                                                         "home-column goals-against-column",
+                                                         "home-column goal-difference-column",
+                                                         "home-column points-column",                                                
+                                                         "away-column matches-played-column",
+                                                         "away-column goals-for-column",
+                                                         "away-column goals-against-column",
+                                                         "away-column goal-difference-column",
+                                                         "away-column points-column",                                                      
+                                                         "matches-played-column",
+                                                         "matches-won-column",
+                                                         "matches-drawn-column",
+                                                         "matches-lost-column",
+                                                         "goals-for-column",
+                                                         "goals-against-column",
+                                                         "goal-difference-column",
+                                                         "form-column",
+                                                         "points-column"
+                                                       ],                                                                                                                                                                     
                                                        number_columns: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20] } do %>
   <thead>
     <!-- TODO: Deal with colspan issue without multiple headers -->

@@ -1,6 +1,6 @@
 <% provide :title, @d11_team.name
    provide :breadcrumbs, breadcrumbs([ :class , "Fixtures", :select_name, :select_fixtures ], { select_name_action: :select_fixtures})
-   d11_team_table_stat = @d11_team.d11_team_table_stats.where(d11_match_day: @season.d11_league.d11_match_days.current).first
+   d11_team_table_stat = @d11_team.d11_team_table_stats.where(d11_match_day: @season.d11_league.current_d11_match_day).first
    %> 
 
 <div class="header-container">

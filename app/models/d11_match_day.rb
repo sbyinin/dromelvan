@@ -40,13 +40,5 @@ class D11MatchDay < ActiveRecord::Base
     end
     match_dates.uniq.sort
   end
-  
-  def D11MatchDay.current
-    d11_match_day = D11League.current.d11_match_days.where("date <= ?", Date.today).last
-    if d11_match_day.nil?
-      d11_match_day = D11League.current.d11_match_days.first
-    end
-    d11_match_day
-  end
 
 end

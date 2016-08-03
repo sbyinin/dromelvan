@@ -73,7 +73,7 @@ match_days = [
 puts("Seeding match_days...")
 
 match_days.each do |match_day_number, date, premier_league_id|
-  MatchDay.create(match_day_number: match_day_number, date: date, premier_league: PremierLeague.find(premier_league_id), status: 2)
+  MatchDay.create(match_day_number: match_day_number, date: date, premier_league: PremierLeague.find(premier_league_id), status: :pending)
 end
 
 d11_match_days = [
@@ -1352,7 +1352,7 @@ matches.each do | match_day_id, home_team_id, away_team_id, datetime, whoscored_
                        home_team_goals: 0,
                        away_team_goals: 0,
                        match_day_id: match_day_id,
-                       status: 0,
+                       status: :pending,
                        datetime: datetime,
                        whoscored_id: whoscored_id)
   TeamMatchSquadStat.create(team_id: home_team_id, match_id: match.id)
@@ -1745,7 +1745,7 @@ d11_matches = [
 puts("Seeding d11_matches...")
 
 d11_matches.each do | d11_match_day_id, home_d11_team_id, away_d11_team_id |
-    status = 0
+    status = :pending
     d11_match = D11Match.create(d11_match_day_id: d11_match_day_id,
                                 home_d11_team_id: home_d11_team_id,
                                 away_d11_team_id: away_d11_team_id,
@@ -1755,8 +1755,6 @@ d11_matches.each do | d11_match_day_id, home_d11_team_id, away_d11_team_id |
     D11TeamMatchSquadStat.create(d11_team_id: home_d11_team_id, d11_match_id: d11_match.id)
     D11TeamMatchSquadStat.create(d11_team_id: away_d11_team_id, d11_match_id: d11_match.id)        
 end
-
-=end
 
 transfer_windows = [
   [ 14,458,0,"2016-08-11 18:00" ]
@@ -1777,3 +1775,5 @@ puts("Seeding transfer day...")
 transfer_days.each do |transfer_window_id, transfer_day_number, datetime|
   TransferDay.create(transfer_window_id: transfer_window_id, transfer_day_number: transfer_day_number, status: 0, datetime: datetime)
 end
+
+=end

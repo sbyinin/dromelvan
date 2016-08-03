@@ -11,7 +11,7 @@
 <% end %>
 
 <%
-   d11_match_day = D11MatchDay.current
+   d11_match_day = (!D11League.current.nil? ? D11League.current.current_d11_match_day : nil)
    if !d11_match_day.nil?
 %>
 <h1>Current D11 Match Day</h1>
@@ -34,7 +34,7 @@
 
 
 <%
-   match_day = MatchDay.current
+   match_day = (!PremierLeague.current.nil? ? PremierLeague.current.current_match_day : nil)
    if !match_day.nil?
 %>
 <h1>Current Match Day</h1>

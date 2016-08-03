@@ -9,7 +9,8 @@ describe PremierLeague, type: :model do
   subject { @premier_league }
   
   it { is_expected.to respond_to(:season) }
-  it { is_expected.to respond_to(:name) }  
+  it { is_expected.to respond_to(:name) }
+  it { is_expected.to respond_to(:current_match_day) }
   
   it { is_expected.to be_valid }
   
@@ -21,6 +22,18 @@ describe PremierLeague, type: :model do
   describe '#name' do
     subject { @premier_league.name }
     it { is_expected.to eq "Barclays Premier League" }
+  end
+  
+  describe '#current_match_day' do
+    before { MatchDay.destroy_all }
+    
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }    
+    let!(:match_day1) { FactoryGirl.create(:match_day, date: Date.today - 1.day, premier_league: premier_league) }
+    let!(:match_day2) { FactoryGirl.create(:match_day, date: Date.today, premier_league: premier_league) }
+    let!(:match_day3) { FactoryGirl.create(:match_day, date: Date.today + 1.day, premier_league: premier_league) }
+    
+    specify { expect(premier_league.current_match_day).to eq match_day2 }
   end
   
   describe '.current' do

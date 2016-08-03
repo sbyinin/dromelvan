@@ -6,7 +6,7 @@ $(".content.show-table").ready(function() {
 });
 
 function selectMatchDay(id) {
-  filterDatatable("match_day_id",id);
+  filterDatatable($("div.league-table-filter").data("filter-column"),id);
   updateLinks();
 }
   
@@ -20,15 +20,21 @@ function traverse(value) {
 
 function updateLinks() {
   var index = $('div.league-table-filter select').prop("selectedIndex")
-  if(index === 0) {
+  if(index === 0) { 
     $('.ajax-match-day-selector a#previous').hide();
     $('.ajax-match-day-selector span#separator').hide();
-    $('.ajax-match-day-selector a#next').show();
+    if(maxIndex > 0) {
+        $('.ajax-match-day-selector a#next').show();
+    } else {
+        $('#traverse-links').hide();
+    }
   } else if(index > 0 && index < maxIndex) {
+    $('#traverse-links').show();
     $('.ajax-match-day-selector a#previous').show();
     $('.ajax-match-day-selector a#next').show();
     $('.ajax-match-day-selector span#separator').show();
   } else if(index === maxIndex) {
+    $('#traverse-links').show();
     $('.ajax-match-day-selector a#previous').show();+
     $('.ajax-match-day-selector a#next').hide();
     $('.ajax-match-day-selector span#separator').hide();

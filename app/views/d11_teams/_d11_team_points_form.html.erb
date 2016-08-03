@@ -1,5 +1,5 @@
 <% form_d11_points = d11_team.form_d11_points(season) %>
-<% if !form_d11_points.empty? %>
+<% if !form_d11_points.nil? && form_d11_points.any? %>
   <% form_d11_points.each do |points| %>
     <span class="form-points <% if points > 0 %>positive<% elsif points < 0 %>negative<% else %>neutral<% end %>"><%= points %></span>
   <% end %>

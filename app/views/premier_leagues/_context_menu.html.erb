@@ -1,7 +1,7 @@
 <% premier_league ||= @premier_league %>
 <%= render layout: 'layouts/context_menu_dropdown', locals: { resource: premier_league } do  %>
     <li class="dropdown-header">Season <%= premier_league.season.name %></li>
-    <li><%= link_to "Current Match Day", premier_league.match_days.current, class: "model-link" %></li>
+    <li><%= link_to "Current Match Day", premier_league.current_match_day, class: "model-link" %></li>
     <li><%= link_to "League Table", show_table_premier_league_path(premier_league), class: "model-link" %></li>
     <li><%= link_to "Player Statistics", show_stats_premier_league_path(premier_league), class: "model-link" %></li>
 <% end %>

@@ -10,6 +10,7 @@ describe D11League, type: :model do
   
   it { is_expected.to respond_to(:season) }
   it { is_expected.to respond_to(:name) }  
+  it { is_expected.to respond_to(:current_d11_match_day) }
   
   it { is_expected.to be_valid }
   
@@ -21,6 +22,18 @@ describe D11League, type: :model do
   describe '#name' do
     subject { @d11_league.name }
     it { is_expected.to eq "Drömelvan" }
+  end
+
+  describe '#current_d11_match_day' do
+    before { D11MatchDay.destroy_all }
+    
+    let!(:season) { FactoryGirl.create(:season) }
+    let!(:d11_league) { FactoryGirl.create(:d11_league, season: season) }    
+    let!(:d11_match_day1) { FactoryGirl.create(:d11_match_day, date: Date.today - 1.day, d11_league: d11_league) }
+    let!(:d11_match_day2) { FactoryGirl.create(:d11_match_day, date: Date.today, d11_league: d11_league) }
+    let!(:d11_match_day3) { FactoryGirl.create(:d11_match_day, date: Date.today + 1.day, d11_league: d11_league) }
+    
+    specify { expect(d11_league.current_d11_match_day).to eq d11_match_day2 }
   end
   
   describe '.current' do

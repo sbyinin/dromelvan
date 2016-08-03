@@ -41,14 +41,6 @@ class MatchDay < ActiveRecord::Base
     ['pending', 'active', 'finished']
   end    
   
-  def MatchDay.current
-    match_day = PremierLeague.current.match_days.where("date <= ?", Date.today).last
-    if match_day.nil?
-      match_day = PremierLeague.current.match_days.first
-    end
-    match_day
-  end
-
   private
     def init
       self.status ||= 0

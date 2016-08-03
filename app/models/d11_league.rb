@@ -24,4 +24,12 @@ class D11League < ActiveRecord::Base
     Season.current.d11_league unless Season.current.nil?
   end
 
+  def current_d11_match_day
+    d11_match_day = d11_match_days.where("date <= ?", Date.today).last
+    if d11_match_day.nil?
+      d11_match_day = d11_match_days.first
+    end
+    d11_match_day    
+  end
+
 end
