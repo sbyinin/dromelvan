@@ -21,7 +21,13 @@ class SearchController < ApplicationController
     result_json = Jbuilder.encode do | json |    
       json.array! result do | object |
         json.name object.name
-        json.path polymorphic_path(object)
+        puts(object.name)
+        if !object.id.nil?
+          json.path polymorphic_path(object)
+        else
+          # For the dummy player with the additional count
+          json.path root_path
+        end        
         json.category object.class.name.titleize.pluralize
         # Not using the icon in the view at the moment but sending it back anyway for now.
         json.icon icon_url(object)
