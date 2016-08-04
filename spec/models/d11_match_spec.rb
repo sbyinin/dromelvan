@@ -177,6 +177,8 @@ describe D11Match, type: :model do
   end
 
   describe '.by_date' do
+    before { D11Match.destroy_all }
+    
     let!(:match_day) { FactoryGirl.create(:match_day) }
     let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, match_day: match_day) }
     let!(:match1) { FactoryGirl.create(:match, match_day: match_day, datetime: (Date.today - 5.days).to_datetime) }

@@ -85,19 +85,7 @@ describe D11MatchDay, type: :model do
     specify { expect(d11_match_day1.match_dates).to eq [ match1.datetime.to_date, match2.datetime.to_date ] }
     specify { expect(d11_match_day2.match_dates).to eq [ match3.datetime.to_date ] }
   end
-  
-  describe '.current' do
-    before { D11MatchDay.destroy_all }
     
-    let!(:season) { FactoryGirl.create(:season) }
-    let!(:d11_league) { FactoryGirl.create(:d11_league, season: season) }
-    let!(:d11_match_day1) { FactoryGirl.create(:d11_match_day, date: Date.today - 1.day, d11_league: d11_league) }
-    let!(:d11_match_day2) { FactoryGirl.create(:d11_match_day, date: Date.today, d11_league: d11_league) }
-    let!(:d11_match_day3) { FactoryGirl.create(:d11_match_day, date: Date.today + 1.day, d11_league: d11_league) }
-    
-    specify { expect(D11MatchDay.current).to eq d11_match_day2 }
-  end
-  
   context "when d11_league is nil" do
     before { @d11_match_day.d11_league = nil }
     it { is_expected.not_to be_valid }
