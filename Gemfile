@@ -102,3 +102,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # This gem splits the big application.css file into smaller pieces to get around
 # the stupid IE selector limit
 gem 'css_splitter'
+
+# Application servers. Only one of these will be needed in the end (!)
+#gem 'puma'
+#gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"

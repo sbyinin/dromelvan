@@ -187,6 +187,7 @@ d11_teams.each do | name, code, dummy |
   D11Team.create(name: name, code: code, dummy: dummy, owner_id: 1)
 end
 
+D11TeamCareerSquadStat.create(d11_team: D11Team.named("Egenfelt/Östergård").take)
 
 d11_team_registrations = [
   [ 14, 16 ],

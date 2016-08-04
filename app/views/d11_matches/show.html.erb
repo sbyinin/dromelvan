@@ -65,7 +65,7 @@
     <div class="stadium-photo">
       <%= render 'stadia/stadium_photo', stadium: Team.find(1).stadium %>
       <div class="photo-caption">
-        <h3><%= @d11_match.home_d11_team.name %> Stadium</h3>
+        <h3><%= @d11_match.home_d11_team.max_length_name(16) %> Stadium</h3>
       </div>
     </div>
   </div>

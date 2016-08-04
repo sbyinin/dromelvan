@@ -153,9 +153,9 @@ div.d11-matches.show {
             
             div.photo-caption {
                 h3 {
-                    position: absolute;
-                    top: 194px;
-                    left: 16px;
+                    position: relative;
+                    bottom: 44px;
+                    left: 1px;
                     width: 260px;
                 }
             }
