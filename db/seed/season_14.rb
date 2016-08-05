@@ -1777,4 +1777,19 @@ transfer_days.each do |transfer_window_id, transfer_day_number, datetime|
   TransferDay.create(transfer_window_id: transfer_window_id, transfer_day_number: transfer_day_number, status: 0, datetime: datetime)
 end
 
+stadia = [
+  [ "London Stadium", "London", 60000, 2011 ]
+]
+
+puts("Seeding stadia...")
+
+stadia.each do |name, city, capacity, opened|
+  Stadium.create(name: name, city: city, capacity: capacity, opened: opened)
+end
 =end
+puts("Updating West Ham home games...")
+
+Match.where("match_day_id >= 458 and stadium_id = 3 and home_team_id = 21").each do |match|
+  match.stadium = Stadium.where(name: "London Stadium").take
+  match.save
+end
