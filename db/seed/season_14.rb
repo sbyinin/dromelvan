@@ -1786,10 +1786,20 @@ puts("Seeding stadia...")
 stadia.each do |name, city, capacity, opened|
   Stadium.create(name: name, city: city, capacity: capacity, opened: opened)
 end
-=end
+
 puts("Updating West Ham home games...")
 
 Match.where("match_day_id >= 458 and stadium_id = 3 and home_team_id = 21").each do |match|
   match.stadium = Stadium.where(name: "London Stadium").take
   match.save
 end
+=end
+
+puts("Updating career stats for new players...")
+
+PlayerCareerStat.all.each do |player_career_stat|
+  player_career_stat.summarize_career_stats
+  player_career_stat.save
+end
+
+PlayerCareerStat.update_rankings
