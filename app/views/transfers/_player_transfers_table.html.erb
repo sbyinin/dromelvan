@@ -1,10 +1,14 @@
-<% total ||= 0.0 %>
+<%
+  total ||= 0.0
+  non_dummy_transfers = transfers.joins(:d11_team).where(d11_teams: { dummy: false })
+%>
+<% if non_dummy_transfers.any? %>
 <table class="transfers data table-striped table-hover">
   <thead>
     <%= render 'transfers/player_transfers_table_header' %>
   </thead>
   <tbody>    
-    <% transfers.joins(:d11_team).where(d11_teams: { dummy: false }).each do |transfer|
+    <% non_dummy_transfers.each do |transfer|
         total = total + transfer.fee %>    
       <%= render 'transfers/player_transfers_table_row', transfer: transfer %>
     <% end %>
@@ -16,3 +20,6 @@
     </tr>
   </tfoot>         
 </table>
+<% else %>
+<p>No transfer history available.</p>
+<% end %>

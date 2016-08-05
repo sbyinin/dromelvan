@@ -20,7 +20,7 @@ describe "Player", type: :view do
     it { is_expected.to have_selector("div#player-transfer-history") }
     
     describe "div#player-match-stats" do
-      context "when player season stat does not exist" do
+      context "when player season stat and match stat does not exist" do
         let!(:player) { FactoryGirl.create(:player) }
         
         before { visit player_path(player) }
@@ -28,9 +28,13 @@ describe "Player", type: :view do
         it { is_expected.not_to have_selector("div#player-match-stats") }
       end
       
-      context "when player season stat exists" do
+      context "when player season stat and match stat exists" do
         let!(:player) { FactoryGirl.create(:player) }
         let!(:player_season_stat) { FactoryGirl.create(:player_season_stat, player: player, season: season) }
+        let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+        let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+        let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
+        let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, match: match, player: player) }
         
         before { visit player_path(player) }
         

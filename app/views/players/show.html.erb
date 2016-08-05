@@ -94,9 +94,9 @@
 </div>
 
 <div class="section">
-  <div id="player-stats" class="main-section">
-    <% if !player_season_stat.nil? %>
+  <div id="player-stats" class="main-section">    
     <% cache [ @player, @season, :player_match_stats ] do %>
+    <% if !player_season_stat.nil? && player_season_stat.player_match_stats.any? %>
     <div id="player-match-stats">
       <h3>Match Statistics <%= @season.name %></h3>
       <% cache player_season_stat do %>
