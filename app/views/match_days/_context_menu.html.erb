@@ -12,13 +12,17 @@
                 <%= render 'layouts/inline_datetimepicker', f: f, resource: match_day, field: :date, default_datetime: default_datetime, format: "YYYY-MM-DD", button_text: "Change" %>                
             <% end %>
         </li>        
-        <li class="dropdown-header">Status</li>
+        <li class="dropdown-header">Status (<%= match_day.status.titleize %>)</li>
+        <% if match_day.active? || match_day.finished? %>
         <li><%= link_to "Pend", pend_match_day_path(match_day) %></li>
+        <% end %>
+        <% if match_day.pending? %>
         <li><%= link_to "Activate", activate_match_day_path(match_day) %></li>
+        <% end %>
+        <% if match_day.active? %>
         <li><%= link_to "Finish", finish_match_day_path(match_day) %></li>
+        <% end %>
         <li class="dropdown-header">Statistics</li>
-        <li><a href="TODO">Activate</a></li>
-        <li><a href="TODO">Update Table Stats</a></li>
-        
+        <li><a href="TODO">Update Table Stats (TODO)</a></li>        
     <% end %>
 <% end %>

@@ -4,6 +4,25 @@ class MatchDaysController < ApplicationController
   # TODO: Figure out why specs fail if this is put in StatusEnum 
   before_action :authorize_administrator,  only: [:pend, :activate, :finish, :update]
 
+  def pend
+    match_day = MatchDay.find(status_enum_params[:id])
+    update_status(match_day, :pending)
+    
+    match_day.matches.each do |match|
+      match.player_match_stats.delete_all
+    end
+  end
+
+  def activate
+    match_day = MatchDay.find(status_enum_params[:id])
+    update_status(match_day, :active)
+    
+    PlayerSeasonInfo.where(season: match_day.premier_league.season).each do |player_season_info|
+      match = match_day.matches.by_team(player_season_info.team).take
+      PlayerMatchStat.create(player: player_season_info.player, match: match, team: player_season_info.team, d11_team: player_season_info.d11_team, position: player_season_info.position, played_position: player_season_info.position.code)
+    end
+  end
+
   def update
     @match_day = MatchDay.find(params[:id])
     date_str = update_params[:date]

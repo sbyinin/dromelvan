@@ -114,7 +114,7 @@
   <% end %>
 </div>
 
-<% if !@d11_match.pending? %>
+<% if @d11_match.d11_team_match_squad_stats.any? && @d11_match.d11_team_match_squad_stats.take.player_match_stats.any? %>
   <div class="section">
     <% cache [@d11_match, :player_statistics] do %>
     <div class="player-statistics">      

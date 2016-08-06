@@ -48,13 +48,13 @@
     </td>
   <% else %>
     <td class="did-not-participate-column wide" colspan="10">
-      Did not participate
+      <% if player_match_stat.match.pending? %>Match not played<% else %>Did not participate<% end %>
     </td>
     <td class="did-not-participate-column narrow" colspan="5">
-      Did not participate
+      <% if player_match_stat.match.pending? %>Match not played<% else %>Did not participate<% end %>
     </td>
     <td class="did-not-participate-column tiny">
-      DnP
+      <% if player_match_stat.match.pending? %>MnP<% else %>DnP<% end %>
     </td>            
   <% end %>
   <td class="points-column number-column"><%= player_match_stat.points %></td>

@@ -42,7 +42,7 @@ describe "D11Match", type: :view do
       end
     end    
     
-    context "when d11_match is pending" do
+    context "when d11_match is pending and has no player_match_stats" do
       let(:d11_match) { FactoryGirl.create(:d11_match) }
       
       before { visit d11_match_path(d11_match) }
@@ -53,11 +53,15 @@ describe "D11Match", type: :view do
       it { is_expected.not_to have_selector("div.player-match-stats-summary") }      
     end
     
-    context "when d11_match is not pending" do
-      let!(:d11_match) { FactoryGirl.create(:d11_match, status: 2) }
+    context "when d11_match is not pending and has player_match_stats" do
+      let!(:match_day) { FactoryGirl.create(:match_day) }
+      let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
+      let!(:d11_match_day) { FactoryGirl.create(:d11_match_day, match_day: match_day) }
+      let!(:d11_match) { FactoryGirl.create(:d11_match, d11_match_day: d11_match_day, status: :active) }
       let!(:d11_team_match_squad_stat1) { FactoryGirl.create(:d11_team_match_squad_stat, d11_match: d11_match, d11_team: d11_match.home_d11_team) }
       let!(:d11_team_match_squad_stat2) { FactoryGirl.create(:d11_team_match_squad_stat, d11_match: d11_match, d11_team: d11_match.away_d11_team) }
-      
+      let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, match: match, team: match.home_team, d11_team: d11_match.home_d11_team) }
+            
       before { visit d11_match_path(d11_match) }
 
       it { is_expected.not_to have_selector("div.match-details.preview") }
