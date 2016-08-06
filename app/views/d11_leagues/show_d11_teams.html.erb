@@ -9,7 +9,7 @@
 
 <div class="section">
   <% D11TeamSeasonSquadStat.joins(:d11_team).where(season: @d11_league.season).order("d11_teams.name asc").each do |d11_team_season_squad_stat| %>
-  <% cache [ d11_team_season_squad_stat, :table_simple ] do %>
+  <% cache [ d11_team_season_squad_stat, d11_team_season_squad_stat.season, :table_simple ] do %>
   <%= render 'd11_team_season_squad_stats/table_simple', d11_team_season_squad_stat: d11_team_season_squad_stat %>
   <% end %>
   <% end %>  

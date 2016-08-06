@@ -1,5 +1,6 @@
 div.d11-leagues {
     div.d11-team-season-squad-stat.simple {
+        min-height: 539px !important;
         @include make-sm-column(6);
         @include make-md-column(4);
         @include make-lg-column(3);

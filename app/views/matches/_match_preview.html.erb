@@ -17,10 +17,10 @@
     <% most_valuable_player = team.most_valuable_player(season) %>
     <dt>Most valuable player:</dt>  
     <dd>
-      <% if !most_valuable_player.nil? && most_valuable_player.points > 0 %>
+      <% if !most_valuable_player.nil? && most_valuable_player.minutes_played > 0 %>
         <%= render most_valuable_player.player %>, <%= most_valuable_player.points %> pts
       <% else %>
-        No points scored.
+        No matches played.
       <% end %>
     </dd>
   </ul>

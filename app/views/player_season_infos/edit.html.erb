@@ -12,11 +12,11 @@
     <fieldset>      
       <div class="form-group">
         <%= f.label :team_id, "Team:" %>
-        <%= render 'teams/select', f: f %>
+        <%= render 'teams/select', f: f, autofocus: true %>
       </div>      
       <div class="form-group">
         <%= f.label :d11_team_id, "D11 Team:" %>
-        <%= render 'd11_teams/select', f: f %>
+        <%= render 'd11_teams/select', season: @player_season_info.season, f: f %>
       </div>      
       <div class="form-group">
         <%= f.label :value, "Value:" %>

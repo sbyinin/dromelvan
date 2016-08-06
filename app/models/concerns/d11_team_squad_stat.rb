@@ -3,7 +3,7 @@ module D11TeamSquadStat
   include PlayerStatsSummary
 
   included do
-    belongs_to :d11_team
+    belongs_to :d11_team, touch: true
 
     after_initialize :init
     before_validation :update_team_goals

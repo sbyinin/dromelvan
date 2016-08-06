@@ -1,1 +1,9 @@
-<%= f.collection_select :d11_team_id, D11Team.all, :id, :name, { multiple: false, prompt: "Select D11 team (required)"}, { class: "form-control", required: true}  %>
+<%
+    d11_teams = []
+    if !defined?(season)
+      d11_teams = D11Team.all
+    else
+      d11_teams = D11Team.find([1] + D11TeamRegistration.where(season: season).pluck(:d11_team_id))
+    end
+%>    
+<%= f.collection_select :d11_team_id, d11_teams, :id, :name, { multiple: false, prompt: "Select D11 team (required)"}, { class: "form-control", required: true}  %>
