@@ -105,6 +105,10 @@
   <% end %>
 </div>
 
+<% if !session[:upload_result].nil? %>
+  <%= render 'matches/upload_result' %>
+<% end %>
+
 <% if !@match.pending? %>
   <div class="section">
     <% cache [ @match, :player_statistics ] do %>

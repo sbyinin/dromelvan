@@ -1,4 +1,10 @@
 div.modal-dialog {
+    div.modal-body {
+        h2 {
+            margin-bottom: 20px;
+        }
+    }
+    
     div.section {
         @extend .row;
         

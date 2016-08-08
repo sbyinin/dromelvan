@@ -110,7 +110,14 @@ Rails.application.routes.draw do
   end
   resources :premier_leagues, only: [:show], concerns: [:select, :table, :stats], path: 'premier-leagues'
   resources :match_days, only: [:show, :update], concerns: [:select, :status_enum], path: 'match-days'
-  resources :matches, only: [:show, :update], concerns: [:select, :status_enum]
+  resources :matches, only: [:show, :update], concerns: [:select, :status_enum] do
+    member do
+      get 'edit_match_stats'
+    end
+    member do
+      post 'update_match_stats'
+    end    
+  end
   resources :d11_leagues, only: [:show], concerns: [:select, :table, :d11_teams], path: 'd11-leagues'
   resources :d11_match_days, only: [:show, :update], concerns: [:select], path: 'd11-match-days'
   resources :d11_matches, only: [:show], concerns: [:select], path: 'd11-matches'

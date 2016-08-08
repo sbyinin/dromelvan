@@ -53,7 +53,8 @@
   
   <script>
   $('#d11-modal').on('hide.bs.modal', function () {
-      $('#d11-modal').removeData('bs.modal'); $('#d11-modal.modal-content').html('');
+      $('#d11-modal').removeData('bs.modal');
+      $('#d11-modal.modal-content').html('');
   });
   $('#d11-modal').on('shown.bs.modal', function () {
     $("[autofocus]").first().focus();
@@ -61,6 +62,10 @@
   </script>
   
 </main>
+
+<%
+  session.delete(:upload_result)
+%>
 
 <%= render 'layouts/footer' %>
 

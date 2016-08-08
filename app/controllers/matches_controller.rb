@@ -1,7 +1,8 @@
 class MatchesController < ApplicationController
+  layout "modal", only: [ :edit_match_stats ]
   include Select, StatusEnum
 
-  before_action :authorize_administrator,  only: [:pend, :activate, :finish, :update]
+  before_action :authorize_administrator,  only: [:pend, :activate, :finish, :update, :edit_match_stats, :update_match_stats]
 
   def update
     @match = Match.find(params[:id])
@@ -26,6 +27,25 @@ class MatchesController < ApplicationController
     redirect_to @match.match_day
   end
 
+  def edit_match_stats
+    @match = Match.find(params[:id])
+  end
+  
+  def update_match_stats    
+    match_stats_file = params[:match_stats_file]
+    
+    begin
+      match = Match.find(params[:id])
+      session[:upload_result] = UploadMatchStatsFile.new(match).upload(match_stats_file)
+      
+      redirect_to match
+    ensure
+      # Not strictly necessary, just so we don't get loads and loads of files
+      # before they're garbage collected.
+      match_stats_file.tempfile.unlink
+    end
+  end
+  
   private
     def update_params
       params.require(:match).permit(:datetime)

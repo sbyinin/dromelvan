@@ -1,0 +1,19 @@
+<%
+  provide :title, "Update Match Stats"
+  provide :save_button_text, "Upload File"
+%>
+
+<h2><%= @match.home_team.name %> vs <%= @match.away_team.name %></h2>
+
+<div class="section">
+  <div class="top-section">
+    <%= form_tag({ controller: :matches, action: :update_match_stats }, method: :post, multipart: true) do %>
+    <fieldset>
+      <div class="form-group">
+        <%= label_tag :match_stats_file, "Match stats file:" %>
+        <%= file_field_tag :match_stats_file, required: true, accept: 'text/xml' %>        
+      </div>      
+    </fieldset>
+    <% end %>
+  </div>
+</div>

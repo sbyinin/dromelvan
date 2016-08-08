@@ -79,6 +79,10 @@ main {
             background-position: right 10px center;
         }
         
+        input[type="file"]:required:invalid {
+            background-position: right 80px center;
+        }
+        
         textarea:required:invalid {
             background: $input-bg url(/assets/form/required_form_field.png) no-repeat right top;    
         }        

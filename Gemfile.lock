@@ -291,6 +291,7 @@ DEPENDENCIES
   jquery-turbolinks
   lodash-rails
   momentjs-rails (>= 2.9.0)
+  nokogiri
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-twitter

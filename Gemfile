@@ -103,6 +103,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # the stupid IE selector limit
 gem 'css_splitter'
 
+# XML parsing
+gem 'nokogiri'
+
 # Application servers. Only one of these will be needed in the end (!)
 #gem 'puma'
 #gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"

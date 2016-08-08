@@ -1,0 +1,121 @@
+<xs:schema xmlns:d11="http://jaxb.dromelvan.org" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           targetNamespace="http://jaxb.dromelvan.org"
+           elementFormDefault="qualified">
+
+    <xs:element name="match" type="d11:PLMatch"/>  
+    
+    <xs:complexType name="PLMatch">
+        <xs:sequence>   
+            <xs:element name="homeTeam" type="d11:PLTeam"/>
+            <xs:element name="awayTeam" type="d11:PLTeam"/>       
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="PLTeam">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="players" type="d11:players" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="goals" type="d11:goals" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="cards" type="d11:cards" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="substitutions" type="d11:substitutions" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="PlayerMatchStatistics">
+        <xs:sequence>
+            <xs:element name="player" type="xs:string" minOccurs="1" maxOccurs="1"/>       
+            <xs:element name="whoScoredId" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/> 
+            <xs:element name="participated" type="d11:participation" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="assists" type="d11:assist" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="rating" type="d11:rating" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="participation">
+        <xs:restriction base="xs:nonNegativeInteger">
+            <xs:maxInclusive value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="assist">
+        <xs:restriction base="xs:nonNegativeInteger">
+            <!-- The reason for the max inclusive value is to make the xjc compiler turn this into an int
+                 instead of a BigInteger. It's pretty hard to manage more than 50 assists in one match. -->
+            <xs:maxInclusive value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="rating">
+        <xs:restriction base="xs:nonNegativeInteger">
+            <xs:maxInclusive value="1000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="players">
+        <xs:sequence>
+            <xs:element name="playerMatchStatistics" type="d11:PlayerMatchStatistics" minOccurs="11" maxOccurs="18"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="goal">
+        <xs:sequence>
+            <xs:element name="player" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="whoScoredId" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="penalty" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="ownGoal" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="time" type="d11:time" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="goals">
+        <xs:sequence>
+            <xs:element name="goal" type="d11:goal" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="card">
+        <xs:sequence>
+            <xs:element name="player" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="whoScoredId" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="type" type="d11:cardType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="time" type="d11:time" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="cardType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="yellow"/>
+            <xs:enumeration value="red"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="cards">
+        <xs:sequence>
+            <xs:element name="card" type="d11:card" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="substitution">
+        <xs:sequence>
+            <xs:element name="playerOut" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="playerIn" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="playerOutWhoScoredId" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="playerInWhoScoredId" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="time" type="d11:time" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="substitutions">
+        <xs:sequence>
+            <xs:element name="substitution" type="d11:substitution" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="time">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:maxInclusive value="90"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
