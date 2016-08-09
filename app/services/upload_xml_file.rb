@@ -7,7 +7,7 @@ class UploadXMLFile
     if !upload_result[:validation_errors].any?
       upload_result[:data_errors] = validate_data(xml)
       if !upload_result[:data_errors].any?
-        puts("yay")
+        handle_data(xml)
       end
     end
     upload_result

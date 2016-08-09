@@ -16,6 +16,15 @@ module PlayerStats
     end
     
     private
+      def reset_stats
+        self.goals = 0
+        self.goal_assists = 0
+        self.own_goals = 0
+        self.goals_conceded = 0
+        self.rating = 0
+        self.points = 0              
+      end      
+    
       def init_stats
         self.goals ||= 0
         self.goal_assists ||= 0

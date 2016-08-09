@@ -46,7 +46,7 @@
               <% end %>
               <% if !@d11_match.pending? %>
               <dt>Elapsed:</dt>
-              <dd><%= (@d11_match.elapsed == 'FT' ? 'Full Time' : @d11_match.elapsed) %></dd>
+              <dd><%= (@d11_match.elapsed == 'FT' ? 'Full Time' : "#{@d11_match.elapsed} minutes") %></dd>
               <% end %>
             </dl>
           </td>
@@ -103,7 +103,7 @@
               <% end %>
               <% if !@d11_match.pending? %>
               <dt>Elapsed:</dt>
-              <dd><%= @d11_match.elapsed %></dd>
+              <dd><%= @d11_match.elapsed %> mins</dd>
               <% end %>
             </dl>
           </td>

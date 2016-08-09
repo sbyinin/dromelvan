@@ -38,6 +38,9 @@ class MatchesController < ApplicationController
       match = Match.find(params[:id])
       session[:upload_result] = UploadMatchStatsFile.new(match).upload(match_stats_file)
       
+      if !session[:upload_result][:validation_errors].any? && !session[:upload_result][:data_errors].any?
+        flash[:success] = "Match data updated."
+      end
       redirect_to match
     ensure
       # Not strictly necessary, just so we don't get loads and loads of files

@@ -2,7 +2,7 @@ class MatchDaysController < ApplicationController
   include Select, StatusEnum
   
   # TODO: Figure out why specs fail if this is put in StatusEnum 
-  before_action :authorize_administrator,  only: [:pend, :activate, :finish, :update]
+  before_action :authorize_administrator,  only: [:pend, :activate, :finish, :update, :update_stats]
 
   def pend
     match_day = MatchDay.find(status_enum_params[:id])
@@ -46,6 +46,24 @@ class MatchDaysController < ApplicationController
     redirect_to @match_day
   end
 
+  def update_stats
+    @match_day = MatchDay.find(params[:id])
+
+    @match_day.matches.each do |match|
+      TeamTableStat.update_stats_from(match)
+    end
+    TeamTableStat.update_rankings_from(@match_day)
+    
+    @match_day.d11_match_day.d11_matches.each do |d11_match|
+      D11TeamTableStat.update_stats_from(d11_match)
+    end
+    D11TeamTableStat.update_rankings_from(@match_day.d11_match_day)
+
+    flash[:success] = "Table statistics updated."
+    
+    redirect_to @match_day
+  end
+  
   private
     def update_params
       params.require(:match_day).permit(:date)

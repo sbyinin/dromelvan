@@ -29,10 +29,22 @@ class PlayerMatchStat < ActiveRecord::Base
   validates :man_of_the_match, inclusion: [true, false]
   validates :shared_man_of_the_match, inclusion: [true, false]
 
+  def reset
+    reset_stats
+    self.played_position = ""    
+    self.lineup = :did_not_participate
+    self.substitution_on_time = 0
+    self.substitution_off_time = 0
+    self.yellow_card_time = 0
+    self.red_card_time = 0
+    self.man_of_the_match = false
+    self.shared_man_of_the_match = false
+  end
+  
   def participated?
     self.starting_lineup? || (!self.substitution_on_time.nil? && self.substitution_on_time > 0)  
   end
-  
+ 
   def update_points
     if !match.nil? && !match.match_day.premier_league.season.legacy?
       # Calculates points for season 2014-2015 rules
@@ -147,7 +159,7 @@ class PlayerMatchStat < ActiveRecord::Base
     
     def update_played_position
       if !self.position.nil? then
-        self.played_position ||= self.position.code
+        self.played_position = self.position.code
       end      
     end
     

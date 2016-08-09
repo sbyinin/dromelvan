@@ -1795,7 +1795,15 @@ Match.where("match_day_id >= 458 and stadium_id = 3 and home_team_id = 21").each
 end
 =end
 
-puts("Updating career stats for new players...")
+puts("Seeding career stats...")
+
+Player.all.each do |player|
+  if !PlayerCareerStat.where(player: player).any?
+    PlayerCareerStat.create(player: player)
+  end
+end
+
+puts("Updating career stats...")
 
 PlayerCareerStat.all.each do |player_career_stat|
   player_career_stat.summarize_career_stats

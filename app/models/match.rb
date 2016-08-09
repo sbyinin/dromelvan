@@ -23,7 +23,7 @@ class Match < ActiveRecord::Base
 
   after_initialize :init
   before_validation :update_default_properties, on: :create
-  before_validation :update_elapsed
+  before_validation :update_elapsed, :update_goals
     
   validates :home_team, presence: true
   validates :away_team, presence: true
@@ -159,6 +159,11 @@ class Match < ActiveRecord::Base
       if self.match_day.present? then
         self.datetime ||= self.match_day.date.to_time
       end      
+    end
+    
+    def update_goals
+      self.home_team_goals = goals.where(team: home_team).count
+      self.away_team_goals = goals.where(team: away_team).count
     end
     
     def update_elapsed

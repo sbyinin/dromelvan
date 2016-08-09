@@ -126,7 +126,20 @@ class D11Match < ActiveRecord::Base
       end
     end
     
+    def update_team_points
+      d11_team_match_squad_stat = d11_team_match_squad_stats.where(d11_team: home_d11_team).take
+      if !d11_team_match_squad_stat.nil?
+        self.home_team_points = d11_team_match_squad_stat.points
+      end
+      d11_team_match_squad_stat = d11_team_match_squad_stats.where(d11_team: away_d11_team).take
+      if !d11_team_match_squad_stat.nil?
+        self.away_team_points = d11_team_match_squad_stat.points
+      end      
+    end
+    
     def update_goals
+      update_team_points
+      
       self.home_team_points ||= 0
       self.away_team_points ||= 0      
       
