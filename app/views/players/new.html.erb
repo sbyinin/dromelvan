@@ -1,0 +1,32 @@
+<%
+  provide :title, "Insert New Player"
+  provide :save_button_text, "Insert Player"
+%>
+<div class="section">
+  <div class="image-container player-photo related-section">
+    <%= render 'players/player_photo', player: @player %>
+  </div>
+  <div class="main-section">
+    <%= form_for @player, html: { method: :post } do |f| %>
+    <fieldset>
+      <div class="form-group">
+        <%= f.label :first_name, "First Name:" %>
+        <%= f.text_field :first_name, autofocus: true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :last_name, "Last Name:" %>
+        <%= f.text_field :last_name, required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :whoscored_id, "WhoScored Id:" %>
+        <%= f.text_field :whoscored_id, required: true %>
+      </div>      
+      <div class="form-group">
+        <%= f.label :country_id, "Nationality:" %>
+        <%= render 'countries/select', f: f %>
+      </div>      
+    </fieldset>
+    <% end %>
+  </div>
+
+</div>

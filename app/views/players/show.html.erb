@@ -106,10 +106,12 @@
     <% end %>
     <% end %>
     <% cache [ @player, @season, :player_season_stats ] do %>
+    <% if @player.player_season_stats.any? %>
     <div id="player-season-stats">
       <h3>Season Statistics</h3>
       <%= render 'player_season_stats/table', player_season_stats: @player.player_season_stats.order(season_id: :desc) %>
     </div>
+    <% end %>
     <% end %>
   </div>
   

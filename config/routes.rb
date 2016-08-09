@@ -102,7 +102,7 @@ Rails.application.routes.draw do
   #resources :countries, only: [:index, :show], concerns: [:players]
   resources :seasons, only: [:index, :show], concerns: [:select]
   resources :teams, only: [:show], concerns: [:select_season, :select, :fixtures]
-  resources :players, only: [:show], concerns: [:select_season]
+  resources :players, only: [:show, :new, :create], concerns: [:select_season]
   resources :player_season_infos, only: [:edit, :update] do
     member do
       post 'create_current'
