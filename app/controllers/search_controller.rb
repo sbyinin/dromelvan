@@ -21,7 +21,7 @@ class SearchController < ApplicationController
     result_json = Jbuilder.encode do | json |    
       json.array! result do | object |
         json.name object.name
-        puts(object.name)
+
         if !object.id.nil?
           json.path polymorphic_path(object)
         else
