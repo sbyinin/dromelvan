@@ -48,8 +48,11 @@
     <h2>Missing Players</h2>
     <p>The following players could not be found.</p>
     <% upload_result[:data_errors][:missing_players].each do |missing_player| %>
-    <h3><%= missing_player[:name] %></h3>
-    <p>WhoScored link: <%= render 'players/whoscored_link', whoscored_id: missing_player[:whoscored_id] %></p>
+    <h3><%= missing_player[:name] %> (<%= missing_player[:team].code %>)</h3>
+    <ul class="context-links">
+      <li>WhoScored link: <%= render 'players/whoscored_link', whoscored_id: missing_player[:whoscored_id] %></li>
+      <li>Insert <%= link_to "new player", new_player_path(player: {first_name: missing_player[:name].sub(/ .*/,''), last_name: missing_player[:name].sub(/.* /,''), whoscored_id: missing_player[:whoscored_id] }, player_season_info: { team_id: missing_player[:team].id }), data: { toggle: "modal", target: "#d11-modal" } %>.</li>
+    </ul>
     <h4>Alternatives:</h4>
     <ul class="context-links">
     <% missing_player[:alternative_players].each do |alternative_player| %>

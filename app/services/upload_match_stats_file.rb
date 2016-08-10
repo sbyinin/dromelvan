@@ -241,7 +241,7 @@ class UploadMatchStatsFile < UploadXMLFile
           player_name = player_match_statistics.xpath("player").text
           player = Player.where(whoscored_id: whoscored_id).take
           if player.nil?
-            team_validation_result[:missing_players].concat [ { whoscored_id: whoscored_id, name: player_name, alternative_players: Player.named(player_name) } ]
+            team_validation_result[:missing_players].concat [ { whoscored_id: whoscored_id, name: player_name, team: team, alternative_players: Player.named(player_name) } ]
           else
             player_season_info = PlayerSeasonInfo.where(player: player, season: Season.current).take
             if player_season_info.nil?

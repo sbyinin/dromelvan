@@ -156,12 +156,13 @@ describe PlayerMatchStat, type: :model do
     context 'with goals_conceded' do
       let(:defender) { FactoryGirl.create(:position, defender: true) }
       let(:non_defender) { FactoryGirl.create(:position, defender: false) }
-      let(:player_match_stat_defender) { FactoryGirl.create(:player_match_stat, lineup: :starting_lineup, position: defender) }
-      let(:player_match_stat_non_defender) { FactoryGirl.create(:player_match_stat, lineup: :starting_lineup, position: non_defender) }
-      let(:player_match_stat_substitute) { FactoryGirl.create(:player_match_stat, lineup: :substitute, substitution_on_time: 1, position: defender) }
-      let(:player_match_stat_unused_substitute) { FactoryGirl.create(:player_match_stat, lineup: :substitute, substitution_on_time: 0, position: defender) }
-      let(:player_match_stat_dnp_non_defender) { FactoryGirl.create(:player_match_stat, lineup: :did_not_participate, position: non_defender) }
-      let(:player_match_stat_dnp_defender) { FactoryGirl.create(:player_match_stat, lineup: :did_not_participate, position: defender) }
+      let(:match) { FactoryGirl.create(:match, status: :finished) }
+      let(:player_match_stat_defender) { FactoryGirl.create(:player_match_stat, match: match, lineup: :starting_lineup, position: defender) }
+      let(:player_match_stat_non_defender) { FactoryGirl.create(:player_match_stat, match: match, lineup: :starting_lineup, position: non_defender) }
+      let(:player_match_stat_substitute) { FactoryGirl.create(:player_match_stat, match: match, lineup: :substitute, substitution_on_time: 1, position: defender) }
+      let(:player_match_stat_unused_substitute) { FactoryGirl.create(:player_match_stat, match: match, lineup: :substitute, substitution_on_time: 0, position: defender) }
+      let(:player_match_stat_dnp_non_defender) { FactoryGirl.create(:player_match_stat, match: match, lineup: :did_not_participate, position: non_defender) }
+      let(:player_match_stat_dnp_defender) { FactoryGirl.create(:player_match_stat, match: match, lineup: :did_not_participate, position: defender) }
       
       context 'with clean sheet' do
         before do
@@ -498,7 +499,7 @@ describe PlayerMatchStat, type: :model do
 
   context "when played_position is invalid" do
     before { @player_match_stat.played_position = "" }
-    it { is_expected.not_to be_valid }
+    it { is_expected.to be_valid }
   end
 
   context "when lineup is nil" do

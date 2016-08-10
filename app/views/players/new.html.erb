@@ -2,6 +2,9 @@
   provide :title, "Insert New Player"
   provide :save_button_text, "Insert Player"
 %>
+
+<h2>New Player</h2>
+
 <div class="section">
   <div class="image-container player-photo related-section">
     <%= render 'players/player_photo', player: @player %>
@@ -17,6 +20,14 @@
         <%= f.label :last_name, "Last Name:" %>
         <%= f.text_field :last_name, required: true %>
       </div>
+      <div class="form-group">
+        <%= label_tag :team_id, "Team:" %>
+        <%= collection_select :player_season_info, :team_id, Team.all, :id, :name, { multiple: false, prompt: "Select team (required)"}, { class: "form-control", required: true}  %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :position, "Position:" %>
+        <%= collection_select :player_season_info, :position_id, Position.all, :id, :name, { multiple: false, prompt: "Select position (required)"}, { class: "form-control", required: true}  %>
+      </div>            
       <div class="form-group">
         <%= f.label :whoscored_id, "WhoScored Id:" %>
         <%= f.text_field :whoscored_id, required: true %>

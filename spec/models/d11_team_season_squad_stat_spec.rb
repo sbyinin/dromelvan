@@ -44,14 +44,14 @@ describe D11TeamSeasonSquadStat, type: :model do
       let!(:player_match_stat4) { FactoryGirl.create(:player_match_stat, d11_team: d11_match.home_d11_team, match: match, position: position, lineup: :did_not_participate) }
       let!(:d11_team_season_squad_stat) { FactoryGirl.create(:d11_team_season_squad_stat, d11_team: d11_match.home_d11_team, season: season) }
             
-      specify { expect(d11_team_season_squad_stat.team_goals).to eq 2 }            
+      specify { expect(d11_team_season_squad_stat.team_goals).to eq 3 }            
       specify { expect(d11_team_season_squad_stat.goals).to eq 3 }
       specify { expect(d11_team_season_squad_stat.goal_assists).to eq 3 }
       specify { expect(d11_team_season_squad_stat.own_goals).to eq 3 }
       specify { expect(d11_team_season_squad_stat.goals_conceded).to eq 3 }
       specify { expect(d11_team_season_squad_stat.clean_sheets).to eq 1 }
       specify { expect(d11_team_season_squad_stat.rating).to eq 700 }
-      specify { expect(d11_team_season_squad_stat.points).to eq 9 }                    
+      specify { expect(d11_team_season_squad_stat.points).to eq 10 }                    
       specify { expect(d11_team_season_squad_stat.yellow_cards).to eq 2 }
       specify { expect(d11_team_season_squad_stat.red_cards).to eq 2 }
       specify { expect(d11_team_season_squad_stat.man_of_the_match).to eq 1 }

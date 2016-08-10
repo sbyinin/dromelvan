@@ -39,19 +39,32 @@ describe TeamTableStat, type: :model do
       
       let!(:match_day1) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 1) }
       let!(:match1) { FactoryGirl.create(:match, match_day: match_day1, home_team: team, away_team: team2, home_team_goals: 2, away_team_goals: 0, status: :finished) }      
+      let!(:goal1) { FactoryGirl.create(:goal, match: match1, team: match1.home_team) }
+      let!(:goal2) { FactoryGirl.create(:goal, match: match1, team: match1.home_team) }
   
       let!(:match_day2) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 2) }
       let!(:match2) { FactoryGirl.create(:match, match_day: match_day2, home_team: team, away_team: team2, home_team_goals: 1, away_team_goals: 1, status: :finished) }
+      let!(:goal3) { FactoryGirl.create(:goal, match: match2, team: match2.home_team) }
+      let!(:goal4) { FactoryGirl.create(:goal, match: match2, team: match2.away_team) }
   
       let!(:match_day3) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 3) }
       let!(:match3) { FactoryGirl.create(:match, match_day: match_day3, home_team: team2, away_team: team, home_team_goals: 2, away_team_goals: 0, status: :finished) }
+      let!(:goal5) { FactoryGirl.create(:goal, match: match3, team: match3.home_team) }
+      let!(:goal6) { FactoryGirl.create(:goal, match: match3, team: match3.home_team) }
 
       let!(:match_day4) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 4) }
       let!(:match4) { FactoryGirl.create(:match, match_day: match_day4, home_team: team2, away_team: team, home_team_goals: 3, away_team_goals: 2, status: :active) }
+      let!(:goal7) { FactoryGirl.create(:goal, match: match4, team: match4.home_team) }
+      let!(:goal8) { FactoryGirl.create(:goal, match: match4, team: match4.home_team) }
+      let!(:goal9) { FactoryGirl.create(:goal, match: match4, team: match4.home_team) }
+      let!(:goal10) { FactoryGirl.create(:goal, match: match4, team: match4.away_team) }
+      let!(:goal11) { FactoryGirl.create(:goal, match: match4, team: match4.away_team) }
       
       let!(:match_day5) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 5) }
       let!(:match5) { FactoryGirl.create(:match, match_day: match_day5, home_team: team2, away_team: team, home_team_goals: 1, away_team_goals: 2, status: :finished) }
-
+      let!(:goal12) { FactoryGirl.create(:goal, match: match5, team: match5.home_team) }
+      let!(:goal13) { FactoryGirl.create(:goal, match: match5, team: match5.away_team) }
+      let!(:goal14) { FactoryGirl.create(:goal, match: match5, team: match5.away_team) }
 
       let!(:team_table_stat1) { FactoryGirl.create(:team_table_stat, team: team, premier_league: premier_league, match_day: match_day1) }
       let!(:team_table_stat2) { FactoryGirl.create(:team_table_stat, team: team, premier_league: premier_league, match_day: match_day2) }
@@ -65,6 +78,12 @@ describe TeamTableStat, type: :model do
       let!(:team_table_stat10) { FactoryGirl.create(:team_table_stat, team: team2, premier_league: premier_league, match_day: match_day5) }
   
       before do
+        match1.save
+        match2.save
+        match3.save
+        match4.save
+        match5.save
+        
         TeamTableStat.update_stats_from(match1)
         team_table_stat1.reload
         team_table_stat2.reload
@@ -680,13 +699,27 @@ describe TeamTableStat, type: :model do
     let!(:team2) { FactoryGirl.create(:team) }
     let!(:match_day) { FactoryGirl.create(:match_day) }
     let!(:match1) { FactoryGirl.create(:match, match_day: match_day, status: :finished, home_team: team1, away_team: team2, home_team_goals: 1, away_team_goals: 0) }
+    let!(:goal1) { FactoryGirl.create(:goal, match: match1, team: match1.home_team) }
     let!(:match2) { FactoryGirl.create(:match, match_day: match_day, status: :finished, home_team: team1, away_team: team2, home_team_goals: 0, away_team_goals: 1) }
+    let!(:goal2) { FactoryGirl.create(:goal, match: match2, team: match2.away_team) }
     let!(:match3) { FactoryGirl.create(:match, match_day: match_day, status: :finished, home_team: team1, away_team: team2, home_team_goals: 0, away_team_goals: 0) }
     let!(:match4) { FactoryGirl.create(:match, match_day: match_day, status: :finished, home_team: team1, away_team: team2, home_team_goals: 1, away_team_goals: 0) }
+    let!(:goal3) { FactoryGirl.create(:goal, match: match4, team: match4.home_team) }
     let!(:match5) { FactoryGirl.create(:match, match_day: match_day, status: :finished, home_team: team1, away_team: team2, home_team_goals: 1, away_team_goals: 0) }
+    let!(:goal4) { FactoryGirl.create(:goal, match: match5, team: match5.home_team) }
     let!(:team_table_stat1) { FactoryGirl.create(:team_table_stat, team: team1, match_day: match_day)}
     let!(:team_table_stat2) { FactoryGirl.create(:team_table_stat, team: team2, match_day: match_day)}
-  
+
+    before do
+      match1.save
+      match2.save
+      match3.save
+      match4.save
+      match5.save
+      team_table_stat1.save
+      team_table_stat2.save
+    end
+    
     specify { expect(team_table_stat1.form_points).to eq 10 }
     specify { expect(team_table_stat2.form_points).to eq 4 }
   end

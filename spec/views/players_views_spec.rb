@@ -22,6 +22,7 @@ describe "Player", type: :view do
     describe "div#player-match-stats" do
       context "when player season stat and match stat does not exist" do
         let!(:player) { FactoryGirl.create(:player) }
+        let!(:player_career_stat) { FactoryGirl.create(:player_career_stat, player: player) }
         
         before { visit player_path(player) }
         
@@ -35,6 +36,7 @@ describe "Player", type: :view do
         let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
         let!(:match) { FactoryGirl.create(:match, match_day: match_day) }
         let!(:player_match_stat) { FactoryGirl.create(:player_match_stat, match: match, player: player) }
+        let!(:player_career_stat) { FactoryGirl.create(:player_career_stat, player: player) }
         
         before { visit player_path(player) }
         

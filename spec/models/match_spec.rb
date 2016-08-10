@@ -58,11 +58,16 @@ describe Match, type: :model do
   end
 
   describe '#home_team_goals' do
+    let!(:goal) { FactoryGirl.create(:goal, match: @match, team: @match.home_team)}
+    before { @match.save }
     subject { @match.home_team_goals }
     it { is_expected.to eq 1 }
   end
 
   describe '#away_team_goals' do
+    let!(:goal) { FactoryGirl.create(:goal, match: @match, team: @match.away_team)}
+    let!(:goal2) { FactoryGirl.create(:goal, match: @match, team: @match.away_team)}
+    before { @match.save }
     subject { @match.away_team_goals }
     it { is_expected.to eq 2 }
   end
@@ -186,11 +191,16 @@ describe Match, type: :model do
 
   describe '#goals_for' do
     describe "home_team" do
+      let!(:goal) { FactoryGirl.create(:goal, match: @match, team: @match.home_team)}
+      before { @match.save }      
       subject { @match.goals_for(home_team) }
       it { is_expected.to eq 1 }
     end
     
-    describe '#away_team' do  
+    describe '#away_team' do
+      let!(:goal) { FactoryGirl.create(:goal, match: @match, team: @match.away_team)}
+      let!(:goal2) { FactoryGirl.create(:goal, match: @match, team: @match.away_team)}
+      before { @match.save }
       subject { @match.goals_for(away_team) }
       it { is_expected.to eq 2 }    
     end    
@@ -198,11 +208,16 @@ describe Match, type: :model do
   
   describe '#goals_against' do
     describe "home_team" do
+      let!(:goal) { FactoryGirl.create(:goal, match: @match, team: @match.away_team)}
+      let!(:goal2) { FactoryGirl.create(:goal, match: @match, team: @match.away_team)}
+      before { @match.save }      
       subject { @match.goals_against(home_team) }
       it { is_expected.to eq 2 }
     end
     
-    describe '#away_team' do  
+    describe '#away_team' do
+      let!(:goal) { FactoryGirl.create(:goal, match: @match, team: @match.home_team)}
+      before { @match.save }            
       subject { @match.goals_against(away_team) }
       it { is_expected.to eq 1 }    
     end    
@@ -280,22 +295,22 @@ describe Match, type: :model do
 
   context "when home_team_goals is nil" do
     before { @match.home_team_goals = nil }
-    it { is_expected.not_to be_valid }
+    it { is_expected.to be_valid }
   end
 
   context "when home_team_goals is invalid" do
     before { @match.home_team_goals = -1 }
-    it { is_expected.not_to be_valid }
+    it { is_expected.to be_valid }
   end
 
   context "when away_team_goals is nil" do
     before { @match.away_team_goals = nil }
-    it { is_expected.not_to be_valid }
+    it { is_expected.to be_valid }
   end
 
   context "when away_team_goals is invalid" do
     before { @match.home_team_goals = -1 }
-    it { is_expected.not_to be_valid }
+    it { is_expected.to be_valid }
   end
 
   context "when datetime is nil" do

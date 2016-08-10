@@ -1793,7 +1793,6 @@ Match.where("match_day_id >= 458 and stadium_id = 3 and home_team_id = 21").each
   match.stadium = Stadium.where(name: "London Stadium").take
   match.save
 end
-=end
 
 puts("Seeding career stats...")
 
@@ -1811,3 +1810,13 @@ PlayerCareerStat.all.each do |player_career_stat|
 end
 
 PlayerCareerStat.update_rankings
+=end
+
+puts("Updating match kickoff time timezones...")
+
+PremierLeague.find(13).match_days.each do |match_day|
+  match_day.matches.each do |match|
+    match.datetime = match.datetime + 2.hours
+    match.save
+  end
+end

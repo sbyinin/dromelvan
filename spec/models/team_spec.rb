@@ -78,14 +78,28 @@ describe Team, type: :model do
     let!(:match_day7) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 7) }
     let!(:match_day8) { FactoryGirl.create(:match_day, premier_league: premier_league, match_day_number: 8) }
     let!(:match1) { FactoryGirl.create(:match, status: :finished, match_day: match_day1, home_team: @team) }
-    let!(:match2) { FactoryGirl.create(:match, status: :finished, match_day: match_day2, home_team: @team, home_team_goals: 1) }
+    let!(:match2) { FactoryGirl.create(:match, status: :finished, match_day: match_day2, home_team: @team) }
+    let!(:goal1) { FactoryGirl.create(:goal, match: match2, team: match2.home_team) }
     let!(:match3) { FactoryGirl.create(:match, status: :finished, match_day: match_day3, home_team: @team) }
-    let!(:match4) { FactoryGirl.create(:match, status: :finished, match_day: match_day4, home_team: @team, away_team_goals: 1) }
+    let!(:match4) { FactoryGirl.create(:match, status: :finished, match_day: match_day4, home_team: @team) }
+    let!(:goal2) { FactoryGirl.create(:goal, match: match4, team: match4.away_team) }
     let!(:match5) { FactoryGirl.create(:match, status: :finished, match_day: match_day5, home_team: @team) }
-    let!(:match6) { FactoryGirl.create(:match, status: :finished, match_day: match_day6, home_team: @team, home_team_goals: 1) }
+    let!(:match6) { FactoryGirl.create(:match, status: :finished, match_day: match_day6, home_team: @team) }
+    let!(:goal3) { FactoryGirl.create(:goal, match: match6, team: match6.home_team) }
     let!(:match7) { FactoryGirl.create(:match, status: :pending, match_day: match_day7, home_team: @team) }
     let!(:match8) { FactoryGirl.create(:match, status: :pending, match_day: match_day7, home_team: @team) }
 
+    before do
+      match1.save
+      match2.save
+      match3.save
+      match4.save
+      match5.save
+      match6.save
+      match7.save
+      match8.save
+    end
+    
     specify { expect(@team.form_matches(match_day1)).to eq [match1] }
     specify { expect(@team.form_matches(match_day2)).to eq [match1, match2] }
     specify { expect(@team.form_matches(match_day3)).to eq [match1, match2, match3] }

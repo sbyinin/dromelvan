@@ -17,9 +17,6 @@ class PlayerCareerStat < ActiveRecord::Base
 
   def PlayerCareerStat.by_player(player)
     player_career_stat = where(player: player).first
-    if player_career_stat.nil?
-      player_career_stat = create(player: player)      
-    end
     player_career_stat
   end
   

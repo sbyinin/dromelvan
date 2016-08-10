@@ -37,7 +37,7 @@ describe TeamSeasonSquadStat, type: :model do
       specify { expect(team_season_squad_stat.goals_conceded).to eq 3 }
       specify { expect(team_season_squad_stat.clean_sheets).to eq 1 }
       specify { expect(team_season_squad_stat.rating).to eq 700 }
-      specify { expect(team_season_squad_stat.points).to eq 9 }                    
+      specify { expect(team_season_squad_stat.points).to eq 10 }                    
       specify { expect(team_season_squad_stat.yellow_cards).to eq 2 }
       specify { expect(team_season_squad_stat.red_cards).to eq 2 }
       specify { expect(team_season_squad_stat.man_of_the_match).to eq 1 }

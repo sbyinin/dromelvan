@@ -75,7 +75,7 @@ describe PlayerCareerStat, type: :model do
       specify { expect(player_career_stats.goals_conceded).to eq 3 }
       specify { expect(player_career_stats.clean_sheets).to eq 1 }
       specify { expect(player_career_stats.rating).to eq 700 }
-      specify { expect(player_career_stats.points).to eq 9 }                    
+      specify { expect(player_career_stats.points).to eq 10 }                    
       specify { expect(player_career_stats.yellow_cards).to eq 2 }
       specify { expect(player_career_stats.red_cards).to eq 2 }
       specify { expect(player_career_stats.man_of_the_match).to eq 1 }
