@@ -1,3 +1,9 @@
+puts("Updating match goals...")
+
+Match.all.each do |match|
+  match.save
+end
+
 puts("Seeding player_match_stats goals conceded...")
 
 count = 0
@@ -14,7 +20,7 @@ PlayerMatchStat.where(position_id: 1).each do |player_match_stat|
   end  
   player_match_stat.save
   count = count + 1
-  puts("#{count}")
+  puts("GK #{count}")
 end
 
 count = 0
@@ -31,7 +37,7 @@ PlayerMatchStat.where(position_id: 2).each do |player_match_stat|
   end  
   player_match_stat.save
   count = count + 1
-  puts("#{count}")
+  puts("FB #{count}")
 end
 
 count = 0
@@ -48,21 +54,70 @@ PlayerMatchStat.where(position_id: 3).each do |player_match_stat|
   end  
   player_match_stat.save
   count = count + 1
-  puts("#{count}")
+  puts("DEF #{count}")
 end
 
-count = 0
-PlayerMatchStat.where(position_id: 4).each do |player_match_stat|
-  player_match_stat.goals_conceded = 0
-  player_match_stat.save
-  count = count + 1
-  puts("#{count}")
+puts("Updating player_season_stats...")
+
+PlayerSeasonStat.all.each do |player_season_stat|
+  player_season_stat.save
 end
 
-count = 0
-PlayerMatchStat.where(position_id: 5).each do |player_match_stat|
-  player_match_stat.goals_conceded = 0
-  player_match_stat.save
-  count = count + 1
-  puts("#{count}")
+Season.all.each do |season|
+  puts("  Updating rankings for season #{season.name}...")
+  PlayerSeasonStat.update_rankings(season)
+end
+
+puts("Updating player career stats...")
+
+PlayerCareerStat.all.each do |player_career_stat|
+  player_career_stat.save
+end
+
+PlayerCareerStat.update_rankings
+
+puts("Updating d11_team_match_squad_stat")
+
+D11TeamMatchSquadStat.all.each do |d11_team_match_squad_stat|
+  d11_team_match_squad_stat.save
+end
+
+puts("Updating d11_team_season_squad_stat")
+
+D11TeamSeasonSquadStat.all.each do |d11_team_season_squad_stat|
+  d11_team_season_squad_stat.save
+end
+
+puts("Updating d11_team_career_squad_stat")
+
+D11TeamCareerSquadStat.all.each do |d11_team_career_squad_stat|
+  d11_team_career_squad_stat.save
+end
+
+puts("Updating team_match_squad_stat")
+
+TeamMatchSquadStat.all.each do |team_match_squad_stat|
+  team_match_squad_stat.save
+end
+
+puts("Updating team_season_squad_stat")
+
+TeamSeasonSquadStat.all.each do |team_season_squad_stat|
+  team_season_squad_stat.save
+end
+
+puts("Updating team_career_squad_stat")
+
+TeamCareerSquadStat.all.each do |team_career_squad_stat|
+  team_career_squad_stat.save
+end
+
+puts("Updating team_table_stats...")
+
+PremierLeague.all.each do |premier_league|
+  match_day = premier_league.match_days.first
+  match_day.matches.each do |match|
+    TeamTableStat.update_stats_from(match) 
+  end
+  TeamTableStat.update_rankings_from(match_day)  
 end

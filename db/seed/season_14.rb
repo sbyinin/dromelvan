@@ -1,4 +1,3 @@
-=begin
 seasons = [
   [ "2016-2017", 0, "2016-08-13" ],
 ]
@@ -1810,7 +1809,6 @@ PlayerCareerStat.all.each do |player_career_stat|
 end
 
 PlayerCareerStat.update_rankings
-=end
 
 puts("Updating match kickoff time timezones...")
 

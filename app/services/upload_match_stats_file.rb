@@ -82,7 +82,9 @@ class UploadMatchStatsFile < UploadXMLFile
         end
         
         player_match_stats.values.each do |player_match_stat|
-          player_match_stat.goals_conceded = @match.goals_against(player_match_stat.team)
+          if player_match_stat.defender?
+            player_match_stat.goals_conceded = @match.goals_against(player_match_stat.team)
+          end          
           player_match_stat.save
           PlayerSeasonStat.where(player: player_match_stat.player, season: @match.match_day.premier_league.season).take.save
           PlayerCareerStat.where(player: player_match_stat.player).take.save

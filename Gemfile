@@ -3,9 +3,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 
@@ -50,6 +47,8 @@ end
 # gem 'debugger', group: [:development, :test]
 
 group :development, :test do
+  # Use sqlite3 as the database for Active Record in dev and test
+  gem 'sqlite3'  
   gem 'rspec-rails', '~> 3.0.0'
 end
 
@@ -57,6 +56,15 @@ group :test do
   gem 'selenium-webdriver', '2.35.1'
   gem 'capybara',  '~> 2.2.0'
   gem 'factory_girl_rails', '4.2.1'
+end
+
+group :production do
+  # Use postgres in production
+  gem 'pg'
+  
+  # Application servers. Only one of these will be needed in the end (!)
+  #gem 'puma'
+  gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"  
 end
 
 #ActiveRecord session store
@@ -105,7 +113,3 @@ gem 'css_splitter'
 
 # XML parsing
 gem 'nokogiri'
-
-# Application servers. Only one of these will be needed in the end (!)
-#gem 'puma'
-#gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
