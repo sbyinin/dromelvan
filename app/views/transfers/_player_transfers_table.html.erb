@@ -8,8 +8,7 @@
     <%= render 'transfers/player_transfers_table_header' %>
   </thead>
   <tbody>    
-    <% non_dummy_transfers.each do |transfer|
-        total = total + transfer.fee %>    
+    <% non_dummy_transfers.each do |transfer| %>    
       <%= render 'transfers/player_transfers_table_row', transfer: transfer %>
     <% end %>
   </tbody>
