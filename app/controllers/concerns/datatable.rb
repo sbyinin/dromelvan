@@ -29,7 +29,6 @@ private
     objects = params[:order].present? ? table_scope.reorder("#{sort_params(sort_column.to_s)}") : table_scope
     objects = objects.page(page).per_page(per_page)
     if params[:search].present?
-      puts(params[:search])
       search_params = params[:search]["value"].split
 
       # This bit turns search_params 'Foo', 'Bar' and filter_columns 'A','B','C' into
