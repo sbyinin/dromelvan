@@ -8,7 +8,7 @@ module NameScope
         name_terms = name.split
         name_count = name_terms.length
         
-        where( [(['(name LIKE ?)'] * name_count).join(' AND ')] + name_terms.map { |name_term| "%#{name_term}%" } )
+        where( [(['(lower(name) LIKE lower(?))'] * name_count).join(' AND ')] + name_terms.map { |name_term| "%#{name_term}%" } )
       else
         none
       end      
