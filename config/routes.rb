@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   get '/search' => 'search#search'
   get '/live_search' => 'search#live_search'
 
+  match "/404", to: "errors#not_found", via: :all
+  match "/422", to: "errors#rejected_change", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
+
   devise_for :users, skip: :registrations, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   devise_scope :user do
     resource :registration,

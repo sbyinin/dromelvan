@@ -97,7 +97,7 @@ class ApplicationController < ActionController::Base
   
   private
     def not_found
-      render '/public/404', status: :not_found
+      render template: 'errors/not_found', status: :not_found
     end
     
     def authorize_administrator

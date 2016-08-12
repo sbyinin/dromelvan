@@ -1,0 +1,14 @@
+<div class="error-page-div">
+  <h1>Robbie Is Sorry...</h1>
+  
+  <div class="section">
+    <div class="context-image-container">
+      <%= image_tag "context/error_page.png", alt: "Sad Robbie Savage. Give him a hug." %>
+    </div>
+    <div class="error-message">
+       <p>...but he cannot give you the page you were looking for.</p>
+       <p>The actual error code returned was:</p>
+       <p class="error-code"><span class="error-code"><%= error_code %></span> <%= error_text %></p>    
+    </div>
+  </div>
+</div>

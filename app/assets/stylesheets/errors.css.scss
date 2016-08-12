@@ -1,0 +1,29 @@
+div.error-page-div {
+    h1 {
+        font-size: 40px;
+        margin-bottom: 30px;
+    }
+    
+    div.context-image-container {
+        @extend .col-sm-5;
+        @extend .col-md-4;
+        margin-bottom: 30px;
+    }
+    
+    div.error-message {
+        @extend .col-sm-7;
+        @extend .col-md-8;
+        
+        p {
+            font-size: 20px;
+        }
+        
+        p.error-code {
+            font-size: 30px;
+            span.error-code {
+                font-style: italic;
+                font-size: 100px;
+            }
+        }
+    }
+}

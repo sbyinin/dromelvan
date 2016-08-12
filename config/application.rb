@@ -30,6 +30,8 @@ module Dromelvan
       end
     end
      
-    config.version = File.read('.version')    
+    config.version = File.read('.version')
+    
+    config.exceptions_app = self.routes    
   end
 end
