@@ -14,6 +14,21 @@ class Transfer < ActiveRecord::Base
   validates :fee, numericality: { greater_than_or_equal_to: 0 }
   validate  :validate_fee
   
+  def Transfer.create_for(transfer_day)
+    TransferBid.where(transfer_day: transfer_day, successful: true).each do |transfer_bid|
+      transfer = Transfer.new(transfer_day: transfer_day)
+      transfer.player = transfer_bid.player
+      transfer.d11_team = transfer_bid.d11_team
+      transfer.fee = transfer_bid.fee
+      transfer.save
+      
+      player_season_info = PlayerSeasonInfo.where(player: transfer.player, season: transfer_day.transfer_window.season).take
+      player_season_info.d11_team = transfer.d11_team
+      player_season_info.value = transfer.fee
+      player_season_info.save
+    end
+  end
+  
   private
     def init
       self.fee ||= 0
