@@ -38,7 +38,7 @@ private
       fetch_params = []
       fetch_query = ""
       filter_columns.each do | search_column|
-        fetch_query << search_column + " like ?"
+        fetch_query << "lower (" + search_column + ") like lower(?)"
         if search_column != filter_columns[-1]
           fetch_query << " or "
         end
