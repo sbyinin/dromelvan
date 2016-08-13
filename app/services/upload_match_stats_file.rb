@@ -82,7 +82,7 @@ class UploadMatchStatsFile < UploadXMLFile
         end
         
         player_match_stats.values.each do |player_match_stat|
-          if player_match_stat.defender?
+          if player_match_stat.position.defender?
             player_match_stat.goals_conceded = @match.goals_against(player_match_stat.team)
           end          
           player_match_stat.save
