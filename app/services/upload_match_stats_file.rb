@@ -62,6 +62,8 @@ class UploadMatchStatsFile < UploadXMLFile
             player_match_stat.goals += 1
           end
         end
+        # Do valid? to make sure match.update_goals is done before player stats is calculated.
+        match.valid?
 
         match_data[:cards].each do |card_data|
           player_match_stat = player_match_stats[card_data[:whoscored_id]]
