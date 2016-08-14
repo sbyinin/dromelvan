@@ -3,6 +3,7 @@ class PlayerCareerStat < ActiveRecord::Base
 
   after_initialize :init_career_stats
   before_validation :summarize_career_stats
+  after_create :do_after_create
 
   validates :seasons, numericality: { greater_than_or_equal_to: 0 }
   validates :points_per_season, presence: true, numericality: { only_integer: true }
@@ -53,5 +54,8 @@ class PlayerCareerStat < ActiveRecord::Base
       self.seasons ||= 0
       self.points_per_season ||= 0
     end
-      
+  
+    def do_after_create
+      PlayerCareerStat.update_rankings
+    end      
 end

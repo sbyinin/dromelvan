@@ -15,10 +15,7 @@ class PlayersController < ApplicationController
 
   def create
     super
-    player_season_info = PlayerSeasonInfo.new(player: @player, season: Season.current)
-    player_season_info.update_attributes(player_season_info_params)    
-    PlayerSeasonStat.create(player: @player, season: Season.current)
-    PlayerCareerStat.create(player: @player)    
+    @player.season_info(Season.current).update_attributes(player_season_info_params)
   end
   
   def ajax_params

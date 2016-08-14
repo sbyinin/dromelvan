@@ -8,6 +8,7 @@ class PlayerSeasonStat < ActiveRecord::Base
  
   after_initialize :init_form_points
   before_validation :summarize_form_points
+  after_create :do_after_create
   
   validates :season, presence: true
   validates :form_points, presence: true, numericality: { only_integer: true }
@@ -53,5 +54,9 @@ class PlayerSeasonStat < ActiveRecord::Base
   
     def init_form_points
       self.form_points ||= 0
-    end    
+    end
+    
+    def do_after_create
+      PlayerSeasonStat.update_rankings(self.season)
+    end
 end

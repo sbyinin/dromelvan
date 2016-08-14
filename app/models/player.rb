@@ -23,6 +23,7 @@ class Player < ActiveRecord::Base
   
   after_initialize :init
   before_validation :parameterize_name
+  after_create :do_after_create
 
   default_scope -> { order(last_name: :asc, first_name: :asc) }
 
@@ -112,5 +113,11 @@ class Player < ActiveRecord::Base
 
     def parameterize_name
       self.parameterized_name = self.name.strip.parameterize
+    end
+    
+    def do_after_create
+      PlayerSeasonInfo.create(player: self, season: Season.current)
+      PlayerSeasonStat.create(player: self, season: Season.current)
+      PlayerCareerStat.create(player: self)          
     end
 end
