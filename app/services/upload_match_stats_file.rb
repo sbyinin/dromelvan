@@ -63,6 +63,7 @@ class UploadMatchStatsFile < UploadXMLFile
           end
         end
         # Do valid? to make sure match.update_goals is done before player stats are calculated.
+        @match.status = :finished
         @match.valid?
 
         match_data[:cards].each do |card_data|
@@ -104,7 +105,6 @@ class UploadMatchStatsFile < UploadXMLFile
           #D11TeamTableStat.update_stats_from(d11_match)
         end
         
-        @match.status = :finished
         @match.save
         
 #        PlayerSeasonStat.update_rankings(@match.match_day.premier_league.season)
