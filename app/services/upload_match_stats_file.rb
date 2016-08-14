@@ -62,7 +62,7 @@ class UploadMatchStatsFile < UploadXMLFile
             player_match_stat.goals += 1
           end
         end
-        # Do valid? to make sure match.update_goals is done before player stats is calculated.
+        # Do valid? to make sure match.update_goals is done before player stats are calculated.
         @match.valid?
 
         match_data[:cards].each do |card_data|
@@ -245,7 +245,7 @@ class UploadMatchStatsFile < UploadXMLFile
           player_name = player_match_statistics.xpath("player").text
           player = Player.where(whoscored_id: whoscored_id).take
           if player.nil?
-            team_validation_result[:missing_players].concat [ { whoscored_id: whoscored_id, name: player_name, team: team, alternative_players: Player.named(player_name) } ]
+            team_validation_result[:missing_players].concat [ { whoscored_id: whoscored_id, name: player_name, team: team, alternative_players: Player.named(player_name, :or) } ]
           else
             player_season_info = PlayerSeasonInfo.where(player: player, season: Season.current).take
             if player_season_info.nil?

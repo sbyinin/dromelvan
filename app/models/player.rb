@@ -72,7 +72,7 @@ class Player < ActiveRecord::Base
     form_player_match_stats
   end
   
-  def Player.named(name)
+  def Player.named(name, join = :and)
     if !name.blank? then
       if name.match('\"(.*)\"') then
         where(parameterized_name: name.parameterize)
@@ -86,7 +86,7 @@ class Player < ActiveRecord::Base
         # This makes an array ['f_n like ? or l_n like ? or p_n like ?', 'f_n like ? or l_n like ? or p_n like ?',] etc with name_count entries. It then joins them with AND,
         # creating ['f_n like ? or l_n like ? or p_n like ? AND f_n like ? or l_n like ? or p_n like ?',] etc. It then adds the search terms creating the final parameter for where:
         # ['f_n like ? or l_n like ? or p_n like ? AND f_n like ? or l_n like ? or p_n like ?', 'foo', 'foo', 'foo', 'bar', 'bar', 'bar']
-        where( [(['(first_name LIKE ? OR last_name LIKE ? OR parameterized_name LIKE ?)'] * name_count).join(' AND ')] + name_terms.map { |name_term| "%#{name_term}%" } )
+        where( [(['(lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR parameterized_name LIKE ?)'] * name_count).join((join == :and ? ' AND ' : ' OR '))] + name_terms.map { |name_term| "%#{name_term.parameterize}%" } )
       end      
     else
       # No point doing a DB query if the search term is blank. We'll just return an empty relation instead.
