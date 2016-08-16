@@ -126,6 +126,11 @@ body {
                 padding: 7px 15px;
             }
         }
+        
+        p.active-match-day {
+            font-style: italic;
+            color: $negative-color;
+        }
     }
     
     div.section {

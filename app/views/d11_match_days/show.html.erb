@@ -16,6 +16,10 @@
   <% end %>
 </p>
 
+<% if @d11_match_day.match_day.active? %>
+<p class="active-match-day">This match day is active and the ratings and results are not yet final.</p>
+<% end %>
+
 <div class="section">
   <% cache [ @d11_match_day, :d11_match_day_fixtures ] do %>
   <%= render 'd11_match_days/d11_match_day_fixtures', d11_match_day: @d11_match_day %>

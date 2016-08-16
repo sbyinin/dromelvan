@@ -16,6 +16,10 @@
   <% end %>
 </p>
 
+<% if @match_day.active? %>
+<p class="active-match-day">This match day is active and the ratings and results are not yet final.</p>
+<% end %>
+
 <%= render 'toggle_all_match_details_script' %>
 
 <div class="section">
