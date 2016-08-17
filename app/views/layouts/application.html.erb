@@ -34,7 +34,11 @@
           <%= render 'layouts/validation_errors', resource: value %>
         <% elsif key != 'notice' %>
           <div class="alert alert-<%= key %>">
-            <%= value %>
+            <% if !value.kind_of?(Array) %>
+              <%= value %>
+            <% else %>
+              <%= value.join("<br>").html_safe %>
+            <% end %>
           </div>
         <% end %>
       <% end %>      

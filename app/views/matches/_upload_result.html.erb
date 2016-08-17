@@ -56,21 +56,11 @@
     <h4>Alternatives:</h4>
     <ul class="context-links">
     <% missing_player[:alternative_players].each do |alternative_player| %>
-    <li><%= render alternative_player, max_length: 22 %> <% if !alternative_player.whoscored_id.nil? %>(<%=render 'players/whoscored_link', whoscored_id: alternative_player.whoscored_id %>)<% end %> <%= render 'players/context_menu', player: alternative_player %></li>
+    <% alternative_player_season_info = alternative_player.season_info(Season.current) %> 
+    <li><%= render alternative_player, max_length: 22 %><% if !alternative_player_season_info.nil? %> (<%= alternative_player_season_info.team.code %>)<% end %><% if !alternative_player.whoscored_id.nil? %> (<%=render 'players/whoscored_link', whoscored_id: alternative_player.whoscored_id %>)<% end %> <%= render 'players/context_menu', player: alternative_player %></li>
     <% end %>
     </ul>
     <% end %>
-  </div>
-  <% end %>
-  <% if upload_result[:data_errors][:missing_player_season_infos] %>
-  <div class="related-section">
-    <h2>Missing Season Info</h2>
-    <p>Season information for the following players could not be found.</p>
-    <ul class="context-links">
-    <% upload_result[:data_errors][:missing_player_season_infos].each do |player| %>
-    <li><%= render player, max_length: 22 %> (<%= render 'players/whoscored_link', whoscored_id: player.whoscored_id %>) <%= render 'players/context_menu', player: player %></li>
-    <% end %>
-    </ul>
   </div>
   <% end %>
   <% if upload_result[:data_errors][:invalid_player_season_infos] %>

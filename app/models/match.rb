@@ -24,7 +24,6 @@ class Match < ActiveRecord::Base
   after_initialize :init
   before_validation :update_default_properties, on: :create
   before_validation :update_elapsed, :update_goals
-  after_save :do_after_save
 
   validates :home_team, presence: true
   validates :away_team, presence: true
@@ -175,8 +174,4 @@ class Match < ActiveRecord::Base
       end
     end
     
-    def do_after_save
-      PlayerSeasonStat.update_rankings(self.match_day.premier_league.season)
-      PlayerCareerStat.update_rankings
-    end  
 end
