@@ -23,16 +23,19 @@ describe "Season", type: :view do
       let!(:d11_team3) { FactoryGirl.create(:d11_team) }
       let!(:d11_team_table_stat3) { FactoryGirl.create(:d11_team_table_stat, d11_team: d11_team3, d11_league: d11_league, d11_match_day: d11_match_day, ranking: 3) }      
       let!(:player1) { FactoryGirl.create(:player) }
-      let!(:player_season_stat1) { FactoryGirl.create(:player_season_stat, player: player1, season: season, ranking: 1) }
+      #let!(:player_season_stat1) { FactoryGirl.create(:player_season_stat, player: player1, season: season, ranking: 1) }
       let!(:player_season_info1) { FactoryGirl.create(:player_season_info, player: player1, season: season) }
       let!(:player2) { FactoryGirl.create(:player) }
-      let!(:player_season_stat2) { FactoryGirl.create(:player_season_stat, player: player2, season: season, ranking: 2) }
+      #let!(:player_season_stat2) { FactoryGirl.create(:player_season_stat, player: player2, season: season, ranking: 2) }
       let!(:player_season_info2) { FactoryGirl.create(:player_season_info, player: player2, season: season) }
       let!(:player3) { FactoryGirl.create(:player) }
-      let!(:player_season_stat3) { FactoryGirl.create(:player_season_stat, player: player3, season: season, ranking: 3) }
+      #let!(:player_season_stat3) { FactoryGirl.create(:player_season_stat, player: player3, season: season, ranking: 3) }
       let!(:player_season_info3) { FactoryGirl.create(:player_season_info, player: player3, season: season) }
       
-      before do
+      before do        
+        player1.season_stat(season).ranking = 1
+        player2.season_stat(season).ranking = 2
+        player3.season_stat(season).ranking = 3
         visit seasons_path
       end
         
@@ -57,8 +60,8 @@ describe "Season", type: :view do
       it { is_expected.to have_selector('div.most-valuable-player h3', text: "#{player1.name} (#{player_season_info1.team.code})") }      
       it { is_expected.to within(:css, 'div.most-valuable-player h3') { have_link(player1.name, player1) } }
       it { is_expected.to have_selector('div.most-valuable-player p.most-valuable-player', text: "Most Valuable Player") }
-      it { is_expected.to have_selector('div.most-valuable-player p.stats span.points', text: "#{player_season_stat1.points} points") }
-      it { is_expected.to have_selector('div.most-valuable-player p.stats span.goals', text: "#{player_season_stat1.goals} goals") }
+      it { is_expected.to have_selector('div.most-valuable-player p.stats span.points', text: "#{player1.season_stat(season).points} points") }
+      it { is_expected.to have_selector('div.most-valuable-player p.stats span.goals', text: "#{player1.season_stat(season).goals} goals") }
       
       it { is_expected.to have_selector('div.runners-up h3', text: "Runners Up") }
       # Have to use d11_league.name since the ö in "Drömelvan" for some reason screws things up.

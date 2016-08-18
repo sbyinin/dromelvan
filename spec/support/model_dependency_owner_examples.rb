@@ -11,7 +11,7 @@ shared_examples_for "all dependency owners" do
 
   describe "#destroy" do
     specify do
-      expect do
+      expect do        
         owner.destroy
       end.to raise_error(ActiveRecord::DeleteRestrictionError)                    
     end

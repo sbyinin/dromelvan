@@ -138,17 +138,20 @@ describe PlayerSeasonStat, type: :model do
       let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, player: player1, match: match, lineup: :starting_lineup, position: position) }
       let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: player2, match: match, lineup: :starting_lineup, position: position, goals: 1) }
       let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, player: player3, match: match, lineup: :starting_lineup, position: position, goals: 2) }
-      let!(:player_season_stats1) { FactoryGirl.create(:player_season_stat, player: player1, season: season) }
-      let!(:player_season_stats2) { FactoryGirl.create(:player_season_stat, player: player2, season: season) }
-      let!(:player_season_stats3) { FactoryGirl.create(:player_season_stat, player: player3, season: season) }    
+      #let!(:player_season_stats1) { FactoryGirl.create(:player_season_stat, player: player1, season: season) }
+      #let!(:player_season_stats2) { FactoryGirl.create(:player_season_stat, player: player2, season: season) }
+      #let!(:player_season_stats3) { FactoryGirl.create(:player_season_stat, player: player3, season: season) }    
       
       before do
+        player1.season_stat(season).save
+        player2.season_stat(season).save
+        player3.season_stat(season).save        
         PlayerSeasonStat.update_rankings(season)
       end
       
-      specify { expect(player_season_stats1.reload.ranking).to eq 3 }
-      specify { expect(player_season_stats2.reload.ranking).to eq 2 }
-      specify { expect(player_season_stats3.reload.ranking).to eq 1 }
+      specify { expect(player1.season_stat(season).reload.ranking).to eq 3 }
+      specify { expect(player2.season_stat(season).reload.ranking).to eq 2 }
+      specify { expect(player3.season_stat(season).reload.ranking).to eq 1 }
     end
   end
   

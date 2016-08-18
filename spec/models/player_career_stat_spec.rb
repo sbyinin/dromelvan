@@ -131,24 +131,31 @@ describe PlayerCareerStat, type: :model do
     end
     
     describe "after destroy_all" do
+      let!(:season) { FactoryGirl.create(:season) }
+      let!(:premier_league) { FactoryGirl.create(:premier_league, season: season) }
+      let!(:match_day) { FactoryGirl.create(:match_day, premier_league: premier_league) }
+      let!(:match) { FactoryGirl.create(:match, match_day: match_day) }      
       let!(:player1) { FactoryGirl.create(:player) }
       let!(:player2) { FactoryGirl.create(:player) }
       let!(:player3) { FactoryGirl.create(:player) }
       let!(:position) { FactoryGirl.create(:position) }
-      let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, player: player1, lineup: :starting_lineup, position: position) }
-      let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: player2, lineup: :starting_lineup, position: position, goals: 1) }
-      let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, player: player3, lineup: :starting_lineup, position: position, goals: 2) }
-      let!(:player_career_stats1) { FactoryGirl.create(:player_career_stat, player: player1) }
-      let!(:player_career_stats2) { FactoryGirl.create(:player_career_stat, player: player2) }
-      let!(:player_career_stats3) { FactoryGirl.create(:player_career_stat, player: player3) }    
+      let!(:player_match_stat1) { FactoryGirl.create(:player_match_stat, player: player1, match: match, lineup: :starting_lineup, position: position) }
+      let!(:player_match_stat2) { FactoryGirl.create(:player_match_stat, player: player2, match: match, lineup: :starting_lineup, position: position, goals: 1) }
+      let!(:player_match_stat3) { FactoryGirl.create(:player_match_stat, player: player3, match: match, lineup: :starting_lineup, position: position, goals: 2) }
+      #let!(:player_career_stats1) { FactoryGirl.create(:player_career_stat, player: player1) }
+      #let!(:player_career_stats2) { FactoryGirl.create(:player_career_stat, player: player2) }
+      #let!(:player_career_stats3) { FactoryGirl.create(:player_career_stat, player: player3) }    
       
       before do
+        PlayerCareerStat.all.each do |player_career_stat|
+          player_career_stat.save
+        end
         PlayerCareerStat.update_rankings
       end
       
-      specify { expect(player_career_stats1.reload.ranking).to eq 3 }
-      specify { expect(player_career_stats2.reload.ranking).to eq 2 }
-      specify { expect(player_career_stats3.reload.ranking).to eq 1 }
+      specify { expect(PlayerCareerStat.where(player: player1).first.reload.ranking).to eq 3 }
+      specify { expect(PlayerCareerStat.where(player: player2).first.reload.ranking).to eq 2 }
+      specify { expect(PlayerCareerStat.where(player: player3).first.reload.ranking).to eq 1 }
     end
   end  
   

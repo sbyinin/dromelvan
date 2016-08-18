@@ -5,6 +5,11 @@ shared_examples_for "show view" do |resource_class, selector|
 
   before do
     visit polymorphic_path(resource)
+    if resource.is_a?(Player)
+      resource.player_season_infos.delete_all
+      resource.player_season_stats.delete_all
+      PlayerCareerStat.where(player: resource).delete_all          
+    end
   end
 
   it { is_expected.to have_selector("div.#{resource.class.table_name.dasherize}.show##{resource.id}") }
