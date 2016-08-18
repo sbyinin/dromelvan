@@ -1,6 +1,11 @@
 class PlayerSeasonInfosController < ApplicationController
   layout "modal", only: [ :edit ]
   before_action :authorize_administrator, only: [:new, :create, :edit, :update, :delete, :create_current]
+
+  def edit
+    super
+    @player = @player_season_info.player
+  end
   
   def update
     if !administrator_signed_in?

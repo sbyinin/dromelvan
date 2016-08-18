@@ -18,6 +18,14 @@ class PlayersController < ApplicationController
     @player.season_info(Season.current).update_attributes(player_season_info_params)
   end
   
+  def update_whoscored_id
+    @player = Player.find(params[:id])
+    old_whoscored_id = @player.whoscored_id
+    @player.update_attributes(params.permit(:whoscored_id))
+    flash[:success] = "Whoscored id changed from #{old_whoscored_id} to #{@player.whoscored_id}."
+    redirect_to @player
+  end
+  
   def ajax_params
     params.permit(:country_id)
   end

@@ -57,7 +57,7 @@
     <ul class="context-links">
     <% missing_player[:alternative_players].each do |alternative_player| %>
     <% alternative_player_season_info = alternative_player.season_info(Season.current) %> 
-    <li><%= render alternative_player, max_length: 22 %><% if !alternative_player_season_info.nil? %> (<%= alternative_player_season_info.team.code %>)<% end %><% if !alternative_player.whoscored_id.nil? %> (<%=render 'players/whoscored_link', whoscored_id: alternative_player.whoscored_id %>)<% end %> <%= render 'players/context_menu', player: alternative_player %></li>
+    <li><%= render alternative_player, max_length: 22 %><% if !alternative_player_season_info.nil? %> (<%= alternative_player_season_info.team.code %>)<% end %><% if !alternative_player.whoscored_id.nil? %> (<%=render 'players/whoscored_link', whoscored_id: alternative_player.whoscored_id %>)<% end %> <%= render 'players/context_menu', player: alternative_player, whoscored_id: missing_player[:whoscored_id] %></li>
     <% end %>
     </ul>
     <% end %>
