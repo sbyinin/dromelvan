@@ -5,9 +5,9 @@ class UploadXMLFile
     upload_result = {}
     upload_result[:validation_errors] = validate_xml(xml)
     if !upload_result[:validation_errors].any?
-      upload_result[:data_errors] = validate_data(xml)
-      if !upload_result[:data_errors].any?
-        upload_result[:data_updates] = handle_data(xml)
+      upload_result[:data_errors], upload_result[:missing_players] = validate_data(xml)
+      if !upload_result[:data_errors].any? && !upload_result[:missing_players].any?
+        upload_result[:data_updates] = update_data(xml)
       end
     end
     upload_result

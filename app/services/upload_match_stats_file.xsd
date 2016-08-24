@@ -1,47 +1,101 @@
-<xs:schema xmlns:d11="http://jaxb.dromelvan.org" 
+<xs:schema xmlns:d11="http://match.jaxb.tools.dromelvan.org" 
            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-           targetNamespace="http://jaxb.dromelvan.org"
+           targetNamespace="http://match.jaxb.tools.dromelvan.org"
            elementFormDefault="qualified">
 
-    <xs:element name="match" type="d11:PLMatch"/>  
-    
-    <xs:complexType name="PLMatch">
+    <xs:element name="match" type="d11:Match"/>
+
+    <xs:complexType name="Match">            
         <xs:sequence>   
-            <xs:element name="homeTeam" type="d11:PLTeam"/>
-            <xs:element name="awayTeam" type="d11:PLTeam"/>       
-        </xs:sequence>
-    </xs:complexType>
-    
-    <xs:complexType name="PLTeam">
-        <xs:sequence>
-            <xs:element name="name" type="xs:string"/>
-            <xs:element name="players" type="d11:players" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="goals" type="d11:goals" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="cards" type="d11:cards" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="substitutions" type="d11:substitutions" minOccurs="1" maxOccurs="1"/>
-        </xs:sequence>
-    </xs:complexType>
-    
-    <xs:complexType name="PlayerMatchStatistics">
-        <xs:sequence>
-            <xs:element name="player" type="xs:string" minOccurs="1" maxOccurs="1"/>       
-            <xs:element name="whoScoredId" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/> 
-            <xs:element name="participated" type="d11:participation" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="assists" type="d11:assist" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="rating" type="d11:rating" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="whoScoredId" type="d11:whoScoredId" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="teams" type="d11:Teams" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="playerMatchStats" type="d11:PlayerMatchStats" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="goals" type="d11:Goals" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="cards" type="d11:Cards" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="substitutions" type="d11:Substitutions" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:simpleType name="participation">
+    <xs:simpleType name="whoScoredId">
+        <xs:restriction base="xs:nonNegativeInteger"/>
+    </xs:simpleType>
+    
+    <xs:complexType name="Teams">
+        <xs:sequence>
+            <xs:element name="homeTeam" type="d11:Team" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="awayTeam" type="d11:Team" minOccurs="1" maxOccurs="1"/>       
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Team">
+        <xs:sequence>
+            <xs:element name="whoScoredId" type="d11:whoScoredId" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>            
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="Player">
+        <xs:sequence>
+            <xs:element name="whoScoredId" type="d11:whoScoredId" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>            
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="PlayerMatchStats">
+        <xs:sequence>
+            <xs:element name="playerMatchStat" type="d11:PlayerMatchStat" minOccurs="1" maxOccurs="36"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PlayerMatchStat">
+        <xs:sequence>
+            <xs:element name="player" type="d11:Player" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="team" type="d11:Team" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="lineup" type="d11:lineup" minOccurs="1" maxOccurs="1"/>            
+            <xs:element name="substitutionOnTime" type="d11:time" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="substitutionOffTime" type="d11:time" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="goalsScored" type="d11:goalsScored" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="goalAssists" type="d11:goalAssists" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="ownGoals" type="d11:goalAssists" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="goalsConceded" type="d11:goalsConceded" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="yellowCardTime" type="d11:time" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="redCardTime" type="d11:time" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="manOfTheMatch" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="sharedManOfTheMatch" type="xs:boolean" minOccurs="1" maxOccurs="1"/>            
+            <xs:element name="rating" type="d11:rating" minOccurs="1" maxOccurs="1"/>            
+            <xs:element name="playedPosition" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="position" type="d11:position" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="lineup">
         <xs:restriction base="xs:nonNegativeInteger">
             <xs:maxInclusive value="2"/>
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="assist">
+    <xs:simpleType name="goalsScored">
         <xs:restriction base="xs:nonNegativeInteger">
             <!-- The reason for the max inclusive value is to make the xjc compiler turn this into an int
-                 instead of a BigInteger. It's pretty hard to manage more than 50 assists in one match. -->
+                 instead of a BigInteger. It's pretty hard to manage more than 50 goals in one match. -->
+            <xs:maxInclusive value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="goalAssists">
+        <xs:restriction base="xs:nonNegativeInteger">
+            <xs:maxInclusive value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="goalsConceded">
+        <xs:restriction base="xs:nonNegativeInteger">
+            <xs:maxInclusive value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ownGoals">
+        <xs:restriction base="xs:nonNegativeInteger">
             <xs:maxInclusive value="50"/>
         </xs:restriction>
     </xs:simpleType>
@@ -51,35 +105,41 @@
             <xs:maxInclusive value="1000"/>
         </xs:restriction>
     </xs:simpleType>
-
-    <xs:complexType name="players">
+           
+    <xs:simpleType name="position">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:maxInclusive value="6"/>
+        </xs:restriction>
+    </xs:simpleType>
+           
+    <xs:complexType name="Goals">
         <xs:sequence>
-            <xs:element name="playerMatchStatistics" type="d11:PlayerMatchStatistics" minOccurs="11" maxOccurs="18"/>
+            <xs:element name="goal" type="d11:Goal"  minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-
-    <xs:complexType name="goal">
+           
+    <xs:complexType name="Goal">
         <xs:sequence>
-            <xs:element name="player" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="whoScoredId" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="player" type="d11:Player" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="team" type="d11:Team" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="time" type="d11:time" minOccurs="1" maxOccurs="1"/>
             <xs:element name="penalty" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
             <xs:element name="ownGoal" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="time" type="d11:time" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
-
-    <xs:complexType name="goals">
+           
+    <xs:complexType name="Cards">
         <xs:sequence>
-            <xs:element name="goal" type="d11:goal" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="card" type="d11:Card"  minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-
-    <xs:complexType name="card">
+           
+    <xs:complexType name="Card">
         <xs:sequence>
-            <xs:element name="player" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="whoScoredId" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="type" type="d11:cardType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="player" type="d11:Player" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="team" type="d11:Team" minOccurs="1" maxOccurs="1"/>
             <xs:element name="time" type="d11:time" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="cardType" type="d11:cardType" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -90,32 +150,26 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="cards">
+    <xs:complexType name="Substitutions">
         <xs:sequence>
-            <xs:element name="card" type="d11:card" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="substitution" type="d11:Substitution"  minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="substitution">
+    <xs:complexType name="Substitution">
         <xs:sequence>
-            <xs:element name="playerOut" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="playerIn" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="playerOutWhoScoredId" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="playerInWhoScoredId" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="playerOn" type="d11:Player" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="playerOff" type="d11:Player" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="team" type="d11:Team" minOccurs="1" maxOccurs="1"/>
             <xs:element name="time" type="d11:time" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
-
-    <xs:complexType name="substitutions">
-        <xs:sequence>
-            <xs:element name="substitution" type="d11:substitution" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
-
+           
     <xs:simpleType name="time">
-        <xs:restriction base="xs:positiveInteger">
+        <xs:restriction base="xs:nonNegativeInteger">
             <xs:maxInclusive value="90"/>
         </xs:restriction>
     </xs:simpleType>
-
+           
 </xs:schema>
+           

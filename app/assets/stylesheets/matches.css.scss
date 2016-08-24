@@ -199,4 +199,9 @@ div.matches.show {
             display: none !important;
         }        
     }
+    
+    div.missing-player {
+        @include make-md-column(4);
+        @include make-lg-column(3);        
+    }
 }

@@ -37,22 +37,11 @@ class MatchesController < ApplicationController
     begin
       match = Match.find(params[:id])
       session[:upload_result] = UploadMatchStatsFile.new(match).upload(match_stats_file)
-      
-      if !session[:upload_result][:validation_errors].any? && !session[:upload_result][:data_errors].any?
-        success_flash = [ "Match data updated." ]
-        session[:upload_result][:data_updates][:new_player_season_infos].each do |player_season_info|
-          success_flash.concat( [ "Added player #{player_season_info.player.name} (#{player_season_info.player.whoscored_id}) to team #{player_season_info.team.name}." ] )
-        end
-        session[:upload_result][:data_updates][:moved_player_season_infos].each do |moved_player_season_info|
-          old_team = moved_player_season_info[:old_team]
-          player_season_info = moved_player_season_info[:player_season_info]
-          success_flash.concat( [ "Moved player #{player_season_info.player.name} (D11 Team: #{player_season_info.d11_team.name}, whoscored_id: #{player_season_info.player.whoscored_id}) from team #{old_team.name} to team #{player_season_info.team.name}." ] )
-        end
-        session[:upload_result][:data_updates][:changed_whoscored_ids].each do |changed_whoscored_id|
-          success_flash.concat( [ "Changed whoscored id for player #{changed_whoscored_id[:player].name} from #{changed_whoscored_id[:old_whoscored_id]} to #{changed_whoscored_id[:player].whoscored_id}." ] )
-        end        
-        flash[:success] = success_flash
+
+      if !session[:upload_result][:validation_errors].any? && !session[:upload_result][:data_errors].any? && !session[:upload_result][:missing_players].any?
+        flash[:success] = [ "Match data updated." ].concat(session[:upload_result][:data_updates])
       end
+
       redirect_to match
     ensure
       # Not strictly necessary, just so we don't get loads and loads of files

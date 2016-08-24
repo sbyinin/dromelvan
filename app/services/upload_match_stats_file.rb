@@ -4,8 +4,84 @@ class UploadMatchStatsFile < UploadXMLFile
   end
   
   private
-    def handle_data(xml)
-      data_updates = {}
+    def validate_data(xml)
+      data_errors = []
+      missing_players = []
+      
+      xml.remove_namespaces!
+  
+      # Check that we have the right match.
+      match_whoscored_id = xml.xpath("/match/whoScoredId").text.to_i
+      if @match.whoscored_id != match_whoscored_id
+        data_errors.concat [ "Invalid match. The selected match has whoscored_id #{@match.whoscored_id} but the uploaded file contains data for match #{match_whoscored_id}." ]        
+      end
+      
+      # Check that the match has the right teams.
+      home_team_whoscored_id = xml.xpath("/match/teams/homeTeam/whoScoredId").text.to_i
+      if @match.home_team.whoscored_id != home_team_whoscored_id
+        data_errors.concat [ "Invalid team. The match home team has whoscored_id #{@match.home_team.whoscored_id} but the uploaded file contains home team whoscored_id #{home_team_whoscored_id}." ]        
+      end
+      away_team_whoscored_id = xml.xpath("/match/teams/awayTeam/whoScoredId").text.to_i
+      if @match.away_team.whoscored_id != away_team_whoscored_id
+        data_errors.concat [ "Invalid team. The match away team has whoscored_id #{@match.away_team.whoscored_id} but the uploaded file contains away team whoscored_id #{away_team_whoscored_id}." ]        
+      end
+      
+      # Check that all the players exist.
+      player_match_stats = {}
+      xml.xpath("/match/playerMatchStats/playerMatchStat").each do |player_match_stat|
+        player_whoscored_id = player_match_stat.xpath("player/whoScoredId").text.to_i
+        player_match_stats[player_whoscored_id] = player_match_stat
+        player = Player.where(whoscored_id: player_whoscored_id).first
+        if player.nil?
+          # If there's a player with the same parameterized name in the same team we're going to
+          # change that players whoscored_id when we insert the data so we won't bother marking him as missing.
+          player_name = player_match_stat.xpath("player/name").text
+          team_whoscored_id = player_match_stat.xpath("team/whoScoredId").text.to_i
+          position_id = player_match_stat.xpath("position").text.to_i
+          team_id = (@match.home_team.whoscored_id == team_whoscored_id ? @match.home_team_id : @match.away_team_id)
+          if !Player.joins(player_season_infos: :team).where(player_season_infos: { season_id: Season.current.id }, teams: {whoscored_id: team_whoscored_id}, parameterized_name: player_name.parameterize).any?
+              team_name = player_match_stat.xpath("team/name").text              
+              missing_players.concat [ { player_whoscored_id: player_whoscored_id, player_name: player_name, team_id: team_id, team_name: team_name, position_id: position_id, alternative_players: Player.named(player_name, :or) } ]
+          end          
+        end
+      end
+      
+      # The checks below are probably unnecessary as they most likely will never happen but just in case...
+      # Check that all match events have players and teams that take part in the match.
+      xml.xpath("/match/goals/goal | /match/cards/card | /match/substitutions/substitution").each do |match_event|
+        match_event.xpath("player | playerOn | playerOff").each do |player|
+          player_whoscored_id = player.xpath("whoScoredId").text.to_i
+          player_name = player.xpath("name").text
+          if player_match_stats[player_whoscored_id].nil?
+            data_errors.concat ["Invalid #{match_event.name}. Player #{player_name} (#{player_whoscored_id}) is referenced in a #{match_event.name} event but is not listed in any of the team squads."]
+          end          
+        end
+        team_whoscored_id = match_event.xpath("team/whoScoredId").text.to_i
+        team_name = match_event.xpath("team/name").text
+        if @match.home_team.whoscored_id != team_whoscored_id && @match.away_team.whoscored_id != team_whoscored_id
+          data_errors.concat ["Invalid #{match_event.name}. Team #{team_name} (#{team_whoscored_id}) is referenced in a #{match_event.name} event but is not one of the teams playing this match."]
+        end
+      end
+
+      # Check that own goals and penalties have the right teams and make sense.
+      xml.xpath("/match/goals/goal").each do |goal|
+        if goal.xpath("ownGoal").text == "true"        
+          player_whoscored_id = goal.xpath("player/whoScoredId").text.to_i        
+          player_match_stat = player_match_stats[player_whoscored_id]
+          if !player_match_stat.nil? && player_match_stat.xpath("team/whoScoredId").text == goal.xpath("team/whoScoredId").text
+            data_errors.concat ["Invalid own goal. Player #{goal.xpath("player/name").text} (#{player_whoscored_id}) is registered as having scored an own goal for his own team in this match."]
+          end
+          if goal.xpath("penalty").text == "true"
+            data_errors.concat ["Invalid own goal. Player #{goal.xpath("player/name").text} (#{player_whoscored_id}) is registered as having scored a penalty own goal."]
+          end
+        end        
+      end
+      
+      return data_errors, missing_players
+    end
+  
+    def update_data(xml)
+      data_updates = []
       Match.transaction do
         player_match_stats = {}
         @match.player_match_stats.each do |player_match_stat|
@@ -15,123 +91,108 @@ class UploadMatchStatsFile < UploadXMLFile
         @match.goals.delete_all
         @match.cards.delete_all
         @match.substitutions.delete_all
-        
-        match_data = parse_team_data(xml.xpath("//homeTeam"))
-        away_team_data = parse_team_data(xml.xpath("//awayTeam"))
-        match_data[:players].concat(away_team_data[:players])
-        match_data[:mom] = { @match.home_team => [], @match.away_team => []}
-        match_data[:goals].concat(away_team_data[:goals])
-        match_data[:cards].concat(away_team_data[:cards])
-        match_data[:substitutions].concat(away_team_data[:substitutions])
-
+        @match.status = :active
         season = @match.match_day.premier_league.season
         
-        data_updates[:new_player_season_infos] = []
-        data_updates[:moved_player_season_infos] = []
-        data_updates[:changed_whoscored_ids] = []
-        
-        match_data[:players].each do |player_data|
-          player = Player.where(whoscored_id: player_data[:whoscored_id]).take
-          
-          if player.nil?
-            player = Player.where(parameterized_name: player_data[:player_name].parameterize).take
+        xml.xpath("/match/playerMatchStats/playerMatchStat").each do |player_match_stat_xml|
+          whoscored_id = player_match_stat_xml.xpath("player/whoScoredId").text.to_i          
+          player = Player.where(whoscored_id: whoscored_id).take
+          team = Team.where(whoscored_id: player_match_stat_xml.xpath("team/whoScoredId").text.to_i).take
+
+          # If we can't find a player with a given whoscored_id, find the one with the same name in the same team and change his whoscored_id.
+          # If there is no such player then the validation will have failed before we get here.
+          if player.nil?            
+            player = Player.joins(player_season_infos: :team).where(player_season_infos: { season_id: Season.current.id }, teams: {whoscored_id: team.whoscored_id}, parameterized_name: player_match_stat_xml.xpath("player/name").text.parameterize).take
             old_whoscored_id = player.whoscored_id
-            player.whoscored_id = player_data[:whoscored_id]
+            player.whoscored_id = whoscored_id
             player.save
-            data_updates[:changed_whoscored_ids].concat([ { player: player, old_whoscored_id: old_whoscored_id } ])
+            data_updates.concat([ "Changed whoscored id for player #{player.name} from #{old_whoscored_id} to #{player.whoscored_id}." ])
             player_match_stats[player.whoscored_id] = player_match_stats[old_whoscored_id]
-            player_match_stats.delete(:old_whoscored_id)            
+            player_match_stats.delete(old_whoscored_id)            
           end
           
           player_season_info = player.season_info(season)
           
-          if player_season_info.nil?
+          # Add or move players who aren't registered for this season or who are registered for another team than
+          # the team the match file says theplayer is playing for in this match.
+          if player_season_info.nil?            
             previous_player_season_info = player.player_season_infos.first
             position = (!previous_player_season_info.nil? ? previous_player_season_info.position : Position.find(6))
-            player_season_info = PlayerSeasonInfo.create(player: player, season: season, team: player_data[:team], position: position)
+            player_season_info = PlayerSeasonInfo.create(player: player, season: season, team: team, position: position)
             PlayerSeasonStat.create(player: player, season: season)
-            data_updates[:new_player_season_infos].concat([ player_season_info ])  
-          elsif player_season_info.team != player_data[:team]
+            data_updates.concat([ "Added player #{player.name} (#{player.whoscored_id}) to team #{team.name}." ])
+          elsif player_season_info.team != team
             old_team = player_season_info.team
-            player_season_info.team = player_data[:team]            
+            player_season_info.team = team
             player_season_info.save
-            data_updates[:moved_player_season_infos].concat([ { player_season_info: player_season_info, old_team: old_team }])
-            
-            PlayerMatchStat.joins(:match).where(matches: { match_day_id: @match.match_day_id }, player_id: player_season_info.player_id).each do |player_match_stat|
+
+            # Remove existing player_match_stats for this match day so the player doesn't end up playing two matches for the same D11 team
+            # the same match day. NOTE: This means we have to change things manually before uploading postponed matches to avoid screwing things up.
+            PlayerMatchStat.joins(:match).where(matches: { match_day_id: @match.match_day_id }, player_id: player.id).each do |player_match_stat|
               if player_match_stat.match != @match
                 player_match_stat.delete
               end
-            end            
-          end
-          
-          player_match_stat = player_match_stats[player_data[:whoscored_id]]
-          if player_match_stat.nil?
-            player_season_info = PlayerSeasonInfo.where(player: player, season: season).take
-            player_match_stat = PlayerMatchStat.create(player: player, match: @match, team: player_season_info.team, d11_team: player_season_info.d11_team, position: player_season_info.position)
-            player_match_stats[player.whoscored_id] = player_match_stat
-          end
-          player_match_stat.lineup = player_data[:participated]
-          player_match_stat.goal_assists = player_data[:assists]
-          player_match_stat.rating = player_data[:rating]
-          
-          mom_player_match_stat = match_data[:mom][player_match_stat.team].first
-          if mom_player_match_stat.nil? || mom_player_match_stat.rating < player_match_stat.rating
-            match_data[:mom][player_match_stat.team] = [ player_match_stat ]
-          elsif mom_player_match_stat.rating == player_match_stat.rating
-            match_data[:mom][player_match_stat.team].concat([ player_match_stat ])
-          end
-        end
-        
-        match_data[:mom].values.each do |mom_player_match_stats|
-          mom_player_match_stats.each do |mom_player_match_stat|
-            if match_data[:mom][mom_player_match_stat.team].count > 1
-              mom_player_match_stat.shared_man_of_the_match = true
-            else
-              mom_player_match_stat.man_of_the_match = true
             end
+            data_updates.concat([ "Moved player #{player.name} (D11 Team: #{player_season_info.d11_team.name}, whoscored_id: #{player.whoscored_id}) from team #{old_team.name} to team #{team.name}." ])
           end
-        end        
-   
-        match_data[:goals].each do |goal_data|
-          player_match_stat = player_match_stats[goal_data[:whoscored_id]]
-          goal = Goal.create(match: @match, team: goal_data[:team], player: player_match_stat.player, time: goal_data[:time], added_time: 0, penalty: goal_data[:penalty], own_goal: goal_data[:own_goal])
-          if goal.own_goal?
-            player_match_stat.own_goals += 1
-          else
-            player_match_stat.goals += 1
+          
+          # Create player_match_stat for players who've been added to the match teams after the match day was activated.
+          player_match_stat = player_match_stats[whoscored_id]
+          if player_match_stat.nil?
+            player_match_stat = PlayerMatchStat.create(match: @match, player: player, team: team, d11_team: player_season_info.d11_team, position: player_season_info.position)
+            player_match_stats[whoscored_id] = player_match_stat
           end
-        end
-
-        match_data[:cards].each do |card_data|
-          player_match_stat = player_match_stats[card_data[:whoscored_id]]
-          card = Card.create(match: @match, team: card_data[:team], player: player_match_stat.player, time: card_data[:time], card_type: card_data[:type])
-          if card.yellow?
-            player_match_stat.yellow_card_time = card.time
-          else
-            player_match_stat.red_card_time = card.time
+          
+          # Update and save stats.
+          player_match_stat.played_position = player_match_stat_xml.xpath("playedPosition").text
+          player_match_stat.lineup = player_match_stat_xml.xpath("lineup").text.to_i
+          player_match_stat.substitution_on_time = player_match_stat_xml.xpath("substitutionOnTime").text.to_i
+          player_match_stat.substitution_off_time = player_match_stat_xml.xpath("substitutionOffTime").text.to_i
+          player_match_stat.goals = player_match_stat_xml.xpath("goalsScored").text.to_i          
+          player_match_stat.goal_assists = player_match_stat_xml.xpath("goalAssists").text.to_i
+          player_match_stat.own_goals = player_match_stat_xml.xpath("ownGoals").text.to_i                              
+          if player_match_stat.position.defender?
+            player_match_stat.goals_conceded = player_match_stat_xml.xpath("goalsConceded").text.to_i                              
           end
+          player_match_stat.yellow_card_time = player_match_stat_xml.xpath("yellowCardTime").text.to_i
+          player_match_stat.red_card_time = player_match_stat_xml.xpath("redCardTime").text.to_i                              
+          player_match_stat.man_of_the_match = player_match_stat_xml.xpath("manOfTheMatch").text == "true"
+          player_match_stat.shared_man_of_the_match = player_match_stat_xml.xpath("sharedManOfTheMatch").text == "true"
+          player_match_stat.rating = player_match_stat_xml.xpath("rating").text.to_i                              
+          
+          player_match_stat.save
+          PlayerSeasonStat.where(player: player, season: season).take.save
+          PlayerCareerStat.where(player: player).take.save          
         end
         
-        match_data[:substitutions].each do |substitution_data|
-          out_player_match_stat = player_match_stats[substitution_data[:out_whoscored_id]]
-          in_player_match_stat = player_match_stats[substitution_data[:in_whoscored_id]]
-          substitution = Substitution.create(match: @match, team: substitution_data[:team], player: out_player_match_stat.player, player_in: in_player_match_stat.player, time: substitution_data[:time])
-          out_player_match_stat.substitution_off_time = substitution.time
-          in_player_match_stat.substitution_on_time = substitution.time          
+        xml.xpath("/match/goals/goal").each do |goal|
+          player = Player.where(whoscored_id: goal.xpath("player/whoScoredId").text.to_i).first
+          team = Team.where(whoscored_id: goal.xpath("team/whoScoredId").text.to_i).first
+          time = goal.xpath("time").text.to_i
+          penalty = goal.xpath("penalty").text == "true"
+          own_goal = goal.xpath("ownGoal").text == "true"
+          Goal.create(match: @match, player: player, team: team, time: time, penalty: penalty, own_goal: own_goal)          
         end
 
+        xml.xpath("/match/cards/card").each do |card|
+          player = Player.where(whoscored_id: card.xpath("player/whoScoredId").text.to_i).first
+          team = Team.where(whoscored_id: card.xpath("team/whoScoredId").text.to_i).first
+          time = card.xpath("time").text.to_i
+          card_type = (card.xpath("cardType").text == "yellow" ? :yellow : :red)
+          Card.create(match: @match, player: player, team: team, time: time, card_type: card_type)          
+        end
+
+        xml.xpath("/match/substitutions/substitution").each do |substitution|
+          player_on = Player.where(whoscored_id: substitution.xpath("playerOn/whoScoredId").text.to_i).first
+          player_off = Player.where(whoscored_id: substitution.xpath("playerOff/whoScoredId").text.to_i).first
+          team = Team.where(whoscored_id: substitution.xpath("team/whoScoredId").text.to_i).first
+          time = substitution.xpath("time").text.to_i
+          Substitution.create(match: @match, player: player_off, player_in: player_on, team: team, time: time)          
+        end
+        
         @match.status = :finished
         @match.save
-        
-        player_match_stats.values.each do |player_match_stat|
-          if player_match_stat.position.defender?
-            player_match_stat.goals_conceded = @match.goals_against(player_match_stat.team)
-          end          
-          player_match_stat.save
-          PlayerSeasonStat.where(player: player_match_stat.player, season: season).take.save
-          PlayerCareerStat.where(player: player_match_stat.player).take.save
-        end
-                    
+
         PlayerSeasonStat.update_rankings(season)
         PlayerCareerStat.update_rankings                    
                         
@@ -144,178 +205,9 @@ class UploadMatchStatsFile < UploadXMLFile
             d11_team_match_squad_stat.save
           end
           d11_match.save
-        end
+        end        
       end
       data_updates
     end
-    
-    def parse_team_data(team_xml)
-      team_data = {}
-      team_name = team_xml.xpath("name").text
-      team = Team.where(name: team_name).take
-
-      team_data[:players] = []
-      team_xml.xpath("players/playerMatchStatistics").each do |player_match_statistic|
-        whoscored_id = player_match_statistic.xpath("whoScoredId").text.to_i
-        player_name = player_match_statistic.xpath("player").text
-        participated = player_match_statistic.xpath("participated").text.to_i
-        assists = player_match_statistic.xpath("assists").text.to_i
-        rating = player_match_statistic.xpath("rating").text.to_i
-
-        team_data[:players].concat([ { team: team, player_name: player_name, whoscored_id: whoscored_id, participated: participated, assists: assists, rating: rating } ])
-      end
-      
-      team_data[:goals] = []
-      team_xml.xpath("goals/goal").each do |goal|
-        whoscored_id = goal.xpath("whoScoredId").text.to_i
-        penalty = goal.xpath("penalty").text == "true"
-        own_goal = goal.xpath("ownGoal").text == "true"
-        time = goal.xpath("time").text.to_i
-        
-        team_data[:goals].concat([ { team: team, whoscored_id: whoscored_id, penalty: penalty, own_goal: own_goal, time: time } ])
-      end
-
-      team_data[:cards] = []
-      team_xml.xpath("cards/card").each do |card|
-        whoscored_id = card.xpath("whoScoredId").text.to_i
-        type = (card.xpath("type").text == "yellow" ? :yellow : :red)
-        time = card.xpath("time").text.to_i
-        
-        team_data[:cards].concat([ { team: team, whoscored_id: whoscored_id, type: type, time: time } ])
-      end
-
-      team_data[:substitutions] = []
-      team_xml.xpath("substitutions/substitution").each do |substitution|
-        out_whoscored_id = substitution.xpath("playerOutWhoScoredId").text.to_i
-        in_whoscored_id = substitution.xpath("playerInWhoScoredId").text.to_i
-        time = substitution.xpath("time").text.to_i
-        
-        team_data[:substitutions].concat([ { team: team, out_whoscored_id: out_whoscored_id, in_whoscored_id: in_whoscored_id, time: time } ])
-      end
-      team_data
-    end
-    
-    def validate_data(xml)
-      data_errors = {}
-      xml.remove_namespaces!
-      
-      home_team_xml = xml.xpath("//homeTeam")
-      away_team_xml = xml.xpath("//awayTeam")
   
-      home_team_validation_result = validate_team(home_team_xml)
-      away_team_validation_result = validate_team(away_team_xml)
-      
-      # Check own goals.
-      home_team_validation_result[:own_goal_players].each do |own_goal_player|        
-        if !away_team_validation_result[:whoscored_ids].include?(own_goal_player[:whoscored_id])
-          home_team_validation_result[:invalid_goal_players].concat [ own_goal_player ]              
-        end
-      end      
-      away_team_validation_result[:own_goal_players].each do |own_goal_player|
-        if !home_team_validation_result[:whoscored_ids].include?(own_goal_player[:whoscored_id])
-          away_team_validation_result[:invalid_goal_players].concat [ own_goal_player ]              
-        end
-      end
-      
-      # Check that we're uploading the correct match.
-      if !home_team_validation_result[:team].nil? && !away_team_validation_result[:team].nil?
-        if @match.home_team != home_team_validation_result[:team] || @match.away_team != away_team_validation_result[:team]
-          data_errors[:invalid_match] = { home_team: home_team_validation_result[:team], away_team: away_team_validation_result[:team] }
-        end
-      end
-
-      if home_team_validation_result[:missing_teams].any? || away_team_validation_result[:missing_teams].any?
-        data_errors[:missing_teams] = [].concat(home_team_validation_result[:missing_teams]).concat(away_team_validation_result[:missing_teams])
-      end
-      
-      if home_team_validation_result[:missing_players].any? || away_team_validation_result[:missing_players].any?
-        data_errors[:missing_players] = [].concat(home_team_validation_result[:missing_players]).concat(away_team_validation_result[:missing_players])
-      end
-
-      if home_team_validation_result[:invalid_goal_players].any? || away_team_validation_result[:invalid_goal_players].any?
-        data_errors[:invalid_goal_players] = [].concat(home_team_validation_result[:invalid_goal_players]).concat(away_team_validation_result[:invalid_goal_players])
-      end
-
-      if home_team_validation_result[:invalid_card_players].any? || away_team_validation_result[:invalid_card_players].any?
-        data_errors[:invalid_card_players] = [].concat(home_team_validation_result[:invalid_card_players]).concat(away_team_validation_result[:invalid_card_players])
-      end
-
-      if home_team_validation_result[:invalid_substitution_players].any? || away_team_validation_result[:invalid_substitution_players].any?
-        data_errors[:invalid_substitution_players] = [].concat(home_team_validation_result[:invalid_substitution_players]).concat(away_team_validation_result[:invalid_substitution_players])
-      end
-      
-      data_errors
-    end
-  
-    def validate_team(team_xml)
-      team_validation_result = {}      
-      team_validation_result[:missing_teams] = []
-      team_validation_result[:missing_players] = []
-      team_validation_result[:invalid_player_season_infos] = []
-      team_validation_result[:invalid_goal_players] = []
-      team_validation_result[:own_goal_players] = []
-      team_validation_result[:invalid_card_players] = []
-      team_validation_result[:invalid_substitution_players] = []      
-      team_validation_result[:whoscored_ids] = []
-      
-      team_name = team_xml.xpath("name").text
-      team = Team.where(name: team_name).take
-      if team.nil?
-        team_validation_result[:missing_teams].concat [ { team_name.to_sym => Team.named(team_name) } ]
-      else
-        team_validation_result[:team] = team
-        # Check that all players exist in the database with the given whoscored_id.
-        team_xml.xpath("players/playerMatchStatistics").each do |player_match_statistics|
-          whoscored_id = player_match_statistics.xpath("whoScoredId").text
-          player_name = player_match_statistics.xpath("player").text
-          player = Player.where(whoscored_id: whoscored_id).take          
-          if player.nil?
-            player = Player.where(parameterized_name: player_name.parameterize).take
-            if !PlayerSeasonInfo.joins(:team).where(season: Season.current, player: player, team: team).any?
-              team_validation_result[:missing_players].concat [ { whoscored_id: whoscored_id, name: player_name, team: team, alternative_players: Player.named(player_name, :or) } ]                        
-            end            
-          end
-          team_validation_result[:whoscored_ids].concat [ whoscored_id ]
-        end
-        
-        # Check that all non OG goals have a scorer that played for the current team.
-        # Own goals will have to be checked later.
-        team_xml.xpath("goals/goal").each do |goal|
-          whoscored_id = goal.xpath("whoScoredId").text
-          player_name = goal.xpath("player").text
-          own_goal = goal.xpath("ownGoal").text == "true"
-          if !own_goal
-            if !team_validation_result[:whoscored_ids].include?(whoscored_id)
-              team_validation_result[:invalid_goal_players].concat [ { whoscored_id: whoscored_id, name: player_name } ]              
-            end
-          else
-            team_validation_result[:own_goal_players].concat [ { whoscored_id: whoscored_id, name: player_name } ]              
-          end
-        end
-        
-        # Check that all subs and cards have players that played for the current team.
-        team_xml.xpath("cards/card").each do |card|
-          whoscored_id = card.xpath("whoScoredId").text
-          player_name = card.xpath("player").text
-          if !team_validation_result[:whoscored_ids].include?(whoscored_id)
-            team_validation_result[:invalid_card_players].concat [ { whoscored_id: whoscored_id, name: player_name } ]              
-          end
-        end
-
-        team_xml.xpath("substitutions/substitution").each do |substitution|
-          whoscored_id = substitution.xpath("playerOutWhoScoredId").text
-          player_name = substitution.xpath("playerOut").text
-          if !team_validation_result[:whoscored_ids].include?(whoscored_id)
-            team_validation_result[:invalid_substitution_players].concat [ { whoscored_id: whoscored_id, name: player_name } ]              
-          end
-          
-          whoscored_id = substitution.xpath("playerInWhoScoredId").text
-          player_name = substitution.xpath("playerIn").text
-          if !team_validation_result[:whoscored_ids].include?(whoscored_id)
-            team_validation_result[:invalid_substitution_players].concat [ { whoscored_id: whoscored_id, name: player_name } ]              
-          end        
-        end      
-      end      
-      team_validation_result  
-    end
 end

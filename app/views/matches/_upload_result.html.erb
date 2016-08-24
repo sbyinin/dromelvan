@@ -1,7 +1,7 @@
 <% upload_result = session[:upload_result] %>
 <% if upload_result[:validation_errors].any? %>
 <div class="section">
-  <div class="alert alert-danger main-section">
+  <div class="alert alert-danger top-section">
     <p>
       The match statistics could not be updated.
       The file contains <%= pluralize(upload_result[:validation_errors].count, "validation error") %>.
@@ -14,99 +14,44 @@
   </div>
 </div>
 <% end %>
-<% if upload_result[:data_errors].any? %>
+<% if !upload_result[:data_errors].nil? && upload_result[:data_errors].any? %>
 <div class="section">
   <div class="alert alert-danger top-section">
     <p>
       The match statistics could not be updated.
-      The file contains a number of data errors.
+      The file contains <%= pluralize(upload_result[:data_errors].count, "data error") %>.
+    </p>
+    <ul class="data-errors">
+    <% upload_result[:data_errors].each do |data_error| %>
+    <li><%= data_error %></li>          
+    <% end %>
+    </ul>            
+  </div>
+</div>
+<% end %>
+<% if !upload_result[:missing_players].nil? && upload_result[:missing_players].any? %>
+<div class="section">
+  <div class="alert alert-danger top-section">
+    <p>
+      The match statistics could not be updated.
+      The file contains <%= pluralize(upload_result[:missing_players].count, "missing player") %>.
     </p>
   </div>
-  <% if upload_result[:data_errors][:invalid_match] %>
-  <div class="top-section">
-    <h2>Invalid Match</h2>
-    <p>The file contains data for another match.</p>
-    <p><%= render upload_result[:data_errors][:invalid_match][:home_team] %> vs <%= render upload_result[:data_errors][:invalid_match][:away_team] %></p>
-  </div>
-  <% end %>
-  
-  <% if upload_result[:data_errors][:missing_teams] %>
-  <div class="related-section">
-    <h2>Missing Teams</h2>
-    <p>The following teams could not be found.</p>
-    <% upload_result[:data_errors][:missing_teams].each do |missing_team| %>
-    <h3><%= missing_team.keys.first %></h3>
-    <h4>Alternatives:</h4>
-    <% missing_team.values.first.each do |alternative_team| %>
-    <p><%= render alternative_team %></p>
-    <% end %>
-    <% end %>
-  </div>
-  <% end %>
-  <% if upload_result[:data_errors][:missing_players] %>
-  <div class="related-section">
-    <h2>Missing Players</h2>
-    <p>The following players could not be found.</p>
-    <% upload_result[:data_errors][:missing_players].each do |missing_player| %>
-    <h3><%= missing_player[:name] %> (<%= missing_player[:team].code %>)</h3>
+  <% upload_result[:missing_players].each do |missing_player| %>
+  <div class="missing-player">
+    <h3><%= missing_player[:player_name] %> (<%= missing_player[:team_name] %>)</h3>
     <ul class="context-links">
-      <li>WhoScored link: <%= render 'players/whoscored_link', whoscored_id: missing_player[:whoscored_id] %></li>
-      <li>Insert <%= link_to "new player", new_player_path(player: {first_name: missing_player[:name].sub(/ .*/,''), last_name: missing_player[:name].sub(/.* /,''), whoscored_id: missing_player[:whoscored_id] }, player_season_info: { team_id: missing_player[:team].id }), data: { toggle: "modal", target: "#d11-modal" } %>.</li>
+      <li>WhoScored link: <%= render 'players/whoscored_link', whoscored_id: missing_player[:player_whoscored_id] %></li>
+      <li>Insert <%= link_to "new player", new_player_path(player: {first_name: missing_player[:player_name].sub(/ .*/,''), last_name: missing_player[:player_name].sub(/.* /,''), whoscored_id: missing_player[:player_whoscored_id] }, player_season_info: { team_id: missing_player[:team_id], position_id: missing_player[:position_id] }), data: { toggle: "modal", target: "#d11-modal" } %>.</li>
     </ul>
     <h4>Alternatives:</h4>
     <ul class="context-links">
     <% missing_player[:alternative_players].each do |alternative_player| %>
     <% alternative_player_season_info = alternative_player.season_info(Season.current) %> 
-    <li><%= render alternative_player, max_length: 22 %><% if !alternative_player_season_info.nil? %> (<%= alternative_player_season_info.team.code %>)<% end %><% if !alternative_player.whoscored_id.nil? %> (<%=render 'players/whoscored_link', whoscored_id: alternative_player.whoscored_id %>)<% end %> <%= render 'players/context_menu', player: alternative_player, whoscored_id: missing_player[:whoscored_id] %></li>
+    <li><%= render alternative_player, max_length: 22 %><% if !alternative_player_season_info.nil? %> (<%= alternative_player_season_info.team.code %>)<% end %><% if !alternative_player.whoscored_id.nil? %> (<%=render 'players/whoscored_link', whoscored_id: alternative_player.whoscored_id %>)<% end %> <%= render 'players/context_menu', player: alternative_player, whoscored_id: missing_player[:player_whoscored_id] %></li>
     <% end %>
     </ul>
-    <% end %>
   </div>
   <% end %>
-  <% if upload_result[:data_errors][:invalid_player_season_infos] %>
-  <div class="related-section">
-    <h2>Invalid Season Info</h2>
-    <p>The following players are currently not registered for the team the uploaded file says they played for.</p>
-    <ul class="context-links">
-    <% upload_result[:data_errors][:invalid_player_season_infos].each do |player_season_info| %>
-    <li><%= render 'teams/club_crest', team: player_season_info.team, style: :icon %><%= render player_season_info.player, max_length: 22 %> (<%= render 'players/whoscored_link', whoscored_id: player_season_info.player.whoscored_id %>) <%= render 'players/context_menu', player: player_season_info.player %></li>
-    <% end %>    
-    </ul>
-  </div>
-  <% end %>
-  <% if upload_result[:data_errors][:invalid_goal_players] %>
-  <div class="related-section">
-    <h2>Invalid Goals</h2>
-    <p>The following (own)goalscorers or are currently not registered for the correct team in the uploaded file.</p>
-    <ul class="context-links">
-    <% upload_result[:data_errors][:invalid_goal_players].each do |invalid_goal_player| %>
-    <li><%= invalid_goal_player[:name] %> (<%= render 'players/whoscored_link', whoscored_id: invalid_goal_player[:whoscored_id] %>)</li>
-    <% end %>    
-    </ul>
-  </div>
-  <% end %>
-  <% if upload_result[:data_errors][:invalid_card_players] %>
-  <div class="related-section">
-    <h2>Invalid Cards</h2>
-    <p>The following carded players are currently not registered for either team in the uploaded file.</p>
-    <ul class="context-links">
-    <% upload_result[:data_errors][:invalid_card_players].each do |invalid_card_player| %>
-    <li><%= invalid_card_player[:name] %> (<%= render 'players/whoscored_link', whoscored_id: invalid_card_player[:whoscored_id] %>)</li>
-    <% end %>    
-    </ul>
-  </div>
-  <% end %>
-  <% if upload_result[:data_errors][:invalid_substitution_players] %>
-  <div class="related-section">
-    <h2>Invalid Substitutions</h2>
-    <p>The following substituted players are currently not registered for either team in the uploaded file.</p>
-    <ul class="context-links">
-    <% upload_result[:data_errors][:invalid_substitution_players].each do |invalid_substitution_player| %>
-    <li><%= invalid_substitution_player[:name] %> (<%= render 'players/whoscored_link', whoscored_id: invalid_substitution_player[:whoscored_id] %>)</li>
-    <% end %>    
-    </ul>
-  </div>
-  <% end %>
-
-</div>
+</div>  
 <% end %>

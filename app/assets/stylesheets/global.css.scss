@@ -105,7 +105,8 @@ body {
             }
         }
         
-        ul.validation-errors {
+        ul.validation-errors,
+        ul.data-errors {
             padding-top: $alert-padding;
             padding-left: 20px;
             li {
