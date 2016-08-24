@@ -1,3 +1,5 @@
+<% limit ||= 100 %>
+<% cache [ d11_match_day, limit, :d11_league_table_simple] do %>
 <div class="league-table d11-league-table simple">
   <table class="league-table d11-league-table simple">
     <thead>
@@ -30,3 +32,4 @@
     </tbody>
   </table>
 </div>
+<% end %>

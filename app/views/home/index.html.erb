@@ -19,15 +19,11 @@
 <h2><%= d11_match_day.name %> <%= render 'd11_match_days/context_menu', d11_match_day: d11_match_day %></h2>
 
 <div class="section">
-  <% cache [ @d11_match_day, :d11_match_day_fixtures ] do %>
   <%= render 'd11_match_days/d11_match_day_fixtures', d11_match_day: d11_match_day %>
-  <% end %>
   <div class="related-section league-table-container">
     <h3>D11 League table</h3>
     <p>Current top 10 standings.<p>
-    <% cache [ @d11_match_day, :d11_league_table_top_10] do %>
-    <%= render 'd11_team_table_stats/league_table_simple', d11_team_table_stats: d11_match_day.d11_team_table_stats.limit(10) %>
-    <% end %>
+    <%= render 'd11_team_table_stats/league_table_simple', d11_match_day: d11_match_day, limit: 10, d11_team_table_stats: d11_match_day.d11_team_table_stats.limit(10) %>
   </div>  
 </div>
 <% end %>
@@ -42,15 +38,11 @@
 <h2><%= match_day.name %> <%= render 'match_days/context_menu', match_day: match_day %></h2>
 
 <div class="section">
-  <% cache [ match_day, :match_day_fixtures ] do %>
   <%= render 'match_days/match_day_fixtures', match_day: match_day %>
-  <% end %>
   <div class="related-section league-table-container">
     <h3>League table</h3>
     <p>Current top 10 standings.<p>
-    <% cache [ match_day, :league_table_top_10] do %>
-    <%= render 'team_table_stats/league_table_simple', team_table_stats: match_day.team_table_stats.limit(10) %>
-    <% end %>
+    <%= render 'team_table_stats/league_table_simple', match_day: match_day, limit: 10, team_table_stats: match_day.team_table_stats.limit(10) %>
   </div>    
 </div>
 <% end %>

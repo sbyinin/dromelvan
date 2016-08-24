@@ -23,6 +23,7 @@
               <%= render 'd11_matches/context_menu', d11_match: d11_match %>
             <% end %>                                                                      
           </td>
+          <% cache [ d11_match, :match_details_row] do %>
           <td class="time-elapsed-column">
             <%= d11_match.elapsed %>
           </td>
@@ -65,7 +66,8 @@
                 <li><%= link_to "#{d11_match.away_team_goals} (#{d11_match.away_team_points})", d11_match %></li>
               </ol>
             <% end %>
-          </td>                        
+          </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

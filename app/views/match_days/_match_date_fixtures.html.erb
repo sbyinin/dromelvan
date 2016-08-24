@@ -27,6 +27,7 @@
               <%= render 'matches/context_menu', match: match %>
             <% end %>                                          
           </td>
+          <% cache [ match, :match_details_row] do %>
           <td class="time-elapsed-column">
             <%= match.elapsed %>
           </td>
@@ -66,7 +67,8 @@
                 <li><%= link_to match.away_team_goals, match %></li>
               </ol>
             <% end %>
-          </td>            
+          </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
