@@ -8,7 +8,7 @@ describe TeamTableStat, type: :model do
   before { @team_table_stat = FactoryGirl.create(:team_table_stat, team: team, premier_league: premier_league, match_day: match_day) }
   
   subject { @team_table_stat }
-  
+
   it { is_expected.to respond_to(:team) }
   it { is_expected.to respond_to(:premier_league) }
   it { is_expected.to respond_to(:match_day) }
@@ -617,46 +617,19 @@ describe TeamTableStat, type: :model do
     end
   end
 
-  describe '.update_rankings' do
-    before { TeamTableStat.destroy_all }
-    
-    let!(:match_day) { FactoryGirl.create(:match_day) }
-    let!(:team_table_stat1) { FactoryGirl.create(:team_table_stat, match_day: match_day, home_matches_won: 2, away_matches_drawn: 1) }
-    let!(:team_table_stat2) { FactoryGirl.create(:team_table_stat, match_day: match_day, home_matches_won: 1, home_matches_drawn: 1, away_matches_won: 1, away_matches_drawn: 1) }
-    let!(:team_table_stat3) { FactoryGirl.create(:team_table_stat, match_day: match_day, away_matches_won: 2) }
-    
-    before do
-      TeamTableStat.update_rankings(match_day)
-      team_table_stat1.reload
-      team_table_stat2.reload
-      team_table_stat3.reload
-    end
-    
-    specify { expect(team_table_stat1.ranking).to eq 2 }
-    specify { expect(team_table_stat2.ranking).to eq 1 }
-    specify { expect(team_table_stat3.ranking).to eq 3 }
-
-    specify { expect(team_table_stat1.home_ranking).to eq 1 }
-    specify { expect(team_table_stat2.home_ranking).to eq 2 }
-    specify { expect(team_table_stat3.home_ranking).to eq 3 }
-
-    specify { expect(team_table_stat1.away_ranking).to eq 3 }
-    specify { expect(team_table_stat2.away_ranking).to eq 2 }
-    specify { expect(team_table_stat3.away_ranking).to eq 1 }    
-  end
-
   describe '.update_rankings_from' do
     before { TeamTableStat.destroy_all }
     
     let!(:premier_league) { FactoryGirl.create(:premier_league) }
+    let!(:team) { FactoryGirl.create(:team) }
     let!(:match_day1) { FactoryGirl.create(:match_day, premier_league: premier_league, date: Date.today - 1.day, match_day_number: 1) }
     let!(:match_day2) { FactoryGirl.create(:match_day, premier_league: premier_league, date: Date.today, match_day_number: 2) }
     let!(:match_day3) { FactoryGirl.create(:match_day, premier_league: premier_league, date: Date.today + 1.day, match_day_number: 3) }
-    let!(:team_table_stat1) { FactoryGirl.create(:team_table_stat, match_day: match_day1) }
-    let!(:team_table_stat2) { FactoryGirl.create(:team_table_stat, team: team_table_stat1.team, match_day: match_day2) }
-    let!(:team_table_stat3) { FactoryGirl.create(:team_table_stat, team: team_table_stat1.team, match_day: match_day3) }
+    let!(:team_table_stat1) { FactoryGirl.create(:team_table_stat, team: team, premier_league: premier_league, match_day: match_day1) }
+    let!(:team_table_stat2) { FactoryGirl.create(:team_table_stat, team: team, premier_league: premier_league, match_day: match_day2) }
+    let!(:team_table_stat3) { FactoryGirl.create(:team_table_stat, team: team, premier_league: premier_league, match_day: match_day3) }
     
-    before do
+    before do      
       TeamTableStat.update_rankings_from(match_day2)
       team_table_stat1.reload
       team_table_stat2.reload
@@ -667,7 +640,7 @@ describe TeamTableStat, type: :model do
     specify { expect(team_table_stat2.ranking).to eq 1 }
     specify { expect(team_table_stat3.ranking).to eq 1 }
     specify { expect(team_table_stat1.previous_ranking).to eq 0 }
-    specify { expect(team_table_stat2.previous_ranking).to eq 0 }
+    specify { expect(team_table_stat2.previous_ranking).to eq 1 }
     specify { expect(team_table_stat3.previous_ranking).to eq 1 }
     
     specify { expect(team_table_stat1.home_ranking).to eq 0 }

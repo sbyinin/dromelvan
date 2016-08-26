@@ -41,6 +41,7 @@
   <div class="missing-player">
     <h3><%= missing_player[:player_name] %> (<%= missing_player[:team_name] %>)</h3>
     <ul class="context-links">
+      <li>Position: <%= render Position.find(missing_player[:position_id].to_i) %></li>
       <li>WhoScored link: <%= render 'players/whoscored_link', whoscored_id: missing_player[:player_whoscored_id] %></li>
       <li>Insert <%= link_to "new player", new_player_path(player: {first_name: missing_player[:player_name].sub(/ .*/,''), last_name: missing_player[:player_name].sub(/.* /,''), whoscored_id: missing_player[:player_whoscored_id] }, player_season_info: { team_id: missing_player[:team_id], position_id: missing_player[:position_id] }), data: { toggle: "modal", target: "#d11-modal" } %>.</li>
     </ul>

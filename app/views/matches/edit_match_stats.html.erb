@@ -3,7 +3,7 @@
   provide :save_button_text, "Upload File"
 %>
 
-<h2><%= @match.home_team.name %> vs <%= @match.away_team.name %></h2>
+<h2><%= render 'teams/club_crest', team: @match.home_team, style: :tiny %> <%= @match.home_team.name %> vs <%= @match.away_team.name %> <%= render 'teams/club_crest', team: @match.away_team, style: :tiny %></h2>
 
 <div class="section">
   <div class="top-section">
@@ -12,6 +12,10 @@
       <div class="form-group">
         <%= label_tag :match_stats_file, "Match stats file:" %>
         <%= file_field_tag :match_stats_file, required: true, accept: 'text/xml' %>        
+      </div>
+      <div class="form-group">
+        <%= label_tag :update_table_stats, "Update table stats:" %>
+        <%= check_box_tag :update_table_stats, "true", true %>
       </div>      
     </fieldset>
     <% end %>

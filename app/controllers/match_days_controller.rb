@@ -55,7 +55,9 @@ class MatchDaysController < ApplicationController
     TeamTableStat.update_rankings_from(@match_day)
     
     @match_day.d11_match_day.d11_matches.each do |d11_match|
-      D11TeamTableStat.update_stats_from(d11_match)
+      if d11_match.finished?
+        D11TeamTableStat.update_stats_from(d11_match)
+      end      
     end
     D11TeamTableStat.update_rankings_from(@match_day.d11_match_day)
 

@@ -29,7 +29,6 @@ shared_examples_for "table stat" do
   it { is_expected.to respond_to(:away_goal_difference) }
   it { is_expected.to respond_to(:away_points) }
   it { is_expected.to respond_to(:away_ranking) }
-  it { is_expected.to respond_to(:date) }
   
   it { is_expected.to be_valid }
   
@@ -148,10 +147,6 @@ shared_examples_for "table stat" do
   describe '#away_ranking' do
     specify { expect(subject.away_ranking).to eq 0 } 
   end
-
-  describe '#date' do
-    specify { expect(subject.date).to eq subject.read_association("([a-z0-9]*_)?match_day").date } 
-  end 
 
 
 

@@ -1,6 +1,7 @@
 class UploadMatchStatsFile < UploadXMLFile
-  def initialize(match)
-    @match = match 
+  def initialize(match, update_table_stats)
+    @match = match
+    @update_table_stats = update_table_stats
   end
   
   private
@@ -200,12 +201,22 @@ class UploadMatchStatsFile < UploadXMLFile
           team_match_squad_stat.save
         end
         
+        if @update_table_stats
+          TeamTableStat.update_stats_from(@match)
+          TeamTableStat.update_rankings_from(@match.match_day)
+        end
+        
         @match.match_day.d11_match_day.d11_matches.each do |d11_match|
           d11_match.d11_team_match_squad_stats.each do |d11_team_match_squad_stat|
             d11_team_match_squad_stat.save
           end
           d11_match.save
-        end        
+          if @update_table_stats && d11_match.finished?
+            D11TeamTableStat.update_stats_from(d11_match)
+            D11TeamTableStat.update_rankings_from(d11_match.d11_match_day)
+            data_updates.concat([ "Finished D11 match #{d11_match.name}." ])
+          end
+        end
       end
       data_updates
     end
