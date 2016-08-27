@@ -6,7 +6,8 @@ module ArelUtils
     arel_table = Arel::Table.new(self.class.name.tableize.to_sym)            
     update_manager.table(self.class.name.tableize.to_sym).where(arel_table[:id].eq(self.id))
     update_manager.set( self.arel_update_attributes(arel_table))
-    update_manager.to_sql
+    # Need to remove single quotes around table name for this to work in Postgres.
+    update_manager.to_sql.gsub "'#{self.class.name.tableize}'", self.class.name.tableize
   end
   
   def arel_update_attributes(arel_table)
