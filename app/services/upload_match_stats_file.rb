@@ -93,6 +93,7 @@ class UploadMatchStatsFile < UploadXMLFile
         @match.cards.delete_all
         @match.substitutions.delete_all
         @match.status = :active
+        
         season = @match.match_day.premier_league.season
         
         xml.xpath("/match/playerMatchStats/playerMatchStat").each do |player_match_stat_xml|
@@ -144,7 +145,7 @@ class UploadMatchStatsFile < UploadXMLFile
             player_match_stats[whoscored_id] = player_match_stat
           end
           
-          # Update and save stats.
+          # Update stats.
           player_match_stat.played_position = player_match_stat_xml.xpath("playedPosition").text
           player_match_stat.lineup = player_match_stat_xml.xpath("lineup").text.to_i
           player_match_stat.substitution_on_time = player_match_stat_xml.xpath("substitutionOnTime").text.to_i
@@ -159,11 +160,14 @@ class UploadMatchStatsFile < UploadXMLFile
           player_match_stat.red_card_time = player_match_stat_xml.xpath("redCardTime").text.to_i                              
           player_match_stat.man_of_the_match = player_match_stat_xml.xpath("manOfTheMatch").text == "true"
           player_match_stat.shared_man_of_the_match = player_match_stat_xml.xpath("sharedManOfTheMatch").text == "true"
-          player_match_stat.rating = player_match_stat_xml.xpath("rating").text.to_i                              
-          
+          player_match_stat.rating = player_match_stat_xml.xpath("rating").text.to_i                                        
+        end
+        
+        player_match_stats.values.each do |player_match_stat|
           player_match_stat.save
+          player = player_match_stat.player
           PlayerSeasonStat.where(player: player, season: season).take.save
-          PlayerCareerStat.where(player: player).take.save          
+          PlayerCareerStat.where(player: player).take.save                    
         end
         
         xml.xpath("/match/goals/goal").each do |goal|

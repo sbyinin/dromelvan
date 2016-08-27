@@ -99,7 +99,7 @@ class PlayerMatchStat < ActiveRecord::Base
         self.points += (2 * self.goal_assists)
         
       # Have to check for nil position since we're calling this before validation.
-      elsif !self.position.nil? && self.position.defender? && !self.match.nil? && !self.match.pending?
+      elsif !position.nil? && position.defender? && !match.nil? && !match.pending?
         self.points = -1      
       end
       self.points
