@@ -102,6 +102,16 @@ class Player < ActiveRecord::Base
     end
   end
 
+  def transfer_listed?
+    transfer_day = TransferDay.current
+    puts transfer_day.nil?
+    if !transfer_day.nil? && (transfer_day.pending? || transfer_day.active?) && transfer_day.transfer_listings.where(player: self).any?
+      true
+    else
+      false
+    end    
+  end
+  
   private  
     def init
       self.first_name ||= ""

@@ -136,7 +136,7 @@ Rails.application.routes.draw do
   resources :d11_teams, only: [:show], concerns: [:select_season, :select, :fixtures], path: 'd11-teams'
   resources :transfer_windows, only: [:show], concerns: [:select], path: 'transfer-windows'
   resources :transfer_days, only: [:show], concerns: [:select, :transfer_bids, :transfer_listings], path: 'transfer-days'
-  resources :transfer_listings, only: [:index]
+  resources :transfer_listings, only: [:index, :create, :destroy]
   resources :team_table_stats, only: [:index]
   resources :player_season_stats, only: [:index]
   resources :d11_team_table_stats, only: [:index]

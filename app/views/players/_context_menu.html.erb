@@ -1,11 +1,21 @@
 <% player ||= @player %>
 <%= render layout: 'layouts/context_menu_dropdown', locals: { resource: player } do  %>
     <li class="dropdown-header"><%= player.name %></li>
-    <li><a href="#">Add to shortlist (coming soon)</a></li>
+    <!--<li><a href="#">Add to shortlist (coming soon)</a></li>-->
     <!--<li><a href="#">Remove from shortlist</a></li>-->
     <!--<li><a href="#">Add to transfer list</a></li>-->
     <!--<li><a href="#">Remove from transfer list</a></li>-->
     <!--<li><a href="#">Make transfer bid</a></li>-->
+    <% if user_signed_in? %>
+	<% player_season_info = player.player_season_infos.by_season(Season.current).take
+           if !player_season_info.nil? && player_season_info.d11_team == current_user.active_d11_team && !TransferDay.current.nil? && TransferDay.current.pending? %>
+	   <% if !player.transfer_listed? %>
+	    <li><%= link_to "Add to Transfer List", transfer_listings_path(player_id: player.id), method: :post %></li>
+    	   <% else %>
+            <li><%= link_to "Remove from Transfer List", transfer_listing_path(TransferDay.current.transfer_listings.where(player: player).take), method: :delete %></li>
+           <% end %>   
+        <% end %>	
+    <% end %>
     <% if administrator_signed_in? %>
         <% player_season_info = player.player_season_infos.by_season(Season.current).take
            if !player_season_info.nil? %>
