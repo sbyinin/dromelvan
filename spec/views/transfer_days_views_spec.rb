@@ -28,7 +28,11 @@ describe "TransferDay", type: :view do
         let!(:transfer_bid) { FactoryGirl.create(:transfer_bid, transfer_day: resource, player: player) }
         let!(:transfer_listing) { FactoryGirl.create(:transfer_listing, transfer_day: resource, player: player) }
         
-        before { visit transfer_day_path(resource) }
+        before do
+          resource.status = :active
+          resource.save
+          visit transfer_day_path(resource)
+        end
         
         it { is_expected.to have_selector("table.transfers") }
         it { is_expected.to have_selector("table.transfer-bids") }
@@ -38,7 +42,7 @@ describe "TransferDay", type: :view do
   end
 
   describe "transfer_listings view" do
-    let!(:transfer_day) { FactoryGirl.create(:transfer_day) }
+    let!(:transfer_day) { FactoryGirl.create(:transfer_day, status: :active) }
     
     before { visit show_transfer_listings_transfer_day_path(transfer_day) }
     
@@ -71,7 +75,7 @@ describe "TransferDay", type: :view do
   end
 
   describe "transfer_bids view" do
-    let!(:transfer_day) { FactoryGirl.create(:transfer_day) }
+    let!(:transfer_day) { FactoryGirl.create(:transfer_day, status: :active) }
     
     before { visit show_transfer_bids_transfer_day_path(transfer_day) }
     
