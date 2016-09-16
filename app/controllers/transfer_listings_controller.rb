@@ -10,15 +10,7 @@ class TransferListingsController < ApplicationController
     else
       if !player.transfer_listed?
 	TransferListing.create(transfer_day: transfer_day, player: player, team: player_season_info.team, d11_team: player_season_info.d11_team,
-			       position: player_season_info.position, goals: player_season_stat.goals, goal_assists: player_season_stat.goal_assists,
-			       own_goals: player_season_stat.own_goals, goals_conceded: player_season_stat.goals_conceded, clean_sheets: player_season_stat.clean_sheets,
-			       yellow_cards: player_season_stat.yellow_cards, red_cards: player_season_stat.red_cards, man_of_the_match: player_season_stat.man_of_the_match,
-			       shared_man_of_the_match: player_season_stat.shared_man_of_the_match, rating: player_season_stat.rating, points: player_season_stat.points,
-			       games_started: player_season_stat.games_started, games_substitute: player_season_stat.games_substitute,
-			       games_did_not_participate: player_season_stat.games_did_not_participate, substitutions_on: player_season_stat.substitutions_on,
-			       substitutions_off: player_season_stat.substitutions_off, minutes_played: player_season_stat.minutes_played,
-			       ranking: player_season_stat.ranking, new_player: false, points_per_appearance: player_season_stat.points_per_appearance
-			       )
+			       position: player_season_info.position, new_player: false)
 	flash[:success] = "#{player.name} has been transfer listed. He will be removed from #{player_season_info.d11_team.name} if he's not removed from the transfer list before the transfer window opens."
       else
 	flash[:danger] = "#{player.name} is already transfer listed."
