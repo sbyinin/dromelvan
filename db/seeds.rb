@@ -61,3 +61,4 @@
 #require File.expand_path('../seed/season_12_13_9', __FILE__)
 #require File.expand_path('../seed/season_14', __FILE__)
 #require File.expand_path('../seed/player_match_stats_goals_conceded', __FILE__)
+require File.expand_path('../seed/transfer_listings_preseason_201617', __FILE__)
