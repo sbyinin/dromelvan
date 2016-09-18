@@ -99,6 +99,28 @@ module PlayerStatsSummary
         self.points_per_appearance = ((self.points.to_f / appearances.to_f).round(2) * 100).to_i
       end
     end
+
+    def init_from(player_stats_summary)
+        self.goals = player_stats_summary.goals
+        self.goal_assists = player_stats_summary.goal_assists
+        self.own_goals = player_stats_summary.own_goals
+        self.goals_conceded = player_stats_summary.goals_conceded
+        self.rating = player_stats_summary.rating
+        self.points = player_stats_summary.points
+        self.clean_sheets = player_stats_summary.clean_sheets
+        self.yellow_cards = player_stats_summary.yellow_cards
+        self.red_cards = player_stats_summary.red_cards
+        self.man_of_the_match = player_stats_summary.man_of_the_match
+        self.shared_man_of_the_match = player_stats_summary.shared_man_of_the_match
+        self.games_started = player_stats_summary.games_started
+        self.games_substitute = player_stats_summary.games_substitute
+        self.games_did_not_participate = player_stats_summary.games_did_not_participate
+        self.points_per_appearance = player_stats_summary.points_per_appearance
+        self.substitutions_on = player_stats_summary.substitutions_on
+        self.substitutions_off = player_stats_summary.substitutions_off
+        self.minutes_played = player_stats_summary.minutes_played
+        self.ranking = player_stats_summary.ranking
+    end
     
     def reset_stats_summary
         self.goals = 0

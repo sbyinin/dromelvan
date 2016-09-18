@@ -113,6 +113,21 @@ table.player-season-stats {
     .team-column {
         min-width: 45px;
     }
+    tr.transfer-listed {
+        color: white;
+        background-color: $d11-blue-gray !important;
+        
+        td {
+            a.model-link {
+                color: white;
+            }
+            div.context-menu {
+                i.fa {
+                    color: white;
+                }
+            }            
+        }
+    }
 }
 
 div.premier-leagues.show-stats {

@@ -56,8 +56,6 @@
 
 <p>Top 10 players <%= season.name %>.</p>
 
-<% cache [ season, :player_season_stat_top_10_table ] do %>
 <%= render 'player_season_stats/table', player_season_stats: PlayerSeasonStat.where(season: season).limit(10).ranking_order %>
-<% end %>
 
 <% end %>

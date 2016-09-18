@@ -6,6 +6,8 @@ describe "D11Team", type: :view do
 
   # The season select show views need a season
   let!(:season) { FactoryGirl.create(:season) }
+  # And we need a current transfer day
+  let!(:transfer_day) { FactoryGirl.create(:transfer_day) }
 
   describe "show view" do
     let!(:d11_team_career_squad_stat) { FactoryGirl.create(:d11_team_career_squad_stat, d11_team: resource) }

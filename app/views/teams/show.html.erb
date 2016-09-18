@@ -77,7 +77,6 @@
 </div>
 
 <div class="widget-container">
-  <% cache [ @team, @season, :team_season_squad_stats ] do %>
   <% player_season_stats = PlayerSeasonStat.by_team(@team).where(season: @season)
     if !player_season_stats.empty? then
   %>  
@@ -88,7 +87,6 @@
   <% else %>
   <div class="main-widget">
   </div>
-  <% end %>
   <% end %>
   <% cache [ @team, :team_career_squad_stats ] do %>
   <div id="team-career-squad-stats" class="related-widget">

@@ -63,18 +63,22 @@
 </div>
 
 <div class="widget-container">
-  <% cache [ @d11_team, @season, :d11_team_season_squad_stats ] do %>
   <% player_season_stats = PlayerSeasonStat.by_d11_team(@d11_team).where(season: @season)
     if !player_season_stats.empty? then
   %>
   <div id="d11-team-season-squad-stats" class="main-widget">
     <h3>D11 Team squad <%= @season.name %></h2>
+    <% if TransferDay.current.pending? && TransferDay.current.transfer_listings.where(d11_team: @d11_team).any? %>
+    <p>
+      Players marked with a blue row have been put on the transfer list and will be removed from the team when
+      the transfer window opens on <%= TransferWindow.current.datetime.to_date.to_formatted_s(:match_date_short).downcase %> at <%= TransferWindow.current.datetime.to_formatted_s(:kickoff_time) %>.
+    </p>
+    <% end %>
     <%= render 'player_season_stats/table', player_season_stats: player_season_stats %>
   </div>
   <% else %>
   <div class="main-widget">
   </div>
-  <% end %>
   <% end %>
   <% cache [ @d11_team, :d11_team_career_squad_stats ] do %>
   <div id="d11-team-career-squad-stats" class="related-widget">

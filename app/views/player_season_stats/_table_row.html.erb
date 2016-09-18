@@ -1,8 +1,12 @@
 <% player_season_info = PlayerSeasonInfo.by_player_and_season(player_season_stat.player, player_season_stat.season) %>
+<% if !current_user.nil? && player_season_info.d11_team == current_user.active_d11_team && player_season_stat.player.transfer_listed? %>
+<tr class="transfer-listed">
+<% else %>
 <tr>
+<% end %>  
   <td class="season-column"><%= render player_season_stat.season %></td>  
   <td class="number-column"><%= player_season_stat.ranking %></td>
-  <td class="player-column main-column"><%= render player_season_stat.player %></td>  
+  <td class="player-column main-column"><%= render player_season_stat.player %> <%= render 'players/context_menu', player: player_season_stat.player %></td>  
   <td class="team-simple-column"><%= render 'teams/club_crest', team: player_season_info.team, style: :icon %></td>
   <td class="team-column"><%= render player_season_info.team %></td>
   <td class="position-column" title="<%= player_season_info.position.name %>"><%= player_season_info.position.code %></td>

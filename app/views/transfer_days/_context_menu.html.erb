@@ -3,5 +3,14 @@
     <li class="dropdown-header"><%= transfer_day.name %></li>
     <li><%= link_to "Transfers", transfer_day_path(transfer_day), class: "model-link" %></li>
     <li><%= link_to "Available players", show_transfer_listings_transfer_day_path(transfer_day), class: "model-link" %></li>    
-    <li><%= link_to "Bids", show_transfer_bids_transfer_day_path(transfer_day), class: "model-link" %></li>    
+    <li><%= link_to "Bids", show_transfer_bids_transfer_day_path(transfer_day), class: "model-link" %></li>
+    <% if administrator_signed_in? %>
+	<li class="dropdown-header">Status (<%= transfer_day.status.titleize %>)</li>
+        <% if transfer_day.pending? %>
+        <li><%= link_to "Activate", activate_transfer_day_path(transfer_day) %></li>
+        <% end %>
+        <% if transfer_day.active? %>
+        <li><%= link_to "Finish", finish_transfer_day_path(transfer_day) %></li>
+        <% end %>	
+    <% end %>
 <% end %>

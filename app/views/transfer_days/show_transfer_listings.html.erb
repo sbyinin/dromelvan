@@ -7,7 +7,7 @@
 <div class="section">  
   <div id="transfer-day-transfer-listings" class="main-section">    
     <h3>Available Players</h3>
-    <% if !@transfer_day.transfer_listings.empty? %>
+    <% if !@transfer_day.pending? && !@transfer_day.transfer_listings.empty? %>
     <%= render 'transfer_listings/datatable', transfer_day: @transfer_day %>  
     <% else %>
     <p>No transfer listings have yet been registered for this transfer day.</p>

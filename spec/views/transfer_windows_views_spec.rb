@@ -16,7 +16,7 @@ describe "TransferWindow", type: :view do
       it { is_expected.not_to have_selector("div#transfer-day-stats") }
     end
 
-    context "when dependents don't exist" do
+    context "when dependents exist" do
       let!(:transfer_day) { FactoryGirl.create(:transfer_day, transfer_window: resource) }
 
       before { visit transfer_window_path(resource) }
