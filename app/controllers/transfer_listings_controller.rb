@@ -36,4 +36,9 @@ class TransferListingsController < ApplicationController
     params.require(:ajax_params).permit(:transfer_day_id)
   end
   
+  private
+    def authorize_administrator
+      # Override for create and destroy.
+    end
+  
 end
