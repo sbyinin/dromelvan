@@ -5,16 +5,21 @@
 <p>Transfer deadline <%= @transfer_day.datetime.to_formatted_s(:post_time) %>.</p>
 
 <div class="section">
-  <% cache [ @transfer_day, :transfer_day_bids ] do %>
   <div id="transfer-day-transfer-bids" class="main-section">    
     <h3>Bids</h3>
-    <% if !@transfer_day.transfer_bids.empty? %>
-    <%= render 'transfer_bids/table', transfer_bids: @transfer_day.transfer_bids %>
+    <%
+      d11_team_id = 0
+      if !current_user.nil? && !current_user.active_d11_team.nil?
+	d11_team_id = current_user.active_d11_team.id
+      end
+      transfer_bids = @transfer_day.transfer_bids.select { | transfer_bid | @transfer_day.finished? || transfer_bid.d11_team_id == d11_team_id } 
+    %>
+    <% if !transfer_bids.empty? %>
+    <%= render 'transfer_bids/table', transfer_bids: transfer_bids %>
     <% else %>
     <p>No bids have yet been registered for this transfer day.</p>
     <% end %>
   </div>
-  <% end %>
   
   <div id="transfer-day-statistics" class="related-section">
     <div class="section">
