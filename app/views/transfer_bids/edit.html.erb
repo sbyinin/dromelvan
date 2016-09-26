@@ -1,0 +1,36 @@
+<%
+  provide :title, "Change Transfer Bid"
+  provide :save_button_text, "Change Bid"
+%>
+
+<h2><%= @transfer_bid.player.name %></h2>
+
+<div class="section">
+  <div class="image-container player-photo related-section">
+    <%= render 'players/player_photo', player: @transfer_bid.player %>
+  </div>
+  <div class="main-section">
+    <%
+      if !current_user.nil?
+        d11_team = current_user.active_d11_team
+        if !d11_team.nil?        
+          d11_team_season_squad_stat = d11_team.d11_team_season_squad_stats.where(season: Season.current).take
+          if !d11_team_season_squad_stat.nil?        
+    %>    
+    <p>Your max bid in this transfer window is £<%= player_value d11_team_season_squad_stat.max_bid %>m.</p>
+    <%
+          end
+        end
+      end
+    %>
+    <%= form_for @transfer_bid do |f| %>
+    <fieldset>
+      <div class="form-group">
+        <%= f.label :fee, "Fee:" %>
+        <%= f.text_field :fee, value: player_value(@transfer_bid.fee), required: true %>
+      </div>      
+    </fieldset>
+    <% end %>
+  </div>
+
+</div>

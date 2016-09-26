@@ -44,6 +44,7 @@ class TransferBidsController < ApplicationController
 	  
 	  if transfer_bid.valid? && transfer_bid.fee <= d11_team_season_squad_stat.max_bid
 	    transfer_bid.save
+	    flash[:success] = "Transfer bid made."
 	    redirect_to show_transfer_bids_transfer_day_path(transfer_day)
 	  else
 	    flash[:danger] = "#{transfer_bid.fee.to_f / 10.0} is an invalid fee. The fee must be greater than 0.0, less than your max bid #{d11_team_season_squad_stat.max_bid.to_f / 10.0} and divisible by 0.5."
@@ -52,6 +53,49 @@ class TransferBidsController < ApplicationController
 	end
       end      
     end    
+  end
+
+  def edit
+    transfer_bid = TransferBid.find(params[:id])
+    d11_team = current_user.active_d11_team
+    if !transfer_bid.transfer_day.active? || d11_team != transfer_bid.d11_team
+      not_found
+    else
+      super
+    end    
+  end
+
+  def update
+    transfer_bid = TransferBid.find(params[:id])
+    d11_team = current_user.active_d11_team
+    d11_team_season_squad_stat = d11_team.d11_team_season_squad_stats.where(season: Season.current).take
+    if !transfer_bid.transfer_day.active? || d11_team != transfer_bid.d11_team || d11_team_season_squad_stat.nil?
+      not_found
+    else
+      transfer_bid.fee = resource_params[:fee].to_i
+      transfer_bid.active_fee = transfer_bid.fee
+      if transfer_bid.valid? && transfer_bid.fee <= d11_team_season_squad_stat.max_bid
+	transfer_bid.save
+	flash[:success] = "Transfer bid changed."
+	redirect_to show_transfer_bids_transfer_day_path(transfer_bid.transfer_day)
+      else
+	flash[:danger] = "#{transfer_bid.fee.to_f / 10.0} is an invalid fee. The fee must be greater than 0.0, less than your max bid #{d11_team_season_squad_stat.max_bid.to_f / 10.0} and divisible by 0.5."
+	redirect_to show_transfer_bids_transfer_day_path(transfer_bid.transfer_day)
+      end
+    end
+  end
+  
+  def destroy
+    transfer_bid = TransferBid.find(params[:id])
+    d11_team = current_user.active_d11_team
+    if !transfer_bid.transfer_day.active? || d11_team != transfer_bid.d11_team
+      not_found
+    else
+      transfer_day = transfer_bid.transfer_day
+      transfer_bid.destroy
+      flash[:success] = "Transfer bid deleted."
+      redirect_to show_transfer_bids_transfer_day_path(transfer_day)
+    end
   end
   
   def resource_params
