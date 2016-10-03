@@ -12,7 +12,7 @@
 <% else %>  
 <tr>
 <% end %>
-  <td class="player-column main-column"><%= render transfer_bid.player %></td>
+  <td class="player-column main-column"><%= render transfer_bid.player %> <%= render 'players/context_menu', player: transfer_bid.player %></td>
   <td class="ranking-column number-column"><%= transfer_listing.ranking %></td>
   <td class="team-simple-column"><%= render transfer_listing.team, label: :code %></td>
   <td class="position-column"><%= render transfer_listing.position, label: :code %></td>  

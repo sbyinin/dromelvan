@@ -48,30 +48,30 @@ class TransferBid < ActiveRecord::Base
       # we want to be able to seed bids for legacy seasons.
       if !transfer_day.nil? && transfer_day.transfer_window.season.legacy? then        
         if !fee.nil? && fee < 0 then
-          errors.add(:fee, "must be greater than or equal to 0")
+          errors.add(:fee, "must be greater than or equal to 0.0")
         end          
 
         if !active_fee.nil? && active_fee < 0 then
-          errors.add(:active_fee, "must be greater than or equal to 0")
+          errors.add(:active_fee, "must be greater than or equal to 0.0")
         end                  
       else
         if !fee.nil?
           if fee < 5 then
-            errors.add(:fee, "must be greater than or equal to 5")
+            errors.add(:fee, "must be greater than or equal to 0.5")
           end
 
           if !fee.modulo(5).zero? then
-            errors.add(:fee, "must be divisible by 5")
+            errors.add(:fee, "must be divisible by 0.5")
           end          
         end        
 
         if !active_fee.nil? then
           if active_fee < 0 then
-            errors.add(:active_fee, "must be greater than or equal to 0")
+            errors.add(:active_fee, "must be greater than or equal to 0.0")
           end
           
           if !active_fee.modulo(5).zero? then
-            errors.add(:active_fee, "must be divisible by 5")
+            errors.add(:active_fee, "must be divisible by 0.5")
           end
         end        
       end

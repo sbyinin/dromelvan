@@ -132,6 +132,7 @@ Rails.application.routes.draw do
   resources :transfer_windows, only: [:show], concerns: [:select], path: 'transfer-windows'
   resources :transfer_days, only: [:show], concerns: [:select, :transfer_bids, :transfer_listings, :status_enum], path: 'transfer-days'
   resources :transfer_listings, only: [:index, :create, :destroy]
+  resources :transfer_bids, only: [:new, :create, :edit, :update, :destroy]
   resources :team_table_stats, only: [:index]
   resources :player_season_stats, only: [:index]
   resources :d11_team_table_stats, only: [:index]
