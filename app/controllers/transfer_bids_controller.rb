@@ -107,4 +107,9 @@ class TransferBidsController < ApplicationController
     resource_params
   end
     
+  private
+    def authorize_administrator
+      # Override for new, create, edit, update and destroy.
+    end
+    
 end
