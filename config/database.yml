@@ -24,6 +24,7 @@ production:
   adapter: postgresql
   encoding: unicode
   database: dromelvan
+  host: localhost
   pool: 5
   username: <%= Rails.application.secrets[:postgres_user] %>
   password: <%= Rails.application.secrets[:postgres_password] %>
