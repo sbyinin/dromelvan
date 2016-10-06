@@ -14,9 +14,11 @@ class FinishTransferDay
 	  d11_teams[d11_team_season_squad_stat.d11_team_id] = { max_bid: d11_team_season_squad_stat.max_bid }
 	  positions_available_count = 0
 	  Position.all.each do |position|
-	    position_available_count = d11_team_season_squad_stat.position_available_count(position)
-	    d11_teams[d11_team_season_squad_stat.d11_team_id][position.id] = position_available_count
-	    positions_available_count += position_available_count
+	    if position.id != 2
+	      position_available_count = d11_team_season_squad_stat.position_available_count(position)
+	      d11_teams[d11_team_season_squad_stat.d11_team_id][position.id] = position_available_count
+	      positions_available_count += position_available_count
+	    end
 	  end
 	  d11_teams[d11_team_season_squad_stat.d11_team_id][:positions_available_count] = positions_available_count
 	end
@@ -35,10 +37,16 @@ class FinishTransferDay
 	    
 	    # Compare the winning bid to the next highest bid and reduce it to the next highest bid + 0.5 if the winning bid is higher.
 	    second_transfer_bid = player_transfer_bids.second	  
-	    if !second_transfer_bid.nil? && first_transfer_bid.active_fee > second_transfer_bid.active_fee
-	      first_transfer_bid.active_fee = second_transfer_bid.active_fee + 5
+	    if !second_transfer_bid.nil?
+	      if first_transfer_bid.active_fee > second_transfer_bid.active_fee
+		first_transfer_bid.active_fee = second_transfer_bid.active_fee + 5
+	      end
+	    else
+	      first_transfer_bid.active_fee = 5
 	    end
 	    first_transfer_bid.save
+	    
+	    Transfer.create(transfer_day: @transfer_day, player: first_transfer_bid.player, d11_team: first_transfer_bid.d11_team, fee: first_transfer_bid.active_fee)
 	    
 	    # Update player season info.
 	    player_season_info = first_transfer_bid.player.season_info(season)
@@ -60,8 +68,9 @@ class FinishTransferDay
 	    
 	    # Reduce the active fees for all remaining bids for the team that had the winning bid.
 	    @transfer_day.transfer_bids.where(d11_team: first_transfer_bid.d11_team).each do |transfer_bid|
-	      if transfer_bid.player_ranking > first_transfer_bid.player_ranking	      
-		if d11_teams[d11_team.id][position.id] <= 0
+	      if transfer_bid.player_ranking > first_transfer_bid.player_ranking
+		player_season_info = transfer_bid.player.season_info(season)
+		if d11_teams[d11_team.id][player_season_info.position.id] <= 0
 		  # If there's no more room in the position, set the active bid to 0.0.
 		  transfer_bid.active_fee = 0
 		  transfer_bid.save
